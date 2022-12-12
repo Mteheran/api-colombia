@@ -8,5 +8,6 @@
         public string? Latitude { get; set; }
         public string? Longitude { get; set; }
         public int DepartamentId { get; set; }
+        public int CityId { get; set; }
     }
 }

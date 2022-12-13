@@ -1,3 +1,5 @@
+using api;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -20,9 +22,17 @@ builder.Services.AddSwaggerGen(options => {
     });
 });
 
+builder.Services.AddNpgsql<DBContext>(builder.Configuration.GetConnectionString("csApiColombia"));
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
+
+app.MapGet("/dbcreation", async ([FromServices] DBContext dbContext) => 
+{
+    dbContext.Database.EnsureCreated();
+    return Results.Ok();
+});
 
 app.MapGet("/{id}", (int id) => $"This is the id:{id}!")
     .WithMetadata(new SwaggerOperationAttribute(summary: "This is the id endpoint", description: "This endpoint return the id information"));

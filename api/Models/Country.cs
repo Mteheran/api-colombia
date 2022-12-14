@@ -5,10 +5,10 @@
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public string? StateCapital { get; set; }        
+        public string? StateCapital { get; set; }
         public float Surface { get; set; }
         public float Population { get; set; }
-        public string? Language { get; set; }
+        public string?[] Languages { get; set; }
         public string? TimeZone { get; set; }
         public string? Currency { get; set; }
         public string? ISOCode { get; set; }
@@ -16,5 +16,7 @@
         public string? PhonePrefix { get; set; }
         public string? RadioPrefix { get; set; }
         public string? AircraftPrefix { get; set; }
+        public virtual ICollection<Departament> Departaments { get; set; }
+        public virtual ICollection<President> Presidents { get; set; }
     }
 }

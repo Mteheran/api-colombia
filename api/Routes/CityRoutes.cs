@@ -4,14 +4,14 @@
     {
         public static void RegisterCityAPI(WebApplication app)
         {
-            string route = "City";
+            const string CITY_ROUTE = "City";
 
-            app.MapGet($"{route}", (DBContext db) =>
+            app.MapGet($"api/v1/{CITY_ROUTE}", (DBContext db) =>
             {
                 return Results.Ok(db.Cities.ToList());
             });
 
-            app.MapGet($"{route}/{{id}}", async (int id, DBContext db) =>
+            app.MapGet($"api/v1/{CITY_ROUTE}/{{id}}", async (int id, DBContext db) =>
             {
                 var city = await db.Cities.FindAsync(id);
 
@@ -25,7 +25,7 @@
                 }
             });
 
-            app.MapGet($"{route}/Name/{{name}}", (string name, DBContext db) =>
+            app.MapGet($"api/v1/{CITY_ROUTE}/Name/{{name}}", (string name, DBContext db) =>
             {
                 var city = db.Cities.Where(x => x.Name.ToUpper() == name.ToUpper()).ToList();
 
@@ -38,7 +38,6 @@
                     return Results.NotFound();
                 }
             });
-
         }
     }
 }

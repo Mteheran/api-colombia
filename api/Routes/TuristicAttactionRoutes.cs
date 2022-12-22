@@ -4,14 +4,14 @@
     {
         public static void RegisterTuristicAttactionAPI(WebApplication app)
         {
-            string route = "TurusticAttaction";
+            const string TURISTIC_ROUTE = "TurusticAttaction";
 
-            app.MapGet($"{route}", (DBContext db) =>
+            app.MapGet($"api/v1/{TURISTIC_ROUTE}", (DBContext db) =>
             {
                 return Results.Ok(db.TouristAttractions.ToList());
             });
 
-            app.MapGet($"{route}/{{id}}", async (int id, DBContext db) =>
+            app.MapGet($"api/v1/{TURISTIC_ROUTE}/{{id}}", async (int id, DBContext db) =>
             {
                 var turisticAtt = await db.TouristAttractions.FindAsync(id);
 
@@ -25,7 +25,7 @@
                 }
             });
 
-            app.MapGet($"{route}/Name/{{name}}", (string name, DBContext db) =>
+            app.MapGet($"api/v1/{TURISTIC_ROUTE}/Name/{{name}}", (string name, DBContext db) =>
             {
                 var turisticAtt = db.TouristAttractions.Where(x => x.Name.ToUpper() == name.ToUpper()).ToList();
 

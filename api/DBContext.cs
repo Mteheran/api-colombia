@@ -5,7 +5,7 @@ namespace api;
 public class DBContext : DbContext
 {
     public DbSet<Country> Countries { get; set; }
-    public DbSet<Departament> Deparments { get; set; }
+    public DbSet<Department> Departments { get; set; }
     public DbSet<President> Presidents { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<TouristAttraction> TouristAttractions { get; set; }
@@ -35,9 +35,9 @@ public class DBContext : DbContext
             country.Property(p => p.AircraftPrefix).HasMaxLength(5);
         });
 
-        builder.Entity<Departament>(deparment =>
+        builder.Entity<Department>(deparment =>
         {
-            deparment.ToTable("Deparment");
+            deparment.ToTable("Department");
             deparment.HasKey(p => p.Id);
             deparment.Property(p => p.Id).ValueGeneratedOnAdd();
             deparment.Property(p => p.Name).IsRequired().HasMaxLength(150);
@@ -48,8 +48,7 @@ public class DBContext : DbContext
             deparment.Property(p => p.Surface);
             deparment.Property(p => p.PhonePrefix).HasMaxLength(5);
             deparment.Property(p => p.CountryId);
-            deparment.HasOne(p=> p.Country).WithMany(p=> p.Departaments).HasForeignKey(p=> p.CountryId);
-
+            deparment.HasOne(p=> p.Country).WithMany(p=> p.Departments).HasForeignKey(p=> p.CountryId);
         });
 
         builder.Entity<City>(city =>
@@ -95,7 +94,6 @@ public class DBContext : DbContext
             touristAttraction.Property(p => p.Longitude).IsRequired(false);
             touristAttraction.Property(p => p.CityId);
             touristAttraction.HasOne(p=> p.City).WithMany(p=> p.TouristAttractions).HasForeignKey(p=> p.CityId);
-
         });
 
     }

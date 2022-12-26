@@ -16,7 +16,7 @@
         public string? PhonePrefix { get; set; }
         public string? RadioPrefix { get; set; }
         public string? AircraftPrefix { get; set; }
-        public virtual ICollection<Departament> Departaments { get; set; }
+        public virtual ICollection<Department> Departments { get; set; }
         public virtual ICollection<President> Presidents { get; set; }
     }
 }

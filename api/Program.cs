@@ -1,7 +1,6 @@
 using api;
-using Microsoft.AspNetCore.Mvc;
+using api.Routes;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Annotations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,16 +25,12 @@ builder.Services.AddNpgsql<DBContext>(builder.Configuration.GetConnectionString(
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
-
-app.MapGet("/dbcreation", async ([FromServices] DBContext dbContext) => 
-{
-    dbContext.Database.EnsureCreated();
-    return Results.Ok();
-});
-
-app.MapGet("/{id}", (int id) => $"This is the id:{id}!")
-    .WithMetadata(new SwaggerOperationAttribute(summary: "This is the id endpoint", description: "This endpoint return the id information"));
+InfoRoutes.RegisterInfoAPI(app);
+CountryRoutes.RegisterCountryAPI(app);
+DepartmentRoutes.RegisterDepartmentAPI(app);
+CityRoutes.RegisterCityAPI(app);
+PresidentRoutes.RegisterPresidentApi(app);
+TuristicAttactionRoutes.RegisterTuristicAttactionAPI(app);
 
 app.UseSwagger();
 app.UseSwaggerUI();

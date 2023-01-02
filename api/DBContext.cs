@@ -27,7 +27,8 @@ public class DBContext : DbContext
             country.Property(p => p.Population);
             country.Property(p => p.Languages);
             country.Property(p => p.TimeZone).HasMaxLength(150);
-            country.Property(p => p.Currency).HasMaxLength(10);
+            country.Property(p => p.Currency).HasMaxLength(15);
+            country.Property(p => p.CurrencyCode).HasMaxLength(10);
             country.Property(p => p.ISOCode).HasMaxLength(10);
             country.Property(p => p.InternetDomain);
             country.Property(p => p.PhonePrefix).HasMaxLength(5);

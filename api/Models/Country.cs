@@ -11,6 +11,7 @@
         public string?[] Languages { get; set; }
         public string? TimeZone { get; set; }
         public string? Currency { get; set; }
+        public string? CurrencyCode { get; set; }
         public string? ISOCode { get; set; }
         public string? InternetDomain { get; set; }
         public string? PhonePrefix { get; set; }

@@ -8,7 +8,7 @@ namespace api.Routes
         {
             const string COUNTRY_ROUTE = "Country";
 
-            app.MapGet($"api/v1/{COUNTRY_ROUTE}/Colombia", (int id, DBContext db) =>
+            app.MapGet($"api/v1/{COUNTRY_ROUTE}/Colombia", (DBContext db) =>
             {
                 var country = db.Countries.FirstOrDefault();
                 if (country != null)

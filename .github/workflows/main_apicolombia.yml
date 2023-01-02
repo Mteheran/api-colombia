@@ -9,6 +9,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  ConnectionStrings.csApiColombia: ${{ secrets.CSAPICOLOMBIA }}
+
 jobs:
   build:
     runs-on: ubuntu-latest

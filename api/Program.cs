@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(options => {
     });
 });
 
-builder.Services.AddNpgsql<DBContext>(builder.Configuration.GetConnectionString("csApiColombia"));
+builder.Services.AddNpgsql<DBContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 var app = builder.Build();
 

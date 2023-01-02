@@ -32,8 +32,9 @@ CityRoutes.RegisterCityAPI(app);
 PresidentRoutes.RegisterPresidentApi(app);
 TuristicAttactionRoutes.RegisterTuristicAttactionAPI(app);
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.UseSwagger();
 app.UseSwaggerUI();
-
 
 app.Run();

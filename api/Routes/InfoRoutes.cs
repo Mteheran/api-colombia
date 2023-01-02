@@ -6,8 +6,6 @@ namespace api.Routes
     {
         public static void RegisterInfoAPI(WebApplication app)
         {
-            app.MapGet("/", () => "Hello World!");
-
             app.MapGet("/dbcreation", async ([FromServices] DBContext dbContext) =>
             {
                 dbContext.Database.EnsureCreated();

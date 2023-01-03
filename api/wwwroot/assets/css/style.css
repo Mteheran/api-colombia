@@ -1,0 +1,16 @@
+:root {
+  --theme-bg: #121f3d;
+  --font-fallback: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  --font-body: "Roboto", var(--font-fallback);
+}
+
+body{ 
+  background-color: var(--theme-bg);
+  font-weight: var(--font-body);
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5;
+  min-height: 100vh;
+  max-width: 100vw;
+}

@@ -29,7 +29,7 @@ h2 {
 .hero p {
   color: var(--theme-bg);
   font-size: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   line-height: 1.5rem;
 }
 
@@ -45,8 +45,8 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 8rem 4rem;
-  gap: 3.5rem;
+  padding: 0rem 4rem;
+  gap: 3rem;
 }
 
 .hero img {
@@ -64,23 +64,37 @@ h2 {
   position: relative;
 }
 
-.deco-amar {
-  width: 20%;
+.deco-yellow {
+  width: 10%;
   background-color: #ffeb3b;
   border-radius: 0px 7px 7px 0px;
-  padding: 15px;
+  padding: 10px;
 }
 
-.deco-azul {
-  width: 20%;
+.deco-blue {
+  width: 10%;
   background-color: #214290;
   border-radius: 0px 7px 7px 0px;
-  padding: 13px;
+  padding: 8px;
 }
 
-.deco-rojo {
-  width: 20%;
+.deco-red {
+  width: 10%;
   background-color: #e40002;
   border-radius: 0px 7px 7px 0px;
-  padding: 13px;
+  padding: 8px;
+}
+
+.btn-githud{
+  background-color: #214290;
+  border: 1px solid #e9ffff;
+  color: #e8edf7;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  width: 100%;
 }

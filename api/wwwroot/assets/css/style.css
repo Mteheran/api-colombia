@@ -41,10 +41,9 @@ h6 {
   line-height: 1;
 }
 
-h1 h2{
+h1 h2 {
   max-width: 40ch;
 }
-
 
 .hero p {
   color: var(--theme-bg);
@@ -103,9 +102,9 @@ span h2 {
 
 .btn-githud {
   background-color: #214290;
-  border: 1px solid #e9ffff;
-  color: #e8edf7;
-  border-radius: 0.5rem;
+  border: 1px solid #214290;
+  color: #ffffff;
+  border-radius: 0.8rem;
   font-size: 1rem;
   padding: 0.5rem 1rem;
   text-align: center;
@@ -117,7 +116,26 @@ span h2 {
 
 .president {
   display: flex;
+  align-items: center;
+  padding: 3rem 2rem;
   text-align: center;
-  flex-direction: column;
-  padding: 3.5rem 2rem;
+  justify-content: space-evenly;
+}
+
+.container-gallery {
+  display: flex;
+}
+.gallery {
+  display: flex;
+  gap: 15px;
+}
+.gallery img {
+  max-width: 100%;
+  width: 150px;
+}
+
+.link-api {
+  padding: 5px 12px;
+  background: #70c5c5;
+  line-height: 0.4rem;
 }

@@ -113,6 +113,16 @@ span h2 {
   font-weight: 700;
   width: 100%;
 }
+/* section get president*/
+.conteiner-title{
+  max-width: 650px;
+}
+
+.title p{
+  padding: 1rem;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
 
 .president {
   display: flex;
@@ -134,8 +144,27 @@ span h2 {
   width: 150px;
 }
 
-.link-api {
-  padding: 5px 12px;
-  background: #70c5c5;
-  line-height: 0.4rem;
+/*Link of code */
+
+pre {
+  background-color: #e16262;
+  color: rgb(37, 36, 35);
+  border: 1px solid transparent;
+  position: relative;
+  --padding-block: .1rem;
+  --padding-inline: 1.1rem;
+  padding: var(--padding-block) var(--padding-inline);
+  padding-right: calc(var(--padding-inline) * 9);
+  line-height: .5;
+  word-wrap: break-word;
+}
+
+pre code {
+  font-size: .85em;
+}
+
+@media (min-width: 37.75em) {
+  pre {
+    border-radius: 10px;
+  }
 }

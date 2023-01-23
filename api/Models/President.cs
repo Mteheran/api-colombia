@@ -11,6 +11,6 @@
         public string? PoliticalParty { get; set; }
         public string? Description { get; set; }
         public int CityId { get; set; }
-        public virtual City City {get;set;}
+        public virtual City City { get; set; }
     }
 }

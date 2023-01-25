@@ -1,42 +1,40 @@
-﻿namespace api.Routes
+﻿using api.Utils;
+
+namespace api.Routes
 {
     public static class CityRoutes
     {
         public static void RegisterCityAPI(WebApplication app)
         {
-            const string CITY_ROUTE = "City";
+            const string API_CITY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CITY_ROUTE}";
 
-            app.MapGet($"api/v1/{CITY_ROUTE}", (DBContext db) =>
+            app.MapGet(API_CITY_ROUTE_COMPLETE, (DBContext db) =>
             {
                 return Results.Ok(db.Cities.ToList());
             });
 
-            app.MapGet($"api/v1/{CITY_ROUTE}/{{id}}", async (int id, DBContext db) =>
+            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/{Util.QP_ID}", async (int id, DBContext db) =>
             {
                 var city = await db.Cities.FindAsync(id);
 
-                if (city != null)
-                {
-                    return Results.Ok(city);
-                }
-                else
+                if (city is null)
                 {
                     return Results.NotFound();
                 }
+
+                return Results.Ok(city);
             });
 
-            app.MapGet($"api/v1/{CITY_ROUTE}/Name/{{name}}", (string name, DBContext db) =>
+            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/{Util.QP_NAME}", (string name, DBContext db) =>
             {
-                var city = db.Cities.Where(x => x.Name.ToUpper() == name.ToUpper()).ToList();
+                var city = db.Cities.Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
 
-                if (city != null)
-                {
-                    return Results.Ok(city);
-                }
-                else
+                if (city is null)
                 {
                     return Results.NotFound();
                 }
+
+                return Results.Ok(city);
             });
         }
     }

@@ -5,7 +5,8 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options => {
+builder.Services.AddSwaggerGen(options =>
+{
     options.EnableAnnotations();
     options.SwaggerDoc("v1", new OpenApiInfo
     {
@@ -17,7 +18,7 @@ builder.Services.AddSwaggerGen(options => {
         {
             Name = "Example Contact",
             Url = new Uri("https://example.com/contact")
-        }        
+        }
     });
 });
 

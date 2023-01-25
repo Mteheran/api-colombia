@@ -1,0 +1,53 @@
+{
+  "projectName": "api-colombia",
+  "projectOwner": "mteheran",
+  "repoType": "github",
+  "repoHost": "https://github.com/Mteheran/api-colombia",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "mteheran",
+      "name": "Miguel Teheran",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3578356?v=4",
+      "profile": "https://www.linkedin.com/in/mteheran/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "rinaplata",
+      "name": "Rina Plata",
+      "avatar_url": "https://avatars.githubusercontent.com/u/55161289?v=4",
+      "profile": "https://www.linkedin.com/in/rina-plata/",
+      "contributions": [
+        "doc",
+        "tutorial"
+      ]
+    },
+    {
+      "login": "VeronicaGuaman",
+      "name": "Veronica Guaman",
+      "avatar_url": "https://avatars.githubusercontent.com/u/70024610?v=4",
+      "profile": "https://www.linkedin.com/in/veronicaguaman/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mariobot",
+      "name": "Mario Botero",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1220191?v=4",
+      "profile": "https://www.linkedin.com/in/mariobot/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": true
+}

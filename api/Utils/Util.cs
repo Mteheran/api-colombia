@@ -10,9 +10,6 @@
 
         public const string API_ROUTE = "api/";
         public const string API_VERSION = "v1/";
-        public const string NAME = "Name";
-        public const string QP_ID = "Name";
-        public const string QP_NAME = "name";
 
         public const string COLOMBIA = "Colombia";
     }

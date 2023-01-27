@@ -6,7 +6,7 @@
         public const string COUNTRY_ROUTE = "Country";
         public const string DEPARTMENT_ROUTE = "Department";
         public const string PRESIDENT_ROUTE = "President";
-        public const string TURISTIC_ROUTE = "TurusticAttaction";
+        public const string TOURISTIC_ROUTE = "TouristicAttraction";
 
         public const string API_ROUTE = "api/";
         public const string API_VERSION = "v1/";

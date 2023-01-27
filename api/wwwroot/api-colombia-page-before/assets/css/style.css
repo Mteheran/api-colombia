@@ -132,7 +132,18 @@ span h2 {
   justify-content: space-evenly;
 }
 
+.api-demo {
+  display: flex;
+  align-items: center;
+  padding: 3rem 2rem;
+  text-align: center;
+  justify-content: space-evenly;
+}
+
 .container-gallery {
+  display: flex;
+}
+.demo-result {
   display: flex;
 }
 .gallery {
@@ -147,8 +158,8 @@ span h2 {
 /*Link of code */
 
 pre {
-  background-color: #e16262;
-  color: rgb(37, 36, 35);
+  background-color: #151e2e;
+  color: rgb(255, 255, 255);
   border: 1px solid transparent;
   position: relative;
   --padding-block: .1rem;

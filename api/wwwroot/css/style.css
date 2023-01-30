@@ -58,7 +58,7 @@ i{
     overflow: hidden;
 }
 .content a{
-    color: #00a8e3;
+    color: #214290;
     text-decoration: none;
 }
 .content a:hover{
@@ -68,15 +68,15 @@ i{
     cursor: pointer;
 }
 p, .content ul, .content ol{
-    font-size: 14px;
-    color: #777A7A;
+    font-size: 1rem;
+    color: #000000;
     margin-bottom: 16px;
     line-height: 1.6;
-    font-weight: 300;
+    font-weight: 400;
 }
 .content h1:first-child{
     font-size: 1.333em;
-    color: #034c8f;
+    color: #121f3d;
     padding-top: 2.5em;
     text-transform: uppercase;
     border-top: 1px solid rgba(255,255,255,0.3);
@@ -141,7 +141,7 @@ pre{
 }
 .content-logo span{
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 15px;
     vertical-align: middle;
     color: #323F4C;
     font-size: 1.1em;
@@ -164,11 +164,11 @@ pre{
 }
 .content-menu ul li:hover,
 .content-menu ul li.active{
-    background-color:#DCDEE9;
+    background-color:#2142901a;
 }
 .content-menu ul li:hover a,
 .content-menu ul li.active a{
-    color: #00a8e3;
+    color: #214290;
 }
 @media (hover: none) {
     .content-menu ul li:not(.active):hover {
@@ -180,7 +180,7 @@ pre{
 }
 .content-menu ul li a{
     padding: 12px 13.25%;
-    color: #777A7A;
+    color: #000000;
     letter-spacing: 0.025em;
     line-height: 1.1;
     display: block;
@@ -260,14 +260,14 @@ pre{
     font-size: 15px;
     margin-top: 2.5em;
     margin-bottom: 0.8em;
-    color: #034c8f;
+    color:  #214290;
     text-transform: uppercase;
 }
 .content h2{
     font-size: 1.333em;
 }
 .content h4{
-    color: #00a8e3;
+    color:  #214290;
     margin-top: 0;
     text-transform: none;
     font-size: 14px;
@@ -281,7 +281,7 @@ pre{
 .content blockquote {
     background-color: #323f4c;
     border-color: #323f4c;
-    color: #fff;
+    color: #c9d1d9;
     padding: 0 28px 2em;
     margin: 0;
     width: 50%;
@@ -290,7 +290,7 @@ pre{
     box-sizing: border-box;
 }
 .content pre code, .content pre {
-    font-size: 12px;
+    font-size: small;
     line-height: 1.5;
 }
 .content blockquote,

@@ -42,7 +42,7 @@
           <span>API Colombia</span>
         </div>
         <button class="burger-menu-icon" id="button-menu-mobile">
-          <svg width="38" height="38" viewBox="0 0 100 100">
+          <svg width="32" height="32" viewBox="0 0 100 100">
             <path
               class="line line1"
               d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"
@@ -57,18 +57,22 @@
       </div>
       <div class="mobile-menu-closer"></div>
       <div class="content-menu">
-        <!-- <div class="content-infos">
-            <div class="info"><b>VIEW REPO</b></div>
-        </div> -->
+        <div class="content-infos">
+            <div class="info"><b>Swagger :</b><a href="" target="_blank">Here</a></div>
+            <div class="info"><b>View repo :</b> <a href="https://github.com/Mteheran/api-colombia" target="_blank">Here</a></div>
+        </div>
         <ul>
-          <li class="scroll-to-link active" data-target="content-get-started">
+          <li class="scroll-to-link active" data-target="GET-info-Colombia">
+            <a>GET info Colombia</a>
+          </li>
+          <li class="scroll-to-link active" data-target="Get-departament">
             <a>GET departments</a>
           </li>
-          <li class="scroll-to-link" data-target="content-get-characters">
-            <a>Get tourists</a>
+          <li class="scroll-to-link" data-target="Get-tourists">
+            <a>GET tourists</a>
           </li>
           <li class="scroll-to-link" data-target="Get-president">
-            <a>GET president</a>
+            <a>GET presidents</a>
           </li>
           <li class="scroll-to-link" data-target="Contributors">
             <a>Contributors</a>
@@ -92,11 +96,22 @@
             tourists places and presidents
           </p>
         </div>
-        <div
-          class="overflow-hidden content-section"
-          id="content-get-characters"
-        >
-          <h2>Get Info Colombia</h2>
+        <div class="overflow-hidden content-section" id="GET-info-Colombia">
+            <h1>Get info Colombia</h1>
+            <pre>
+      Get info Colombia
+  
+                  </pre
+            >
+            <p>
+             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse tempora dolorem expedita necessitatibus iure consequuntur dicta saepe nostrum eaque quos placeat provident, illo quidem accusantium in laboriosam officia minus aperiam.
+            <br/>
+            <code class="higlighted break-word"
+            >http://api.westeros.com/character/get</code> 
+            </p>
+          </div>
+        <div class="overflow-hidden content-section" id="Get-departament">
+          <h2>Get departament</h2>
           <pre><code class="bash">
 # Here is a curl example
 curl \
@@ -178,8 +193,8 @@ Result example :
       location: "Dreadfort"
     },
   ]
-}
-                </code></pre>
+}</code>
+                <!-- </pre>
           <h4>Gep president</h4>
           <table class="central-overflow-x">
             <thead>
@@ -236,8 +251,36 @@ Result example :
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table> -->
         </div>
+        <div class="overflow-hidden content-section" id="Get-tourists">
+            <h1>Get tourists</h1>
+            <pre>
+      Get tourists
+  
+                  </pre
+            >
+            <p>
+             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse tempora dolorem expedita necessitatibus iure consequuntur dicta saepe nostrum eaque quos placeat provident, illo quidem accusantium in laboriosam officia minus aperiam.
+             <br/>
+             <code class="higlighted break-word"
+             >http://api.westeros.com/character/get</code> 
+            </p>
+          </div>
+          <div class="overflow-hidden content-section" id="Get-president">
+            <h1>Get president</h1>
+            <pre>
+      Get Presidents
+  
+                  </pre
+            >
+            <p>
+             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse tempora dolorem expedita necessitatibus iure consequuntur dicta saepe nostrum eaque quos placeat provident, illo quidem accusantium in laboriosam officia minus aperiam.
+             <br/>
+             <code class="higlighted break-word"
+             >http://api.westeros.com/character/get</code> 
+            </p>
+          </div>
         <div class="overflow-hidden content-section" id="Contributors">
           <h2>Contributors</h2>
           <p>Thanks goes to these wonderful people</p>

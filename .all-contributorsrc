@@ -46,6 +46,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Alejandrohv06",
+      "name": "Alejandro Herreño",
+      "avatar_url": "https://avatars.githubusercontent.com/u/99321349?v=4",
+      "profile": "https://www.linkedin.com/in/alejandrohv/",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

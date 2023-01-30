@@ -13,7 +13,7 @@ namespace api.Routes
                 return Results.Ok(db.Departments.ToList());
             });
 
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{Util.QP_ID}", async (int id, DBContext db) =>
+            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
                 var departament = await db.Departments.FindAsync(id);
 
@@ -25,7 +25,7 @@ namespace api.Routes
                 return Results.Ok(departament);
             });
 
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{Util.NAME}/{Util.QP_NAME}", (string name, DBContext db) =>
+            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
                 var departments = db.Departments.Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToList();
 

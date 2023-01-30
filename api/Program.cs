@@ -22,6 +22,17 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "corsApiColombia",
+                      policy  =>
+                      {
+                          policy.WithMethods("GET");
+                          policy.AllowAnyOrigin();
+                      });
+});
+
+
 builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddNpgsql<DBContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -37,6 +48,7 @@ TuristicAttactionRoutes.RegisterTuristicAttactionAPI(app);
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+app.UseCors("corsApiColombia");
 app.UseSwagger();
 app.UseSwaggerUI();
 

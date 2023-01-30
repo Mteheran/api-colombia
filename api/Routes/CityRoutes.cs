@@ -13,7 +13,7 @@ namespace api.Routes
                 return Results.Ok(db.Cities.ToList());
             });
 
-            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/{Util.QP_ID}", async (int id, DBContext db) =>
+            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
                 var city = await db.Cities.FindAsync(id);
 
@@ -25,7 +25,7 @@ namespace api.Routes
                 return Results.Ok(city);
             });
 
-            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/{Util.QP_NAME}", (string name, DBContext db) =>
+            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
                 var city = db.Cities.Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
 

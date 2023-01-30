@@ -133,6 +133,15 @@ body {
   -webkit-backface-visibility: hidden;
   font-family: "Roboto", sans-serif;
 }
+ul{
+list-style-type: disc;  
+}
+ol{
+list-style-type: circle;
+}
+.project{
+ font-weight: bold;
+}
 strong {
   font-weight: 500;
 }
@@ -320,7 +329,7 @@ pre {
 .content ul,
 .content ol,
 .content .central-overflow-x {
-  margin-right: 50%;
+  margin-right: 10%;
   padding: 0 44px;
   box-sizing: border-box;
   display: block;

@@ -255,7 +255,7 @@ a{
   font-weight: 400;
 }
 .content-menu {
-  margin: 2em auto 2em;
+  margin: 0.5em auto 0.5em;
   padding: 0 0 100px;
 }
 .content-menu ul {
@@ -391,7 +391,7 @@ a{
   background-color: #3a3a3a;
   border-color: #3a3a3a;
   color: white;
-  padding: 0 28px 2em;
+  padding: 0 20px 2em;
   margin: 0;
   width: 50%;
   float: right;

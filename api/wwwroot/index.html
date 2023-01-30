@@ -94,6 +94,10 @@
     View Repository
 
     https://github.com/Mteheran/api-colombia
+
+    View Swagger
+
+    https://apicolombia.azurewebsites.net/swagger/index.html
                 </pre
           >
           <p>
@@ -125,154 +129,68 @@
                   </pre
             >
             <p>
-             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse tempora dolorem expedita necessitatibus iure consequuntur dicta saepe nostrum eaque quos placeat provident, illo quidem accusantium in laboriosam officia minus aperiam.
+              Get the information of Colombia
             <br/>
             <code class="higlighted break-word"
-            >http://api.westeros.com/character/get</code> 
+            >/api/{version}/country/Colombia</code> 
             </p>
           </div>
         <div class="overflow-hidden content-section" id="Get-departament">
           <h2>Get departament</h2>
-          <pre><code class="bash">
-# Here is a curl example
-curl \
--X POST http://api.westeros.com/character/get \
--F 'secret_key=your_api_key' \
--F 'house=Stark,Bolton' \
--F 'offset=0' \
--F 'limit=50'
-                </code></pre>
+          <pre class="json">
+      Get departament
+      <code >
+  {
+  "id": 1,
+  "name": "Colombia",
+  "description": "Colombia, officially the Republic of Colombia, 
+  is a country in South America with insular regions in North 
+  America—near Nicaragua's Caribbean coast—as well as in the 
+  Pacific Ocean. The Colombian mainland is bordered by the 
+  Caribbean Sea to the north,Venezuela to the east and northeast,
+  Brazil to the southeast, Ecuador and Peru to the south and 
+  southwest,the Pacific Ocean to the west, and Panama to the northwest. 
+  Colombia is divided into 32 departments and the Capital District 
+  of Bogotá, the country's largest city. It covers an area of 1,141,748 
+  square kilometers (440,831 sq mi), and has a population of 52 million.
+  Colombia's cultural heritage—including language, religion, cuisine, and 
+  art—reflects its history as a Spanish colony, fusing cultural elements 
+  brought by immigration from Europe and the Middle East, with those brought 
+  by enslaved Africans, as well as with those of the various Indigenous 
+  civilizations that predate colonization. Spanish is the official state 
+  language,although English and 64 other languages are 
+  recognized regional languages.",
+  "stateCapital": "Bogotá",
+  "surface": 1141748,
+  "population": 52235050,
+  "languages": [
+  "Spanish",
+  "English"
+  ],
+  "timeZone": "UTC-5",
+  "currency": "Colombian Peso",
+  "currencyCode": "COP",
+  "isoCode": "CO",
+  "internetDomain": ".co",
+  "phonePrefix": "+57",
+  "radioPrefix": "HK",
+  "aircraftPrefix": "HK",
+  "departments": null,
+  "presidents": null
+  }        
+  </code>
+  </pre>
           <p>
-            To get characters you need to make a POST call to the following url
+            Get the list of all the departments in Colombia
             :<br />
             <code class="higlighted break-word"
-              >http://api.westeros.com/character/get</code
+              >/api/{version}/Department</code
             >
           </p>
           <br />
           <pre><code class="json">
-Result example :
 
-{
-  query:{
-    offset: 0,
-    limit: 50,
-    house: [
-      "Stark",
-      "Bolton"
-    ],
-  }
-  result: [
-    {
-      id: 1,
-      first_name: "Jon",
-      last_name: "Snow",
-      alive: true,
-      house: "Stark",
-      gender: "m",
-      age: 14,
-      location: "Winterfell"
-    },
-    {
-      id: 2,
-      first_name: "Eddard",
-      last_name: "Stark",
-      alive: false,
-      house: "Stark",
-      gender: "m",
-      age: 35,
-      location: 'Winterfell'
-    },
-    {
-      id: 3,
-      first_name: "Catelyn",
-      last_name: "Stark",
-      alive: false,
-      house: "Stark",
-      gender: "f",
-      age: 33,
-      location: "Winterfell"
-    },
-    {
-      id: 4,
-      first_name: "Roose",
-      last_name: "Bolton",
-      alive: false,
-      house: "Bolton",
-      gender: "m",
-      age: 40,
-      location: "Dreadfort"
-    },
-    {
-      id: 5,
-      first_name: "Ramsay",
-      last_name: "Snow",
-      alive: false,
-      house: "Bolton",
-      gender: "m",
-      age: 15,
-      location: "Dreadfort"
-    },
-  ]
-}</code>
-                <!-- </pre>
-          <h4>Gep president</h4>
-          <table class="central-overflow-x">
-            <thead>
-              <tr>
-                <th>Field</th>
-                <th>Type</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>secret_key</td>
-                <td>String</td>
-                <td>Your API key.</td>
-              </tr>
-              <tr>
-                <td>search</td>
-                <td>String</td>
-                <td>(optional) A search word to find character by name.</td>
-              </tr>
-              <tr>
-                <td>house</td>
-                <td>String</td>
-                <td>(optional) a string array of houses:</td>
-              </tr>
-              <tr>
-                <td>alive</td>
-                <td>Boolean</td>
-                <td>(optional) a boolean to filter alived characters</td>
-              </tr>
-              <tr>
-                <td>gender</td>
-                <td>String</td>
-                <td>
-                  (optional) a string to filter character by gender:<br />
-                  m: male<br />
-                  f: female
-                </td>
-              </tr>
-              <tr>
-                <td>offset</td>
-                <td>Integer</td>
-                <td>
-                  (optional - default: 0) A cursor for use in pagination.
-                  Pagination starts offset the specified offset.
-                </td>
-              </tr>
-              <tr>
-                <td>limit</td>
-                <td>Integer</td>
-                <td>
-                  (optional - default: 10) A limit on the number of objects to
-                  be returned, between 1 and 100.
-                </td>
-              </tr>
-            </tbody>
-          </table> -->
+</code>
         </div>
         <div class="overflow-hidden content-section" id="Get-tourists">
             <h1>Get tourists</h1>
@@ -282,10 +200,10 @@ Result example :
                   </pre
             >
             <p>
-             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse tempora dolorem expedita necessitatibus iure consequuntur dicta saepe nostrum eaque quos placeat provident, illo quidem accusantium in laboriosam officia minus aperiam.
+              Get the list of all the touristic attractions in Colombia
              <br/>
              <code class="higlighted break-word"
-             >http://api.westeros.com/character/get</code> 
+             >/api/{version}/TouristicAttraction</code> 
             </p>
           </div>
           <div class="overflow-hidden content-section" id="Get-president">
@@ -296,10 +214,10 @@ Result example :
                   </pre
             >
             <p>
-             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse tempora dolorem expedita necessitatibus iure consequuntur dicta saepe nostrum eaque quos placeat provident, illo quidem accusantium in laboriosam officia minus aperiam.
+              Get the list of all the presidents in Colombia
              <br/>
              <code class="higlighted break-word"
-             >http://api.westeros.com/character/get</code> 
+             >/api/{version}/President</code> 
             </p>
           </div>
         <div class="overflow-hidden content-section" id="Contributors">

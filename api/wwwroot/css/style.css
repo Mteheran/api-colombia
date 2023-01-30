@@ -194,6 +194,10 @@ pre {
   border-radius: 3px;
 }
 
+a{
+  text-decoration: none;
+}
+
 /* LEFT-MENU
 ----------------------------------------------------------------------------------------*/
 
@@ -205,14 +209,14 @@ pre {
   bottom: 0;
   width: 300px;
   box-sizing: border-box;
-  background-color: #f4f5f8;
+  background-color: #f1f1f1;
   overflow-x: hidden;
   font-size: 18px;
 }
 .left-menu .content-infos {
   position: relative;
-  padding: 12px 13.25%;
-  margin-bottom: 20px;
+  padding: 12px 14.25%;
+  margin-bottom: 16px;
 }
 .left-menu .info {
   position: relative;
@@ -364,9 +368,9 @@ pre {
   font-size: 15px;
   margin-top: 2.5em;
   margin-bottom: 0.8em;
-  color: #214290;
+  color: #121f3d;
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 500;
 }
 .content h2 {
   font-size: 1.333em;

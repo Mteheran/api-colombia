@@ -76,6 +76,7 @@ p, .content ul, .content ol{
 }
 .content h1:first-child{
     font-size: 1.333em;
+    font-weight: 500;
     color: #121f3d;
     padding-top: 2.5em;
     text-transform: uppercase;
@@ -143,8 +144,9 @@ pre{
     display: inline-block;
     margin-left: 15px;
     vertical-align: middle;
-    color: #323F4C;
+    color: #121f3d;
     font-size: 1.1em;
+    font-weight: 400;
 }
 .content-menu{
     margin: 2em auto 2em;
@@ -205,8 +207,8 @@ pre{
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: #323f4c;
-    border-color: #323f4c;
+    background-color: #3a3a3a;
+    border-color: #3a3a3a;
 }
 .content {
     position: relative;
@@ -226,7 +228,7 @@ pre{
 .content ol,
 .content .central-overflow-x {
     margin-right: 50%;
-    padding: 0 28px;
+    padding: 0 44px;
     box-sizing: border-box;
     display: block;
     max-width: 680px;
@@ -262,6 +264,7 @@ pre{
     margin-bottom: 0.8em;
     color:  #214290;
     text-transform: uppercase;
+    font-weight: 300;
 }
 .content h2{
     font-size: 1.333em;
@@ -279,9 +282,9 @@ pre{
 }
 .content pre,
 .content blockquote {
-    background-color: #323f4c;
-    border-color: #323f4c;
-    color: #c9d1d9;
+    background-color: #3a3a3a;
+    border-color: #3a3a3a;
+    color: white;
     padding: 0 28px 2em;
     margin: 0;
     width: 50%;
@@ -524,3 +527,35 @@ body.one-content-column-version .content thead {
 .cf:before, .cf:after { content: ""; display: block; }
 .cf:after { clear: both; }
 .ie6 .cf { zoom: 1 }
+
+/* Contributors images
+----------------------------------------------------------------------------------------*/
+.container-contribu{
+   display: flex;
+   justify-content: space-evenly;
+   padding-bottom: 2rem;
+}
+
+div .Contributors {
+width: 200px;
+}
+
+div .Contributors img{
+width: 100%;
+height: auto;
+}
+
+div .name{
+color: #031628;
+padding: 1rem;     
+text-align: center;
+font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+.container-contribu{
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 5rem;
+}
+}

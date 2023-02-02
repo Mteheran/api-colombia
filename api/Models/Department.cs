@@ -6,7 +6,7 @@
         public string? Name { get; set; }
         public string? Description { get; set; }
         public int? CityCapitalId { get; set; }
-        public string[]? Municipalities { get; set; }
+        public int? Municipalities { get; set; }
         public float Surface { get; set; }
         public float? Population { get; set; }
         public string? PhonePrefix { get; set; }

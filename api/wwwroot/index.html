@@ -1,10 +1,272 @@
+<!--
+ API Documentation HTML Template  - 1.0.1
+ Copyright © 2016 Florian Nicolas
+ Licensed under the MIT license.
+ https://github.com/ticlekiwi/API-Documentation-HTML-Template
+ !-->
 <!DOCTYPE html>
-<html>
-<head>
+<html class="no-js" lang="en">
+  <head>
     <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-    <h1> This is API Colombia</h1>
-</body>
+    <title>API - Colombia</title>
+    <meta name="description" content="" />
+    <meta name="author" content="ticlekiwi" />
+
+    <meta http-equiv="cleartype" content="on" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="css/hightlightjs-dark.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&family=Source+Code+Pro:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" media="all" />
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+  </head>
+  <body>
+    <div class="left-menu">
+      <div class="content-logo">
+        <div class="logo">
+          <img
+            alt="platform by Emily van den Heever from the Noun Project"
+            title="platform by Emily van den Heever from the Noun Project"
+            src="images/logo.png"
+            height="38"
+          />
+          <span>API Colombia</span>
+        </div>
+        <button class="burger-menu-icon" id="button-menu-mobile">
+          <svg width="32" height="32" viewBox="0 0 100 100">
+            <path
+              class="line line1"
+              d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"
+            ></path>
+            <path class="line line2" d="M 20,50 H 80"></path>
+            <path
+              class="line line3"
+              d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu-closer"></div>
+      <div class="content-menu">
+        <div class="content-infos">
+            <a href="https://apicolombia.azurewebsites.net/swagger/index.html" target="_blank">
+             <div class="info"><b>View Swagger </div>
+            </a>
+            <a href="https://github.com/Mteheran/api-colombia" target="_blank">
+              <div class="info"><b>View repo </div>
+            </a>
+            
+        </div>
+        <ul>
+          <li class="scroll-to-link active" data-target="GET-info-Colombia">
+            <a>GET info Colombia</a>
+          </li>
+          <li class="scroll-to-link active" data-target="Get-departament">
+            <a>GET departments</a>
+          </li>
+          <li class="scroll-to-link" data-target="Get-tourists">
+            <a>GET tourists</a>
+          </li>
+          <li class="scroll-to-link" data-target="Get-president">
+            <a>GET presidents</a>
+          </li>
+          <li class="scroll-to-link" data-target="Contributors">
+            <a>Contributors</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="content-page">
+      <div class="content-code"></div>
+      <div class="content">
+        <div class="overflow-hidden content-section" id="content-get-started">
+          <h1>Api Colombia</h1>
+          <pre>
+    View Repository
+
+    https://github.com/Mteheran/api-colombia
+
+    View Swagger
+
+    https://apicolombia.azurewebsites.net/swagger/index.html
+                </pre
+          >
+          <p>
+            API Colombia is a public RESTful API that enable users to obtain a variety of public information about the country "Colombia".
+          </p>
+          <h1 class="project">Project Support Features</h1>
+          <p>
+            <ul>
+               <li>
+                Minimal API's endpoints to get information about :
+               </li>
+               <ol>
+                <li>General information about the country.</li>
+                <li>Departments/States.</li>
+                <li>Cities.</li>
+                <li>Presidents.</li>
+                <li>Tourist attractions.</li>
+               </ol>
+               <li>Swagger documentation.</li>
+               <li>Does not requiere authentications.</li>
+            </ul>
+          </p>
+        </div>
+        <div class="overflow-hidden content-section" id="GET-info-Colombia">
+            <h1>Get info Colombia</h1>
+            <pre class="json">
+      Get info Colombia
+      <code >
+  {
+  "id": 1,
+  "name": "Colombia",
+  "description": "Colombia, officially the Republic of Colombia, 
+  is a country in South America with insular regions in North 
+  America—near Nicaragua's Caribbean coast—as well as in the 
+  Pacific Ocean. The Colombian mainland is bordered by the 
+  Caribbean Sea to the north,Venezuela to the east and northeast,
+  Brazil to the southeast, Ecuador and Peru to the south and 
+  southwest,the Pacific Ocean to the west, and Panama to the northwest. 
+  Colombia is divided into 32 departments and the Capital District 
+  of Bogotá, the country's largest city. It covers an area of 1,141,748 
+  square kilometers (440,831 sq mi), and has a population of 52 million.
+  Colombia's cultural heritage—including language, religion, cuisine, and 
+  art—reflects its history as a Spanish colony, fusing cultural elements 
+  brought by immigration from Europe and the Middle East, with those brought 
+  by enslaved Africans, as well as with those of the various Indigenous 
+  civilizations that predate colonization. Spanish is the official state 
+  language,although English and 64 other languages are 
+  recognized regional languages.",
+  "stateCapital": "Bogotá",
+  "surface": 1141748,
+  "population": 52235050,
+  "languages": [
+  "Spanish",
+  "English"
+  ],
+  "timeZone": "UTC-5",
+  "currency": "Colombian Peso",
+  "currencyCode": "COP",
+  "isoCode": "CO",
+  "internetDomain": ".co",
+  "phonePrefix": "+57",
+  "radioPrefix": "HK",
+  "aircraftPrefix": "HK",
+  "departments": null,
+  "presidents": null
+  }        
+  </code>
+                  </pre
+            >
+            <p>
+              Get the information of Colombia
+            <br/>
+            <code class="higlighted break-word"
+            >/api/{version}/country/Colombia</code> 
+            </p>
+          </div>
+        <div class="overflow-hidden content-section" id="Get-departament">
+          <h2>Get departament</h2>
+          <pre class="json">
+      Get departament
+  </pre>
+          <p>
+            Get the list of all the departments in Colombia<br />
+            <code class="higlighted break-word"
+              >/api/{version}/Department</code
+            >
+          </p>
+          <br />
+          <pre><code class="json">
+
+</code>
+        </div>
+        <div class="overflow-hidden content-section" id="Get-tourists">
+            <h1>Get tourists</h1>
+            <pre>
+      Get tourists
+  
+                  </pre
+            >
+            <p>
+              Get the list of all the touristic attractions in Colombia
+             <br/>
+             <code class="higlighted break-word"
+             >/api/{version}/TouristicAttraction</code> 
+            </p>
+          </div>
+          <div class="overflow-hidden content-section" id="Get-president">
+            <h1>Get president</h1>
+            <pre>
+      Get Presidents
+  
+                  </pre
+            >
+            <p>
+              Get the list of all the presidents in Colombia
+             <br/>
+             <code class="higlighted break-word"
+             >/api/{version}/President</code> 
+            </p>
+          </div>
+        <div class="overflow-hidden content-section" id="Contributors">
+          <h2>Contributors</h2>
+          <p>Thanks goes to these wonderful people</p>
+          <div class="container-contribu">
+            <div class="Contributors">
+              <a target="_blank" href="https://www.linkedin.com/in/rina-plata/">
+                <img
+                  src="../wwwroot/images/Rina.jfif"
+                  alt="Rina Plata"
+                  height="190"
+                />
+              </a>
+              <div class="name">Rina Plata</div>
+            </div>
+            <div class="Contributors">
+              <a target="_blank" href="https://www.linkedin.com/in/mariobot/">
+                <img src="../wwwroot/images/Mario.jfif" alt="Mario Botero" />
+              </a>
+              <div class="name">Mario Botero</div>
+            </div>
+            <div class="Contributors">
+              <a target="_blank" href="https://www.linkedin.com/in/mteheran/">
+                <img src="../wwwroot/images/Miguel.jfif" alt="Miguel Teheran" />
+              </a>
+              <div class="name">Miguel Teheran</div>
+            </div>
+            <div class="Contributors">
+              <a
+                target="_blank"
+                href="https://www.linkedin.com/in/veronicaguaman/"
+              >
+                <img src="../wwwroot/images/Vero.jfif" alt="Veronica Guaman" />
+              </a>
+              <div class="name">Vero Guaman</div>
+            </div>
+            <div class="Contributors">
+                <a
+                  target="_blank"
+                  href="https://www.linkedin.com/in/alejandrohv/"
+                >
+                  <img src="../wwwroot/images/alejo.jfif" alt="Veronica Guaman" />
+                </a>
+                <div class="name">Alejandro Herreño</div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-code"></div>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
 </html>

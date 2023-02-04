@@ -1,4 +1,6 @@
 ﻿using api.Utils;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace api.Routes
 {
@@ -15,7 +17,9 @@ namespace api.Routes
 
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
-                var president = await db.Presidents.FindAsync(id);
+                var president = await db.Presidents
+                                        .Include(p => p.City)
+                                        .SingleAsync(p=> p.Id == id);
 
                 if (president is null)
                 {
@@ -41,6 +45,7 @@ namespace api.Routes
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/year/{{year}}", async (int year, DBContext db) =>
             {
                 var presidents = db.Presidents
+                                        .Include(p=> p.City)
                                         .Where(p=> p.StartPeriodDate.Year >= year
                                          && p.EndPeriodDate.Year <= year);
 

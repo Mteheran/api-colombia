@@ -1,6 +1,8 @@
+using System.Text.Json.Serialization;
 using api;
 using api.Routes;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Http.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,14 +12,14 @@ builder.Services.AddSwaggerGen(options =>
     options.EnableAnnotations();
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Version = "v1",
+        Version = "1.0.1",
         Title = "API Colombia ",
-        Description = "Un sitio para suministrar diferente informacion provista en API de Colombia.",
-        TermsOfService = new Uri("https://example.com/terms"),
+        Description = "Open and free API that contains general information about Colombia",
+        TermsOfService = new Uri("https://github.com/Mteheran/api-colombia"),
         Contact = new OpenApiContact
         {
-            Name = "Example Contact",
-            Url = new Uri("https://example.com/contact")
+            Name = "Miguel Teheran",
+            Url = new Uri("https://mteheran.dev")
         }
     });
 });
@@ -36,6 +38,11 @@ builder.Services.AddCors(options =>
 builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddNpgsql<DBContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+});
 
 var app = builder.Build();
 

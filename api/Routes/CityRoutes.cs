@@ -1,4 +1,5 @@
 ﻿using api.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Routes
 {
@@ -15,7 +16,7 @@ namespace api.Routes
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
-                var city = await db.Cities.FindAsync(id);
+                var city = await db.Cities.Include(p=> p.Departament).SingleAsync(p=> p.Id == id);
 
                 if (city is null)
                 {

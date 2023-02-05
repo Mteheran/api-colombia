@@ -1,4 +1,6 @@
 ﻿using api.Utils;
+using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace api.Routes
 {
@@ -11,11 +13,14 @@ namespace api.Routes
             app.MapGet(API_DEPARTMENT_ROUTE_COMPLETE, (DBContext db) =>
             {
                 return Results.Ok(db.Departments.ToList());
-            });
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_DEPARMENT_LIST_SUMMARY, description: Messages.MESSAGE_DEPARMENT_LIST_DESCRIPTION));
 
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
-                var departament = await db.Departments.FindAsync(id);
+                var departament = await db.Departments
+                                            .Include(p=> p.CityCapital)
+                                            .SingleAsync(p=> p.Id == id);
 
                 if (departament is null)
                 {
@@ -23,7 +28,9 @@ namespace api.Routes
                 }
 
                 return Results.Ok(departament);
-            });
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_DEPARMENT_BYID_SUMMARY, description: Messages.MESSAGE_DEPARMENT_BYID_DESCRIPTION));
+
 
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
@@ -35,7 +42,8 @@ namespace api.Routes
                 }
 
                 return Results.Ok(departments);
-            });
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_DEPARMENT_BYNAME_SUMMARY, description: Messages.MESSAGE_DEPARMENT_BYNAME_DESCRIPTION));
         }
     }
 }

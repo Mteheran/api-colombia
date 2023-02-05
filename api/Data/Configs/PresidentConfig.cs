@@ -11,7 +11,7 @@ public class PresidentConfig : IEntityTypeConfiguration<President>
         president.Property(p => p.Name).IsRequired().HasMaxLength(150);
         president.Property(p => p.LastName).IsRequired().HasMaxLength(150);
         president.Property(p => p.StartPeriodDate).IsRequired();
-        president.Property(p => p.EndPeriodDate).IsRequired();
+        president.Property(p => p.EndPeriodDate).IsRequired(false);
         president.Property(p => p.PoliticalParty).IsRequired();
         president.Property(p => p.Description).IsRequired(false);
         president.Property(p => p.Image).IsRequired(false);

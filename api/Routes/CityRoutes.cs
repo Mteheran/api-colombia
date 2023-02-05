@@ -1,5 +1,6 @@
 ﻿using api.Utils;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace api.Routes
 {
@@ -12,7 +13,8 @@ namespace api.Routes
             app.MapGet(API_CITY_ROUTE_COMPLETE, (DBContext db) =>
             {
                 return Results.Ok(db.Cities.ToList());
-            });
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_CITY_LIST_SUMMARY, description: Messages.MESSAGE_CITY_LIST_DESCRIPTION));
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
@@ -24,7 +26,8 @@ namespace api.Routes
                 }
 
                 return Results.Ok(city);
-            });
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_CITY_BYID_SUMMARY, description: Messages.MESSAGE_CITY_BYID_DESCRIPTION));
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
@@ -36,7 +39,9 @@ namespace api.Routes
                 }
 
                 return Results.Ok(city);
-            });
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_CITY_BYNAME_SUMMARY, description: Messages.MESSAGE_CITY_BYNAME_DESCRIPTION));
+
         }
     }
 }

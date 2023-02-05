@@ -3,6 +3,7 @@ using api;
 using api.Routes;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http.Json;
+using api.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,7 @@ builder.Services.AddNpgsql<DBContext>(builder.Configuration.GetConnectionString(
 builder.Services.Configure<JsonOptions>(options =>
 {
     options.SerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
 });
 
 var app = builder.Build();

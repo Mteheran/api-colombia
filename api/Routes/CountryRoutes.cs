@@ -19,7 +19,7 @@ namespace api.Routes
 
                 return Task.FromResult(Results.Ok(country));
             })
-            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_COUNTRY_SUMMARY, description: Messages.MESSAGE_COUNTRY_DESCRIPTION));
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.EndpointMetadata.MESSAGE_COUNTRY_SUMMARY, description: Messages.EndpointMetadata.MESSAGE_COUNTRY_DESCRIPTION));
         }
     }
 }

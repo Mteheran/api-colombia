@@ -1,4 +1,6 @@
-﻿using api.Utils;
+﻿using api.Models;
+using api.Utils;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace api.Routes
 {
@@ -36,6 +38,23 @@ namespace api.Routes
 
                 return Results.Ok(turisticAtt);
             });
+
+            app.MapGet($"{API_TOURISTIC_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
+            {
+                string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
+                var dbTouristAttractions = db.TouristAttractions.ToList();
+
+                var touristAttractions = Functions.FilterObjectListPropertiesByKeyword<TouristAttraction>(dbTouristAttractions, wellFormedKeyword);
+
+                if (touristAttractions.Count == 0)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(touristAttractions);
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.EndpointMetadata.MESSAGE_PRESIDENT_SEARCH_SUMMARY, description: Messages.EndpointMetadata.MESSAGE_PRESIDENT_SEARCH_DESCRIPTION));
+
         }
     }
 }

@@ -28,5 +28,11 @@
         public const string MESSAGE_PRESIDENT_BYYEAR_SUMMARY = "President in the year provided";
         public const string MESSAGE_PRESIDENT_BYYEAR_DESCRIPTION = "This endpoint returns the president or presidents in the year provided";
 
+        public const string MESSAGE_TOURIST_ATTRACTION_LIST_SUMMARY = "List of turistic attractions in Colombia";
+        public const string MESSAGE_TOURIST_ATTRACTION_LIST_DESCRIPTION = "This endpoint returns the turistic attractions in colombia including a general info like image, longitude, latitude etc...";
+        public const string MESSAGE_TOURIST_ATTRACTION_BYID_SUMMARY = "Tourist attraction information by Id";
+        public const string MESSAGE_TOURIST_ATTRACTION_BYID_DESCRIPTION = "This endpoint returns the information for the tourist attraction with the id";
+        public const string MESSAGE_TOURIST_ATTRACTION_BYNAME_SUMMARY = "Tourist attraction information by name";
+        public const string MESSAGE_TOURIST_ATTRACTION_BYNAME_DESCRIPTION = "This endpoint returns the information for the tourist attraction with the name provided";        
     }
 }

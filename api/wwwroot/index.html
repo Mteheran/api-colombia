@@ -5,17 +5,22 @@
  https://github.com/ticlekiwi/API-Documentation-HTML-Template
  !-->
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" lang="es">
   <head>
     <meta charset="utf-8" />
     <title>API - Colombia</title>
-    <meta name="description" content="" />
+    <meta name="description" content="API Colombia is a public RESTful API that enable users to obtain a 
+    variety of public information about the country '\'Colombia'\'"/>
     <meta name="author" content="ticlekiwi" />
-
     <meta http-equiv="cleartype" content="on" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:type" content="website"> 
+    <meta property="og:title" content="API Colombia is a public RESTful API that enable users to obtain a 
+    variety of public information about the country '\'Colombia'\'">
+    <meta property="og:url" content="https://api-colombia.com/"> 
+    <meta property="og:site_name" content="API Colombia">
     <link rel="stylesheet" href="css/hightlightjs-dark.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -58,7 +63,7 @@
       <div class="mobile-menu-closer"></div>
       <div class="content-menu">
         <div class="content-infos">
-            <a href="https://apicolombia.azurewebsites.net/swagger/index.html" target="_blank">
+            <a href="https://api-colombia.com/swagger/index.html" target="_blank">
              <div class="info"><b>View Swagger </div>
             </a>
             <a href="https://github.com/Mteheran/api-colombia" target="_blank">
@@ -97,7 +102,7 @@
 
     View Swagger
 
-    https://apicolombia.azurewebsites.net/swagger/index.html
+    https://api-colombia.com/swagger/index.html
                 </pre
           >
           <p>
@@ -187,13 +192,57 @@
           </p>
           <br />
           <pre><code class="json">
-
+  {
+  "$id": "1",
+  "$values": [
+  {
+  "$id": "2",
+  "id": 9,
+  "name": "Caquetá",
+  "description": "Caquetá es uno de los treinta y dos departamentos que, 
+  junto con Bogotá, Distrito Capital, forman la República de Colombia.
+  Su capital es Florencia. Está ubicado al sur del país, en la región 
+  Amazonia, limitando al norte con Meta y Guaviare, al noreste con 
+  Vaupés, al sur con Amazonas y Putumayo, y al oeste con Cauca y Huila.
+  Con 88 965 km² es el tercer departamento más extenso —por detrás 
+  de Amazonas y Vichada—. Todos sus municipios forman parte de 
+  los territorios focalizados",
+  "cityCapitalId": 364,
+  "municipalities": 16,
+  "surface": 88965,
+  "population": 419275,
+  "phonePrefix": "8",
+  "countryId": 1,
+  "cityCapital": null,
+  "country": null,
+  "cities": null
+  },
+  {
+  "$id": "3",
+  "id": 10,
+  "name": "Casanare",
+  "description": "Casanare es uno de los treinta y dos departamentos 
+  que, junto con Bogotá, Distrito Capital, forman la República de 
+  Colombia. Su capital es Yopal. Está ubicado en la región Orinoquía,
+  limitando al norte con Arauca, al este con Vichada, al sur con Meta
+  y al oeste con Boyacá. Con 44 490 km² es el décimo departamento 
+  más extenso —por detrás de Amazonas, Vichada",
+  "cityCapitalId": 380,
+  "municipalities": 19,
+  "surface": 44640,
+  "population": 442068,
+  "phonePrefix": "8",
+  "countryId": 1,
+  "cityCapital": null,
+  "country": null,
+  "cities": null
+  }
 </code>
         </div>
         <div class="overflow-hidden content-section" id="Get-tourists">
-            <h1>Get tourists</h1>
+            <h1>Get touristic attraction</h1>
             <pre>
-      Get tourists
+      Get touristic attraction
   
                   </pre
             >
@@ -203,6 +252,63 @@
              <code class="higlighted break-word"
              >/api/{version}/TouristicAttraction</code> 
             </p>
+            <br />
+            <pre><code class="json"> 
+{
+"$id": "1",
+"$values": [
+{
+"$id": "2",
+"id": 1,
+"name": "Museo del oro",
+"description": "El Museo del Oro del Banco de la República de Colombia
+es una institución pública la cual su fin es la adquisición, 
+conservación y exposición de piezas de orfebrería y alfarería 
+de culturas indígenas del periodo precolombino de la actual 
+Colombia, cuenta con más de 30 000 piezas hechas en oro, 20 000 
+de objetos líticos, cerámicos, piedras y textiles pertenecientes a
+las culturas Quimbaya, Calima, Tairona, Zenú, Muisca, Tolima, 
+Tumaco entre otros. Este museo se encuentra en el costado oriental
+del parque Santander, en el centro histórico de Bogotá cerca de 
+la estación de TransMilenio Museo del Oro.",
+"images": [
+"https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/BOG_Museo_del_Oro.JPG/800px-BOG_Museo_del_Oro.JPG"
+],
+"latitude": "4.601919",
+"longitude": "-74.072",
+"cityId": 167,
+"city": null
+},
+{
+  "$id": "3",
+  "id": 2,
+  "name": "Laguna del Cacique Guatavita",
+  "description": "La Laguna del Cacique Guatavita se encuentra en la 
+  cordillera oriental de Colombia, en la vereda tierra negra del 
+  municipio de Sesquilé, bajo jurisdicción de la corporación 
+  Corporación Autónoma Regional CAR, a una distancia de 75 km al 
+  nordeste de Bogotá, provincia de Almeidas de Cundinamarca. Para 
+  llegar, se accede por la autopista Norte hasta Sesquilé o por la 
+  vía Guasca - Sesquilé. La laguna está a una de altitud de 3100 m s. 
+  n. m. y a una temperatura de 5 a 11 °C. Es una depresión montañosa 
+  de forma perfectamente circular, con cerca 700 m de diámetro, 
+  rodeada de bosques nativos de encenillos. En la cordillera Oriental 
+  los lagos paramunos de mayor tamaño ocupan comúnmente antiguos 
+  circos glaciares, sin embargo, se cree que la depresión de la laguna
+  del cacique Guatavita se formó por un colapso por disolución 
+  de estratos salinos, lo que concuerda con las características 
+  geológicas de la región, donde hay grandes depósitos salinos como 
+  los de Zipaquirá, Nemocón y Tausa.",
+  "images": [
+  "https://upload.wikimedia.org/wikipedia/commons/6/64/LagunaDeGuatavita.jpg"
+  ],
+  "latitude": "4.977222",
+  "longitude": "-73.775556",
+  "cityId": 596,
+  "city": null
+}
+            </code>
+            </pre>
           </div>
           <div class="overflow-hidden content-section" id="Get-president">
             <h1>Get president</h1>
@@ -217,6 +323,60 @@
              <code class="higlighted break-word"
              >/api/{version}/President</code> 
             </p>
+            <br>
+            <pre><code class="json">
+{
+"$id": "1",
+"$values": [
+{
+"$id": "2",
+"id": 1,
+"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Jos%C3%A9_Mar%C3%ADa_Campo_Serrano_1.jpg/500px-Jos%C3%A9_Mar%C3%ADa_Campo_Serrano_1.jpg",
+"name": "José María",
+"lastName": "Campo Serrano",
+"startPeriodDate": "1886-08-05",
+"endPeriodDate": "1887-01-06",
+"politicalParty": "Partido Nacional",
+"description": "José María Campo Serrano (Santa Marta, 8 de septiembre
+de 1832-Santa Marta, 24 de febrero de 1915) fue un político, abogado
+y militar colombiano, miembro del extinto Partido Nacional 
+Colombiano. Ocupó varios cargos de importancia, siendo congresista, 
+gobernador en varias ocasiones del Estado Soberano del Magdalena 
+y jefe civil y militar de Antioquia durante la revolución de 1885. 
+También ejerció como ministro durante los gobiernos de Francisco 
+Javier Zaldúa, Ezequiel Hurtado y Rafael Núñez. Concurrió por 
+Antioquia al Consejo Nacional de Delegatarios. Campo fue elegido 
+designado presidencial para el período 1886-1888, siendo nombrado 
+presidente ante la ausencia del titular Rafael Núñez, de 1886 a 
+enero de 1887. En su corto mandato, Campo fue el encargado de 
+sancionar la nueva constitución de 1886, que estuvo vigente hasta 
+1991.",
+"cityId": 709,
+"city": null
+},
+{
+"$id": "3",
+"id": 2,
+"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Jos%C3%A9_Mar%C3%ADa_Campo_Serrano_1.jpg/320px-Jos%C3%A9_Mar%C3%ADa_Campo_Serrano_1.jpg",
+"name": "Eliseo",
+"lastName": "Payán Hurtado",
+"startPeriodDate": "1887-01-07",
+"endPeriodDate": "1887-06-04",
+"politicalParty": "Partido Nacional",
+"description": "José Eliseo Payán Hurtado (Cali, 1 de agosto de 1825-Buga,
+30 de junio de 1895) fue un estadista, abogado, militar y 
+político colombiano. Es conocido por su carrera política en 
+Buga y en Cauca, futuro Valle del Cauca. Payán fue el primer 
+vicepresidente de la actual Colombia, y también ocupó la presidencia 
+de la República entre enero y junio de 1887, como vicepresidente de 
+Rafael Núñez, quien estaba en licencia. Su mandato se caracterizó 
+por acercarse a los liberales radicales y por la moderación del 
+conservatismo, en el período conocido como la \"\"Payanización\"\".",
+"cityId": 1093,
+"city": null
+}
+</code>
+            </pre>
           </div>
         <div class="overflow-hidden content-section" id="Contributors">
           <h2>Contributors</h2>

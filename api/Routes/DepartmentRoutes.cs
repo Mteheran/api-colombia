@@ -1,43 +1,49 @@
-﻿namespace api.Routes
+﻿using api.Utils;
+using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace api.Routes
 {
     public static class DepartmentRoutes
     {
         public static void RegisterDepartmentAPI(WebApplication app)
         {
-            const string DEPARTMENT_ROUTE = "Department";
+            const string API_DEPARTMENT_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.DEPARTMENT_ROUTE}";
 
-            app.MapGet($"api/v1/{DEPARTMENT_ROUTE}", (DBContext db) =>
+            app.MapGet(API_DEPARTMENT_ROUTE_COMPLETE, (DBContext db) =>
             {
                 return Results.Ok(db.Departments.ToList());
-            });
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_DEPARMENT_LIST_SUMMARY, description: Messages.MESSAGE_DEPARMENT_LIST_DESCRIPTION));
 
-            app.MapGet($"api/v1/{DEPARTMENT_ROUTE}/{{id}}", async (int id, DBContext db) =>
+            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
-                var dept = await db.Departments.FindAsync(id);
+                var departament = await db.Departments
+                                            .Include(p=> p.CityCapital)
+                                            .SingleAsync(p=> p.Id == id);
 
-                if (dept != null)
-                {
-                    return Results.Ok(dept);
-                }
-                else 
-                {
-                    return Results.NotFound();                
-                }
-            });
-
-            app.MapGet($"api/v1/{DEPARTMENT_ROUTE}/Name/{{name}}", (string name, DBContext db) =>
-            {
-                var dept = db.Departments.Where(x => x.Name.ToUpper() == name.ToUpper()).ToList();
-
-                if (dept != null)
-                {
-                    return Results.Ok(dept);
-                }
-                else
+                if (departament is null)
                 {
                     return Results.NotFound();
                 }
-            });
+
+                return Results.Ok(departament);
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_DEPARMENT_BYID_SUMMARY, description: Messages.MESSAGE_DEPARMENT_BYID_DESCRIPTION));
+
+
+            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
+            {
+                var departments = db.Departments.Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToList();
+
+                if (departments is null)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(departments);
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_DEPARMENT_BYNAME_SUMMARY, description: Messages.MESSAGE_DEPARMENT_BYNAME_DESCRIPTION));
         }
     }
 }

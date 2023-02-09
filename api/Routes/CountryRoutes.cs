@@ -1,4 +1,5 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+﻿using api.Utils;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace api.Routes
 {
@@ -6,21 +7,19 @@ namespace api.Routes
     {
         public static void RegisterCountryAPI(WebApplication app)
         {
-            const string COUNTRY_ROUTE = "Country";
+            const string API_COUNTRY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.COUNTRY_ROUTE}";
 
-            app.MapGet($"api/v1/{COUNTRY_ROUTE}/Colombia", (DBContext db) =>
+            app.MapGet($"{API_COUNTRY_ROUTE_COMPLETE}/{Util.COLOMBIA}", (DBContext db) =>
             {
                 var country = db.Countries.FirstOrDefault();
-                if (country != null)
-                {
-                    return Task.FromResult(Results.Ok(country));
-                }
-                else
+                if (country is null)
                 {
                     return Task.FromResult(Results.NotFound());
                 }
-            }) 
-            .WithMetadata(new SwaggerOperationAttribute(summary: "This is the Colombian endpoint", description: "This endpoint return the information from Colombia"));
+
+                return Task.FromResult(Results.Ok(country));
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_COUNTRY_SUMMARY, description: Messages.MESSAGE_COUNTRY_DESCRIPTION));
         }
     }
 }

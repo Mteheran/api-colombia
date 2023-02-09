@@ -1,4 +1,4 @@
-﻿using api.Models;
+using api.Models;
 using api.Utils;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -13,7 +13,8 @@ namespace api.Routes
             app.MapGet(API_TOURISTIC_ROUTE_COMPLETE, (DBContext db) =>
             {
                 return Results.Ok(db.TouristAttractions.ToList());
-            });
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.EndpointMetadata.TouristAttractionsEndpoint.MESSAGE_TOURIST_ATTRACTION_LIST_SUMMARY, description: Messages.EndpointMetadata.TouristAttractionsEndpoint.MESSAGE_TOURIST_ATTRACTION_LIST_DESCRIPTION));
 
             app.MapGet($"{API_TOURISTIC_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
@@ -25,7 +26,8 @@ namespace api.Routes
                 }
 
                 return Results.Ok(turisticAtt);
-            });
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.EndpointMetadata.TouristAttractionsEndpoint.MESSAGE_TOURIST_ATTRACTION_BYID_SUMMARY, description: Messages.EndpointMetadata.TouristAttractionsEndpoint.MESSAGE_TOURIST_ATTRACTION_BYID_DESCRIPTION));
 
             app.MapGet($"{API_TOURISTIC_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
@@ -37,7 +39,8 @@ namespace api.Routes
                 }
 
                 return Results.Ok(turisticAtt);
-            });
+            })
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.EndpointMetadata.TouristAttractionsEndpoint.MESSAGE_TOURIST_ATTRACTION_BYNAME_SUMMARY, description: Messages.EndpointMetadata.TouristAttractionsEndpoint.MESSAGE_TOURIST_ATTRACTION_BYNAME_DESCRIPTION));
 
             app.MapGet($"{API_TOURISTIC_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
             {
@@ -53,8 +56,8 @@ namespace api.Routes
 
                 return Results.Ok(touristAttractions);
             })
-            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.EndpointMetadata.MESSAGE_PRESIDENT_SEARCH_SUMMARY, description: Messages.EndpointMetadata.MESSAGE_PRESIDENT_SEARCH_DESCRIPTION));
-
+            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.EndpointMetadata.TouristAttractionsEndpoint.MESSAGE_TOURIST_ATTRACTION_SEARCH_SUMMARY, description: Messages.EndpointMetadata.TouristAttractionsEndpoint.MESSAGE_TOURIST_ATTRACTION_SEARCH_DESCRIPTION));
+          
         }
     }
 }

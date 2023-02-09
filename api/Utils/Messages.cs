@@ -38,14 +38,14 @@
 
             public struct TouristAttractionsEndpoint
             {
-                public const string MESSAGE_TOURISTATTRACTION_LIST_SUMMARY = "List of touristic attractions in Colombia";
-                public const string MESSAGE_TOURISTATTRACTION_LIST_DESCRIPTION = " This endpoint returns a list of touristic attractions including information about the city where they are located, the latitude and Longitude and image";
-                public const string MESSAGE_TOURISTATTRACTION_BYNAME_SUMMARY = "Touristic attraction by name";
-                public const string MESSAGE_TOURISTATTRACTION_BYNAME_DESCRIPTION = "This endpoint returns an specific touristic attraction by the specified name";
-                public const string MESSAGE_TOURISTATTRACTION_BYID_SUMMARY = "Touristic attraction by id";
-                public const string MESSAGE_TOURISTATTRACTION_BYID_DESCRIPTION = "This endpoint returns an specific touristic attraction by the specified id";
-                public const string MESSAGE_TOURISTATTRACTION_SEARCH_SUMMARY = "Search touristic attractions by keyword ";
-                public const string MESSAGE_TOURISTATTRACTION_SEARCH_DESCRIPTION = "This endpoint returns a list of touristic attractions any of the following fields(Name, Description,LastName,Latitude, Longitude) match the supplied keyword ";
+                public const string MESSAGE_TOURIST_ATTRACTION_LIST_SUMMARY = "List of touristic attractions in Colombia";
+                public const string MESSAGE_TOURIST_ATTRACTION_LIST_DESCRIPTION = " This endpoint returns a list of touristic attractions including information about the city where they are located, the latitude and Longitude and image";
+                public const string MESSAGE_TOURIST_ATTRACTION_BYNAME_SUMMARY = "Touristic attraction by name";
+                public const string MESSAGE_TOURIST_ATTRACTION_BYNAME_DESCRIPTION = "This endpoint returns an specific touristic attraction by the specified name";
+                public const string MESSAGE_TOURIST_ATTRACTION_BYID_SUMMARY = "Touristic attraction by id";
+                public const string MESSAGE_TOURIST_ATTRACTION_BYID_DESCRIPTION = "This endpoint returns an specific touristic attraction by the specified id";
+                public const string MESSAGE_TOURIST_ATTRACTION_SEARCH_SUMMARY = "Search touristic attractions by keyword ";
+                public const string MESSAGE_TOURIST_ATTRACTION_SEARCH_DESCRIPTION = "This endpoint returns a list of touristic attractions any of the following fields(Name, Description,LastName,Latitude, Longitude) match the supplied keyword ";
 
             }
 

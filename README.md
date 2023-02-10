@@ -22,8 +22,9 @@ API Colombia is a public RESTful API that enable users to obtain a variety of pu
 * Run `dotnet build` command to generate the build of the project.
 
 ## Usage
-Public URL: https://api-colombia.com/
-* Swagger documentation can be found in the URL: https://api-colombia.com/swagger/index.html
+Public page [api-colombia.com](https://api-colombia.com/) has useful information about the API and a brief description of the available endpoints and the same allows access to the endpoints described bellow.
+
+* Swagger documentation can be found in the following [URL](https://api-colombia.com/swagger/index.html)
 
 ## API Endpoints
 | HTTP Verbs | Endpoints                             | Action                                                               |
@@ -92,4 +93,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 ## License
-*Open Source*
+MIT License

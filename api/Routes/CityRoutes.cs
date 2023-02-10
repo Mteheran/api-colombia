@@ -2,6 +2,7 @@
 using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
+using CityEndpointMetadataMessages = api.Utils.Messages.EndpointMetadata.CityEndpoint;
 
 namespace api.Routes
 {
@@ -15,7 +16,10 @@ namespace api.Routes
             {
                 return Results.Ok(db.Cities.ToList());
             })
-            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.EndpointMetadata.MESSAGE_CITY_LIST_SUMMARY, description: Messages.EndpointMetadata.MESSAGE_CITY_LIST_DESCRIPTION));
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: CityEndpointMetadataMessages.MESSAGE_CITY_LIST_SUMMARY,
+                 description: CityEndpointMetadataMessages.MESSAGE_CITY_LIST_DESCRIPTION
+                 ));
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
@@ -28,7 +32,10 @@ namespace api.Routes
 
                 return Results.Ok(city);
             })
-            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.EndpointMetadata.MESSAGE_CITY_BYID_SUMMARY, description: Messages.EndpointMetadata.MESSAGE_CITY_BYID_DESCRIPTION));
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: CityEndpointMetadataMessages.MESSAGE_CITY_BYID_SUMMARY,
+                 description: CityEndpointMetadataMessages.MESSAGE_CITY_BYID_DESCRIPTION
+                 ));
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
@@ -41,7 +48,10 @@ namespace api.Routes
 
                 return Results.Ok(city);
             })
-            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.EndpointMetadata.MESSAGE_CITY_BYNAME_SUMMARY, description: Messages.EndpointMetadata.MESSAGE_CITY_BYNAME_DESCRIPTION));
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: CityEndpointMetadataMessages.MESSAGE_CITY_BYNAME_SUMMARY, 
+                description: CityEndpointMetadataMessages.MESSAGE_CITY_BYNAME_DESCRIPTION
+                ));
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
             {
@@ -57,7 +67,10 @@ namespace api.Routes
 
                 return Results.Ok(cities);
             })
-            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.EndpointMetadata.MESSAGE_CITY_SEARCH_SUMMARY, description: Messages.EndpointMetadata.MESSAGE_CITY_SEARCH_DESCRIPTION));
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: CityEndpointMetadataMessages.MESSAGE_CITY_SEARCH_SUMMARY,
+                 description: CityEndpointMetadataMessages.MESSAGE_CITY_SEARCH_DESCRIPTION
+                 ));
 
 
         }

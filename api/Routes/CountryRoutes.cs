@@ -1,5 +1,6 @@
 ﻿using api.Utils;
 using Swashbuckle.AspNetCore.Annotations;
+using CountryEndpointMetadataMessages = api.Utils.Messages.EndpointMetadata.CountryEndpoint;
 
 namespace api.Routes
 {
@@ -19,7 +20,10 @@ namespace api.Routes
 
                 return Task.FromResult(Results.Ok(country));
             })
-            .WithMetadata(new SwaggerOperationAttribute(summary: Messages.MESSAGE_COUNTRY_SUMMARY, description: Messages.MESSAGE_COUNTRY_DESCRIPTION));
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: CountryEndpointMetadataMessages.MESSAGE_COUNTRY_SUMMARY, 
+                description: CountryEndpointMetadataMessages.MESSAGE_COUNTRY_DESCRIPTION
+                ));
         }
     }
 }

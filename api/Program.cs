@@ -42,7 +42,7 @@ builder.Services.AddNpgsql<DBContext>(builder.Configuration.GetConnectionString(
 
 builder.Services.Configure<JsonOptions>(options =>
 {
-    options.SerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
 });
 

@@ -23,6 +23,11 @@ namespace api.Routes
 
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
+                if (id <= 0)
+                {
+                    return Results.NotFound();
+                }
+
                 var departament = await db.Departments
                                             .Include(p => p.CityCapital)
                                             .SingleAsync(p => p.Id == id);

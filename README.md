@@ -11,7 +11,7 @@ API Colombia is a public RESTful API that enable users to obtain a variety of pu
   - Presidents.
   - Tourist attractions.
 * Swagger documentation 
-* Does not requiere  authentication.
+* Does not require authentication.
 ## Versions
 * 1.0
 ## Installation Guide

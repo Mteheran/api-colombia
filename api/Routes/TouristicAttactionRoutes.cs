@@ -20,6 +20,11 @@ namespace api.Routes
 
             app.MapGet($"{API_TOURISTIC_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
+                if (id <= 0)
+                {
+                    return Results.NotFound();
+                }
+
                 var turisticAtt = await db.TouristAttractions.FindAsync(id);
 
                 if (turisticAtt is null)

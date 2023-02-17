@@ -25,12 +25,12 @@ namespace api.Routes
             {
                 if (id <= 0)
                 {
-                    return Results.NotFound();
+                    return Results.BadRequest();
                 }
 
                 var president = await db.Presidents
                                         .Include(p => p.City)
-                                        .SingleAsync(p => p.Id == id);
+                                        .SingleOrDefaultAsync(p => p.Id == id);
 
                 if (president is null)
                 {
@@ -94,6 +94,38 @@ namespace api.Routes
             summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_SEARCH_SUMMARY, 
             description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_SEARCH_DESCRIPTION
             ));
+
+            app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/pagedList",
+            async (PaginationModel pagination, DBContext db) =>
+            {
+
+                if (pagination.Page <= 0 || pagination.PageSize <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var presidentsPaged = db.Presidents.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
+
+                if (await presidentsPaged?.CountAsync() == 0)
+                {
+                    return Results.NotFound();
+                }
+
+                var paginationResponse = new PaginationResponseModel<President>
+                {
+                    Page = pagination.Page,
+                    PageSize = pagination.PageSize,
+                    TotalRecords = await db.Presidents.CountAsync(),
+                    Data = await presidentsPaged.ToListAsync(),
+
+                };
+
+                return Results.Ok(paginationResponse);
+            })
+   .WithMetadata(new SwaggerOperationAttribute(
+       summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_PAGEDLIST_SUMMARY,
+        description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_PAGEDLIST_DESCRIPTION
+        ));
 
         }
     }

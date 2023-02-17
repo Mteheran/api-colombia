@@ -25,4 +25,7 @@
     <Folder Include="Data\Configs\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20230217165940_RegionTable.Designer.cs" />
+  </ItemGroup>
 </Project>

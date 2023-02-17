@@ -71,7 +71,12 @@
                 public const string MESSAGE_TOURIST_ATTRACTION_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of touristic attractions using pagination including page, pagesize, total records and data, example api/v1/TouristicAttraction/pagedList?page=1&pagesize=10";
             }
 
-        }
+            public struct RegionEndpoint
+            {
+                public const string MESSAGE_REGION_LIST_SUMMARY = "List of regions in Colombia";
+                public const string MESSAGE_REGION_LIST_DESCRIPTION = " This endpoint returns a list of regions in Colombia";
+            }
 
+        }
     }
 }

@@ -29,20 +29,29 @@ Public page [api-colombia.com](https://api-colombia.com/) has useful information
 ## API Endpoints
 | HTTP Verbs | Endpoints                             | Action                                                               |
 | ---------- | ------------------------------------- | -------------------------------------------------------------------- |
-| GET        | /api/{version}/city                   | Get the list of all the cities                                       |
+| GET        | /api/{version}/city                   | Get the list of all cities                                           |
 | GET        | /api/{version}/city/{id}              | Get the information of a city by it is id                            |
 | GET        | /api/{version}/city/name/{name}       | Get the information of a city by it is name                          |
+| GET        | /api/{version}/city/search/{keyword}  | Get the information of a city searching by keyword                   |
+| GET        | /api/{version}/city/pagedList         | Get the list of all cities paginated                                 |
 | GET        | /api/{version}/country/Colombia       | Get the information of Colombia                                      |
-| GET        | /api/{version}/Department             | Get the list of all the departments in Colombia                      |
+| GET        | /api/{version}/Department             | Get the list of all departments in Colombia                          |
 | GET        | /api/{version}/Department/{id}        | Get the information of a department by it is id                      |
 | GET        | /api/{version}/Department/name/{name} | Get the information of a department by it is name                    |
-| GET        | /api/{version}/President              | Get the list of all the presidents in Colombia                       |
+| GET        | /api/{version}/Department/search/{keyword} | Get the information of a department searching by keyword        |
+| GET        | /api/{version}/Department/pagedList   | Get the list of all department paginated                             |
+| GET        | /api/{version}/Region                 | Get the list of all regions in Colombia                              |
+| GET        | /api/{version}/President              | Get the list of all presidents in Colombia                           |
 | GET        | /api/{version}/President/{id}         | Get the information of a president by it is id                       |
 | GET        | /api/{version}/President/name/{name}  | Get the information of a president by it is name                     |
 | GET        | /api/{version}/President/year/{name}  | Get the information of a president that ruled during a specific year |
-| GET        | /api/{version}/TouristicAttraction             | Get the list of all the touristic attractions in Colombia                      |
+| GET        | /api/{version}/President/search/{keyword}      | Get the information of a president searching by keyword                        |
+| GET        | /api/{version}/President/pagedList    | Get the list of all presidents paginated                             |
+| GET        | /api/{version}/TouristicAttraction             | Get the list of all touristic attractions in Colombia                          |
 | GET        | /api/{version}/TouristicAttraction/{id}        | Get the information of a touristic attraction by it is id                      |
-| GET        | /api/{version}/TouristicAttraction/name/{name} | Get the information of a touristic attaction by it is name                    |
+| GET        | /api/{version}/TouristicAttraction/name/{name} | Get the information of a touristic attaction by it is name                     |
+| GET        | /api/{version}/TouristicAttraction/search/{keyword} | Get the information of a touristic attaction searching by keyword         |
+| GET        | /api/{version}/TouristicAttraction/pagedList   | Get the list of all touristic attractions paginated                            |
 
 ## Response Example 
 * Content type: "application/json". Responses are JSON Objects. 

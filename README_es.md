@@ -1,7 +1,7 @@
 # API-COLOMBIA
 
 ## Introducción
-API Colombia es una API pública RESTful que permite a los usuarios obtener una variedad de información pública sobre el país "Colombia".
+API Colombia es una API pública RESTful que permite a los usuarios obtener una variedad de información pública sobre Colombia.
 
 ## Características de soporte del proyecto
 * Minimal API's endpoints para obtener información sobre:
@@ -14,6 +14,7 @@ API Colombia es una API pública RESTful que permite a los usuarios obtener una 
 * No requiere autenticación.
 ## Versiones
 * 1.0
+
 ## Guía de instalación
 * Clona este repositorio [aquí](https://github.com/Mteheran/api-colombia).
 * La rama "develop" es la rama más estable en cualquier momento, asegúrate de estar trabajando en ella.

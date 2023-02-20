@@ -3,6 +3,8 @@
 ## Introduction
 API Colombia is a public RESTful API that enable users to obtain a variety of public information about the country "Colombia".
 
+Read this document in [Español](/README_es.md)
+
 ## Project Support Features
 * Minimal API's endpoints to get information about:
   - General information about the country.

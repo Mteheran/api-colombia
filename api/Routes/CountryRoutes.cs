@@ -15,10 +15,10 @@ namespace api.Routes
                 var country = db.Countries.FirstOrDefault();
                 if (country is null)
                 {
-                    return Task.FromResult(Results.NotFound());
+                    return Results.NotFound();
                 }
 
-                return Task.FromResult(Results.Ok(country));
+                return Results.Ok(country);
             })
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: CountryEndpointMetadataMessages.MESSAGE_COUNTRY_SUMMARY, 

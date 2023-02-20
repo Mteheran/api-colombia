@@ -20,6 +20,12 @@
                 public const string MESSAGE_DEPARMENT_BYNAME_DESCRIPTION = "This endpoint returns the information for the deparment with the provided name";
                 public const string MESSAGE_DEPARMENT_SEARCH_SUMMARY = "Search departments by keyword ";
                 public const string MESSAGE_DEPARMENT_SEARCH_DESCRIPTION = "This endpoint returns a list of departments any of the following fields(Name, Description, PhonePrefix) match the provided keyword ";
+                public const string MESSAGE_DEPARMENT_PAGEDLIST_SUMMARY = "List of deparments using pagination - api/v1/deparment/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_DEPARMENT_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of deparments using pagination including page, pagesize, total records and data, example api/v1/deparment/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_DEPARMENT_CITIES_SUMMARY = "List of cities by deparmentId";
+                public const string MESSAGE_DEPARMENT_CITIES_DESCRIPTION = "This endpoint returns a list of cities filtered by deparmentid";
+
+
             }
             public struct CityEndpoint
             {
@@ -31,6 +37,9 @@
                 public const string MESSAGE_CITY_BYNAME_DESCRIPTION = "This endpoint returns the information for the city with the provided name";
                 public const string MESSAGE_CITY_SEARCH_SUMMARY = "Search cities by keyword ";
                 public const string MESSAGE_CITY_SEARCH_DESCRIPTION = "This endpoint returns a list of cities any of the following fields(Name, Description, PostalCode) match the provided keyword ";
+                public const string MESSAGE_CITY_PAGEDLIST_SUMMARY = "List of cities using pagination - api/v1/city/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_CITY_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of cities using pagination including page, pagesize, total records and data, example api/v1/city/pagedList?page=1&pagesize=10";
+
             }
             public struct PresidentEndpoint
             {
@@ -44,6 +53,8 @@
                 public const string MESSAGE_PRESIDENT_BYYEAR_DESCRIPTION = "This endpoint returns the president or presidents in the provided year";
                 public const string MESSAGE_PRESIDENT_SEARCH_SUMMARY = "Search presidents by keyword ";
                 public const string MESSAGE_PRESIDENT_SEARCH_DESCRIPTION = "This endpoint returns a list of presidents any of the following fields(Name, Description, PoliticalParty,LastName) match the provided keyword ";
+                public const string MESSAGE_PRESIDENT_PAGEDLIST_SUMMARY = "List of presidents using pagination - api/v1/president/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_PRESIDENT_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of presidents using pagination including page, pagesize, total records and data, example api/v1/president/pagedList?page=1&pagesize=10";
             }
 
             public struct TouristAttractionsEndpoint
@@ -56,10 +67,31 @@
                 public const string MESSAGE_TOURIST_ATTRACTION_BYID_DESCRIPTION = "This endpoint returns an specific touristic attraction by the provided id";
                 public const string MESSAGE_TOURIST_ATTRACTION_SEARCH_SUMMARY = "Search touristic attractions by keyword ";
                 public const string MESSAGE_TOURIST_ATTRACTION_SEARCH_DESCRIPTION = "This endpoint returns a list of touristic attractions any of the following fields(Name, Description,LastName,Latitude, Longitude) match the provided keyword ";
+                public const string MESSAGE_TOURIST_ATTRACTION_PAGEDLIST_SUMMARY = "List of touristic attraction using pagination - api/v1/TouristicAttraction/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_TOURIST_ATTRACTION_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of touristic attractions using pagination including page, pagesize, total records and data, example api/v1/TouristicAttraction/pagedList?page=1&pagesize=10";
+            }
+
+            public struct RegionEndpoint
+            {
+                public const string MESSAGE_REGION_LIST_SUMMARY = "List of regions in Colombia";
+                public const string MESSAGE_REGION_LIST_DESCRIPTION = " This endpoint returns a list of regions in Colombia";
+            }
+
+            public struct ParamoEndpoint
+            {
+                public const string MESSAGE_PARAMO_LIST_SUMMARY = "List of Paramos in Colombia";
+                public const string MESSAGE_PARAMO_LIST_DESCRIPTION = "This endpoint returns a list of Paramos in Colombia";
+                public const string MESSAGE_PARAMO_BYID_SUMMARY = "Paramo information by Id";
+                public const string MESSAGE_PARAMO_BYID_DESCRIPTION = "This endpoint returns the information for the Paramo with the provided id";
+                public const string MESSAGE_PARAMO_BYNAME_SUMMARY = "Paramo information by name";
+                public const string MESSAGE_PARAMO_BYNAME_DESCRIPTION = "This endpoint returns the information for the Paramo with the provided name";
+                public const string MESSAGE_PARAMO_SEARCH_SUMMARY = "Search Paramos by keyword ";
+                public const string MESSAGE_PARAMO_SEARCH_DESCRIPTION = "This endpoint returns a list of Paramos any of the following fields(Name, Description) match the provided keyword ";
+                public const string MESSAGE_PARAMO_PAGEDLIST_SUMMARY = "List of paramos using pagination - api/v1/paramo/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_PARAMO_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of paramos using pagination including page, pagesize, total records and data, example api/v1/paramo/pagedList?page=1&pagesize=10";
 
             }
 
         }
-
     }
 }

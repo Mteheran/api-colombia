@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using api;
@@ -11,9 +12,10 @@ using api;
 namespace api.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20230217170431_RegionTable")]
+    partial class RegionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,35 +174,6 @@ namespace api.Migrations
                     b.ToTable("Department", (string)null);
                 });
 
-            modelBuilder.Entity("api.Models.Paramo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<float?>("Surface")
-                        .HasColumnType("real");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.ToTable("Paramo", (string)null);
-                });
-
             modelBuilder.Entity("api.Models.President", b =>
                 {
                     b.Property<int>("Id")
@@ -262,13 +235,11 @@ namespace api.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Region", (string)null);
+                    b.ToTable("Region");
                 });
 
             modelBuilder.Entity("api.Models.TouristAttraction", b =>
@@ -342,17 +313,6 @@ namespace api.Migrations
                     b.Navigation("Region");
                 });
 
-            modelBuilder.Entity("api.Models.Paramo", b =>
-                {
-                    b.HasOne("api.Models.City", "City")
-                        .WithMany("Paramos")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
-                });
-
             modelBuilder.Entity("api.Models.President", b =>
                 {
                     b.HasOne("api.Models.City", "City")
@@ -381,8 +341,6 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.City", b =>
                 {
-                    b.Navigation("Paramos");
-
                     b.Navigation("Presidents");
 
                     b.Navigation("TouristAttractions");

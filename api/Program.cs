@@ -50,10 +50,12 @@ var app = builder.Build();
 
 InfoRoutes.RegisterInfoAPI(app);
 CountryRoutes.RegisterCountryAPI(app);
+RegionRoutes.RegisterRegionAPI(app);
 DepartmentRoutes.RegisterDepartmentAPI(app);
 CityRoutes.RegisterCityAPI(app);
 PresidentRoutes.RegisterPresidentApi(app);
 TuristicAttactionRoutes.RegisterTuristicAttactionAPI(app);
+
 
 app.UseDefaultFiles();
 app.UseStaticFiles();

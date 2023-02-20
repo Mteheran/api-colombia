@@ -14,5 +14,7 @@
         public virtual City CityCapital {get;set;}
         public virtual Country Country {get;set;}
         public ICollection<City> Cities {get;set;}
+        public int? RegionId { get; set; }
+        public virtual Region Region { get; set; }
     }
 }

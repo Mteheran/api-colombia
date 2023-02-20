@@ -16,6 +16,8 @@ public class DepartamentConfig : IEntityTypeConfiguration<Department>
         deparment.Property(p => p.Surface);
         deparment.Property(p => p.PhonePrefix).HasMaxLength(5);
         deparment.Property(p => p.CountryId);
+        deparment.Property(p => p.RegionId).IsRequired(false);
         deparment.HasOne(p => p.Country).WithMany(p => p.Departments).HasForeignKey(p => p.CountryId);
+        deparment.HasOne(p => p.Region).WithMany(p => p.Departments).HasForeignKey(p => p.RegionId);
     }
 }

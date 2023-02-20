@@ -23,7 +23,12 @@ namespace api.Routes
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
-                var city = await db.Cities.Include(p=> p.Departament).SingleAsync(p=> p.Id == id);
+                if (id <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var city = await db.Cities.Include(p=> p.Departament).SingleOrDefaultAsync(p=> p.Id == id);
 
                 if (city is null)
                 {
@@ -71,6 +76,39 @@ namespace api.Routes
                 summary: CityEndpointMetadataMessages.MESSAGE_CITY_SEARCH_SUMMARY,
                  description: CityEndpointMetadataMessages.MESSAGE_CITY_SEARCH_DESCRIPTION
                  ));
+
+
+            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/pagedList",
+                    async (PaginationModel pagination, DBContext db) =>
+            {
+
+                if (pagination.Page<= 0 || pagination.PageSize <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var cities = db.Cities.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
+
+                if (await cities?.CountAsync() == 0)
+                {
+                    return Results.NotFound();
+                }
+
+                var paginationResponse = new PaginationResponseModel<City>
+                {
+                    Page = pagination.Page,
+                    PageSize = pagination.PageSize,
+                    TotalRecords = await db.Cities.CountAsync(),
+                    Data = await cities.ToListAsync(),
+
+                };
+
+                return Results.Ok(paginationResponse);
+            })
+           .WithMetadata(new SwaggerOperationAttribute(
+               summary: CityEndpointMetadataMessages.MESSAGE_CITY_PAGEDLIST_SUMMARY,
+                description: CityEndpointMetadataMessages.MESSAGE_CITY_SEARCH_DESCRIPTION
+                ));
 
 
         }

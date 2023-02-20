@@ -1,6 +1,7 @@
 using api.Models;
 using api.Utils;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.EntityFrameworkCore;
 using TouristAttractionEndpointMetadata =api.Utils.Messages.EndpointMetadata.TouristAttractionsEndpoint ;
 namespace api.Routes
 {
@@ -20,7 +21,14 @@ namespace api.Routes
 
             app.MapGet($"{API_TOURISTIC_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
-                var turisticAtt = await db.TouristAttractions.FindAsync(id);
+                if (id <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var turisticAtt = await db.TouristAttractions
+                .Include(p=> p.City)
+                .SingleOrDefaultAsync(p=> p.Id == id);
 
                 if (turisticAtt is null)
                 {
@@ -65,7 +73,39 @@ namespace api.Routes
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_SEARCH_SUMMARY, 
                 description: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_SEARCH_DESCRIPTION));
-          
+
+            app.MapGet($"{API_TOURISTIC_ROUTE_COMPLETE}/pagedList",
+           async (PaginationModel pagination, DBContext db) =>
+           {
+
+               if (pagination.Page <= 0 || pagination.PageSize <= 0)
+               {
+                   return Results.BadRequest();
+               }
+
+               var touristAttractionsPaged = db.TouristAttractions.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
+
+               if (await touristAttractionsPaged?.CountAsync() == 0)
+               {
+                   return Results.NotFound();
+               }
+
+               var paginationResponse = new PaginationResponseModel<TouristAttraction>
+               {
+                   Page = pagination.Page,
+                   PageSize = pagination.PageSize,
+                   TotalRecords = await db.Presidents.CountAsync(),
+                   Data = await touristAttractionsPaged.ToListAsync(),
+
+               };
+
+               return Results.Ok(paginationResponse);
+           })
+  .WithMetadata(new SwaggerOperationAttribute(
+      summary: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_PAGEDLIST_SUMMARY,
+       description: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_PAGEDLIST_DESCRIPTION
+       ));
+
         }
     }
 }

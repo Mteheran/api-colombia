@@ -2,7 +2,7 @@
 using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
-using DeparmentEndpointMetadataMessages = api.Utils.Messages.EndpointMetadata.DepartmentEndpoint;
+using DepartmentEndpointMetadataMessages = api.Utils.Messages.EndpointMetadata.DepartmentEndpoint;
 
 namespace api.Routes
 {
@@ -17,8 +17,8 @@ namespace api.Routes
                 return Results.Ok(await db.Departments.ToListAsync());
             })
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_LIST_SUMMARY,
-                description: DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_LIST_DESCRIPTION
+                summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_LIST_SUMMARY,
+                description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_LIST_DESCRIPTION
                 ));
 
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
@@ -40,8 +40,8 @@ namespace api.Routes
                 return Results.Ok(departament);
             })
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_BYID_SUMMARY,
-                description: DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_BYID_DESCRIPTION
+                summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_BYID_SUMMARY,
+                description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_BYID_DESCRIPTION
                 ));
 
 
@@ -52,18 +52,18 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var listOfCitiesByDeparment = db.Cities.Where(p => p.DepartamentId == id);
+                var listOfCitiesByDepartment = db.Cities.Where(p => p.DepartamentId == id);
 
-                if (listOfCitiesByDeparment is null)
+                if (listOfCitiesByDepartment is null)
                 {
                     return Results.NotFound();
                 }
 
-                return Results.Ok(listOfCitiesByDeparment);
+                return Results.Ok(listOfCitiesByDepartment);
             })
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_CITIES_SUMMARY,
-                description: DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_CITIES_DESCRIPTION
+                summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_CITIES_SUMMARY,
+                description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_CITIES_DESCRIPTION
                 ));
 
 
@@ -79,8 +79,8 @@ namespace api.Routes
                 return Results.Ok(departments);
             })
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_BYNAME_SUMMARY,
-                description: DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_BYNAME_DESCRIPTION
+                summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_BYNAME_SUMMARY,
+                description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_BYNAME_DESCRIPTION
                 ));
 
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
@@ -98,8 +98,8 @@ namespace api.Routes
                 return Results.Ok(departments);
             })
             .WithMetadata(new SwaggerOperationAttribute(
-                summary:DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_SEARCH_SUMMARY, 
-                description: DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_SEARCH_DESCRIPTION
+                summary:DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_SEARCH_SUMMARY, 
+                description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_SEARCH_DESCRIPTION
                 ));
 
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/pagedList",
@@ -130,8 +130,8 @@ namespace api.Routes
                       return Results.Ok(paginationResponse);
                   })
          .WithMetadata(new SwaggerOperationAttribute(
-             summary: DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_PAGEDLIST_SUMMARY,
-              description: DeparmentEndpointMetadataMessages.MESSAGE_DEPARMENT_PAGEDLIST_DESCRIPTION
+             summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_PAGEDLIST_SUMMARY,
+              description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_PAGEDLIST_DESCRIPTION
               ));
         }
     }

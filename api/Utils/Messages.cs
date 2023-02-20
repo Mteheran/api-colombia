@@ -12,25 +12,25 @@
 
             public struct DepartmentEndpoint
             {
-                public const string MESSAGE_DEPARMENT_LIST_SUMMARY = "List of deparments in Colombia";
-                public const string MESSAGE_DEPARMENT_LIST_DESCRIPTION = "This endpoint returns the deparments in colombia including a general info like description, phone prefix, capital city, etc...";
-                public const string MESSAGE_DEPARMENT_BYID_SUMMARY = "Deparment information by Id";
-                public const string MESSAGE_DEPARMENT_BYID_DESCRIPTION = "This endpoint returns the information for the deparment with the provided id";
-                public const string MESSAGE_DEPARMENT_BYNAME_SUMMARY = "Deparment information by name";
-                public const string MESSAGE_DEPARMENT_BYNAME_DESCRIPTION = "This endpoint returns the information for the deparment with the provided name";
-                public const string MESSAGE_DEPARMENT_SEARCH_SUMMARY = "Search departments by keyword ";
-                public const string MESSAGE_DEPARMENT_SEARCH_DESCRIPTION = "This endpoint returns a list of departments any of the following fields(Name, Description, PhonePrefix) match the provided keyword ";
-                public const string MESSAGE_DEPARMENT_PAGEDLIST_SUMMARY = "List of deparments using pagination - api/v1/deparment/pagedList?page=1&pagesize=10";
-                public const string MESSAGE_DEPARMENT_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of deparments using pagination including page, pagesize, total records and data, example api/v1/deparment/pagedList?page=1&pagesize=10";
-                public const string MESSAGE_DEPARMENT_CITIES_SUMMARY = "List of cities by deparmentId";
-                public const string MESSAGE_DEPARMENT_CITIES_DESCRIPTION = "This endpoint returns a list of cities filtered by deparmentid";
+                public const string MESSAGE_DEPARTMENT_LIST_SUMMARY = "List of departments in Colombia";
+                public const string MESSAGE_DEPARTMENT_LIST_DESCRIPTION = "This endpoint returns the departments in colombia including a general info like description, phone prefix, capital city, etc...";
+                public const string MESSAGE_DEPARTMENT_BYID_SUMMARY = "Department information by Id";
+                public const string MESSAGE_DEPARTMENT_BYID_DESCRIPTION = "This endpoint returns the information for the department with the provided id";
+                public const string MESSAGE_DEPARTMENT_BYNAME_SUMMARY = "Department information by name";
+                public const string MESSAGE_DEPARTMENT_BYNAME_DESCRIPTION = "This endpoint returns the information for the department with the provided name";
+                public const string MESSAGE_DEPARTMENT_SEARCH_SUMMARY = "Search departments by keyword ";
+                public const string MESSAGE_DEPARTMENT_SEARCH_DESCRIPTION = "This endpoint returns a list of departments any of the following fields(Name, Description, PhonePrefix) match the provided keyword ";
+                public const string MESSAGE_DEPARTMENT_PAGEDLIST_SUMMARY = "List of departments using pagination - api/v1/department/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_DEPARTMENT_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of departments using pagination including page, pagesize, total records and data, example api/v1/department/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_DEPARTMENT_CITIES_SUMMARY = "List of cities by departmentId";
+                public const string MESSAGE_DEPARTMENT_CITIES_DESCRIPTION = "This endpoint returns a list of cities filtered by departmentid";
 
 
             }
             public struct CityEndpoint
             {
                 public const string MESSAGE_CITY_LIST_SUMMARY = "List of cities in Colombia";
-                public const string MESSAGE_CITY_LIST_DESCRIPTION = "This endpoint returns the cities in colombia including general info like description, deparment, Surface city, etc...";
+                public const string MESSAGE_CITY_LIST_DESCRIPTION = "This endpoint returns the cities in colombia including general info like description, department, Surface city, etc...";
                 public const string MESSAGE_CITY_BYID_SUMMARY = "City information by Id";
                 public const string MESSAGE_CITY_BYID_DESCRIPTION = "This endpoint returns the information for the city with the provided id";
                 public const string MESSAGE_CITY_BYNAME_SUMMARY = "City information by name";

@@ -118,12 +118,22 @@
                <ol>
                 <li>General information about the country.</li>
                 <li>Departments/States.</li>
+                <li>Region.</li>
                 <li>Cities.</li>
                 <li>Presidents.</li>
                 <li>Tourist attractions.</li>
                </ol>
                <li>Swagger documentation.</li>
                <li>Does not requiere authentications.</li>
+               <li>You can obtain the pageList endpoints that return the paged information.
+                <br>add to the end of each endpoint <strong>/pagedList</strong>
+                <p>
+                  example:
+                <br/>
+                <code class="higlighted break-word"
+                >/api/{version}/city/pagedList</code> 
+                </p>
+               </li>
             </ul>
           </p>
         </div>
@@ -214,6 +224,59 @@
   "country": null,
   "cities": null
   }
+</code>
+        </div>
+        <div class="overflow-hidden content-section" id="Get-departament">
+          <h2>Get Region</h2>
+          <pre class="json">
+      Get Region
+  </pre>
+          <p>
+            Get the list of all regions in Colombia<br />
+            <code class="higlighted break-word"
+              >/api/{version}/Region</code
+            >
+          </p>
+          <br />
+          <pre><code class="json">
+[
+{
+"id": 1,
+"name": "Caribe",
+"description": null,
+"departments": null
+},
+{
+"id": 2,
+"name": "Pacífico",
+"description": null,
+"departments": null
+},
+{
+"id": 3,
+"name": "Orinoquía",
+"description": null,
+"departments": null
+},
+{
+"id": 4,
+"name": "Amazonía",
+"description": null,
+"departments": null
+},
+{
+"id": 5,
+"name": "Andina",
+"description": null,
+"departments": null
+},
+{
+"id": 6,
+"name": "Insular",
+"description": null,
+"departments": null
+}
+]
 </code>
         </div>
         <div class="overflow-hidden content-section" id="Get-tourists">

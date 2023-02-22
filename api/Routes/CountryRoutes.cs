@@ -10,7 +10,7 @@ namespace api.Routes
         {
             const string API_COUNTRY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.COUNTRY_ROUTE}";
 
-            app.MapGet($"{API_COUNTRY_ROUTE_COMPLETE}/{Util.COLOMBIA}", (DBContext db) =>
+            app.MapGet($"{API_COUNTRY_ROUTE_COMPLETE}/{Util.ECUADOR}", (DBContext db) =>
             {
                 var country = db.Countries.FirstOrDefault();
                 if (country is null)

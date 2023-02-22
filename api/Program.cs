@@ -14,20 +14,20 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "1.0.1",
-        Title = "API Colombia ",
-        Description = "Open and free API that contains general information about Colombia",
-        TermsOfService = new Uri("https://github.com/Mteheran/api-colombia"),
+        Title = "API Ecuador ",
+        Description = "Open and free API that contains general information about Ecuador",
+        TermsOfService = new Uri("https://github.com/andresvillenas/api-ecuador"),
         Contact = new OpenApiContact
         {
-            Name = "Miguel Teheran",
-            Url = new Uri("https://mteheran.dev")
+            Name = "Andrés Villenas",
+            Url = new Uri("http://avillenas.com")
         }
     });
 });
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "corsApiColombia",
+    options.AddPolicy(name: "corsApiEcuador",
                       policy  =>
                       {
                           policy.WithMethods("GET");
@@ -50,14 +50,14 @@ var app = builder.Build();
 
 InfoRoutes.RegisterInfoAPI(app);
 CountryRoutes.RegisterCountryAPI(app);
-DepartmentRoutes.RegisterDepartmentAPI(app);
+ProvinceRoutes.RegisterProvinceAPI(app);
 CityRoutes.RegisterCityAPI(app);
 PresidentRoutes.RegisterPresidentApi(app);
 TuristicAttactionRoutes.RegisterTuristicAttactionAPI(app);
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
-app.UseCors("corsApiColombia");
+app.UseCors("corsApiEcuador");
 app.UseSwagger();
 app.UseSwaggerUI();
 

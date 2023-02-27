@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  
+  db:
+    container_name: db
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dbcolombia
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+
+  app:
+    container_name: app
+    #image:  mcr.microsoft.com/dotnet/sdk:7.0-alpine 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dbcolombia
+      POSTGRES_PORT: 5432
+    
+    ports:
+        - '5000:5000'
+
+volumes:
+  db:

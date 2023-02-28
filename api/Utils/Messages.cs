@@ -75,6 +75,9 @@
             {
                 public const string MESSAGE_REGION_LIST_SUMMARY = "List of regions in Colombia";
                 public const string MESSAGE_REGION_LIST_DESCRIPTION = " This endpoint returns a list of regions in Colombia";
+                public const string MESSAGE_REGION_BYID_SUMMARY = "Region information by Id";
+                public const string MESSAGE_REGION_BYID_DESCRIPTION = "This endpoint returns the information for the region with the provided id";
+
             }
 
             public struct ParamoEndpoint

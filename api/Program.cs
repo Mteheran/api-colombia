@@ -55,6 +55,7 @@ DepartmentRoutes.RegisterDepartmentAPI(app);
 CityRoutes.RegisterCityAPI(app);
 PresidentRoutes.RegisterPresidentApi(app);
 TuristicAttactionRoutes.RegisterTuristicAttactionAPI(app);
+ParamoRoutes.RegisterParamoAPI(app);
 
 
 app.UseDefaultFiles();

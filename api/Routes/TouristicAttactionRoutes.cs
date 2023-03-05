@@ -13,7 +13,7 @@ namespace api.Routes
 
             app.MapGet(API_TOURISTIC_ROUTE_COMPLETE, (DBContext db) =>
             {
-                return Results.Ok(db.TouristAttractions.ToList());
+                return Results.Ok(db.TouristAttractions.Include(p=> p.City).ToList());
             })
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_LIST_SUMMARY, 

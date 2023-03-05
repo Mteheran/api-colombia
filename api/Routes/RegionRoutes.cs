@@ -20,6 +20,27 @@ namespace api.Routes
                 summary: RegionEndpoint.MESSAGE_REGION_LIST_SUMMARY,
                 description: RegionEndpoint.MESSAGE_REGION_LIST_DESCRIPTION
                 ));
+
+            app.MapGet($"{API_REGION_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            {
+                if (id <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var region = await db.Regions
+                .SingleOrDefaultAsync(p => p.Id == id);
+
+                if (region is null)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(region);
+            })
+          .WithMetadata(new SwaggerOperationAttribute(
+              summary: RegionEndpoint.MESSAGE_REGION_BYID_SUMMARY,
+              description: RegionEndpoint.MESSAGE_REGION_BYID_DESCRIPTION));
         }
     }
 }

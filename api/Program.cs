@@ -4,6 +4,7 @@ using api.Routes;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http.Json;
 using api.Utils;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,18 @@ PresidentRoutes.RegisterPresidentApi(app);
 TuristicAttactionRoutes.RegisterTuristicAttactionAPI(app);
 ParamoRoutes.RegisterParamoAPI(app);
 
+app.UseStatusCodePages(context => {
+    var request = context.HttpContext.Request;
+    var response = context.HttpContext.Response;
+
+    if (response.StatusCode == (int)HttpStatusCode.NotFound
+    && !request.Path.Value.Contains("/api"))
+    {
+        response.Redirect("/");
+    }
+
+    return Task.CompletedTask;
+});
 
 app.UseDefaultFiles();
 app.UseStaticFiles();

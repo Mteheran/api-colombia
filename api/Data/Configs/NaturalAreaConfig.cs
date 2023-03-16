@@ -10,6 +10,7 @@ public class NaturalAreaConfig : IEntityTypeConfiguration<NaturalArea>
         naturalArea.HasKey(p => p.Id);
         naturalArea.Property(p => p.Id).ValueGeneratedOnAdd();
         naturalArea.Property(p => p.AreaGroupId).IsRequired(false);
+        naturalArea.Property(p => p.DepartmentId).IsRequired(false);
         naturalArea.Property(p => p.Name).IsRequired().HasMaxLength(150);
         naturalArea.Property(p => p.DaneCode).IsRequired(false);
         naturalArea.Property(p => p.LandArea).IsRequired(false);

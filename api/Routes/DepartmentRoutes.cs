@@ -66,6 +66,27 @@ namespace api.Routes
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_CITIES_DESCRIPTION
                 ));
 
+            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/naturalareas", async (int id, DBContext db) =>
+            {
+                if (id <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var listOfNaturalAreas = db.Departments.Include(p=> p.NaturalAreas).Where(p => p.Id == id);
+
+                if (listOfNaturalAreas is null)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(listOfNaturalAreas);
+            })
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_SUMMARY,
+                description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_DESCRIPTION
+                ));
+
 
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/name/{{name}}", async (string name, DBContext db) =>
             {

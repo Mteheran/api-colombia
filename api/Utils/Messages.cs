@@ -82,21 +82,6 @@
 
             }
 
-            public struct ParamoEndpoint
-            {
-                public const string MESSAGE_PARAMO_LIST_SUMMARY = "List of Paramos in Colombia";
-                public const string MESSAGE_PARAMO_LIST_DESCRIPTION = "This endpoint returns a list of Paramos in Colombia";
-                public const string MESSAGE_PARAMO_BYID_SUMMARY = "Paramo information by Id";
-                public const string MESSAGE_PARAMO_BYID_DESCRIPTION = "This endpoint returns the information for the Paramo with the provided id";
-                public const string MESSAGE_PARAMO_BYNAME_SUMMARY = "Paramo information by name";
-                public const string MESSAGE_PARAMO_BYNAME_DESCRIPTION = "This endpoint returns the information for the Paramo with the provided name";
-                public const string MESSAGE_PARAMO_SEARCH_SUMMARY = "Search Paramos by keyword ";
-                public const string MESSAGE_PARAMO_SEARCH_DESCRIPTION = "This endpoint returns a list of Paramos any of the following fields(Name, Description) match the provided keyword ";
-                public const string MESSAGE_PARAMO_PAGEDLIST_SUMMARY = "List of paramos using pagination - api/v1/paramo/pagedList?page=1&pagesize=10";
-                public const string MESSAGE_PARAMO_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of paramos using pagination including page, pagesize, total records and data, example api/v1/paramo/pagedList?page=1&pagesize=10";
-
-            }
-
             public struct CategoryNaturalAreaEndpoint
             {
                 public const string MESSAGE_LIST_SUMMARY = "List of category natural areas in Colombia";

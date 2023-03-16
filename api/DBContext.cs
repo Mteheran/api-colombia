@@ -10,7 +10,6 @@ public class DBContext : DbContext
     public DbSet<City> Cities { get; set; }
     public DbSet<TouristAttraction> TouristAttractions { get; set; }
     public DbSet<Region> Regions { get; set; }
-    public DbSet<Paramo> Paramos { get; set; }
     public DbSet<CategoryNaturalArea> CategoryNaturalAreas { get; set; }
     public DbSet<NaturalArea> NaturalAreas { get; set; }
 
@@ -24,7 +23,6 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new PresidentConfig());
         builder.ApplyConfiguration(new TouristAttractionConfig());
         builder.ApplyConfiguration(new RegionConfig());
-        builder.ApplyConfiguration(new ParamoConfig());
         builder.ApplyConfiguration(new CategoryNaturalAreaConfig());
         builder.ApplyConfiguration(new NaturalAreaConfig());
 

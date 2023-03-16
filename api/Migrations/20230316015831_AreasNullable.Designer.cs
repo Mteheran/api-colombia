@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using api;
@@ -11,9 +12,10 @@ using api;
 namespace api.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20230316015831_AreasNullable")]
+    partial class AreasNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,16 +223,16 @@ namespace api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AreaGroupId")
+                    b.Property<int>("AreaGroupId")
                         .HasColumnType("integer");
 
                     b.Property<int>("CategoryNaturalAreaId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("DaneCode")
+                    b.Property<int>("DaneCode")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("integer");
 
                     b.Property<double?>("LandArea")
@@ -241,8 +243,7 @@ namespace api.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -250,7 +251,36 @@ namespace api.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("NaturalArea", (string)null);
+                    b.ToTable("NaturalArea");
+                });
+
+            modelBuilder.Entity("api.Models.Paramo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<float?>("Surface")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("Paramo", (string)null);
                 });
 
             modelBuilder.Entity("api.Models.President", b =>
@@ -413,6 +443,17 @@ namespace api.Migrations
                     b.Navigation("Department");
                 });
 
+            modelBuilder.Entity("api.Models.Paramo", b =>
+                {
+                    b.HasOne("api.Models.City", "City")
+                        .WithMany("Paramos")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+                });
+
             modelBuilder.Entity("api.Models.President", b =>
                 {
                     b.HasOne("api.Models.City", "City")
@@ -446,6 +487,8 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.City", b =>
                 {
+                    b.Navigation("Paramos");
+
                     b.Navigation("Presidents");
 
                     b.Navigation("TouristAttractions");

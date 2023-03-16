@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using api;
@@ -11,9 +12,10 @@ using api;
 namespace api.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20230316011729_CategoryNaturalAreaTable")]
+    partial class CategoryNaturalAreaTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,7 +215,7 @@ namespace api.Migrations
                     b.ToTable("Department", (string)null);
                 });
 
-            modelBuilder.Entity("api.Models.NaturalArea", b =>
+            modelBuilder.Entity("api.Models.Paramo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -221,36 +223,25 @@ namespace api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AreaGroupId")
+                    b.Property<int>("CityId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CategoryNaturalAreaId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("DaneCode")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("DepartmentId")
-                        .HasColumnType("integer");
-
-                    b.Property<double?>("LandArea")
-                        .HasColumnType("double precision");
-
-                    b.Property<double?>("MaritimeArea")
-                        .HasColumnType("double precision");
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
+                    b.Property<float?>("Surface")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryNaturalAreaId");
+                    b.HasIndex("CityId");
 
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("NaturalArea", (string)null);
+                    b.ToTable("Paramo", (string)null);
                 });
 
             modelBuilder.Entity("api.Models.President", b =>
@@ -394,23 +385,15 @@ namespace api.Migrations
                     b.Navigation("Region");
                 });
 
-            modelBuilder.Entity("api.Models.NaturalArea", b =>
+            modelBuilder.Entity("api.Models.Paramo", b =>
                 {
-                    b.HasOne("api.Models.CategoryNaturalArea", "CategoryNaturalArea")
-                        .WithMany("NaturalAreas")
-                        .HasForeignKey("CategoryNaturalAreaId")
+                    b.HasOne("api.Models.City", "City")
+                        .WithMany("Paramos")
+                        .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("api.Models.Department", "Department")
-                        .WithMany("NaturalAreas")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CategoryNaturalArea");
-
-                    b.Navigation("Department");
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("api.Models.President", b =>
@@ -439,13 +422,10 @@ namespace api.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("api.Models.CategoryNaturalArea", b =>
-                {
-                    b.Navigation("NaturalAreas");
-                });
-
             modelBuilder.Entity("api.Models.City", b =>
                 {
+                    b.Navigation("Paramos");
+
                     b.Navigation("Presidents");
 
                     b.Navigation("TouristAttractions");
@@ -461,8 +441,6 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.Department", b =>
                 {
                     b.Navigation("Cities");
-
-                    b.Navigation("NaturalAreas");
                 });
 
             modelBuilder.Entity("api.Models.Region", b =>

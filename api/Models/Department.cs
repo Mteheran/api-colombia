@@ -16,5 +16,6 @@
         public ICollection<City> Cities {get;set;}
         public int? RegionId { get; set; }
         public virtual Region Region { get; set; }
+        public ICollection<NaturalArea> NaturalAreas {get;set;}
     }
 }

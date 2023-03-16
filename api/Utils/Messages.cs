@@ -24,6 +24,8 @@
                 public const string MESSAGE_DEPARTMENT_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of departments using pagination including page, pagesize, total records and data, example api/v1/department/pagedList?page=1&pagesize=10";
                 public const string MESSAGE_DEPARTMENT_CITIES_SUMMARY = "List of cities by departmentId";
                 public const string MESSAGE_DEPARTMENT_CITIES_DESCRIPTION = "This endpoint returns a list of cities filtered by departmentid";
+                public const string MESSAGE_DEPARTMENT_NATURALAREAS_SUMMARY = "List of natural areas by departmentId";
+                public const string MESSAGE_DEPARTMENT_NATURALAREAS_DESCRIPTION = "This endpoint returns a list of natural areas filtered by departmentid";
 
 
             }
@@ -80,19 +82,20 @@
 
             }
 
-            public struct ParamoEndpoint
+            public struct CategoryNaturalAreaEndpoint
             {
-                public const string MESSAGE_PARAMO_LIST_SUMMARY = "List of Paramos in Colombia";
-                public const string MESSAGE_PARAMO_LIST_DESCRIPTION = "This endpoint returns a list of Paramos in Colombia";
-                public const string MESSAGE_PARAMO_BYID_SUMMARY = "Paramo information by Id";
-                public const string MESSAGE_PARAMO_BYID_DESCRIPTION = "This endpoint returns the information for the Paramo with the provided id";
-                public const string MESSAGE_PARAMO_BYNAME_SUMMARY = "Paramo information by name";
-                public const string MESSAGE_PARAMO_BYNAME_DESCRIPTION = "This endpoint returns the information for the Paramo with the provided name";
-                public const string MESSAGE_PARAMO_SEARCH_SUMMARY = "Search Paramos by keyword ";
-                public const string MESSAGE_PARAMO_SEARCH_DESCRIPTION = "This endpoint returns a list of Paramos any of the following fields(Name, Description) match the provided keyword ";
-                public const string MESSAGE_PARAMO_PAGEDLIST_SUMMARY = "List of paramos using pagination - api/v1/paramo/pagedList?page=1&pagesize=10";
-                public const string MESSAGE_PARAMO_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of paramos using pagination including page, pagesize, total records and data, example api/v1/paramo/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_LIST_SUMMARY = "List of category natural areas in Colombia";
+                public const string MESSAGE_LIST_DESCRIPTION = " This endpoint returns a list of category natural areas  in Colombia";
+                public const string MESSAGE_BYID_SUMMARY = "Category natural area information by Id";
+                public const string MESSAGE_BYID_DESCRIPTION = "This endpoint returns the information for the category natural area with the provided id";
+            }
 
+            public struct NaturalAreaEndpoint
+            {
+                public const string MESSAGE_LIST_SUMMARY = "List of natural areas in Colombia";
+                public const string MESSAGE_LIST_DESCRIPTION = " This endpoint returns a list of natural areas  in Colombia";
+                public const string MESSAGE_BYID_SUMMARY = "Natural area information by Id";
+                public const string MESSAGE_BYID_DESCRIPTION = "This endpoint returns the information for the natural area with the provided id";
             }
 
         }

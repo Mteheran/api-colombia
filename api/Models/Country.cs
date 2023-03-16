@@ -1,4 +1,6 @@
-﻿namespace api.Models
+﻿using System.Text.Json.Serialization;
+
+namespace api.Models
 {
     public class Country
     {
@@ -12,12 +14,20 @@
         public string? TimeZone { get; set; }
         public string? Currency { get; set; }
         public string? CurrencyCode { get; set; }
+        public string? CurrencySymbol { get; set; }
         public string? ISOCode { get; set; }
         public string? InternetDomain { get; set; }
         public string? PhonePrefix { get; set; }
         public string? RadioPrefix { get; set; }
         public string? AircraftPrefix { get; set; }
+        public string? SubRegion { get; set; }
+        public string? Region { get; set; }
+        public string[] Borders { get; set; }
+        public string[] Flags { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Department> Departments { get; set; }
+        [JsonIgnore]
         public virtual ICollection<President> Presidents { get; set; }
     }
 }

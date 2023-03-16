@@ -16,10 +16,15 @@ public class CountryConfig : IEntityTypeConfiguration<Country>
         country.Property(p => p.TimeZone).HasMaxLength(150);
         country.Property(p => p.Currency).HasMaxLength(15);
         country.Property(p => p.CurrencyCode).HasMaxLength(10);
+        country.Property(p => p.CurrencySymbol).HasMaxLength(2);
         country.Property(p => p.ISOCode).HasMaxLength(10);
         country.Property(p => p.InternetDomain);
         country.Property(p => p.PhonePrefix).HasMaxLength(5);
         country.Property(p => p.RadioPrefix).HasMaxLength(5); ;
         country.Property(p => p.AircraftPrefix).HasMaxLength(5);
+        country.Property(p => p.SubRegion).HasMaxLength(20);
+        country.Property(p => p.Region).HasMaxLength(20);
+        country.Property(p => p.Borders);
+        country.Property(p => p.Flags);
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using api;
@@ -11,9 +12,10 @@ using api;
 namespace api.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20230316014916_NaturalAreaTable")]
+    partial class NaturalAreaTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,10 +235,10 @@ namespace api.Migrations
                     b.Property<int>("DepartmentId")
                         .HasColumnType("integer");
 
-                    b.Property<double?>("LandArea")
+                    b.Property<double>("LandArea")
                         .HasColumnType("double precision");
 
-                    b.Property<double?>("MaritimeArea")
+                    b.Property<double>("MaritimeArea")
                         .HasColumnType("double precision");
 
                     b.Property<string>("Name")

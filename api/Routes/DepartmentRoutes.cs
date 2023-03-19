@@ -124,7 +124,7 @@ namespace api.Routes
                 ));
 
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/pagedList",
-                  async (PaginationModel pagination, DBContext db) =>
+                  async ([AsParameters] PaginationModel pagination, DBContext db) =>
                   {
 
                       if (pagination.Page <= 0 || pagination.PageSize <= 0)

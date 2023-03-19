@@ -96,6 +96,12 @@
                 public const string MESSAGE_LIST_DESCRIPTION = " This endpoint returns a list of natural areas  in Colombia";
                 public const string MESSAGE_BYID_SUMMARY = "Natural area information by Id";
                 public const string MESSAGE_BYID_DESCRIPTION = "This endpoint returns the information for the natural area with the provided id";
+                public const string MESSAGE_BYNAME_SUMMARY = "Natural place by name";
+                public const string MESSAGE_BYNAME_DESCRIPTION = "This endpoint returns an specific natural places by the provided name";
+                public const string MESSAGE_SEARCH_SUMMARY = "Search natural places by keyword ";
+                public const string MESSAGE_SEARCH_DESCRIPTION = "This endpoint returns a list of touristic attractions any of the following fields(Name, Description,LastName,Latitude, Longitude) match the provided keyword ";
+                public const string MESSAGE_PAGEDLIST_SUMMARY = "List of natural places using pagination - api/v1/naturalarea/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of natural places in Colombia using pagination including page, pagesize, total records and data, example api/v1/naturalarea/pagedList?page=1&pagesize=10";
             }
 
         }

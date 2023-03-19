@@ -75,7 +75,7 @@ namespace api.Routes
                 description: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_SEARCH_DESCRIPTION));
 
             app.MapGet($"{API_TOURISTIC_ROUTE_COMPLETE}/pagedList",
-           async (PaginationModel pagination, DBContext db) =>
+           async ([AsParameters] PaginationModel pagination, DBContext db) =>
            {
 
                if (pagination.Page <= 0 || pagination.PageSize <= 0)

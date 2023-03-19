@@ -13,7 +13,10 @@ public class DBContext : DbContext
     public DbSet<CategoryNaturalArea> CategoryNaturalAreas { get; set; }
     public DbSet<NaturalArea> NaturalAreas { get; set; }
 
-    public DBContext(DbContextOptions<DBContext> options) : base(options) { }
+    public DBContext(DbContextOptions<DBContext> options) : base(options)
+    {
+        ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

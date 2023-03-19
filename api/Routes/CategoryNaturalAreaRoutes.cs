@@ -41,6 +41,29 @@ namespace api.Routes
           .WithMetadata(new SwaggerOperationAttribute(
               summary: CategoryNaturalAreaEndpoint.MESSAGE_BYID_SUMMARY,
               description: CategoryNaturalAreaEndpoint.MESSAGE_BYID_DESCRIPTION));
+
+            app.MapGet($"{API_CATEGORY_ROUTE_COMPLETE}/{{id}}/NaturalAreas", async (int id, DBContext db) =>
+            {
+                if (id <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var region = await db.CategoryNaturalAreas
+                .Include(p=> p.NaturalAreas)
+                .ThenInclude(p=> p.Department)
+                .SingleOrDefaultAsync(p => p.Id == id);
+
+                if (region is null)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(region);
+            })
+         .WithMetadata(new SwaggerOperationAttribute(
+             summary: CategoryNaturalAreaEndpoint.MESSAGE_BYID_SUMMARY,
+             description: CategoryNaturalAreaEndpoint.MESSAGE_BYID_DESCRIPTION));
         }
     }
 }

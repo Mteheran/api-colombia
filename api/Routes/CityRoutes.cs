@@ -79,7 +79,7 @@ namespace api.Routes
 
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/pagedList",
-                    async (PaginationModel pagination, DBContext db) =>
+                    async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
 
                 if (pagination.Page<= 0 || pagination.PageSize <= 0)
@@ -89,7 +89,7 @@ namespace api.Routes
 
                 var cities = db.Cities.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
 
-                if (await cities?.CountAsync() == 0)
+                if (!await cities?.AnyAsync())
                 {
                     return Results.NotFound();
                 }
@@ -107,7 +107,7 @@ namespace api.Routes
             })
            .WithMetadata(new SwaggerOperationAttribute(
                summary: CityEndpointMetadataMessages.MESSAGE_CITY_PAGEDLIST_SUMMARY,
-                description: CityEndpointMetadataMessages.MESSAGE_CITY_SEARCH_DESCRIPTION
+                description: CityEndpointMetadataMessages.MESSAGE_CITY_PAGEDLIST_DESCRIPTION
                 ));
 
 

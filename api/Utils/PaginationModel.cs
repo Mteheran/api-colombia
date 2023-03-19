@@ -6,8 +6,8 @@ namespace api.Utils
 
     public class PaginationModel
     {
-        public string? SortBy { get; init; }
-        public SortDirection SortDirection { get; init; }
+        //public string? SortBy { get; init; }
+        //public SortDirection SortDirection { get; init; }
         public int Page { get; init; }
         public int PageSize { get; set; }
 
@@ -27,8 +27,8 @@ namespace api.Utils
 
             var result = new PaginationModel
             {
-                SortBy = context.Request.Query[sortByKey],
-                SortDirection = sortDirection,
+                //SortBy = context.Request.Query[sortByKey],
+                //SortDirection = sortDirection,
                 Page = page,
                 PageSize = pageSize
 

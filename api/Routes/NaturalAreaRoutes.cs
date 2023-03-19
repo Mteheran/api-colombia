@@ -3,6 +3,8 @@ using api.Utils;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.EntityFrameworkCore;
 using static api.Utils.Messages.EndpointMetadata;
+using api.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace api.Routes
 {
@@ -29,7 +31,8 @@ namespace api.Routes
                 }
 
                 var naturalArea = await db.NaturalAreas
-                .Include(p=> p.CategoryNaturalArea)
+                .Include(p => p.CategoryNaturalArea)
+                .Include(p => p.Department)
                 .SingleOrDefaultAsync(p => p.Id == id);
 
                 if (naturalArea is null)
@@ -42,6 +45,76 @@ namespace api.Routes
           .WithMetadata(new SwaggerOperationAttribute(
               summary: NaturalAreaEndpoint.MESSAGE_BYID_SUMMARY,
               description: NaturalAreaEndpoint.MESSAGE_BYID_DESCRIPTION));
+        
+
+          app.MapGet($"{API_NATURALAREA_ROUTE_COMPLETE}/name/{{name}}", async (string name, DBContext db) =>
+            {
+                var naturalAreas = await db.NaturalAreas
+                                            .Include(p=> p.CategoryNaturalArea).IgnoreAutoIncludes()
+                                            .Include(p=> p.Department).IgnoreAutoIncludes()
+                                            .Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToListAsync();
+
+                if (naturalAreas is null)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(naturalAreas);
+            })
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: NaturalAreaEndpoint.MESSAGE_BYNAME_SUMMARY,
+                description: NaturalAreaEndpoint.MESSAGE_BYNAME_DESCRIPTION
+                ));
+
+            app.MapGet($"{API_NATURALAREA_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
+            {
+                string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
+                var naturalAreas = db.NaturalAreas.ToList();
+
+                var departments = Functions.FilterObjectListPropertiesByKeyword<NaturalArea>(naturalAreas, wellFormedKeyword);
+
+                if (departments.Count == 0)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(departments);
+            })
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: NaturalAreaEndpoint.MESSAGE_SEARCH_SUMMARY, 
+                description: NaturalAreaEndpoint.MESSAGE_SEARCH_DESCRIPTION
+                ));
+
+            app.MapGet($"{API_NATURALAREA_ROUTE_COMPLETE}/pagedList",
+                  async ([AsParameters] PaginationModel pagination, DBContext db) =>
+                  {
+
+                      if (pagination.Page <= 0 || pagination.PageSize <= 0)
+                      {
+                          return Results.BadRequest();
+                      }
+
+                      var naturalAreaPaged = db.NaturalAreas.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
+
+                      if (!await naturalAreaPaged?.AnyAsync())
+                      {
+                          return Results.NotFound();
+                      }
+
+                      var paginationResponse = new PaginationResponseModel<NaturalArea>
+                      {
+                          Page = pagination.Page,
+                          PageSize = pagination.PageSize,
+                          TotalRecords = await db.NaturalAreas.CountAsync(),
+                          Data = await naturalAreaPaged.ToListAsync(),
+                      };
+
+                      return Results.Ok(paginationResponse);
+                  })
+         .WithMetadata(new SwaggerOperationAttribute(
+             summary: NaturalAreaEndpoint.MESSAGE_PAGEDLIST_SUMMARY,
+              description: NaturalAreaEndpoint.MESSAGE_PAGEDLIST_DESCRIPTION
+              ));
         }
     }
 }

@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "1.0.1",
-        Title = "API Colombia ",
+        Title = "API Colombia",
         Description = "Open and free API that contains general information about Colombia",
         TermsOfService = new Uri("https://github.com/Mteheran/api-colombia"),
         Contact = new OpenApiContact
@@ -39,7 +39,8 @@ builder.Services.AddCors(options =>
 
 builder.Configuration.AddEnvironmentVariables();
 
-builder.Services.AddNpgsql<DBContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddNpgsql<DBContext>(
+    builder.Configuration.GetConnectionString("DefaultConnection"));
 
 builder.Services.Configure<JsonOptions>(options =>
 {

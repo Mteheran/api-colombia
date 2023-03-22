@@ -89,6 +89,9 @@
           <li class="scroll-to-link" data-target="Get-president">
             <a>GET presidents</a>
           </li>
+          <li class="scroll-to-link" data-target="Get-categoryNatural">
+            <a>GET Category Natural Area</a>
+          </li>
           <li class="scroll-to-link" data-target="Contributors">
             <a>Contributors</a>
           </li>
@@ -129,7 +132,8 @@
                </ol>
                <li>Swagger documentation.</li>
                <li>Does not requiere authentications.</li>
-               <li>You can obtain the pageList endpoints that return the paged information.
+               <li>You can obtain the pageList endpoints that return 
+                <br>the paged information.
                 <br>add to the end of each endpoint <strong>/pagedList</strong>
                 <p>
                   example:
@@ -330,6 +334,39 @@ sancionar la nueva constitución de 1886, que estuvo vigente hasta
 "cityId": 709,
 "city": null
 }
+</code>
+            </pre>
+          </div>
+          <div class="overflow-hidden content-section" id="Get-categoryNatural">
+            <h1>GET Category Natural Area</h1>
+            <pre>
+      GET Category Natural Area
+  
+                  </pre
+            >
+            <p>
+              This endpoint returns a list of category natural areas in Colombia
+             <br/>
+             <code class="higlighted break-word"
+             >/api/{version}/CategoryNaturalArea</code> 
+            </p>
+            <br>
+            <pre><code class="json">
+{
+  "id": 1,
+  "name": "Área Natural Única",
+  "description": "Área geográfica que, por poseer condiciones especiales 
+  de flora o gea es un escenario natural raro.",
+  "naturalAreas": null
+},
+{
+  "id": 2,
+  "name": "Reserva Natural",
+  "description": "Área geográfica en la cual existen condiciones primitivas 
+  de flora, fauna y gea, y está destinada a la conservación, investigación 
+  y estudio de sus riquezas naturales.",
+  "naturalAreas": null
+},
 </code>
             </pre>
           </div>

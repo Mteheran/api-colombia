@@ -88,6 +88,31 @@ namespace api.Routes
                 ));
 
 
+            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/touristicattractions", async (int id, DBContext db) =>
+            {
+                if (id <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var listOfNaturalAreas = db.TouristAttractions.Include(p => p.City)
+                 .Join(db.Cities, t => t.CityId, c => c.Id, (t, c) => new { t, c.DepartamentId })
+                 .Join(db.Departments, t => t.DepartamentId, d => d.Id, (t, d) => new { t.DepartamentId, t.t })
+                 .Where(p => p.DepartamentId == id).Select(p => p.t);
+
+                if (listOfNaturalAreas is null)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(listOfNaturalAreas);
+            })
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_SUMMARY,
+                description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_DESCRIPTION
+                ));
+
+
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/name/{{name}}", async (string name, DBContext db) =>
             {
                 var departments = await db.Departments.Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToListAsync();

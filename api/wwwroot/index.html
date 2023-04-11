@@ -90,6 +90,9 @@
             <a>GET presidents</a>
           </li>
           <li class="scroll-to-link" data-target="Get-categoryNatural">
+            <a>GET Natural Area</a>
+          </li>
+          <li class="scroll-to-link" data-target="Get-categoryNatural">
             <a>GET Category Natural Area</a>
           </li>
           <li class="scroll-to-link" data-target="Contributors">
@@ -338,6 +341,59 @@ sancionar la nueva constitución de 1886, que estuvo vigente hasta
             </pre>
           </div>
           <div class="overflow-hidden content-section" id="Get-categoryNatural">
+            <h1>GET Natural Area</h1>
+            <pre>
+      GET Natural Area
+  
+                  </pre
+            >
+            <p>
+              This endpoint returns a list of natural areas in Colombia
+             <br/>
+             <code class="higlighted break-word"
+             >/api/{version}/NaturalArea</code> 
+            </p>
+            <br>
+            <pre><code class="json">
+{ "id": 1, 
+"areaGroupId": 6, 
+"categoryNaturalAreaId": 7, 
+"name": "Cueva de los Guácharos", 
+"departmentId": 18, 
+"daneCode": 41, 
+"landArea": 4873.0575943204, 
+"maritimeArea": null, 
+"department": { "id": 18, "name": "Huila", 
+"description": "Huila es uno de los treinta y dos 
+departamentos que junto con Bogotá, Distrito Capital, 
+conforman la República de Colombia. Su capital y ciudad 
+más poblada es Neiva. Está ubicado al suroeste del país,
+en la región andina, limitando al norte con Tolima y 
+Cundinamarca, al este con Meta, al sur con Caquetá y al 
+oeste con Cauca.", 
+"cityCapitalId": 657, 
+"municipalities": 37, 
+"surface": 19890, 
+"population": 1140932, 
+"phonePrefix": "8", 
+"countryId": 1, 
+"cityCapital": null, 
+"country": null, 
+"cities": null, 
+"regionId": 5, 
+"region": null, 
+"naturalAreas": [ null ] }, 
+"categoryNaturalArea": { "id": 7, 
+"name": "Parque Nacional Natural", 
+"description": "La declaración de Áreas Protegidas del Sistema 
+de Parques corresponde al Ministerio de Ambiente y su 
+administración y manejo a Parques Nacionales Naturales.", 
+"naturalAreas": [ null ] 
+} }
+</code>
+            </pre>
+          </div>
+          <div class="overflow-hidden content-section" id="Get-categoryNatural">
             <h1>GET Category Natural Area</h1>
             <pre>
       GET Category Natural Area
@@ -366,7 +422,7 @@ sancionar la nueva constitución de 1886, que estuvo vigente hasta
   de flora, fauna y gea, y está destinada a la conservación, investigación 
   y estudio de sus riquezas naturales.",
   "naturalAreas": null
-},
+}
 </code>
             </pre>
           </div>

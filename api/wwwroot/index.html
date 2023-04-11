@@ -90,6 +90,9 @@
             <a>GET presidents</a>
           </li>
           <li class="scroll-to-link" data-target="Get-categoryNatural">
+            <a>GET Natural Area</a>
+          </li>
+          <li class="scroll-to-link" data-target="Get-categoryNatural">
             <a>GET Category Natural Area</a>
           </li>
           <li class="scroll-to-link" data-target="Contributors">
@@ -338,6 +341,48 @@ sancionar la nueva constitución de 1886, que estuvo vigente hasta
             </pre>
           </div>
           <div class="overflow-hidden content-section" id="Get-categoryNatural">
+            <h1>GET Natural Area</h1>
+            <pre>
+      GET Natural Area
+  
+                  </pre
+            >
+            <p>
+              This endpoint returns a list of natural areas in Colombia
+             <br/>
+             <code class="higlighted break-word"
+             >/api/{version}/NaturalArea</code> 
+            </p>
+            <br>
+            <pre><code class="json">
+{
+"id": 1,
+"areaGroupId": 6,
+"categoryNaturalAreaId": 7,
+"name": "Cueva de los Guácharos",
+"departmentId": 18,
+"daneCode": 41,
+"landArea": 4873.0575943204,
+"maritimeArea": null,
+"department": null,
+"categoryNaturalArea": null
+},
+{
+"id": 2,
+"areaGroupId": 6,
+"categoryNaturalAreaId": 7,
+"name": "Cueva de los Guácharos",
+"departmentId": 18,
+"daneCode": 41,
+"landArea": 15.759621378006,
+"maritimeArea": null,
+"department": null,
+"categoryNaturalArea": null
+}
+</code>
+            </pre>
+          </div>
+          <div class="overflow-hidden content-section" id="Get-categoryNatural">
             <h1>GET Category Natural Area</h1>
             <pre>
       GET Category Natural Area
@@ -366,7 +411,7 @@ sancionar la nueva constitución de 1886, que estuvo vigente hasta
   de flora, fauna y gea, y está destinada a la conservación, investigación 
   y estudio de sus riquezas naturales.",
   "naturalAreas": null
-},
+}
 </code>
             </pre>
           </div>

@@ -12,6 +12,7 @@ public class DBContext : DbContext
     public DbSet<Region> Regions { get; set; }
     public DbSet<CategoryNaturalArea> CategoryNaturalAreas { get; set; }
     public DbSet<NaturalArea> NaturalAreas { get; set; }
+    public DbSet<Map> Maps { get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {
@@ -28,6 +29,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new RegionConfig());
         builder.ApplyConfiguration(new CategoryNaturalAreaConfig());
         builder.ApplyConfiguration(new NaturalAreaConfig());
+        builder.ApplyConfiguration(new MapConfig());
 
         base.OnModelCreating(builder);
     }

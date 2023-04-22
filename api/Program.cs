@@ -26,6 +26,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "corsApiColombia",
@@ -39,8 +40,7 @@ builder.Services.AddCors(options =>
 
 builder.Configuration.AddEnvironmentVariables();
 
-builder.Services.AddNpgsql<DBContext>(
-    builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddNpgsql<DBContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 builder.Services.Configure<JsonOptions>(options =>
 {
@@ -49,7 +49,6 @@ builder.Services.Configure<JsonOptions>(options =>
 });
 
 var app = builder.Build();
-
 InfoRoutes.RegisterInfoAPI(app);
 CountryRoutes.RegisterCountryAPI(app);
 RegionRoutes.RegisterRegionAPI(app);

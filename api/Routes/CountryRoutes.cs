@@ -24,7 +24,7 @@ namespace api.Routes
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: CountryEndpointMetadataMessages.MESSAGE_COUNTRY_SUMMARY, 
                 description: CountryEndpointMetadataMessages.MESSAGE_COUNTRY_DESCRIPTION
-                ));;
+                ));
         }
     }
 }

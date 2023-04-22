@@ -19,11 +19,12 @@ namespace api.Routes
                 }
 
                 return Results.Ok(country);
-            }).Produces<Models.Country>(200).AddMetaData<Models.Country>(
-                tag:"",
-                summary:CountryEndpointMetadataMessages.MESSAGE_COUNTRY_SUMMARY,
-                description:CountryEndpointMetadataMessages.MESSAGE_COUNTRY_DESCRIPTION
-            );
+            })
+            .Produces<Models.Country>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: CountryEndpointMetadataMessages.MESSAGE_COUNTRY_SUMMARY, 
+                description: CountryEndpointMetadataMessages.MESSAGE_COUNTRY_DESCRIPTION
+                ));;
         }
     }
 }

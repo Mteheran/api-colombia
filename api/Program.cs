@@ -58,7 +58,8 @@ CityRoutes.RegisterCityAPI(app);
 PresidentRoutes.RegisterPresidentApi(app);
 TuristicAttactionRoutes.RegisterTuristicAttactionAPI(app);
 CategoryNaturalAreaRoutes.RegisterCategoryNaturalAreaAPI(app);
-NaturalAreaRoutes.RegisterNaturalAreaAPI(app); 
+NaturalAreaRoutes.RegisterNaturalAreaAPI(app);
+MapsRoutes.RegisterCountryAPI(app);
 
 app.UseStatusCodePages(context => {
     var request = context.HttpContext.Request;

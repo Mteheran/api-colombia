@@ -10,6 +10,7 @@
         public const string REGION = "Region";
         public const string CATEGORY_NATURAL_AREA = "CategoryNaturalArea";
         public const string NATURAL_AREA = "NaturalArea";
+        public const string MAP_ROUTE = "Map";
 
         public const string API_ROUTE = "api/";
         public const string API_VERSION = "v1/";

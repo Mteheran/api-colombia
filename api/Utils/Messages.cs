@@ -105,6 +105,13 @@
                 public const string MESSAGE_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of natural places in Colombia using pagination including page, pagesize, total records and data, example api/v1/naturalarea/pagedList?page=1&pagesize=10";
             }
 
+            public struct MapEndpoint
+            {
+                public const string MESSAGE_LIST_SUMMARY = "List of Maps related to Colombia";
+                public const string MESSAGE_LIST_DESCRIPTION = "Returns a list of maps including, natural areas, deparmets distribution, water, etc...";
+                public const string MESSAGE_BYID_SUMMARY = "Map information by Id";
+                public const string MESSAGE_BYID_DESCRIPTION = "This endpoint returns the information for the map with the provided id";
+            }
         }
     }
 }

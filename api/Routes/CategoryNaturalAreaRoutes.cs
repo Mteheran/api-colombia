@@ -16,6 +16,7 @@ namespace api.Routes
             {
                 return Results.Ok(await db.CategoryNaturalAreas.ToListAsync());
             })
+            .Produces<Models.CategoryNaturalArea>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: CategoryNaturalAreaEndpoint.MESSAGE_LIST_SUMMARY,
                 description: CategoryNaturalAreaEndpoint.MESSAGE_LIST_DESCRIPTION
@@ -38,7 +39,8 @@ namespace api.Routes
 
                 return Results.Ok(region);
             })
-          .WithMetadata(new SwaggerOperationAttribute(
+            .Produces<Models.CategoryNaturalArea>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
               summary: CategoryNaturalAreaEndpoint.MESSAGE_BYID_SUMMARY,
               description: CategoryNaturalAreaEndpoint.MESSAGE_BYID_DESCRIPTION));
 
@@ -50,8 +52,8 @@ namespace api.Routes
                 }
 
                 var region = await db.CategoryNaturalAreas
-                .Include(p=> p.NaturalAreas)
-                .ThenInclude(p=> p.Department)
+                .Include(p => p.NaturalAreas)
+                .ThenInclude(p => p.Department)
                 .SingleOrDefaultAsync(p => p.Id == id);
 
                 if (region is null)
@@ -61,7 +63,8 @@ namespace api.Routes
 
                 return Results.Ok(region);
             })
-         .WithMetadata(new SwaggerOperationAttribute(
+            .Produces<Models.CategoryNaturalArea>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
              summary: CategoryNaturalAreaEndpoint.MESSAGE_BYID_SUMMARY,
              description: CategoryNaturalAreaEndpoint.MESSAGE_BYID_DESCRIPTION));
         }

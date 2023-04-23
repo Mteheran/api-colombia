@@ -3,6 +3,7 @@ using api.Utils;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.EntityFrameworkCore;
 using static api.Utils.Messages.EndpointMetadata;
+using api.Models;
 
 namespace api.Routes
 {
@@ -12,11 +13,12 @@ namespace api.Routes
         {
             const string API_CATEGORY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CATEGORY_NATURAL_AREA}";
 
+            //this method require handling of the not found data, and split the return and the call to match the other methods
             app.MapGet($"{API_CATEGORY_ROUTE_COMPLETE}/", async (DBContext db) =>
             {
                 return Results.Ok(await db.CategoryNaturalAreas.ToListAsync());
             })
-            .Produces<Models.CategoryNaturalArea>(200)
+            .Produces<List<CategoryNaturalArea>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: CategoryNaturalAreaEndpoint.MESSAGE_LIST_SUMMARY,
                 description: CategoryNaturalAreaEndpoint.MESSAGE_LIST_DESCRIPTION
@@ -39,7 +41,7 @@ namespace api.Routes
 
                 return Results.Ok(region);
             })
-            .Produces<Models.CategoryNaturalArea>(200)
+            .Produces<CategoryNaturalArea>(200)
             .WithMetadata(new SwaggerOperationAttribute(
               summary: CategoryNaturalAreaEndpoint.MESSAGE_BYID_SUMMARY,
               description: CategoryNaturalAreaEndpoint.MESSAGE_BYID_DESCRIPTION));
@@ -63,7 +65,7 @@ namespace api.Routes
 
                 return Results.Ok(region);
             })
-            .Produces<Models.CategoryNaturalArea>(200)
+            .Produces<CategoryNaturalArea>(200)
             .WithMetadata(new SwaggerOperationAttribute(
              summary: CategoryNaturalAreaEndpoint.MESSAGE_BYID_SUMMARY,
              description: CategoryNaturalAreaEndpoint.MESSAGE_BYID_DESCRIPTION));

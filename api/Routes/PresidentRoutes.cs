@@ -15,6 +15,7 @@ namespace api.Routes
             {
                 return Results.Ok(db.Presidents.ToList());
             })
+            .Produces<List<President>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_LIST_SUMMARY,
                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_LIST_DESCRIPTION
@@ -29,8 +30,8 @@ namespace api.Routes
                 }
 
                 var president = await db.Presidents
-                                        .Include(p => p.City)
-                                        .SingleOrDefaultAsync(p => p.Id == id);
+                                                .Include(p => p.City)
+                                                .SingleOrDefaultAsync(p => p.Id == id);
 
                 if (president is null)
                 {
@@ -39,6 +40,7 @@ namespace api.Routes
 
                 return Results.Ok(president);
             })
+            .Produces<President?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYID_SUMMARY,
                  description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYID_DESCRIPTION
@@ -56,6 +58,7 @@ namespace api.Routes
 
                 return Results.Ok(president);
             })
+            .Produces<President?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYNAME_SUMMARY,
                  description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYNAME_DESCRIPTION
@@ -63,36 +66,42 @@ namespace api.Routes
 
             app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/year/{{year}}", async (int year, DBContext db) =>
             {
+                //Require validation to not year greater than actual year
                 var presidents = db.Presidents
                                         .Include(p => p.City)
                                         .Where(p => (p.StartPeriodDate.Year <= year
-                                         && p.EndPeriodDate.HasValue && p.EndPeriodDate.Value.Year >= year)
-                                         || (p.EndPeriodDate == null && p.StartPeriodDate.Year <= year && year <= DateTime.Now.Year));
+                                                        && p.EndPeriodDate.HasValue && p.EndPeriodDate.Value.Year >= year)
+                                                        || (p.EndPeriodDate == null && p.StartPeriodDate.Year <= year && year <= DateTime.Now.Year))
+                                        .ToList();
+                if (presidents is null)
+                {
+                    return Results.NotFound();
+                }
 
                 return Results.Ok(presidents);
             })
+            .Produces<List<President>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYYEAR_SUMMARY,
                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYYEAR_DESCRIPTION
                 ));
 
             app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
-           {
+            {
                string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                var dbPresidents = db.Presidents.ToList();
-
                var presidents = Functions.FilterObjectListPropertiesByKeyword<President>(dbPresidents, wellFormedKeyword);
-
                if (presidents.Count == 0)
                {
                    return Results.NotFound();
                }
 
                return Results.Ok(presidents);
-           })
-           .WithMetadata(new SwaggerOperationAttribute(
-            summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_SEARCH_SUMMARY, 
-            description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_SEARCH_DESCRIPTION
+            })
+            .Produces<List<President>?>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_SEARCH_SUMMARY, 
+                description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_SEARCH_DESCRIPTION
             ));
 
             app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/pagedList",
@@ -105,7 +114,6 @@ namespace api.Routes
                 }
 
                 var presidentsPaged = db.Presidents.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-
                 if (await presidentsPaged?.CountAsync() == 0)
                 {
                     return Results.NotFound();
@@ -122,11 +130,11 @@ namespace api.Routes
 
                 return Results.Ok(paginationResponse);
             })
-   .WithMetadata(new SwaggerOperationAttribute(
-       summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_PAGEDLIST_SUMMARY,
-        description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_PAGEDLIST_DESCRIPTION
-        ));
-
+            .Produces<PaginationResponseModel<President>?>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_PAGEDLIST_SUMMARY,
+                description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_PAGEDLIST_DESCRIPTION
+            ));
         }
     }
 }

@@ -16,7 +16,7 @@ namespace api.Routes
                 var ListTuristAtraction = db.TouristAttractions.Include(p => p.City).ToList();
                 return Results.Ok(ListTuristAtraction);
             })
-            .Produces<List<TouristAttraction>>(200)
+            .Produces<List<TouristAttraction>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_LIST_SUMMARY,
                 description: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_LIST_DESCRIPTION));
@@ -29,8 +29,8 @@ namespace api.Routes
                 }
 
                 var turisticAtt = await db.TouristAttractions
-                .Include(p => p.City)
-                .SingleOrDefaultAsync(p => p.Id == id);
+                                                        .Include(p => p.City)
+                                                        .SingleOrDefaultAsync(p => p.Id == id);
 
                 if (turisticAtt is null)
                 {
@@ -55,7 +55,7 @@ namespace api.Routes
 
                 return Results.Ok(turisticAtt);
             })
-            .Produces<List<TouristAttraction>>(200)
+            .Produces<List<TouristAttraction>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_BYNAME_SUMMARY,
                 description: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_BYNAME_DESCRIPTION));
@@ -72,7 +72,7 @@ namespace api.Routes
 
                 return Results.Ok(touristAttractions);
             })
-            .Produces<List<TouristAttraction>>(200)
+            .Produces<List<TouristAttraction>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_SEARCH_SUMMARY,
                 description: TouristAttractionEndpointMetadata.MESSAGE_TOURIST_ATTRACTION_SEARCH_DESCRIPTION));
@@ -80,26 +80,26 @@ namespace api.Routes
             app.MapGet($"{API_TOURISTIC_ROUTE_COMPLETE}/pagedList",
             async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
-               if (pagination.Page <= 0 || pagination.PageSize <= 0)
-               {
-                   return Results.BadRequest();
-               }
+                if (pagination.Page <= 0 || pagination.PageSize <= 0)
+                {
+                    return Results.BadRequest();
+                }
 
-               var touristAttractionsPaged = db.TouristAttractions.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-               if (touristAttractionsPaged.Any())
-               {
-                   return Results.NotFound();
-               }
+                var touristAttractionsPaged = db.TouristAttractions.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
+                if (touristAttractionsPaged.Any())
+                {
+                    return Results.NotFound();
+                }
 
-               var paginationResponse = new PaginationResponseModel<TouristAttraction>
-               {
-                   Page = pagination.Page,
-                   PageSize = pagination.PageSize,
-                   TotalRecords = await db.Presidents.CountAsync(),
-                   Data = await touristAttractionsPaged.ToListAsync()
-               };
+                var paginationResponse = new PaginationResponseModel<TouristAttraction>
+                {
+                    Page = pagination.Page,
+                    PageSize = pagination.PageSize,
+                    TotalRecords = await db.Presidents.CountAsync(),
+                    Data = await touristAttractionsPaged.ToListAsync()
+                };
 
-               return Results.Ok(paginationResponse);
+                return Results.Ok(paginationResponse);
             })
             .Produces<PaginationResponseModel<TouristAttraction>>(200)
             .WithMetadata(new SwaggerOperationAttribute(

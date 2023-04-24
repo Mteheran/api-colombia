@@ -16,7 +16,8 @@ namespace api.Routes
 
             app.MapGet($"{API_NATURALAREA_ROUTE_COMPLETE}/", async (DBContext db) =>
             {
-                return Results.Ok(await db.NaturalAreas.ToListAsync());
+                var listNaturalAreas = await db.NaturalAreas.ToListAsync();
+                return Results.Ok(listNaturalAreas);
             })
             .Produces<List<Map>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
@@ -32,9 +33,9 @@ namespace api.Routes
                 }
 
                 var naturalArea = await db.NaturalAreas
-                .Include(p => p.CategoryNaturalArea)
-                .Include(p => p.Department)
-                .SingleOrDefaultAsync(p => p.Id == id);
+                                                .Include(p => p.CategoryNaturalArea)
+                                                .Include(p => p.Department)
+                                                .SingleOrDefaultAsync(p => p.Id == id);
 
                 if (naturalArea is null)
                 {
@@ -47,14 +48,15 @@ namespace api.Routes
             .WithMetadata(new SwaggerOperationAttribute(
               summary: NaturalAreaEndpoint.MESSAGE_BYID_SUMMARY,
               description: NaturalAreaEndpoint.MESSAGE_BYID_DESCRIPTION));
-        
+
 
             app.MapGet($"{API_NATURALAREA_ROUTE_COMPLETE}/name/{{name}}", async (string name, DBContext db) =>
             {
                 var naturalAreas = await db.NaturalAreas
-                                            .Include(p=> p.CategoryNaturalArea).IgnoreAutoIncludes()
-                                            .Include(p=> p.Department).IgnoreAutoIncludes()
-                                            .Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToListAsync();
+                                                    .Include(p => p.CategoryNaturalArea).IgnoreAutoIncludes()
+                                                    .Include(p => p.Department).IgnoreAutoIncludes()
+                                                    .Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper()))
+                                                    .ToListAsync();
 
                 if (naturalAreas is null)
                 {
@@ -74,7 +76,7 @@ namespace api.Routes
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var naturalAreas = db.NaturalAreas.ToList();
                 var naturalAreasFiltered = Functions.FilterObjectListPropertiesByKeyword<NaturalArea>(naturalAreas, wellFormedKeyword);
-                if (naturalAreasFiltered.Count == 0)
+                if (!naturalAreasFiltered.Any())
                 {
                     return Results.NotFound();
                 }
@@ -83,7 +85,7 @@ namespace api.Routes
             })
             .Produces<List<NaturalArea>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: NaturalAreaEndpoint.MESSAGE_SEARCH_SUMMARY, 
+                summary: NaturalAreaEndpoint.MESSAGE_SEARCH_SUMMARY,
                 description: NaturalAreaEndpoint.MESSAGE_SEARCH_DESCRIPTION
                 ));
 

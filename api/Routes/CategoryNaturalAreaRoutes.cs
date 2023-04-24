@@ -13,12 +13,12 @@ namespace api.Routes
         {
             const string API_CATEGORY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CATEGORY_NATURAL_AREA}";
 
-            //this method require handling of the not found data, and split the return and the call to match the other methods
             app.MapGet($"{API_CATEGORY_ROUTE_COMPLETE}/", async (DBContext db) =>
             {
-                return Results.Ok(await db.CategoryNaturalAreas.ToListAsync());
+                var listCategoryNaturalAreas=await db.CategoryNaturalAreas.ToListAsync();
+                return Results.Ok(listCategoryNaturalAreas);
             })
-            .Produces<List<CategoryNaturalArea>>(200)
+            .Produces<List<CategoryNaturalArea>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: CategoryNaturalAreaEndpoint.MESSAGE_LIST_SUMMARY,
                 description: CategoryNaturalAreaEndpoint.MESSAGE_LIST_DESCRIPTION
@@ -31,8 +31,7 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var region = await db.CategoryNaturalAreas
-                .SingleOrDefaultAsync(p => p.Id == id);
+                var region = await db.CategoryNaturalAreas.SingleOrDefaultAsync(p => p.Id == id);
 
                 if (region is null)
                 {
@@ -41,7 +40,7 @@ namespace api.Routes
 
                 return Results.Ok(region);
             })
-            .Produces<CategoryNaturalArea>(200)
+            .Produces<CategoryNaturalArea?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
               summary: CategoryNaturalAreaEndpoint.MESSAGE_BYID_SUMMARY,
               description: CategoryNaturalAreaEndpoint.MESSAGE_BYID_DESCRIPTION));
@@ -53,19 +52,18 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var region = await db.CategoryNaturalAreas
-                .Include(p => p.NaturalAreas)
-                .ThenInclude(p => p.Department)
-                .SingleOrDefaultAsync(p => p.Id == id);
-
-                if (region is null)
+                var categoryNaturalArea = await db.CategoryNaturalAreas
+                    .Include(p => p.NaturalAreas)
+                    .ThenInclude(p => p.Department)
+                    .SingleOrDefaultAsync(p => p.Id == id);
+                if (categoryNaturalArea is null)
                 {
                     return Results.NotFound();
                 }
 
-                return Results.Ok(region);
+                return Results.Ok(categoryNaturalArea);
             })
-            .Produces<CategoryNaturalArea>(200)
+            .Produces<CategoryNaturalArea?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
              summary: CategoryNaturalAreaEndpoint.MESSAGE_BYID_SUMMARY,
              description: CategoryNaturalAreaEndpoint.MESSAGE_BYID_DESCRIPTION));

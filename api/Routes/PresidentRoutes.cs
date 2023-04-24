@@ -15,12 +15,11 @@ namespace api.Routes
             {
                 return Results.Ok(db.Presidents.ToList());
             })
-            .Produces<List<President>>(200)
+            .Produces<List<President>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_LIST_SUMMARY,
                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_LIST_DESCRIPTION
                 ));
-
 
             app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
@@ -43,9 +42,8 @@ namespace api.Routes
             .Produces<President?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYID_SUMMARY,
-                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYID_DESCRIPTION
-                 ));
-
+                description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYID_DESCRIPTION
+                ));
 
             app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
@@ -61,12 +59,12 @@ namespace api.Routes
             .Produces<President?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYNAME_SUMMARY,
-                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYNAME_DESCRIPTION
-                 ));
+                description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYNAME_DESCRIPTION
+                ));
 
             app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/year/{{year}}", async (int year, DBContext db) =>
             {
-                //Require validation to not year greater than actual year
+                
                 var presidents = db.Presidents
                                         .Include(p => p.City)
                                         .Where(p => (p.StartPeriodDate.Year <= year
@@ -88,19 +86,19 @@ namespace api.Routes
 
             app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
             {
-               string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
-               var dbPresidents = db.Presidents.ToList();
-               var presidents = Functions.FilterObjectListPropertiesByKeyword<President>(dbPresidents, wellFormedKeyword);
-               if (presidents.Count == 0)
-               {
-                   return Results.NotFound();
-               }
+                string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
+                var dbPresidents = db.Presidents.ToList();
+                var presidents = Functions.FilterObjectListPropertiesByKeyword<President>(dbPresidents, wellFormedKeyword);
+                if (!presidents.Any())
+                {
+                    return Results.NotFound();
+                }
 
-               return Results.Ok(presidents);
+                return Results.Ok(presidents);
             })
             .Produces<List<President>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_SEARCH_SUMMARY, 
+                summary: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_SEARCH_SUMMARY,
                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_SEARCH_DESCRIPTION
             ));
 

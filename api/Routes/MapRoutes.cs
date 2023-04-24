@@ -17,7 +17,7 @@ namespace api.Routes
                 var maps = db.Maps.ToList();
                 return Results.Ok(maps);
             })
-            .Produces<List<Map>>(200)
+            .Produces<List<Map>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: CountryEndpointMetadataMessages.MESSAGE_LIST_SUMMARY,
                 description: CountryEndpointMetadataMessages.MESSAGE_LIST_DESCRIPTION
@@ -38,7 +38,7 @@ namespace api.Routes
 
                 return Results.Ok(map);
             })
-            .Produces<Map>(200)
+            .Produces<Map?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                summary: CountryEndpointMetadataMessages.MESSAGE_BYID_SUMMARY,
                 description: CountryEndpointMetadataMessages.MESSAGE_BYID_DESCRIPTION

@@ -14,7 +14,8 @@ namespace api.Routes
 
             app.MapGet(API_DEPARTMENT_ROUTE_COMPLETE, async (DBContext db) =>
             {
-                return Results.Ok(await db.Departments.ToListAsync());
+                var listDeparments = await db.Departments.ToListAsync();
+                return Results.Ok(listDeparments);
             })
             .Produces<List<Department>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
@@ -40,13 +41,12 @@ namespace api.Routes
 
                 return Results.Ok(departament);
             })
-            .Produces<Department>(200)
+            .Produces<Department?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_BYID_SUMMARY,
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_BYID_DESCRIPTION
                 ));
 
-            //this one looks like a repited endpoint from de previous one
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/cities", async (int id, DBContext db) =>
             {
                 if (id <= 0)
@@ -54,7 +54,7 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var listOfCitiesByDepartment = db.Cities.Where(p => p.DepartamentId == id);
+                var listOfCitiesByDepartment = db.Cities.Where(p => p.DepartamentId == id).ToList();
                 if (listOfCitiesByDepartment is null)
                 {
                     return Results.NotFound();
@@ -62,7 +62,7 @@ namespace api.Routes
 
                 return Results.Ok(listOfCitiesByDepartment);
             })
-            .Produces<Department>(200)
+            .Produces<List<City>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_CITIES_SUMMARY,
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_CITIES_DESCRIPTION
@@ -75,7 +75,7 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var listOfNaturalAreas = db.Departments.Include(p=> p.NaturalAreas).Where(p => p.Id == id);//require a ToList() to fit the other responses.
+                var listOfNaturalAreas = db.Departments.Include(p => p.NaturalAreas).Where(p => p.Id == id).ToList();
                 if (listOfNaturalAreas is null)
                 {
                     return Results.NotFound();
@@ -98,9 +98,10 @@ namespace api.Routes
                 }
 
                 var listOfNaturalAreas = db.TouristAttractions.Include(p => p.City)
-                 .Join(db.Cities, t => t.CityId, c => c.Id, (t, c) => new { t, c.DepartamentId })
-                 .Join(db.Departments, t => t.DepartamentId, d => d.Id, (t, d) => new { t.DepartamentId, t.t })
-                 .Where(p => p.DepartamentId == id).Select(p => p.t);//this require to return a list to fit the other returns
+                                                                .Join(db.Cities, t => t.CityId, c => c.Id, (t, c) => new { t, c.DepartamentId })
+                                                                .Join(db.Departments, t => t.DepartamentId, d => d.Id, (t, d) => new { t.DepartamentId, t.t })
+                                                                .Where(p => p.DepartamentId == id).Select(p => p.t)
+                                                                .ToList();
 
                 if (listOfNaturalAreas is null)
                 {
@@ -109,7 +110,7 @@ namespace api.Routes
 
                 return Results.Ok(listOfNaturalAreas);
             })
-            .Produces<List<TouristAttraction>>(200)
+            .Produces<List<TouristAttraction>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_SUMMARY,
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_DESCRIPTION
@@ -127,7 +128,7 @@ namespace api.Routes
 
                 return Results.Ok(departments);
             })
-            .Produces<List<Department>>(200)
+            .Produces<List<Department>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_BYNAME_SUMMARY,
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_BYNAME_DESCRIPTION
@@ -138,16 +139,16 @@ namespace api.Routes
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbDepartments = db.Departments.ToList();
                 var departments = Functions.FilterObjectListPropertiesByKeyword<Department>(dbDepartments, wellFormedKeyword);
-                if (departments.Count == 0)
+                if (!departments.Any())
                 {
                     return Results.NotFound();
                 }
 
                 return Results.Ok(departments);
             })
-            .Produces<List<Department>>(200)
+            .Produces<List<Department>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
-                summary:DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_SEARCH_SUMMARY, 
+                summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_SEARCH_SUMMARY,
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_SEARCH_DESCRIPTION
                 ));
 
@@ -159,7 +160,7 @@ namespace api.Routes
                 }
 
                 var deparmentsPaged = db.Departments.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                if (await deparmentsPaged?.CountAsync() == 0)
+                if (!await deparmentsPaged?.AnyAsync())
                 {
                     return Results.NotFound();
                 }
@@ -174,7 +175,7 @@ namespace api.Routes
 
                 return Results.Ok(paginationResponse);
             })
-            .Produces<PaginationResponseModel<Department>>(200)
+            .Produces<PaginationResponseModel<Department>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
             summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_PAGEDLIST_SUMMARY,
             description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_PAGEDLIST_DESCRIPTION

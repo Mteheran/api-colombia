@@ -1,3 +1,4 @@
+using api.Models;
 using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,10 +14,12 @@ namespace api.Routes
 
             app.MapGet($"{API_MAP_ROUTE_COMPLETE}/", (DBContext db) =>
             {
-                return Results.Ok(db.Maps);
+                var maps = db.Maps.ToList();
+                return Results.Ok(maps);
             })
+            .Produces<List<Map>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: CountryEndpointMetadataMessages.MESSAGE_LIST_SUMMARY, 
+                summary: CountryEndpointMetadataMessages.MESSAGE_LIST_SUMMARY,
                 description: CountryEndpointMetadataMessages.MESSAGE_LIST_DESCRIPTION
                 ));
 
@@ -28,7 +31,6 @@ namespace api.Routes
                 }
 
                 var map = await db.Maps.Include(p => p.Departament).SingleOrDefaultAsync(p => p.Id == id);
-
                 if (map is null)
                 {
                     return Results.NotFound();
@@ -36,7 +38,8 @@ namespace api.Routes
 
                 return Results.Ok(map);
             })
-           .WithMetadata(new SwaggerOperationAttribute(
+            .Produces<Map?>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
                summary: CountryEndpointMetadataMessages.MESSAGE_BYID_SUMMARY,
                 description: CountryEndpointMetadataMessages.MESSAGE_BYID_DESCRIPTION
                 ));

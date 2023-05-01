@@ -11,11 +11,12 @@ namespace api.Routes
         public static void RegisterCityAPI(WebApplication app)
         {
             const string API_CITY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CITY_ROUTE}";
-
             app.MapGet(API_CITY_ROUTE_COMPLETE, (DBContext db) =>
             {
-                return Results.Ok(db.Cities.ToList());
+                var listCities= db.Cities.ToList();
+                return Results.Ok(listCities);
             })
+            .Produces<List<City>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: CityEndpointMetadataMessages.MESSAGE_CITY_LIST_SUMMARY,
                  description: CityEndpointMetadataMessages.MESSAGE_CITY_LIST_DESCRIPTION
@@ -29,7 +30,6 @@ namespace api.Routes
                 }
 
                 var city = await db.Cities.Include(p=> p.Departament).SingleOrDefaultAsync(p=> p.Id == id);
-
                 if (city is null)
                 {
                     return Results.NotFound();
@@ -37,6 +37,7 @@ namespace api.Routes
 
                 return Results.Ok(city);
             })
+            .Produces<City?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: CityEndpointMetadataMessages.MESSAGE_CITY_BYID_SUMMARY,
                  description: CityEndpointMetadataMessages.MESSAGE_CITY_BYID_DESCRIPTION
@@ -44,8 +45,7 @@ namespace api.Routes
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
-                var city = db.Cities.Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
-
+                var city = db.Cities.Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList(); 
                 if (city is null)
                 {
                     return Results.NotFound();
@@ -53,6 +53,7 @@ namespace api.Routes
 
                 return Results.Ok(city);
             })
+            .Produces<List<City>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: CityEndpointMetadataMessages.MESSAGE_CITY_BYNAME_SUMMARY, 
                 description: CityEndpointMetadataMessages.MESSAGE_CITY_BYNAME_DESCRIPTION
@@ -62,33 +63,30 @@ namespace api.Routes
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbCities = db.Cities.ToList();
-
                 var cities = Functions.FilterObjectListPropertiesByKeyword<City>(dbCities, wellFormedKeyword);
                 
-                if (cities.Count == 0)
+                if (!cities.Any())
                 {
                     return Results.NotFound();
                 }
 
                 return Results.Ok(cities);
             })
+            .Produces<List<City>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: CityEndpointMetadataMessages.MESSAGE_CITY_SEARCH_SUMMARY,
                  description: CityEndpointMetadataMessages.MESSAGE_CITY_SEARCH_DESCRIPTION
                  ));
 
 
-            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/pagedList",
-                    async ([AsParameters] PaginationModel pagination, DBContext db) =>
+            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
-
                 if (pagination.Page<= 0 || pagination.PageSize <= 0)
                 {
                     return Results.BadRequest();
                 }
 
                 var cities = db.Cities.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-
                 if (!await cities?.AnyAsync())
                 {
                     return Results.NotFound();
@@ -99,18 +97,16 @@ namespace api.Routes
                     Page = pagination.Page,
                     PageSize = pagination.PageSize,
                     TotalRecords = await db.Cities.CountAsync(),
-                    Data = await cities.ToListAsync(),
-
+                    Data = await cities.ToListAsync()
                 };
 
                 return Results.Ok(paginationResponse);
             })
-           .WithMetadata(new SwaggerOperationAttribute(
+            .Produces<PaginationResponseModel<City>>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
                summary: CityEndpointMetadataMessages.MESSAGE_CITY_PAGEDLIST_SUMMARY,
                 description: CityEndpointMetadataMessages.MESSAGE_CITY_PAGEDLIST_DESCRIPTION
                 ));
-
-
         }
     }
 }

@@ -3,6 +3,7 @@ using api.Utils;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.EntityFrameworkCore;
 using static api.Utils.Messages.EndpointMetadata;
+using api.Models;
 
 namespace api.Routes
 {
@@ -14,8 +15,10 @@ namespace api.Routes
 
             app.MapGet($"{API_REGION_ROUTE_COMPLETE}/", async (DBContext db) =>
             {
-                return Results.Ok(await db.Regions.ToListAsync());
+                var listRegions = await db.Regions.ToListAsync();
+                return Results.Ok(listRegions);
             })
+            .Produces<List<Region>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: RegionEndpoint.MESSAGE_REGION_LIST_SUMMARY,
                 description: RegionEndpoint.MESSAGE_REGION_LIST_DESCRIPTION
@@ -38,32 +41,32 @@ namespace api.Routes
 
                 return Results.Ok(region);
             })
-          .WithMetadata(new SwaggerOperationAttribute(
+            .Produces<Region?>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
               summary: RegionEndpoint.MESSAGE_REGION_BYID_SUMMARY,
               description: RegionEndpoint.MESSAGE_REGION_BYID_DESCRIPTION));
 
+            app.MapGet($"{API_REGION_ROUTE_COMPLETE}/{{id}}/deparments", async (int id, DBContext db) =>
+             {
+                 if (id <= 0)
+                 {
+                     return Results.BadRequest();
+                 }
 
+                 var region = await db.Regions.Include(p => p.Departments)
+                     .SingleOrDefaultAsync(p => p.Id == id);
 
-           app.MapGet($"{API_REGION_ROUTE_COMPLETE}/{{id}}/deparments", async (int id, DBContext db) =>
-            {
-                if (id <= 0)
-                {
-                    return Results.BadRequest();
-                }
+                 if (region is null)
+                 {
+                     return Results.NotFound();
+                 }
 
-                var region = await db.Regions.Include(p=> p.Departments)
-                .SingleOrDefaultAsync(p => p.Id == id);
-
-                if (region is null)
-                {
-                    return Results.NotFound();
-                }
-
-                return Results.Ok(region);
-            })
-          .WithMetadata(new SwaggerOperationAttribute(
-              summary: RegionEndpoint.MESSAGE_BYID_DEPARMENTS_SUMMARY,
-              description: RegionEndpoint.MESSAGE_BYID_DEPARMENTS_DESCRIPTION));
+                 return Results.Ok(region);
+             })
+            .Produces<Region?>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
+               summary: RegionEndpoint.MESSAGE_BYID_DEPARMENTS_SUMMARY,
+               description: RegionEndpoint.MESSAGE_BYID_DEPARMENTS_DESCRIPTION));
         }
     }
 }

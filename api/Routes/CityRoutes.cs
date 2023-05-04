@@ -18,7 +18,7 @@ namespace api.Routes
                 {
                     query = query.Where(c => c.departamentId == departamentId.Value);
                 }
-                var listCities= db.Cities.ToList();
+                var listCities= query.ToList();
                 return Results.Ok(listCities);
             })
             .Produces<List<City>?>(200)

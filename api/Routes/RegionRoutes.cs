@@ -46,7 +46,7 @@ namespace api.Routes
               summary: RegionEndpoint.MESSAGE_REGION_BYID_SUMMARY,
               description: RegionEndpoint.MESSAGE_REGION_BYID_DESCRIPTION));
 
-            app.MapGet($"{API_REGION_ROUTE_COMPLETE}/{{id}}/deparments", async (int id, DBContext db) =>
+            app.MapGet($"{API_REGION_ROUTE_COMPLETE}/{{id}}/departments", async (int id, DBContext db) =>
              {
                  if (id <= 0)
                  {

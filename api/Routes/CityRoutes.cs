@@ -11,8 +11,13 @@ namespace api.Routes
         public static void RegisterCityAPI(WebApplication app)
         {
             const string API_CITY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CITY_ROUTE}";
-            app.MapGet(API_CITY_ROUTE_COMPLETE, (DBContext db) =>
+            app.MapGet(API_CITY_ROUTE_COMPLETE, (int? departamentId,DBContext db) =>
             {
+                var query= db.Cities.AsQueryable();
+                if (departmentId.HasValue)
+                {
+                    query = query.Where(c => c.departamentId == departamentId.Value);
+                }
                 var listCities= db.Cities.ToList();
                 return Results.Ok(listCities);
             })
@@ -20,7 +25,8 @@ namespace api.Routes
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: CityEndpointMetadataMessages.MESSAGE_CITY_LIST_SUMMARY,
                  description: CityEndpointMetadataMessages.MESSAGE_CITY_LIST_DESCRIPTION
-                 ));
+                 ))
+            .WithMetadata(new SwaggerOperationFilterAttribute(typeof(QueryParametersOperationFilter)));
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {

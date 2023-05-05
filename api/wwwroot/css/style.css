@@ -219,20 +219,18 @@ a{
   margin-bottom: 16px;
 }
 .left-menu .info {
+  font-weight: 500;
   position: relative;
   font-size: 14px;
   margin-top: 5px;
-  color: #000000;
+  color: #034c8f;
 }
 .left-menu .info a {
   text-decoration: none;
   padding: 0.3rem;
   color: #000000;
 }
-.left-menu .info b {
-  font-weight: 500;
-  color: #034c8f;
-}
+
 .content-logo {
   position: relative;
   display: block;

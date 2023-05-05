@@ -65,11 +65,11 @@
       <div class="mobile-menu-closer"></div>
       <div class="content-menu">
         <div class="content-infos">
-            <a href="https://api-colombia.com/swagger/index.html" rel="nofollow" target="_blank">
-             <div class="info"><b>View Swagger </div>
+            <a class="info" href="https://api-colombia.com/swagger/index.html" rel="nofollow" target="_blank">
+             View Swagger
             </a>
-            <a href="https://github.com/Mteheran/api-colombia" rel="nofollow" target="_blank">
-              <div class="info"><b>View repo </div>
+            <a class="info" href="https://github.com/Mteheran/api-colombia" rel="nofollow" target="_blank">
+             <br> View Repo
             </a>
             
         </div>
@@ -89,11 +89,14 @@
           <li class="scroll-to-link" data-target="Get-president">
             <a>GET presidents</a>
           </li>
-          <li class="scroll-to-link" data-target="Get-categoryNatural">
+          <li class="scroll-to-link" data-target="Get-Natural">
             <a>GET Natural Area</a>
           </li>
           <li class="scroll-to-link" data-target="Get-categoryNatural">
             <a>GET Category Natural Area</a>
+          </li>
+          <li class="scroll-to-link" data-target="Get-map">
+            <a>GET Map</a>
           </li>
           <li class="scroll-to-link" data-target="Contributors">
             <a>Contributors</a>
@@ -340,7 +343,7 @@ sancionar la nueva constitución de 1886, que estuvo vigente hasta
 </code>
             </pre>
           </div>
-          <div class="overflow-hidden content-section" id="Get-categoryNatural">
+          <div class="overflow-hidden content-section" id="Get-Natural">
             <h1>GET Natural Area</h1>
             <pre>
       GET Natural Area
@@ -422,6 +425,38 @@ administración y manejo a Parques Nacionales Naturales.",
   de flora, fauna y gea, y está destinada a la conservación, investigación 
   y estudio de sus riquezas naturales.",
   "naturalAreas": null
+}
+</code>
+            </pre>
+          </div>
+          <div class="overflow-hidden content-section" id="Get-map">
+            <h1>GET Map</h1>
+            <pre>
+      GET Map
+  
+                  </pre
+            >
+            <p>
+              This endpoint returns a list of Map
+             <br/>
+             <code class="higlighted break-word"
+             >/api/{version}/Map</code> 
+            </p>
+            <br>
+            <pre><code class="json">
+{
+"id": 2,
+"name": "Mapa Oficial Político Administrativo de Colombia",
+"description": "Este mapa muestra la división territorial y
+administrativa del país. 
+En él se pueden visualizar los diferentes estados, provincias, regiones, 
+municipios y sus respectivas capitales.",
+"departamentId": null,
+"urlImages": [
+  "https://apicolombiastorage.blob.core.windows.net/maps/2-politicio-administrativo.jpg"
+],
+"urlSource": "https://geoportal.igac.gov.co/contenido/mapas-nacionales",
+"departament": null
 }
 </code>
             </pre>

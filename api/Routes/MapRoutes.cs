@@ -30,7 +30,7 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var map = await db.Maps.Include(p => p.Departament).SingleOrDefaultAsync(p => p.Id == id);
+                var map = await db.Maps.SingleOrDefaultAsync(p => p.Id == id);
                 if (map is null)
                 {
                     return Results.NotFound();

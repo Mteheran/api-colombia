@@ -29,7 +29,7 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var city = await db.Cities.Include(p=> p.Departament).SingleOrDefaultAsync(p=> p.Id == id);
+                var city = await db.Cities.Include(p=> p.Department).SingleOrDefaultAsync(p=> p.Id == id);
                 if (city is null)
                 {
                     return Results.NotFound();

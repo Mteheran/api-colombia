@@ -8,8 +8,8 @@
         public float? Surface { get; set; }
         public float? Population { get; set; }
         public string? PostalCode { get; set; }
-        public int DepartamentId { get; set; }
-        public virtual Department Departament { get; set; }
+        public int DepartmentId { get; set; }
+        public virtual Department Department { get; set; }
         public virtual ICollection<TouristAttraction> TouristAttractions { get; set; }
         public virtual ICollection<President> Presidents { get; set; }
     }

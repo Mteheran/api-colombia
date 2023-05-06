@@ -54,7 +54,7 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var listOfCitiesByDepartment = db.Cities.Where(p => p.DepartamentId == id).ToList();
+                var listOfCitiesByDepartment = db.Cities.Where(p => p.DepartmentId == id).ToList();
                 if (listOfCitiesByDepartment is null)
                 {
                     return Results.NotFound();
@@ -98,9 +98,9 @@ namespace api.Routes
                 }
 
                 var listOfNaturalAreas = db.TouristAttractions.Include(p => p.City)
-                                                                .Join(db.Cities, t => t.CityId, c => c.Id, (t, c) => new { t, c.DepartamentId })
-                                                                .Join(db.Departments, t => t.DepartamentId, d => d.Id, (t, d) => new { t.DepartamentId, t.t })
-                                                                .Where(p => p.DepartamentId == id).Select(p => p.t)
+                                                                .Join(db.Cities, t => t.CityId, c => c.Id, (t, c) => new { t, c.DepartmentId })
+                                                                .Join(db.Departments, t => t.DepartmentId, d => d.Id, (t, d) => new { t.DepartmentId, t.t })
+                                                                .Where(p => p.DepartmentId == id).Select(p => p.t)
                                                                 .ToList();
 
                 if (listOfNaturalAreas is null)

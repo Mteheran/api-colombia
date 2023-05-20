@@ -30,16 +30,16 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var departament = await db.Departments
-                                            .Include(p => p.CityCapital)
+                var department = await db.Departments
+                                            .Include(p=> p.CityCapital)
                                             .SingleOrDefaultAsync(p => p.Id == id);
 
-                if (departament is null)
+                if (department is null)
                 {
                     return Results.NotFound();
                 }
 
-                return Results.Ok(departament);
+                return Results.Ok(department);
             })
             .Produces<Department?>(200)
             .WithMetadata(new SwaggerOperationAttribute(

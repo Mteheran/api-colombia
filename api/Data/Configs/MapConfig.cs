@@ -9,9 +9,9 @@ public class MapConfig : IEntityTypeConfiguration<Map>
         map.HasKey(p => p.Id);
         map.Property(p => p.Name).IsRequired().HasMaxLength(300);
         map.Property(p => p.Description).IsRequired(false);
-        map.Property(p => p.DepartamentId).IsRequired(false);
+        map.Property(p => p.DepartmentId).IsRequired(false);
         map.Property(p => p.UrlImages).IsRequired(true);
         map.Property(p => p.UrlSource).IsRequired(false);
-        map.HasOne(p => p.Departament).WithMany(p => p.Maps).HasForeignKey(p => p.DepartamentId);
+        map.HasOne(p => p.Department).WithMany(p => p.Maps).HasForeignKey(p => p.DepartmentId);
     }
 }

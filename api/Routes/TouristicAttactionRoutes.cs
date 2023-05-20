@@ -86,7 +86,7 @@ namespace api.Routes
                 }
 
                 var touristAttractionsPaged = db.TouristAttractions.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                if (touristAttractionsPaged.Any())
+                if (!await touristAttractionsPaged?.AnyAsync())
                 {
                     return Results.NotFound();
                 }

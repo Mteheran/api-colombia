@@ -32,7 +32,7 @@ namespace api.Utils
 
             if (filtered is not null)
             {
-                filteredResults = filtered.ToList();
+                filteredResults = filtered.Distinct().ToList();
             }
             return filteredResults;
         }

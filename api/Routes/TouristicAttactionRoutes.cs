@@ -65,7 +65,7 @@ namespace api.Routes
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbTouristAttractions = db.TouristAttractions.ToList();
                 var touristAttractions = Functions.FilterObjectListPropertiesByKeyword<TouristAttraction>(dbTouristAttractions, wellFormedKeyword);
-                if (touristAttractions.Any())
+                if (!touristAttractions.Any())
                 {
                     return Results.NotFound();
                 }

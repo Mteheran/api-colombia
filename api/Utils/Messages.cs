@@ -112,6 +112,21 @@
                 public const string MESSAGE_BYID_SUMMARY = "Map information by Id";
                 public const string MESSAGE_BYID_DESCRIPTION = "This endpoint returns the information for the map with the provided id";
             }
+
+            public struct InvasiveSpecieEndpoint
+            {
+                public const string MESSAGE_INVASIVE_SPECIE_LIST_SUMMARY = "List of invasive species in Colombia";
+                public const string MESSAGE_INVASIVE_SPECIE_LIST_DESCRIPTION = "This endpoint returns the  invasive species in colombia including general info like commonNames, image, manage, etc...";
+                public const string MESSAGE_INVASIVE_SPECIE_BYID_SUMMARY = "Invasive specie information by Id";
+                public const string MESSAGE_INVASIVE_SPECIE_BYID_DESCRIPTION = "This endpoint returns the information for the  invasive specie with the provided id";
+                public const string MESSAGE_INVASIVE_SPECIE_BYNAME_SUMMARY = "Invasive specie information by name";
+                public const string MESSAGE_INVASIVE_SPECIE_BYNAME_DESCRIPTION = "This endpoint returns the information for the  invasive specie with the provided name";
+                public const string MESSAGE_INVASIVE_SPECIE_SEARCH_SUMMARY = "Search  invasive species by keyword ";
+                public const string MESSAGE_INVASIVE_SPECIE_SEARCH_DESCRIPTION = "This endpoint returns a list of  invasive species any of the following fields(Name, CommonName, Manage) match the provided keyword ";
+                public const string MESSAGE_INVASIVE_SPECIE_PAGEDLIST_SUMMARY = "List of  invasive species using pagination - api/v1/city/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_INVASIVE_SPECIE_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of  invasive species using pagination including page, pagesize, total records and data, example api/v1/invasivespecie/pagedList?page=1&pagesize=10";
+
+            }
         }
     }
 }

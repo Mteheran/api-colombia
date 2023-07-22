@@ -60,6 +60,7 @@ TuristicAttactionRoutes.RegisterTuristicAttactionAPI(app);
 CategoryNaturalAreaRoutes.RegisterCategoryNaturalAreaAPI(app);
 NaturalAreaRoutes.RegisterNaturalAreaAPI(app);
 MapsRoutes.RegisterCountryAPI(app);
+InvasiveSpecieRoutes.RegisterInvasiveSpecieAPI(app);
 
 app.UseStatusCodePages(context => {
     var request = context.HttpContext.Request;

@@ -95,7 +95,7 @@ namespace api.Routes
                 {
                     Page = pagination.Page,
                     PageSize = pagination.PageSize,
-                    TotalRecords = await db.Presidents.CountAsync(),
+                    TotalRecords = await db.TouristAttractions.CountAsync(),
                     Data = await touristAttractionsPaged.ToListAsync()
                 };
 

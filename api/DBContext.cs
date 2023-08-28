@@ -30,6 +30,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new CategoryNaturalAreaConfig());
         builder.ApplyConfiguration(new NaturalAreaConfig());
         builder.ApplyConfiguration(new MapConfig());
+        builder.ApplyConfiguration(new NativeCommunityConfig());
 
         base.OnModelCreating(builder);
     }

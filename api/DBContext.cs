@@ -14,6 +14,7 @@ public class DBContext : DbContext
     public DbSet<NaturalArea> NaturalAreas { get; set; }
     public DbSet<Map> Maps { get; set; }
     public DbSet<InvasiveSpecie> InvasiveSpecies { get; set; }
+    public DbSet<NativeCommunity> NativeCommunities { get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {

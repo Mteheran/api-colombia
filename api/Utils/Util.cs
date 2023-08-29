@@ -12,6 +12,7 @@
         public const string NATURAL_AREA = "NaturalArea";
         public const string MAP_ROUTE = "Map";
         public const string INVASIVE_SPECIE_ROUTE = "InvasiveSpecie";
+        public const string NATIVE_COMMUNITY_ROUTE = "NativeCommunity";
 
         public const string API_ROUTE = "api/";
         public const string API_VERSION = "v1/";

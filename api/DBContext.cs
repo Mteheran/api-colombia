@@ -14,6 +14,7 @@ public class DBContext : DbContext
     public DbSet<NaturalArea> NaturalAreas { get; set; }
     public DbSet<Map> Maps { get; set; }
     public DbSet<InvasiveSpecie> InvasiveSpecies { get; set; }
+    public DbSet<NativeCommunity> NativeCommunities { get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {
@@ -31,6 +32,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new CategoryNaturalAreaConfig());
         builder.ApplyConfiguration(new NaturalAreaConfig());
         builder.ApplyConfiguration(new MapConfig());
+        builder.ApplyConfiguration(new NativeCommunityConfig());
         builder.ApplyConfiguration(new InvasiveSpecieConfig());
 
         base.OnModelCreating(builder);

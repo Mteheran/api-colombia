@@ -123,9 +123,22 @@
                 public const string MESSAGE_INVASIVE_SPECIE_BYNAME_DESCRIPTION = "This endpoint returns the information for the  invasive specie with the provided name";
                 public const string MESSAGE_INVASIVE_SPECIE_SEARCH_SUMMARY = "Search  invasive species by keyword ";
                 public const string MESSAGE_INVASIVE_SPECIE_SEARCH_DESCRIPTION = "This endpoint returns a list of  invasive species any of the following fields(Name, CommonName, Manage) match the provided keyword ";
-                public const string MESSAGE_INVASIVE_SPECIE_PAGEDLIST_SUMMARY = "List of  invasive species using pagination - api/v1/city/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_INVASIVE_SPECIE_PAGEDLIST_SUMMARY = "List of  invasive species using pagination - api/v1/invasivespecie/pagedList?page=1&pagesize=10";
                 public const string MESSAGE_INVASIVE_SPECIE_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of  invasive species using pagination including page, pagesize, total records and data, example api/v1/invasivespecie/pagedList?page=1&pagesize=10";
+            }
 
+            public struct NativeCommunityEndpoint
+            {
+                public const string MESSAGE_NATIVE_COMMUNITY_LIST_SUMMARY = "List of native communities in Colombia";
+                public const string MESSAGE_NATIVE_COMMUNITY_LIST_DESCRIPTION = "This endpoint returns the native communities in colombia including general info like name, description, images, etc...";
+                public const string MESSAGE_NATIVE_COMMUNITY_BYID_SUMMARY = "Native communities information by Id";
+                public const string MESSAGE_NATIVE_COMMUNITY_BYID_DESCRIPTION = "This endpoint returns the information for the native community with the provided id";
+                public const string MESSAGE_NATIVE_COMMUNITY_BYNAME_SUMMARY = "Native communityinformation by name";
+                public const string MESSAGE_NATIVE_COMMUNITY_BYNAME_DESCRIPTION = "This endpoint returns the information for the  native community with the provided name";
+                public const string MESSAGE_NATIVE_COMMUNITY_SEARCH_SUMMARY = "Search native communities by keyword ";
+                public const string MESSAGE_NATIVE_COMMUNITY_SEARCH_DESCRIPTION = "This endpoint returns a list of  native communities any of the following fields(Name, Description, Languages) match the provided keyword ";
+                public const string MESSAGE_NATIVE_COMMUNITY_PAGEDLIST_SUMMARY = "List of native communities using pagination - api/v1/nativecommunity/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_NATIVE_COMMUNITY_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of native communities using pagination including page, pagesize, total records and data, example api/v1/nativecommunity/pagedList?page=1&pagesize=10";
             }
         }
     }

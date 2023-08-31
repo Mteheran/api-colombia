@@ -16,7 +16,7 @@ namespace api.Routes
                 var listNativeCommunitys = db.NativeCommunities.ToList();
                 return Results.Ok(listNativeCommunitys);
             })
-            .Produces<List<City>?>(200)
+            .Produces<List<NativeCommunity>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: NativeCommunityEndpointMetadataMessages.MESSAGE_NATIVE_COMMUNITY_LIST_SUMMARY,
                  description: NativeCommunityEndpointMetadataMessages.MESSAGE_NATIVE_COMMUNITY_LIST_DESCRIPTION
@@ -72,7 +72,7 @@ namespace api.Routes
 
                 return Results.Ok(NativeCommunitys);
             })
-            .Produces<List<City>>(200)
+            .Produces<List<NativeCommunity>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: NativeCommunityEndpointMetadataMessages.MESSAGE_NATIVE_COMMUNITY_SEARCH_SUMMARY,
                  description: NativeCommunityEndpointMetadataMessages.MESSAGE_NATIVE_COMMUNITY_SEARCH_DESCRIPTION
@@ -86,8 +86,8 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var NativeCommunitys = db.NativeCommunities.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                if (!await NativeCommunitys?.AnyAsync())
+                var nativeCommunities = db.NativeCommunities.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
+                if (!await nativeCommunities?.AnyAsync())
                 {
                     return Results.NotFound();
                 }
@@ -96,13 +96,13 @@ namespace api.Routes
                 {
                     Page = pagination.Page,
                     PageSize = pagination.PageSize,
-                    TotalRecords = await db.NativeCommunities.CountAsync(),
-                    Data = await db.NativeCommunities.ToListAsync()
+                    TotalRecords = await nativeCommunities.CountAsync(),
+                    Data = await nativeCommunities.ToListAsync()
                 };
 
                 return Results.Ok(paginationResponse);
             })
-            .Produces<PaginationResponseModel<City>>(200)
+            .Produces<PaginationResponseModel<NativeCommunity>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                summary: NativeCommunityEndpointMetadataMessages.MESSAGE_NATIVE_COMMUNITY_PAGEDLIST_SUMMARY,
                 description: NativeCommunityEndpointMetadataMessages.MESSAGE_NATIVE_COMMUNITY_PAGEDLIST_DESCRIPTION

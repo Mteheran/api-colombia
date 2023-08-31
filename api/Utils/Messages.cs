@@ -136,7 +136,7 @@
                 public const string MESSAGE_NATIVE_COMMUNITY_BYNAME_SUMMARY = "Native communityinformation by name";
                 public const string MESSAGE_NATIVE_COMMUNITY_BYNAME_DESCRIPTION = "This endpoint returns the information for the  native community with the provided name";
                 public const string MESSAGE_NATIVE_COMMUNITY_SEARCH_SUMMARY = "Search native communities by keyword ";
-                public const string MESSAGE_NATIVE_COMMUNITY_SEARCH_DESCRIPTION = "This endpoint returns a list of  native communities any of the following fields(Name, CommonName, Manage) match the provided keyword ";
+                public const string MESSAGE_NATIVE_COMMUNITY_SEARCH_DESCRIPTION = "This endpoint returns a list of  native communities any of the following fields(Name, Description, Languages) match the provided keyword ";
                 public const string MESSAGE_NATIVE_COMMUNITY_PAGEDLIST_SUMMARY = "List of native communities using pagination - api/v1/nativecommunity/pagedList?page=1&pagesize=10";
                 public const string MESSAGE_NATIVE_COMMUNITY_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of native communities using pagination including page, pagesize, total records and data, example api/v1/nativecommunity/pagedList?page=1&pagesize=10";
             }

@@ -141,7 +141,7 @@
                 public const string MESSAGE_NATIVE_COMMUNITY_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of native communities using pagination including page, pagesize, total records and data, example api/v1/nativecommunity/pagedList?page=1&pagesize=10";
             }
 
-            public struct NativeCommunityEndpoint
+            public struct IndigenousReservationEndpoint
             {
                 public const string MESSAGE_INDIGENOUS_RESERVATION_LIST_SUMMARY = "List of Indigenous reservations in Colombia";
                 public const string MESSAGE_INDIGENOUS_RESERVATION_LIST_DESCRIPTION = "This endpoint returns the Indigenous reservations in colombia including general info like name, description, images, etc...";

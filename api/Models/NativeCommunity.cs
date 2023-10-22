@@ -8,6 +8,8 @@ namespace api.Models
 	    public string? Description { get; set; }
         public string? Languages { get; set; }
         public string[]? Images { get; set; }
+
+         public virtual ICollection<IndigenousReservation> IndigenousReservations { get; set; }
     }
 }
 

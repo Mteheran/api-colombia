@@ -15,6 +15,7 @@ public class DBContext : DbContext
     public DbSet<Map> Maps { get; set; }
     public DbSet<InvasiveSpecie> InvasiveSpecies { get; set; }
     public DbSet<NativeCommunity> NativeCommunities { get; set; }
+    public DbSet<IndigenousReservation> IndigenousReservations { get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {
@@ -34,6 +35,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new MapConfig());
         builder.ApplyConfiguration(new NativeCommunityConfig());
         builder.ApplyConfiguration(new InvasiveSpecieConfig());
+        builder.ApplyConfiguration(new IndigenousReservationConfig());
 
         base.OnModelCreating(builder);
     }

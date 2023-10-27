@@ -133,12 +133,26 @@
                 public const string MESSAGE_NATIVE_COMMUNITY_LIST_DESCRIPTION = "This endpoint returns the native communities in colombia including general info like name, description, images, etc...";
                 public const string MESSAGE_NATIVE_COMMUNITY_BYID_SUMMARY = "Native communities information by Id";
                 public const string MESSAGE_NATIVE_COMMUNITY_BYID_DESCRIPTION = "This endpoint returns the information for the native community with the provided id";
-                public const string MESSAGE_NATIVE_COMMUNITY_BYNAME_SUMMARY = "Native communityinformation by name";
+                public const string MESSAGE_NATIVE_COMMUNITY_BYNAME_SUMMARY = "Native community information by name";
                 public const string MESSAGE_NATIVE_COMMUNITY_BYNAME_DESCRIPTION = "This endpoint returns the information for the  native community with the provided name";
                 public const string MESSAGE_NATIVE_COMMUNITY_SEARCH_SUMMARY = "Search native communities by keyword ";
                 public const string MESSAGE_NATIVE_COMMUNITY_SEARCH_DESCRIPTION = "This endpoint returns a list of  native communities any of the following fields(Name, Description, Languages) match the provided keyword ";
                 public const string MESSAGE_NATIVE_COMMUNITY_PAGEDLIST_SUMMARY = "List of native communities using pagination - api/v1/nativecommunity/pagedList?page=1&pagesize=10";
                 public const string MESSAGE_NATIVE_COMMUNITY_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of native communities using pagination including page, pagesize, total records and data, example api/v1/nativecommunity/pagedList?page=1&pagesize=10";
+            }
+
+            public struct IndigenousReservationEndpoint
+            {
+                public const string MESSAGE_INDIGENOUS_RESERVATION_LIST_SUMMARY = "List of Indigenous reservations in Colombia";
+                public const string MESSAGE_INDIGENOUS_RESERVATION_LIST_DESCRIPTION = "This endpoint returns the Indigenous reservations in colombia including general info like name, description, images, etc...";
+                public const string MESSAGE_INDIGENOUS_RESERVATION_BYID_SUMMARY = "Indigenous reservations information by Id";
+                public const string MESSAGE_INDIGENOUS_RESERVATION_BYID_DESCRIPTION = "This endpoint returns the information for the indigenous reservation with the provided id";
+                public const string MESSAGE_INDIGENOUS_RESERVATION_BYNAME_SUMMARY = "Indigenous reservation information by name";
+                public const string MESSAGE_INDIGENOUS_RESERVATION_BYNAME_DESCRIPTION = "This endpoint returns the information for the  indigenous reservation with the provided name";
+                public const string MESSAGE_INDIGENOUS_RESERVATION_SEARCH_SUMMARY = "Search Indigenous reservations by keyword ";
+                public const string MESSAGE_INDIGENOUS_RESERVATION_SEARCH_DESCRIPTION = "This endpoint returns a list of  Indigenous reservations any of the following fields(Name, Description, Languages) match the provided keyword ";
+                public const string MESSAGE_INDIGENOUS_RESERVATION_PAGEDLIST_SUMMARY = "List of Indigenous reservations using pagination - api/v1/nativecommunity/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_INDIGENOUS_RESERVATION_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of Indigenous reservations using pagination including page, pagesize, total records and data, example api/v1/nativecommunity/pagedList?page=1&pagesize=10";
             }
         }
     }

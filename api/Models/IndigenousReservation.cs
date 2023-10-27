@@ -6,7 +6,6 @@ namespace api.Models
         public string Name { get; set; }
         public string? Code { get; set; }
         public string? ProcedureType { get; set; }
-        public string? AdministrativeAct { get; set; }
         public string? AdministrativeActType { get; set; }
         public int? AdministrativeActNumber { get; set; }
         public DateTime? AdministrativeActDate { get; set; }

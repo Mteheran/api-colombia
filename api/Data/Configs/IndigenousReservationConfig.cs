@@ -11,7 +11,6 @@ public class IndigenousReservationConfig : IEntityTypeConfiguration<IndigenousRe
         deparment.Property(p => p.Name).IsRequired().HasMaxLength(150);
         deparment.Property(p => p.Code).IsRequired(false);
         deparment.Property(p => p.ProcedureType).IsRequired(false);
-        deparment.Property(p => p.AdministrativeAct).IsRequired(false);
         deparment.Property(p => p.AdministrativeActType).IsRequired(false);
         deparment.Property(p => p.AdministrativeActNumber).IsRequired(false);
         deparment.Property(p => p.AdministrativeActDate).IsRequired(false);

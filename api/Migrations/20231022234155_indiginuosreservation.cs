@@ -19,7 +19,6 @@ namespace api.Migrations
                     Name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     Code = table.Column<string>(type: "text", nullable: true),
                     ProcedureType = table.Column<string>(type: "text", nullable: true),
-                    AdministrativeAct = table.Column<string>(type: "text", nullable: true),
                     AdministrativeActType = table.Column<string>(type: "text", nullable: true),
                     AdministrativeActNumber = table.Column<int>(type: "integer", nullable: true),
                     AdministrativeActDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),

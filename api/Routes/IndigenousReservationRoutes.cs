@@ -13,7 +13,10 @@ namespace api.Routes
             const string API_INDIGENOUS_RESERVATION_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.INDIGENOUS_RESERVATION_ROUTE}";
             app.MapGet(API_INDIGENOUS_RESERVATION_COMPLETE, (DBContext db) =>
             {
-                var listIndigenousReservations = db.IndigenousReservations.ToList();
+                var listIndigenousReservations = db.IndigenousReservations
+                .Include(p=> p.Department)
+                .Include(p=> p.City)
+                .Include(p=> p.NativeCommunity).ToList();
                 return Results.Ok(listIndigenousReservations);
             })
             .Produces<List<IndigenousReservation>?>(200)
@@ -29,7 +32,10 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var city = await db.IndigenousReservations.SingleOrDefaultAsync(p => p.Id == id);
+                var city = await db.IndigenousReservations
+                .Include(p=> p.Department)
+                .Include(p=> p.City)
+                .Include(p=> p.NativeCommunity).SingleOrDefaultAsync(p => p.Id == id);
                 if (city is null)
                 {
                     return Results.NotFound();
@@ -45,7 +51,10 @@ namespace api.Routes
 
             app.MapGet($"{API_INDIGENOUS_RESERVATION_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
-                var city = db.IndigenousReservations.Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
+                var city = db.IndigenousReservations
+                .Include(p=> p.Department)
+                .Include(p=> p.City)
+                .Include(p=> p.NativeCommunity).Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
                 if (city is null)
                 {
                     return Results.NotFound();
@@ -62,7 +71,10 @@ namespace api.Routes
             app.MapGet($"{API_INDIGENOUS_RESERVATION_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
-                var dbIndigenousReservations = db.IndigenousReservations.ToList();
+                var dbIndigenousReservations = db.IndigenousReservations
+                 .Include(p=> p.Department)
+                .Include(p=> p.City)
+                .Include(p=> p.NativeCommunity).ToList();
                 var IndigenousReservations = Functions.FilterObjectListPropertiesByKeyword<IndigenousReservation>(dbIndigenousReservations, wellFormedKeyword);
 
                 if (!IndigenousReservations.Any())
@@ -86,7 +98,10 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var IndigenousReservations = db.IndigenousReservations.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
+                var IndigenousReservations = db.IndigenousReservations
+                 .Include(p=> p.Department)
+                .Include(p=> p.City)
+                .Include(p=> p.NativeCommunity).Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
                 if (!await IndigenousReservations?.AnyAsync())
                 {
                     return Results.NotFound();

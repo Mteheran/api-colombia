@@ -13,5 +13,7 @@
         public virtual ICollection<TouristAttraction> TouristAttractions { get; set; }
         public virtual ICollection<President> Presidents { get; set; }
         public virtual ICollection<IndigenousReservation> IndigenousReservations { get; set; }
+        public virtual ICollection<Airport> Airports { get; set; }
+
     }
 }

@@ -19,6 +19,7 @@
         public ICollection<NaturalArea> NaturalAreas {get;set;}
         public ICollection<Map> Maps { get; set; }
         public virtual ICollection<IndigenousReservation> IndigenousReservations { get; set; }
+        public virtual ICollection<Airport> Airports { get; set; }
 
     }
 }

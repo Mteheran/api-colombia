@@ -151,8 +151,22 @@
                 public const string MESSAGE_INDIGENOUS_RESERVATION_BYNAME_DESCRIPTION = "This endpoint returns the information for the  indigenous reservation with the provided name";
                 public const string MESSAGE_INDIGENOUS_RESERVATION_SEARCH_SUMMARY = "Search Indigenous reservations by keyword ";
                 public const string MESSAGE_INDIGENOUS_RESERVATION_SEARCH_DESCRIPTION = "This endpoint returns a list of  Indigenous reservations any of the following fields(Name, Description, Languages) match the provided keyword ";
-                public const string MESSAGE_INDIGENOUS_RESERVATION_PAGEDLIST_SUMMARY = "List of Indigenous reservations using pagination - api/v1/nativecommunity/pagedList?page=1&pagesize=10";
-                public const string MESSAGE_INDIGENOUS_RESERVATION_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of Indigenous reservations using pagination including page, pagesize, total records and data, example api/v1/nativecommunity/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_INDIGENOUS_RESERVATION_PAGEDLIST_SUMMARY = "List of Indigenous reservations using pagination - api/v1/IndigenousReservation/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_INDIGENOUS_RESERVATION_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of Indigenous reservations using pagination including page, pagesize, total records and data, example api/v1/IndigenousReservation/pagedList?page=1&pagesize=10";
+            }
+
+            public struct AirportEndpoint
+            {
+                public const string MESSAGE_AIRPORT_LIST_SUMMARY = "List of Airports in Colombia";
+                public const string MESSAGE_AIRPORT_LIST_DESCRIPTION = "This endpoint returns the Airports in colombia including general info like name, description, images, etc...";
+                public const string MESSAGE_AIRPORT_BYID_SUMMARY = "Airports information by Id";
+                public const string MESSAGE_AIRPORT_BYID_DESCRIPTION = "This endpoint returns the information for the airports with the provided id";
+                public const string MESSAGE_AIRPORT_BYNAME_SUMMARY = "Airports information by name";
+                public const string MESSAGE_AIRPORT_BYNAME_DESCRIPTION = "This endpoint returns the information for the airport with the provided name";
+                public const string MESSAGE_AIRPORT_SEARCH_SUMMARY = "Search Airports by keyword ";
+                public const string MESSAGE_AIRPORT_SEARCH_DESCRIPTION = "This endpoint returns a list of  Airports any of the following fields(Name, Description, city) match the provided keyword ";
+                public const string MESSAGE_AIRPORT_PAGEDLIST_SUMMARY = "List of Airports using pagination - api/v1/airport/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_AIRPORT_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of Airports using pagination including page, pagesize, total records and data, example api/v1/airport/pagedList?page=1&pagesize=10";
             }
         }
     }

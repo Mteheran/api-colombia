@@ -1,7 +1,7 @@
 # API-COLOMBIA
 
 ## Introduction
-API Colombia is a public RESTful API that enable users to obtain a variety of public information about the country "Colombia".
+API Colombia is a public RESTful API that enables users to access a wide range of public information about the country of Colombia.
 
 Read this document in [Español](/README_es.md)
 
@@ -18,15 +18,15 @@ Read this document in [Español](/README_es.md)
 * 1.0
 ## Installation Guide
 * Clone this repository [here](https://github.com/Mteheran/api-colombia).
-* The develop branch is the most stable branch at any given time, ensure you're working from it.
+* The develop branch is the most stable branch at any given time, please make sure you're working from it.
 * [.NET CORE SDK ](https://dotnet.microsoft.com/en-us/download) must be installed in the machine.
-* Update the connection string to your prefered database in the "appsettings.json" file.
-* Run `dotnet build` command to generate the build of the project.
+* Update the connection string to your preferred database in the "appsettings.json" file.
+* Run the `dotnet build` command to generate the build of the project.
 
 ## Usage
-Public page [api-colombia.com](https://api-colombia.com/) has useful information about the API and a brief description of the available endpoints and the same allows access to the endpoints described bellow.
+The public page [api-colombia.com](https://api-colombia.com/) has useful information about the API and a brief description of the available endpoints and the same allows access to the endpoints described below.
 
-* Swagger documentation can be found in the following [URL](https://api-colombia.com/swagger/index.html)
+* Swagger documentation can be found at the following [URL](https://api-colombia.com/swagger/index.html)
 
 ## API Endpoints
 | HTTP Verbs | Endpoints                             | Action                                                               |

@@ -26,6 +26,12 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddOutputCache(options =>
+{
+    options.AddBasePolicy(builder => 
+        builder.Expire(TimeSpan.FromDays(7)));
+});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "corsApiColombia",
@@ -83,5 +89,6 @@ app.UseStaticFiles();
 app.UseCors("corsApiColombia");
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseOutputCache();
 
 app.Run();

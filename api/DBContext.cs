@@ -1,3 +1,4 @@
+using api.Data.Configs;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ public class DBContext : DbContext
     public DbSet<NativeCommunity> NativeCommunities { get; set; }
     public DbSet<IndigenousReservation> IndigenousReservations { get; set; }
     public DbSet<Airport> Airports { get; set; }
+    public DbSet<ConstitutionArticle> ConstitutionArticles { get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {
@@ -38,6 +40,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new InvasiveSpecieConfig());
         builder.ApplyConfiguration(new IndigenousReservationConfig());
         builder.ApplyConfiguration(new AirportConfig());
+        builder.ApplyConfiguration(new ConstitutionArticleConfig());
 
         base.OnModelCreating(builder);
     }

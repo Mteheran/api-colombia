@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http.Json;
 using api.Utils;
 using System.Net;
+using api.Data.Configs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +65,8 @@ InvasiveSpecieRoutes.RegisterInvasiveSpecieAPI(app);
 NativeCommunityRoutes.RegisterNativeCommunityAPI(app);
 IndigenousReservationRoutes.RegisterIndigenousReservationAPI(app);
 AirportRoutes.RegisterAirportAPI(app);
+ConstitutionArticleRoutes.RegisterConstitutionArticleAPI(app);
+
 
 app.UseStatusCodePages(context => {
     var request = context.HttpContext.Request;

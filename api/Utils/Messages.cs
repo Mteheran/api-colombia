@@ -153,7 +153,7 @@
                 public const string MESSAGE_INDIGENOUS_RESERVATION_SEARCH_DESCRIPTION = "This endpoint returns a list of  Indigenous reservations any of the following fields(Name, Description, Languages) match the provided keyword ";
                 public const string MESSAGE_INDIGENOUS_RESERVATION_PAGEDLIST_SUMMARY = "List of Indigenous reservations using pagination - api/v1/IndigenousReservation/pagedList?page=1&pagesize=10";
                 public const string MESSAGE_INDIGENOUS_RESERVATION_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of Indigenous reservations using pagination including page, pagesize, total records and data, example api/v1/IndigenousReservation/pagedList?page=1&pagesize=10";
-            }
+            }          
 
             public struct AirportEndpoint
             {
@@ -167,6 +167,23 @@
                 public const string MESSAGE_AIRPORT_SEARCH_DESCRIPTION = "This endpoint returns a list of  Airports any of the following fields(Name, Description, city) match the provided keyword ";
                 public const string MESSAGE_AIRPORT_PAGEDLIST_SUMMARY = "List of Airports using pagination - api/v1/airport/pagedList?page=1&pagesize=10";
                 public const string MESSAGE_AIRPORT_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of Airports using pagination including page, pagesize, total records and data, example api/v1/airport/pagedList?page=1&pagesize=10";
+            }
+
+            public struct ConstitutionArticleEndpoint
+            {
+                public const string MESSAGE_CONSTITUTION_ARTICLE_LIST_SUMMARY = "List of Constitution Articles in Colombia";
+                public const string MESSAGE_CONSTITUTION_ARTICLE_LIST_DESCRIPTION = "This endpoint returns the Constitution Articles in colombia including general info like title, chapter number, content, etc...";
+                public const string MESSAGE_CONSTITUTION_ARTICLE_BYID_SUMMARY = "Constitution Articles information by Id";
+                public const string MESSAGE_CONSTITUTION_ARTICLE_BYID_DESCRIPTION = "This endpoint returns the information for the airports with the provided id";
+                public const string MESSAGE_CONSTITUTION_ARTICLE_BYNAME_SUMMARY = "Constitution Articles information by name";
+                public const string MESSAGE_CONSTITUTION_ARTICLE_BYNAME_DESCRIPTION = "This endpoint returns the information for the airport with the provided name";
+                public const string MESSAGE_CONSTITUTION_ARTICLE_SEARCH_SUMMARY = "Search Constitution Articles by keyword ";
+                public const string MESSAGE_CONSTITUTION_ARTICLE_SEARCH_DESCRIPTION = "This endpoint returns a list of  Constitution Articles any of the following fields(title, chapter number, content) match the provided keyword ";
+                public const string MESSAGE_CONSTITUTION_ARTICLE_PAGEDLIST_SUMMARY = "List of Constitution Articles using pagination - api/v1/ConstitutionArticles/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_CONSTITUTION_ARTICLE_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of Constitution Articles using pagination including page, pagesize, total records and data, example api/v1/ConstitutionArticles/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_CONSTITUTION_ARTICLE_BYCHAPTER_SUMMARY = "Return Constitution Articles by Chapter Number ";
+                public const string MESSAGE_CONSTITUTION_ARTICLE_BYCHAPTER_DESCRIPTION = "This endpoint returns a list of Constitution Articles by the chapter number p´rovided ";
+
             }
         }
     }

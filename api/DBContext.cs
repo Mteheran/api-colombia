@@ -19,6 +19,7 @@ public class DBContext : DbContext
     public DbSet<IndigenousReservation> IndigenousReservations { get; set; }
     public DbSet<Airport> Airports { get; set; }
     public DbSet<ConstitutionArticle> ConstitutionArticles { get; set; }
+    public DbSet<Radio> Radios { get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {
@@ -41,6 +42,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new IndigenousReservationConfig());
         builder.ApplyConfiguration(new AirportConfig());
         builder.ApplyConfiguration(new ConstitutionArticleConfig());
+        builder.ApplyConfiguration(new RadioConfig());
 
         base.OnModelCreating(builder);
     }

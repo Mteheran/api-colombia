@@ -5,7 +5,6 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http.Json;
 using api.Utils;
 using System.Net;
-using api.Data.Configs;
 
 var builder = WebApplication.CreateBuilder(args);
 

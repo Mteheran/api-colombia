@@ -14,6 +14,7 @@
         public virtual ICollection<President> Presidents { get; set; }
         public virtual ICollection<IndigenousReservation> IndigenousReservations { get; set; }
         public virtual ICollection<Airport> Airports { get; set; }
+        public virtual ICollection<Radio> Radios { get; set; }
 
     }
 }

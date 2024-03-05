@@ -71,6 +71,7 @@ NativeCommunityRoutes.RegisterNativeCommunityAPI(app);
 IndigenousReservationRoutes.RegisterIndigenousReservationAPI(app);
 AirportRoutes.RegisterAirportAPI(app);
 ConstitutionArticleRoutes.RegisterConstitutionArticleAPI(app);
+RadioRoutes.RegisterRadioRoutesAPI(app);
 
 
 app.UseStatusCodePages(context => {

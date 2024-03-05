@@ -16,6 +16,7 @@
         public const string INDIGENOUS_RESERVATION_ROUTE = "IndigenousReservation";
         public const string AIRPORT = "Airport";
         public const string CONSTITUTION_ARTICLE = "ConstitutionArticle";
+        public const string RADIO = "Radio";
 
         public const string API_ROUTE = "api/";
         public const string API_VERSION = "v1/";

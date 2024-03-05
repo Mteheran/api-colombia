@@ -185,6 +185,20 @@
                 public const string MESSAGE_CONSTITUTION_ARTICLE_BYCHAPTER_DESCRIPTION = "This endpoint returns a list of Constitution Articles by the chapter number p´rovided ";
 
             }
+
+            public struct RadioEndpoint
+            {
+                public const string MESSAGE_RADIO_LIST_SUMMARY = "List of Radios in Colombia";
+                public const string MESSAGE_RADIO_LIST_DESCRIPTION = "This endpoint returns the radios in colombia including general info like name, url, frequency, etc...";
+                public const string MESSAGE_RADIO_BYID_SUMMARY = "Radios information by Id";
+                public const string MESSAGE_RADIO_BYID_DESCRIPTION = "This endpoint returns the information for the radio with the provided id";
+                public const string MESSAGE_RADIO_BYNAME_SUMMARY = "Radios information by name";
+                public const string MESSAGE_RADIO_BYNAME_DESCRIPTION = "This endpoint returns the information for the radio with the provided name";
+                public const string MESSAGE_RADIO_SEARCH_SUMMARY = "Search Radios by keyword ";
+                public const string MESSAGE_RADIO_SEARCH_DESCRIPTION = "This endpoint returns a list of Radios any of the following fields(Name, Frequency, URL, Streamers) match the provided keyword ";
+                public const string MESSAGE_RADIO_PAGEDLIST_SUMMARY = "List of Radios using pagination - api/v1/radio/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_RADIO_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of Radios using pagination including page, pagesize, total records and data, example api/v1/radio/pagedList?page=1&pagesize=10";
+            }
         }
     }
 }

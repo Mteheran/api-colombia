@@ -106,19 +106,25 @@
           </li>
           <li class="scroll-to-link" data-target="Get-indigenousReservation">
             <a>GET Indigenous Reservation </a>
-          </li>
-          <li class="scroll-to-link" data-target="Contributors">
-            <a>Contributors</a>
-          </li>
+          </li>          
+            <li class="scroll-to-link" data-target="Get-airport">
+                <a>GET Airport</a>
+            </li>
+            <li class="scroll-to-link" data-target="Get-constitutionarticle">
+                <a>GET Constitution Article</a>
+            </li>
+            <li class="scroll-to-link" data-target="Contributors">
+                <a>Contributors</a>
+            </li>
         </ul>
       </div>
     </div>
     <div class="content-page">
       <div class="content-code"></div>
       <div class="content">
-        <div class="overflow-hidden content-section" id="content-get-started">
-          <h1>Api Colombia</h1>
-          <pre>
+          <div class="overflow-hidden content-section" id="content-get-started">
+              <h1>Api Colombia</h1>
+              <pre>
     View Repository
 
     https://github.com/Mteheran/api-colombia
@@ -126,45 +132,44 @@
     View Swagger
 
     https://api-colombia.com/swagger/index.html
-                </pre
-          >
-          <p>
-            API Colombia is a public RESTful API that enable users to obtain a variety of public information about the country "Colombia".
-          </p>
-          <h1 class="project">Project Support Features</h1>
-          <p>
-            <ul>
-               <li>
-                Minimal API's endpoints to get information about :
-               </li>
-               <ol>
-                <li>General information about the country.</li>
-                <li>Departments/States.</li>
-                <li>Region.</li>
-                <li>Cities.</li>
-                <li>Presidents.</li>
-                <li>Tourist attractions.</li>
-               </ol>
-               <li>Swagger documentation.</li>
-               <li>Does not requiere authentications.</li>
-               <li>You can obtain the pageList endpoints that return 
-                <br>the paged information.
-                <br>add to the end of each endpoint <strong>/pagedList</strong>
-                <p>
-                  example:
-                <br/>
-                <code class="higlighted break-word"
-                >/api/{version}/city/pagedList</code> 
-                </p>
-               </li>
-            </ul>
-          </p>
-        </div>
-        <div class="overflow-hidden content-section" id="GET-info-Colombia">
-            <h1>Get info Colombia</h1>
-            <pre class="json">
+                </pre>
+              <p>
+                  API Colombia is a public RESTful API that enable users to obtain a variety of public information about the country "Colombia".
+              </p>
+              <h1 class="project">Project Support Features</h1>
+              <p>
+                  <ul>
+                      <li>
+                          Minimal API's endpoints to get information about :
+                      </li>
+                      <ol>
+                          <li>General information about the country.</li>
+                          <li>Departments/States.</li>
+                          <li>Region.</li>
+                          <li>Cities.</li>
+                          <li>Presidents.</li>
+                          <li>Tourist attractions.</li>
+                      </ol>
+                      <li>Swagger documentation.</li>
+                      <li>Does not requiere authentications.</li>
+                      <li>
+                          You can obtain the pageList endpoints that return
+                          <br>the paged information.
+                          <br>add to the end of each endpoint <strong>/pagedList</strong>
+                          <p>
+                              example:
+                              <br />
+                              <code class="higlighted break-word">/api/{version}/city/pagedList</code>
+                          </p>
+                      </li>
+                  </ul>
+              </p>
+          </div>
+          <div class="overflow-hidden content-section" id="GET-info-Colombia">
+              <h1>Get info Colombia</h1>
+              <pre class="json">
       Get info Colombia
-      <code >
+              <code>
   {
   "id": 1,
   "name": "Colombia",
@@ -204,28 +209,24 @@
   "presidents": null
   }        
   </code>
-                  </pre
-            >
-            <p>
-              Get the information of Colombia
-            <br/>
-            <code class="higlighted break-word"
-            >/api/{version}/country/Colombia</code> 
-            </p>
+                  </pre>
+              <p>
+                  Get the information of Colombia
+                  <br />
+                  <code class="higlighted break-word">/api/{version}/country/Colombia</code>
+              </p>
           </div>
-        <div class="overflow-hidden content-section" id="Get-departament">
-          <h2>Get departament</h2>
-          <pre class="json">
+          <div class="overflow-hidden content-section" id="Get-departament">
+              <h2>Get departament</h2>
+              <pre class="json">
       Get departament
   </pre>
-          <p>
-            Get the list of all the departments in Colombia<br />
-            <code class="higlighted break-word"
-              >/api/{version}/Department</code
-            >
-          </p>
-          <br />
-          <pre><code class="json">
+              <p>
+                  Get the list of all the departments in Colombia<br />
+                  <code class="higlighted break-word">/api/{version}/Department</code>
+              </p>
+              <br />
+              <pre><code class="json">
   {
   "id": 9,
   "name": "Caquetá",
@@ -248,20 +249,18 @@
   "cities": null
   }
 </code>
-        </div>
-        <div class="overflow-hidden content-section" id="Get-region">
-          <h2>Get Region</h2>
-          <pre class="json">
+          </div>
+          <div class="overflow-hidden content-section" id="Get-region">
+              <h2>Get Region</h2>
+              <pre class="json">
       Get Region
   </pre>
-          <p>
-            Get the list of all regions in Colombia<br />
-            <code class="higlighted break-word"
-              >/api/{version}/Region</code
-            >
-          </p>
-          <br />
-          <pre><code class="json">
+              <p>
+                  Get the list of all regions in Colombia<br />
+                  <code class="higlighted break-word">/api/{version}/Region</code>
+              </p>
+              <br />
+              <pre><code class="json">
 {
 "id": 1,
 "name": "Caribe",
@@ -269,22 +268,20 @@
 "departments": null
 }
 </code>
-        </div>
-        <div class="overflow-hidden content-section" id="Get-tourists">
-            <h1>Get touristic attraction</h1>
-            <pre>
+          </div>
+          <div class="overflow-hidden content-section" id="Get-tourists">
+              <h1>Get touristic attraction</h1>
+              <pre>
       Get touristic attraction
   
-                  </pre
-            >
-            <p>
-              Get the list of all the touristic attractions in Colombia
-             <br/>
-             <code class="higlighted break-word"
-             >/api/{version}/TouristicAttraction</code> 
-            </p>
-            <br />
-            <pre><code class="json"> 
+                  </pre>
+              <p>
+                  Get the list of all the touristic attractions in Colombia
+                  <br />
+                  <code class="higlighted break-word">/api/{version}/TouristicAttraction</code>
+              </p>
+              <br />
+              <pre><code class="json"> 
 {
 "id": 1,
 "name": "Museo del oro",
@@ -310,20 +307,18 @@ la estación de TransMilenio Museo del Oro.",
             </pre>
           </div>
           <div class="overflow-hidden content-section" id="Get-president">
-            <h1>Get president</h1>
-            <pre>
+              <h1>Get president</h1>
+              <pre>
       Get Presidents
   
-                  </pre
-            >
-            <p>
-              Get the list of all the presidents in Colombia
-             <br/>
-             <code class="higlighted break-word"
-             >/api/{version}/President</code> 
-            </p>
-            <br>
-            <pre><code class="json">
+                  </pre>
+              <p>
+                  Get the list of all the presidents in Colombia
+                  <br />
+                  <code class="higlighted break-word">/api/{version}/President</code>
+              </p>
+              <br>
+              <pre><code class="json">
 {
 "id": 1,
 "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Jos%C3%A9_Mar%C3%ADa_Campo_Serrano_1.jpg/500px-Jos%C3%A9_Mar%C3%ADa_Campo_Serrano_1.jpg",
@@ -353,20 +348,18 @@ sancionar la nueva constitución de 1886, que estuvo vigente hasta
             </pre>
           </div>
           <div class="overflow-hidden content-section" id="Get-Natural">
-            <h1>GET Natural Area</h1>
-            <pre>
+              <h1>GET Natural Area</h1>
+              <pre>
       GET Natural Area
   
-                  </pre
-            >
-            <p>
-              This endpoint returns a list of natural areas in Colombia
-             <br/>
-             <code class="higlighted break-word"
-             >/api/{version}/NaturalArea</code> 
-            </p>
-            <br>
-            <pre><code class="json">
+                  </pre>
+              <p>
+                  This endpoint returns a list of natural areas in Colombia
+                  <br />
+                  <code class="higlighted break-word">/api/{version}/NaturalArea</code>
+              </p>
+              <br>
+              <pre><code class="json">
 { "id": 1, 
 "areaGroupId": 6, 
 "categoryNaturalAreaId": 7, 
@@ -406,20 +399,18 @@ administración y manejo a Parques Nacionales Naturales.",
             </pre>
           </div>
           <div class="overflow-hidden content-section" id="Get-categoryNatural">
-            <h1>GET Category Natural Area</h1>
-            <pre>
+              <h1>GET Category Natural Area</h1>
+              <pre>
       GET Category Natural Area
   
-                  </pre
-            >
-            <p>
-              This endpoint returns a list of category natural areas in Colombia
-             <br/>
-             <code class="higlighted break-word"
-             >/api/{version}/CategoryNaturalArea</code> 
-            </p>
-            <br>
-            <pre><code class="json">
+                  </pre>
+              <p>
+                  This endpoint returns a list of category natural areas in Colombia
+                  <br />
+                  <code class="higlighted break-word">/api/{version}/CategoryNaturalArea</code>
+              </p>
+              <br>
+              <pre><code class="json">
 {
   "id": 1,
   "name": "Área Natural Única",
@@ -439,20 +430,18 @@ administración y manejo a Parques Nacionales Naturales.",
             </pre>
           </div>
           <div class="overflow-hidden content-section" id="Get-map">
-            <h1>GET Map</h1>
-            <pre>
+              <h1>GET Map</h1>
+              <pre>
       GET Map
   
-                  </pre
-            >
-            <p>
-              This endpoint returns a list of Map
-             <br/>
-             <code class="higlighted break-word"
-             >/api/{version}/Map</code> 
-            </p>
-            <br>
-            <pre><code class="json">
+                  </pre>
+              <p>
+                  This endpoint returns a list of Map
+                  <br />
+                  <code class="higlighted break-word">/api/{version}/Map</code>
+              </p>
+              <br>
+              <pre><code class="json">
 {
 "id": 2,
 "name": "Mapa Oficial Político Administrativo de Colombia",
@@ -471,20 +460,18 @@ municipios y sus respectivas capitales.",
             </pre>
           </div>
           <div class="overflow-hidden content-section" id="Get-invasivespecie">
-            <h1>GET Invasive Specie</h1>
-            <pre>
+              <h1>GET Invasive Specie</h1>
+              <pre>
       GET Invasive Specie
   
-                  </pre
-            >
-            <p>
-              This endpoint returns a list of Invasive Specie
-             <br/>
-             <code class="higlighted break-word"
-             >/api/{version}/Invasivespecie</code> 
-            </p>
-            <br>
-            <pre><code class="json">
+                  </pre>
+              <p>
+                  This endpoint returns a list of Invasive Specie
+                  <br />
+                  <code class="higlighted break-word">/api/{version}/Invasivespecie</code>
+              </p>
+              <br>
+              <pre><code class="json">
 {
   "id": 1,
   "name": "Acacia negra, gris",
@@ -499,20 +486,18 @@ municipios y sus respectivas capitales.",
             </pre>
           </div>
           <div class="overflow-hidden content-section" id="Get-nativeCommunity">
-            <h1>GET Native Community</h1>
-            <pre>
+              <h1>GET Native Community</h1>
+              <pre>
       GET Native Community
   
-                  </pre
-            >
-            <p>
-              This endpoint returns a list of Native Community
-             <br/>
-             <code class="higlighted break-word"
-             >/api/{version}/NativeCommunity</code> 
-            </p>
-            <br>
-            <pre><code class="json">
+                  </pre>
+              <p>
+                  This endpoint returns a list of Native Community
+                  <br />
+                  <code class="higlighted break-word">/api/{version}/NativeCommunity</code>
+              </p>
+              <br>
+              <pre><code class="json">
 {
   "id": 1,
   "name": "Achagua Piapoco",
@@ -523,97 +508,146 @@ municipios y sus respectivas capitales.",
 </code>
             </pre>
           </div>
-          <div class="overflow-hidden content-section" id="Get-indigenousReservation">
-            <h1>GET Indigenous Reservation</h1>
-            <pre>
-      GET Indigenous Reservation
+          <div class="overflow-hidden content-section" id="Get-airport">
+              <h1>GET Airport</h1>
+              <pre>
+      GET Airport
   
-                  </pre
-            >
-            <p>
-              This endpoint returns the Indigenous reservations in colombia including general info like name, description, images, etc...
-             <br/>
-             <code class="higlighted break-word"
-             >/api/{version}/IndigenousReservation</code> 
-            </p>
-            <br>
-            <pre><code class="json">
-{
-  "id": 1,
-  "name": "Pared Y Parecito",
-  "code": "10301",
-  "procedureType": "LEGALIZACIÓN DECRETO 1071",
-  "administrativeActType": "RESOLUCIÓN",
-  "administrativeActNumber": 18,
-  "administrativeActDate": "2003-04-10T00:00:00Z",
-  "nativeCommunityId": 16,
-  "nativeCommunity": null,
-  "deparmentId": 13,
-  "department": null,
-  "cityId": 475,
-  "city": null
-}
+                  </pre>
+              <p>
+                  This endpoint returns a list of Airports
+                  <br />
+                  <code class="higlighted break-word">/api/{version}/Airport</code>
+              </p>
+              <br>
+              <pre><code class="json">
+    {
+    "id": 1,
+    "name": "Aeropuerto Internacional El Edén",
+    "iataCode": "AXM",
+    "oaciCode": "SKAR",
+    "type": "Internacional",
+    "deparmentId": 25,
+    "department": {
+    "id": 25,
+    "name": "Quindío",
+    "description": "Quindío, también llamado El Quindío, es uno de los treinta y dos departamentos que, junto con Bogotá, Distrito Capital, forman la República de Colombia. Su capital es Armenia. Está ubicado en el centro-oeste del país, en la región andina, limitando al norte con Risaralda, al este con Tolima y al oeste con Valle del Cauca. Con 1845 km² es el segundo departamento menos extenso —por delante de San Andrés y Providencia— y con 306 hab/km², el tercero más densamente poblado, por detrás de San Andrés y Providencia y Atlántico. Pertenece al eje cafetero y a la región paisa",
+    "cityCapitalId": 885,
+    "municipalities": 12,
+    "surface": 1845,
+    "population": 569569,
+    "phonePrefix": "6",
+    "countryId": 1,
+    "cityCapital": null,
+    "country": null,
+    "cities": null,
+    "regionId": 5,
+    "region": null,
+    "naturalAreas": null,
+    "maps": null,
+    "indigenousReservations": null,
+    "airports": [
+    null
+    ]
+    },
+    "cityId": 885,
+    "city": {
+    "id": 885,
+    "name": "Armenia",
+    "description": "Armenia es un municipio colombiano, capital del departamento del Quindío y núcleo económico de su área metropolitana. Es una de las principales ciudades del eje cafetero colombiano, la región paisa y el Paisaje Cultural Cafetero.4​ Fundada en 1889 durante la colonización antioqueña, basó su economía en la agricultura",
+    "surface": 121,
+    "population": 316926,
+    "postalCode": "630001",
+    "departmentId": 25,
+    "department": null,
+    "touristAttractions": null,
+    "presidents": null,
+    "indigenousReservations": null,
+    "airports": [
+    null
+    ]
+    },
+    "latitude": -75.7659806671205,
+    "longitude": 4.4532428642135
+    }
 </code>
             </pre>
           </div>
-        <div class="overflow-hidden content-section" id="Contributors">
-          <h2>Contributors</h2>
-          <p>Thanks goes to these wonderful people</p>
-          <div class="container-contribu">
-            <div class="Contributors">
-              <a target="_blank" href="https://www.linkedin.com/in/rina-plata/">
-                <img
-                  src="../images/Rina.jfif"
-                  alt="Rina Plata"
-                  height="190"
-                />
-              </a>
-              <div class="name">Rina Plata</div>
-            </div>
-            <div class="Contributors">
-              <a target="_blank" href="https://www.linkedin.com/in/mariobot/">
-                <img src="../images/Mario.jfif" alt="Mario Botero" />
-              </a>
-              <div class="name">Mario Botero</div>
-            </div>
-            <div class="Contributors">
-              <a target="_blank" href="https://www.linkedin.com/in/mteheran/">
-                <img src="../images/Miguel.jfif" alt="Miguel Teheran" />
-              </a>
-              <div class="name">Miguel Teheran</div>
-            </div>
-            <div class="Contributors">
-              <a
-                target="_blank"
-                href="https://www.linkedin.com/in/veronicaguaman/"
-              >
-                <img src="../images/Vero.jfif" alt="Veronica Guaman" />
-              </a>
-              <div class="name">Vero Guaman</div>
-            </div>
-            <div class="Contributors">
-                <a
-                  target="_blank"
-                  href="https://www.linkedin.com/in/alejandrohv/"
-                >
-                  <img src="../images/alejo.jfif" alt="Veronica Guaman" />
-                </a>
-                <div class="name">Alejandro Herreño</div>
-            </div>
-            <div class="Contributors">
-                <a
-                  target="_blank"
-                  href="https://www.linkedin.com/in/lilivalgo/"
-                >
-                  <img src="../images/lili.jpeg" alt="Lili Valencia" />
-                </a>
-                <div class="name">Lili Valencia</div>
-            </div>
+          <div class="overflow-hidden content-section" id="Get-constitutionarticle">
+              <h1>GET Constitution Article</h1>
+              <pre>
+      GET Constitution Article
+  
+                  </pre>
+              <p>
+                  This endpoint returns a list of Article in the constitution
+                  <br />
+                  <code class="higlighted break-word">/api/{version}/constitutionarticle</code>
+              </p>
+              <br>
+              <pre><code class="json">
+    {
+    "id": 1,
+    "titleNumber": 1,
+    "title": "DE LOS PRINCIPIOS FUNDAMENTALES",
+    "chapterNumber": 1,
+    "chapter": "DE LOS PRINCIPIOS FUNDAMENTALES",
+    "articleNumber": 1,
+    "content": "Colombia es un Estado social de derecho, organizado en forma de República unitaria, descentralizada, con autonomía de sus entidades territoriales, democrática, participativa y pluralista, fundada en el respeto de la dignidad humana, en el trabajo y la solidaridad de las personas que la integran y en la prevalencia del interés general."
+    }
+</code>
+</pre>
           </div>
-        </div>
+          <div class="overflow-hidden content-section" id="Contributors">
+              <h2>Contributors</h2>
+              <p>Thanks goes to these wonderful people</p>
+              <div class="container-contribu">
+                  <div class="Contributors">
+                      <a target="_blank" href="https://www.linkedin.com/in/rina-plata/">
+                          <img src="../images/Rina.jfif"
+                               alt="Rina Plata"
+                               height="190" />
+                      </a>
+                      <div class="name">Rina Plata</div>
+                  </div>
+                  <div class="Contributors">
+                      <a target="_blank" href="https://www.linkedin.com/in/mariobot/">
+                          <img src="../images/Mario.jfif" alt="Mario Botero" />
+                      </a>
+                      <div class="name">Mario Botero</div>
+                  </div>
+                  <div class="Contributors">
+                      <a target="_blank" href="https://www.linkedin.com/in/mteheran/">
+                          <img src="../images/Miguel.jfif" alt="Miguel Teheran" />
+                      </a>
+                      <div class="name">Miguel Teheran</div>
+                  </div>
+                  <div class="Contributors">
+                      <a target="_blank"
+                         href="https://www.linkedin.com/in/veronicaguaman/">
+                          <img src="../images/Vero.jfif" alt="Veronica Guaman" />
+                      </a>
+                      <div class="name">Vero Guaman</div>
+                  </div>
+                  <div class="Contributors">
+                      <a target="_blank"
+                         href="https://www.linkedin.com/in/alejandrohv/">
+                          <img src="../images/alejo.jfif" alt="Veronica Guaman" />
+                      </a>
+                      <div class="name">Alejandro Herreño</div>
+                  </div>
+                  <div class="Contributors">
+                      <a target="_blank"
+                         href="https://www.linkedin.com/in/lilivalgo/">
+                          <img src="../images/lili.jpeg" alt="Lili Valencia" />
+                      </a>
+                      <div class="name">Lili Valencia</div>
+                  </div>
+              </div>
+          </div>
       </div>
-      <div class="content-code"></div>
-    </div>
+          <div class="content-code"></div>
+      </div>
     <script src="js/script.js"></script>
   </body>
 </html>

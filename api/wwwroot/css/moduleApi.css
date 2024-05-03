@@ -1,0 +1,140 @@
+@font-face {
+  font-family: 'Krona One';
+  src: url('/fonts/krona-one-latin-400-normal.woff2') format('woff2');
+
+  font-weight: normal;
+  font-style: normal;
+}
+
+.module-api .options-api {
+  position: absolute;
+  display: flex;
+  border: 1px solid ;
+  padding: 5px 7px;
+  width: 498px;
+  border-radius: 7px 7px 0px 0px;
+}
+
+.module-api .options-api p {
+  margin-top: 5px;
+}
+
+.module-api .options-api select {
+  background-color: rgba(179, 179, 179, .5);
+  border: none;
+  width: 93.3px;
+  font-family: 'Poppins';
+  margin-left: 7px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.module-api .options-api button {
+  border: none;
+  background-color: #003087;
+  border-radius: 4px;
+  padding: 4px 8px;
+  color: #fff;
+  font-family: 'Poppins';
+  font-weight: bold;
+  margin-left: 2em;
+  cursor: pointer;
+}
+
+.parteDerecha .block-api {
+  position: absolute;
+  background-color: #22292a;
+  padding: 10px;
+  margin-top: 2em;
+  width: 494px;
+  height: 2.7em;
+  border-bottom: 1px solid #ffffff;
+}
+
+.parteDerecha .block-api .text-api1,
+.parteDerecha .block-api .text-api2,
+.parteDerecha .block-api .text-api3 {
+  display: flex; 
+}
+
+.parteDerecha .block-api .text-api2 {
+  margin-top: -1.2em;
+  margin-left: 2em;
+}
+
+.parteDerecha .block-api .text-api3 {
+  margin-top: -.4em;
+  margin-left: 2em;
+}
+
+.parteDerecha .block-api .api,
+.parteDerecha .block-api .parentesis-apertura,
+.parteDerecha .block-api .parentesis-apertura2,
+.parteDerecha .block-api .url-api,
+.parteDerecha .block-api .endpoint,
+.parteDerecha .block-api .parentesis-cierre,
+.parteDerecha .block-api .parentesis-cierre2 {
+  font-size: 9px;
+  color: #ffffff;
+  font-family: 'Krona One';
+  margin-left: 1em;
+}
+
+.parteDerecha .block-api .parentesis-apertura2,
+.parteDerecha .block-api .parentesis-cierre2 {
+  margin-top: 1.8em;
+  margin-left: .2em;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.parteDerecha .block-api .then {
+  font-size: 9px;
+  margin-top: 1.8em;
+  margin-left: 1.8em;
+}
+
+.parteDerecha .block-api .then,
+.parteDerecha .block-api .text,
+.parteDerecha .block-api .text2,
+.parteDerecha .block-api .text3,
+.parteDerecha .block-api .text4,
+.parteDerecha .block-api .text5 {
+  color: #ffffff;
+  font-family: 'Krona One';
+  font-size: 9px;
+}
+
+.parteDerecha .block-api .text,
+.parteDerecha .block-api .text2,
+.parteDerecha .block-api .text3,
+.parteDerecha .block-api .text4,
+.parteDerecha .block-api .text5 {
+  margin-top: 1.7em;
+}
+
+.parteDerecha .module-api .resultado {
+  position: absolute;
+  margin-top: 9.6em;
+  font-size: 12px;
+  width: 479px;
+  overflow-y: auto;
+  background-color: #22292a;
+  border-radius: 0px 0px 7px 7px;
+  height: 429px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.resultado {
+  color: #ffffff; /* Fondo gris claro */
+  padding: 10px 18px; /* Espaciado interno */
+  border-radius: 5px; /* Bordes redondeados */
+  font-family: 'Krona One'; /* Fuente monoespaciada para mantener la estructura */
+  line-height: 1.7; /* Espaciado entre líneas */
+}
+
+
+/* #CECFA0 */
+/* #CB8F77 */

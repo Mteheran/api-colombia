@@ -133,6 +133,8 @@
   border-radius: 5px; /* Bordes redondeados */
   font-family: 'Krona One'; /* Fuente monoespaciada para mantener la estructura */
   line-height: 1.7; /* Espaciado entre líneas */
+  white-space: pre;  /* Preserva los espacio con elementos <br> */
+  width: fit-content; /* Ajusta el ancho al contenido */
 }
 
 

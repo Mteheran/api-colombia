@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen(options =>
     options.EnableAnnotations();
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Version = "1.0.1",
+        Version = Version.CurrentVersion,
         Title = "API Colombia",
         Description = "Open and free API that contains general information about Colombia",
         TermsOfService = new Uri("https://github.com/Mteheran/api-colombia"),

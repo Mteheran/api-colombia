@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.0.3] - 2024-10-10
+
+### Changed
+
+- Deparment list now is returning the information about Capital city for each record
+
 ## [1.0.2] - 2024-10-10
 
 ### Added

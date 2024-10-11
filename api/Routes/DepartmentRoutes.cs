@@ -14,7 +14,7 @@ namespace api.Routes
 
             app.MapGet(API_DEPARTMENT_ROUTE_COMPLETE, async (DBContext db) =>
             {
-                var listDeparments = await db.Departments.ToListAsync();
+                var listDeparments = await db.Departments.Include(p=> p.CityCapital).ToListAsync();
                 return Results.Ok(listDeparments);
             })
             .Produces<List<Department>>(200)

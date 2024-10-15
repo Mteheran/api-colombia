@@ -28,6 +28,13 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 
 * Swagger documentation can be found at the following [URL](https://api-colombia.com/swagger/index.html)
 
+## Projects, Demos, POCs and Samples
+
+| Repo | Url   | Description         |
+| ---------- | ------------------------------------- | ------------------------------------------------ |
+| https://github.com/Mteheran/invasivespecie-colombia | https://especiesinvasoras.api-colombia.com/ | A portal to consult all invasive species in Colombia |
+
+
 ## API Endpoints
 | HTTP Verbs | Endpoints                             | Action                                                               |
 | ---------- | ------------------------------------- | -------------------------------------------------------------------- |
@@ -61,10 +68,29 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 * Example:
  
 ```json
- {"id":1,"name":"Colombia","description":"Colombia, officially the Republic of Colombia, is a country in South America with insular regions in North America—near Nicaragua's Caribbean coast—as well as in the Pacific Ocean. The Colombian mainland is bordered by the Caribbean Sea to the north, Venezuela to the east and northeast, Brazil to the southeast, Ecuador and Peru to the south and southwest, the Pacific Ocean to the west, and Panama to the northwest. Colombia is divided into 32 departments and the Capital District of Bogotá, the country's largest city. It covers an area of 1,141,748 square kilometers (440,831 sq mi), and has a population of 52 million. Colombia's cultural heritage—including language, religion, cuisine, and art—reflects its history as a Spanish colony, fusing cultural elements brought by immigration from Europe and the Middle East, with those brought by enslaved Africans, as well as with those of the various Indigenous civilizations that predate colonization. Spanish is the official state language, although English and 64 other languages are recognized regional languages.","stateCapital":"Bogotá","surface":1141748,"population":52235050,"languages":["Spanish","English"],"timeZone":"UTC-5","currency":"Colombian Peso","currencyCode":"COP","isoCode":"CO","internetDomain":".co","phonePrefix":"+57","radioPrefix":"HK","aircraftPrefix":"HK"}
- ```
+{
+  "id": 1,
+  "name": "Colombia",
+  "description": "Colombia, officially the Republic of Colombia, is a country in South America with insular regions in North America—near Nicaragua's Caribbean coast—as well as in the Pacific Ocean. The Colombian mainland is bordered by the Caribbean Sea to the north, Venezuela to the east and northeast, Brazil to the southeast, Ecuador and Peru to the south and southwest, the Pacific Ocean to the west, and Panama to the northwest. Colombia is divided into 32 departments and the Capital District of Bogotá, the country's largest city. It covers an area of 1,141,748 square kilometers (440,831 sq mi), and has a population of 52 million. Colombia's cultural heritage—including language, religion, cuisine, and art—reflects its history as a Spanish colony, fusing cultural elements brought by immigration from Europe and the Middle East, with those brought by enslaved Africans, as well as with those of the various Indigenous civilizations that predate colonization. Spanish is the official state language, although English and 64 other languages are recognized regional languages.",
+  "stateCapital": "Bogotá",
+  "surface": 1141748,
+  "population": 52235050,
+  "languages": [
+    "Spanish",
+    "English"
+  ],
+  "timeZone": "UTC-5",
+  "currency": "Colombian Peso",
+  "currencyCode": "COP",
+  "isoCode": "CO",
+  "internetDomain": ".co",
+  "phonePrefix": "+57",
+  "radioPrefix": "HK",
+  "aircraftPrefix": "HK"
+}
+```
 ## Technologies Used
-* [.NET Core 6.*](https://dotnet.microsoft.com/en-us/) is a free, cross-platform, open source developer platform for building many kinds of applications. .NET is built on a high-performance runtime that is used in production by many high-scale apps.
+* [.NET Core 8.*](https://dotnet.microsoft.com/en-us/) is a free, cross-platform, open source developer platform for building many kinds of applications. .NET is built on a high-performance runtime that is used in production by many high-scale apps.
 * [PostgreSQL](https://www.postgresql.org/) is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.
 * [Microsoft Azure](https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-azure/) The Azure cloud platform is more than 200 products and cloud services designed to help you bring new solutions to life—to solve today’s challenges and create the future. Build, run, and manage applications across multiple clouds, on-premises, and at the edge, with the tools and frameworks of your choice.
 
@@ -107,5 +133,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
 ## License
 MIT License

@@ -12,6 +12,8 @@ Read this document in [Español](/README_es.md)
   - Cities.
   - Presidents.
   - Tourist attractions.
+  - Natural Areas
+  - Airports
 * Swagger documentation 
 * Does not require authentication.
 

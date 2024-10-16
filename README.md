@@ -12,10 +12,15 @@ Read this document in [Español](/README_es.md)
   - Cities.
   - Presidents.
   - Tourist attractions.
+  - Natural Areas
+  - Airports
 * Swagger documentation 
 * Does not require authentication.
+
 ## Versions
-* 1.0
+
+[Changelog - Versions](/CHANGELOG.md)
+
 ## Installation Guide
 * Clone this repository [here](https://github.com/Mteheran/api-colombia).
 * The develop branch is the most stable branch at any given time, please make sure you're working from it.

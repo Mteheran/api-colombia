@@ -12,8 +12,10 @@ API Colombia es una API pública RESTful que permite a los usuarios obtener una 
   - Atracciones turísticas.
 * Documentación Swagger.
 * No requiere autenticación.
-## Versiones
-* 1.0
+
+## Versions
+[Changelog - Versions](/CHANGELOG.md)
+
 
 ## Guía de instalación
 * Clona este repositorio [aquí](https://github.com/Mteheran/api-colombia).

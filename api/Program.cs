@@ -9,7 +9,7 @@ using System.Net;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+builder.Services.AddSwaggerGen(static options =>
 {
     options.EnableAnnotations();
     options.SwaggerDoc("v1", new OpenApiInfo
@@ -26,16 +26,16 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddOutputCache(options =>
+builder.Services.AddOutputCache(static options =>
 {
-    options.AddBasePolicy(builder => 
+    options.AddBasePolicy(static builder => 
         builder.Expire(TimeSpan.FromDays(7)));
 });
 
-builder.Services.AddCors(options =>
+builder.Services.AddCors(static options =>
 {
     options.AddPolicy(name: "corsApiColombia",
-                      policy  =>
+                      static policy  =>
                       {
                           policy.WithMethods("GET");
                           policy.AllowAnyOrigin();
@@ -48,7 +48,7 @@ builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddNpgsql<DBContext>(
     builder.Configuration.GetConnectionString("DefaultConnection"));
 
-builder.Services.Configure<JsonOptions>(options =>
+builder.Services.Configure<JsonOptions>(static options =>
 {
     options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
@@ -74,11 +74,12 @@ ConstitutionArticleRoutes.RegisterConstitutionArticleAPI(app);
 RadioRoutes.RegisterRadioRoutesAPI(app);
 
 
-app.UseStatusCodePages(context => {
+app.UseStatusCodePages(static context => {
     var request = context.HttpContext.Request;
     var response = context.HttpContext.Response;
 
     if (response.StatusCode == (int)HttpStatusCode.NotFound
+    && request.Path.Value != null
     && !request.Path.Value.Contains("/api"))
     {
         response.Redirect("/");

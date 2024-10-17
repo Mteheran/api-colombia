@@ -1,4 +1,5 @@
 # API-COLOMBIA
+[![Build and deploy ASP.Net Core app to Azure Web App - ApiColombia](https://github.com/Mteheran/api-colombia/actions/workflows/main_apicolombia.yml/badge.svg)](https://github.com/Mteheran/api-colombia/actions/workflows/main_apicolombia.yml)
 
 ## Introduction
 API Colombia is a public RESTful API that enables users to access a wide range of public information about the country of Colombia.

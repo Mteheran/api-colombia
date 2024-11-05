@@ -11,12 +11,12 @@ namespace api.Routes
         public static void RegisterAirportAPI(WebApplication app)
         {
             const string API_AIRPORT_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.AIRPORT}";
-            app.MapGet(API_AIRPORT_COMPLETE, (DBContext db) =>
+            app.MapGet(API_AIRPORT_COMPLETE, async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                 var listAirports = db.Airports
                 .Include(p => p.Department)
                 .Include(p => p.City).ToList();
-                return Results.Ok(listAirports);
+                return Results.Ok(Functions.SortList(listAirports, pagination));
             })
             .Produces<List<Airport>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(

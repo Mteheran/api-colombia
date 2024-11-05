@@ -37,6 +37,17 @@ namespace api.Utils
             return filteredResults;
         }
 
+        public static List<T> SortList<T>(List<T> list, PaginationModel paginationModel)
+        {
+            if (paginationModel is null || string.IsNullOrEmpty(paginationModel.SortBy)) return list;
+
+            var property = typeof(T).GetProperty(paginationModel.SortBy);
+            if (property is null) return list;
+
+            list.Sort((x, y) => Comparer<object>.Default.Compare(property.GetValue(x), property.GetValue(y)));
+            return list;
+        }
+
         static string RemoveAccentMark(string text)
         {
             if (text == null) return "";

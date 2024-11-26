@@ -2,7 +2,11 @@
 using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
+using static api.Utils.Functions;
+using static api.Utils.Messages.EndpointMetadata;
 using AirportMetadataMessages = api.Utils.Messages.EndpointMetadata.AirportEndpoint;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace api.Routes
 {
@@ -11,18 +15,28 @@ namespace api.Routes
         public static void RegisterAirportAPI(WebApplication app)
         {
             const string API_AIRPORT_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.AIRPORT}";
-            app.MapGet(API_AIRPORT_COMPLETE, (DBContext db) =>
-            {
-                var listAirports = db.Airports
-                .Include(p => p.Department)
-                .Include(p => p.City).ToList();
-                return Results.Ok(listAirports);
-            })
-            .Produces<List<Airport>?>(200)
-            .WithMetadata(new SwaggerOperationAttribute(
-                summary: AirportMetadataMessages.MESSAGE_AIRPORT_LIST_SUMMARY,
-                 description: AirportMetadataMessages.MESSAGE_AIRPORT_LIST_DESCRIPTION
-                 ));
+            app.MapGet(API_AIRPORT_COMPLETE, async (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+              {
+                  var queryAirports = db.Airports
+                   .Include(p => p.Department)
+                   .Include(p => p.City)
+                   .AsQueryable();
+
+                  (queryAirports, var isValidSort) = ApplySorting(queryAirports, sortBy, sortDirection);
+
+                  if (!isValidSort)
+                  {
+                      return Results.BadRequest(RequestMessages.BadRequest);
+                  }
+
+                  var listAirports = await queryAirports.ToListAsync();
+                  return Results.Ok(listAirports);
+              })
+               .Produces<List<Airport>?>(200)
+               .WithMetadata(new SwaggerOperationAttribute(
+                   summary: AirportMetadataMessages.MESSAGE_AIRPORT_LIST_SUMMARY,
+                    description: AirportMetadataMessages.MESSAGE_AIRPORT_LIST_DESCRIPTION
+                    ));
 
             app.MapGet($"{API_AIRPORT_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
@@ -69,7 +83,7 @@ namespace api.Routes
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbAirports = db.Airports
-                 .Include(p => p.Department)
+                .Include(p => p.Department)
                 .Include(p => p.City).ToList();
                 var Airports = Functions.FilterObjectListPropertiesByKeyword<Airport>(dbAirports, wellFormedKeyword);
 
@@ -86,28 +100,43 @@ namespace api.Routes
                  description: AirportMetadataMessages.MESSAGE_AIRPORT_SEARCH_DESCRIPTION
                  ));
 
-
             app.MapGet($"{API_AIRPORT_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
+
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)
                 {
                     return Results.BadRequest();
                 }
+                var sortBy = pagination.SortBy ?? string.Empty;
+                var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty;
 
-                var Airports = db.Airports
-                 .Include(p => p.Department)
-                .Include(p => p.City).Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                if (!await Airports?.AnyAsync())
+                var queryAirports = db.Airports
+                    .Include(p => p.Department)
+                    .Include(p => p.City)
+                    .AsQueryable();
+
+                (queryAirports, var isValidSort) = ApplySorting(queryAirports, sortBy, sortDirectionStr);
+
+                if (!isValidSort)
                 {
-                    return Results.NotFound();
+                    return Results.BadRequest(RequestMessages.BadRequest);
                 }
+                var totalRecords = await queryAirports.CountAsync();
+
+                var pagedAirports = await queryAirports
+                    .Skip((pagination.Page - 1) * pagination.PageSize)
+                    .Take(pagination.PageSize)
+                    .ToListAsync();
+
+                if (!pagedAirports.Any())
+                    return Results.NotFound();
 
                 var paginationResponse = new PaginationResponseModel<Airport>
                 {
                     Page = pagination.Page,
                     PageSize = pagination.PageSize,
-                    TotalRecords = await Airports.CountAsync(),
-                    Data = await Airports.ToListAsync()
+                    TotalRecords = totalRecords,
+                    Data = pagedAirports
                 };
 
                 return Results.Ok(paginationResponse);

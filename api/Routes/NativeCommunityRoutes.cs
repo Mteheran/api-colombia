@@ -3,6 +3,9 @@ using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using NativeCommunityEndpointMetadataMessages = api.Utils.Messages.EndpointMetadata.NativeCommunityEndpoint;
+using Microsoft.AspNetCore.Mvc; 
+using static api.Utils.Functions;
+using static api.Utils.Messages.EndpointMetadata;
 
 namespace api.Routes
 {
@@ -11,9 +14,17 @@ namespace api.Routes
         public static void RegisterNativeCommunityAPI(WebApplication app)
         {
             const string API_NATIVE_COMMUNITY_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.NATIVE_COMMUNITY_ROUTE}";
-            app.MapGet(API_NATIVE_COMMUNITY_COMPLETE, (DBContext db) =>
+            app.MapGet(API_NATIVE_COMMUNITY_COMPLETE, (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                var listNativeCommunitys = db.NativeCommunities.ToList();
+                 var queryNativeCommunities = db.NativeCommunities.AsQueryable(); 
+                (queryNativeCommunities, var isValidSort) = ApplySorting(queryNativeCommunities, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var listNativeCommunitys = queryNativeCommunities.ToList();
                 return Results.Ok(listNativeCommunitys);
             })
             .Produces<List<NativeCommunity>?>(200)
@@ -85,19 +96,36 @@ namespace api.Routes
                 {
                     return Results.BadRequest();
                 }
+ 
+                var sortBy = pagination.SortBy ?? string.Empty; 
+                var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty;
+ 
+                var queryNativeCommunities = db.NativeCommunities.AsQueryable(); 
+                (queryNativeCommunities, var isValidSort) = ApplySorting(queryNativeCommunities, sortBy, sortDirectionStr);
 
-                var nativeCommunities = db.NativeCommunities.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                if (!await nativeCommunities?.AnyAsync())
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+ 
+                var totalRecords = await queryNativeCommunities.CountAsync();
+ 
+                var pagedNativeCommunities = await queryNativeCommunities
+                    .Skip((pagination.Page - 1) * pagination.PageSize)
+                    .Take(pagination.PageSize)
+                    .ToListAsync();
+
+                if (!pagedNativeCommunities.Any())
                 {
                     return Results.NotFound();
                 }
-
+ 
                 var paginationResponse = new PaginationResponseModel<NativeCommunity>
                 {
                     Page = pagination.Page,
                     PageSize = pagination.PageSize,
-                    TotalRecords = await nativeCommunities.CountAsync(),
-                    Data = await nativeCommunities.ToListAsync()
+                    TotalRecords = totalRecords,
+                    Data = pagedNativeCommunities
                 };
 
                 return Results.Ok(paginationResponse);

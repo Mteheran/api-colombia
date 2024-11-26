@@ -4,6 +4,12 @@
     {
         public struct EndpointMetadata
         {
+
+            public struct RequestMessages
+            {
+                public const string BadRequest = "Bad request - Invalid sort parameter.";
+            }
+
             public struct CountryEndpoint
             {
                 public const string MESSAGE_COUNTRY_SUMMARY = "General info about Colombia";

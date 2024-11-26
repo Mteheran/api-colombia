@@ -4,6 +4,8 @@ using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.EntityFrameworkCore;
 using static api.Utils.Messages.EndpointMetadata;
 using api.Models;
+using Microsoft.AspNetCore.Mvc;
+using static api.Utils.Functions; 
 
 namespace api.Routes
 {
@@ -13,9 +15,17 @@ namespace api.Routes
         {
             const string API_CATEGORY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CATEGORY_NATURAL_AREA}";
 
-            app.MapGet($"{API_CATEGORY_ROUTE_COMPLETE}/", async (DBContext db) =>
+            app.MapGet($"{API_CATEGORY_ROUTE_COMPLETE}/", async (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                var listCategoryNaturalAreas=await db.CategoryNaturalAreas.ToListAsync();
+                var queryCategoryNaturalAreas = db.CategoryNaturalAreas.AsQueryable();
+                (queryCategoryNaturalAreas, var isValidSort) = ApplySorting(queryCategoryNaturalAreas, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var listCategoryNaturalAreas = await queryCategoryNaturalAreas.ToListAsync();
                 return Results.Ok(listCategoryNaturalAreas);
             })
             .Produces<List<CategoryNaturalArea>?>(200)

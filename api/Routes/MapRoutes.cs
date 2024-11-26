@@ -2,7 +2,10 @@ using api.Models;
 using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
-using CountryEndpointMetadataMessages = api.Utils.Messages.EndpointMetadata.MapEndpoint;
+using CountryEndpointMetadataMessages = api.Utils.Messages.EndpointMetadata.MapEndpoint; 
+using Microsoft.AspNetCore.Mvc; 
+using static api.Utils.Functions;
+using static api.Utils.Messages.EndpointMetadata;
 
 namespace api.Routes
 {
@@ -12,9 +15,17 @@ namespace api.Routes
         {
             const string API_MAP_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.MAP_ROUTE}";
 
-            app.MapGet($"{API_MAP_ROUTE_COMPLETE}/", (DBContext db) =>
+            app.MapGet($"{API_MAP_ROUTE_COMPLETE}/",async (DBContext db,[FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                var maps = db.Maps.ToList();
+                 var queryMaps = db.Maps.AsQueryable();
+                (queryMaps, var isValidSort) = ApplySorting(queryMaps, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var maps = await queryMaps.ToListAsync();
                 return Results.Ok(maps);
             })
             .Produces<List<Map>?>(200)

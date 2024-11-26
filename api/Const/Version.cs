@@ -1,4 +1,4 @@
 public class Version
 {
-    public const string CurrentVersion = "1.0.3";
+    public const string CurrentVersion = "1.0.4";
 }

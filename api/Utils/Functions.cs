@@ -1,6 +1,7 @@
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+ using System.Globalization;
+using System.Text; 
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace api.Utils
 {
@@ -35,6 +36,37 @@ namespace api.Utils
                 filteredResults = filtered.Distinct().ToList();
             }
             return filteredResults;
+        }
+
+
+        public static (IQueryable<T>, bool IsValidSort)  ApplySorting<T>(IQueryable<T> query, string sortBy, string sortOrder)
+        { 
+            if(string.IsNullOrEmpty(sortBy) || string.IsNullOrEmpty(sortOrder)){
+                 return (query, true);
+            }
+
+            var property = typeof(T).GetProperty(sortBy, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+           
+            if (property == null || (!Enum.GetNames(typeof(SortDirection)).Contains(StringExtensions.FirstCharToUpper(sortOrder))))
+            {
+                return (query, false);
+            }
+
+            var parameter = Expression.Parameter(typeof(T), "x");
+            var propertyAccess = Expression.Property(parameter, property);
+            var orderByExpression = Expression.Lambda(propertyAccess, parameter);
+
+            var method = sortOrder.Equals("desc", StringComparison.OrdinalIgnoreCase) ? "OrderByDescending" : "OrderBy";
+
+            var resultExpression = Expression.Call(
+                typeof(Queryable),
+                method,
+                new Type[] { typeof(T), property.PropertyType },
+                query.Expression,
+                Expression.Quote(orderByExpression)
+            );
+
+            return (query.Provider.CreateQuery<T>(resultExpression), true);
         }
 
         static string RemoveAccentMark(string text)

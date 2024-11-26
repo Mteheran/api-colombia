@@ -1,27 +1,38 @@
 ﻿using api.Models;
 using api.Utils;
+using static api.Utils.Functions;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using DepartmentEndpointMetadataMessages = api.Utils.Messages.EndpointMetadata.DepartmentEndpoint;
+using static api.Utils.Messages.EndpointMetadata;
+using Microsoft.AspNetCore.Mvc;
 
 namespace api.Routes
 {
     public static class DepartmentRoutes
-    {
+    { 
         public static void RegisterDepartmentAPI(WebApplication app)
         {
             const string API_DEPARTMENT_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.DEPARTMENT_ROUTE}";
 
-            app.MapGet(API_DEPARTMENT_ROUTE_COMPLETE, async (DBContext db) =>
+            app.MapGet(API_DEPARTMENT_ROUTE_COMPLETE, async (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                var listDeparments = await db.Departments.Include(p=> p.CityCapital).ToListAsync();
-                return Results.Ok(listDeparments);
+                var queryDepartments = db.Departments.Include(p => p.CityCapital).AsQueryable();
+                (queryDepartments, var isValidSort) = ApplySorting(queryDepartments, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+ 
+                var listDepartments = await queryDepartments.ToListAsync();
+                return Results.Ok(listDepartments);
             })
             .Produces<List<Department>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_LIST_SUMMARY,
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_LIST_DESCRIPTION
-                ));
+            ));
 
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
             {
@@ -31,7 +42,7 @@ namespace api.Routes
                 }
 
                 var department = await db.Departments
-                                            .Include(p=> p.CityCapital)
+                                            .Include(p => p.CityCapital)
                                             .SingleOrDefaultAsync(p => p.Id == id);
 
                 if (department is null)
@@ -47,41 +58,62 @@ namespace api.Routes
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_BYID_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/cities", async (int id, DBContext db) =>
+            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/cities", async (int id, DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                if (id <= 0)
+                 if (id <= 0)
                 {
-                    return Results.BadRequest();
+                    return Results.BadRequest("Invalid department ID.");
                 }
 
-                var listOfCitiesByDepartment = db.Cities.Where(p => p.DepartmentId == id).ToList();
-                if (listOfCitiesByDepartment is null)
+                var queryCitiesByDepartment = db.Cities.Where(p => p.DepartmentId == id).AsQueryable(); 
+                (queryCitiesByDepartment, var isValidSort) = ApplySorting(queryCitiesByDepartment, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                if (!queryCitiesByDepartment.Any())
                 {
                     return Results.NotFound();
                 }
-
-                return Results.Ok(listOfCitiesByDepartment);
+ 
+                var cities = await queryCitiesByDepartment.ToListAsync();
+                return Results.Ok(cities);
             })
-            .Produces<List<City>?>(200)
-            .WithMetadata(new SwaggerOperationAttribute(
-                summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_CITIES_SUMMARY,
-                description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_CITIES_DESCRIPTION
-                ));
+             .Produces<List<City>?>(200)
+             .WithMetadata(new SwaggerOperationAttribute(
+                 summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_CITIES_SUMMARY,
+                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_CITIES_DESCRIPTION
+                 ));
 
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/naturalareas", async (int id, DBContext db) =>
+            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/naturalareas", async (int id, DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                if (id <= 0)
+               if (id <= 0)
                 {
                     return Results.BadRequest();
                 }
 
-                var listOfNaturalAreas = db.Departments.Include(p => p.NaturalAreas).Where(p => p.Id == id).ToList();
-                if (listOfNaturalAreas is null)
+                var queryNaturalAreas = db.Departments
+                    .Include(p => p.NaturalAreas)
+                    .Where(p => p.Id == id)
+                    .SelectMany(p => p.NaturalAreas)
+                    .AsQueryable();
+
+                (queryNaturalAreas, var isValidSort) = ApplySorting(queryNaturalAreas, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+ 
+                if (!queryNaturalAreas.Any())
                 {
                     return Results.NotFound();
                 }
 
-                return Results.Ok(listOfNaturalAreas);
+                var naturalAreas = await queryNaturalAreas.ToListAsync();
+                return Results.Ok(naturalAreas);
             })
             .Produces<List<Department>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
@@ -89,32 +121,41 @@ namespace api.Routes
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_DESCRIPTION
                 ));
 
-
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/touristicattractions", async (int id, DBContext db) =>
+            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/touristicattractions", async (int id, DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+          {
+            if (id <= 0)
             {
-                if (id <= 0)
-                {
-                    return Results.BadRequest();
-                }
+                return Results.BadRequest(RequestMessages.BadRequest);
+            }
 
-                var listOfNaturalAreas = db.TouristAttractions.Include(p => p.City)
-                                                                .Join(db.Cities, t => t.CityId, c => c.Id, (t, c) => new { t, c.DepartmentId })
-                                                                .Join(db.Departments, t => t.DepartmentId, d => d.Id, (t, d) => new { t.DepartmentId, t.t })
-                                                                .Where(p => p.DepartmentId == id).Select(p => p.t)
-                                                                .ToList();
+            var queryTouristicAttractions = db.TouristAttractions
+                .Include(p => p.City)
+                .Join(db.Cities, t => t.CityId, c => c.Id, (t, c) => new { t, c.DepartmentId })
+                .Join(db.Departments, t => t.DepartmentId, d => d.Id, (t, d) => new { t.DepartmentId, t.t })
+                .Where(p => p.DepartmentId == id)
+                .Select(p => p.t)
+                .AsQueryable();
+        
+            (queryTouristicAttractions, var isValidSort) = ApplySorting(queryTouristicAttractions, sortBy, sortDirection);
 
-                if (listOfNaturalAreas is null)
-                {
-                    return Results.NotFound();
-                }
-
-                return Results.Ok(listOfNaturalAreas);
-            })
-            .Produces<List<TouristAttraction>?>(200)
-            .WithMetadata(new SwaggerOperationAttribute(
-                summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_SUMMARY,
-                description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_DESCRIPTION
-                ));
+            if (!isValidSort)
+            {
+                return Results.BadRequest(RequestMessages.BadRequest);
+            }
+        
+            if (!queryTouristicAttractions.Any())
+            {
+                return Results.NotFound();
+            }
+        
+            var touristAttractions = await queryTouristicAttractions.ToListAsync();
+            return Results.Ok(touristAttractions);
+          })
+              .Produces<List<TouristAttraction>?>(200)
+              .WithMetadata(new SwaggerOperationAttribute(
+                  summary: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_SUMMARY,
+                  description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_DESCRIPTION
+                  ));
 
 
             app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/name/{{name}}", async (string name, DBContext db) =>
@@ -158,9 +199,26 @@ namespace api.Routes
                 {
                     return Results.BadRequest();
                 }
+            
+                var sortBy = pagination.SortBy ?? string.Empty; 
+                var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty; 
+                var queryDepartments = db.Departments.AsQueryable(); 
+                
+                (queryDepartments, var isValidSort) = ApplySorting(queryDepartments, sortBy, sortDirectionStr);
 
-                var deparmentsPaged = db.Departments.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                if (!await deparmentsPaged?.AnyAsync())
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var totalRecords = await queryDepartments.CountAsync();
+
+                var pagedDepartments = await queryDepartments
+                    .Skip((pagination.Page - 1) * pagination.PageSize)
+                    .Take(pagination.PageSize)
+                    .ToListAsync();
+
+                if (!pagedDepartments.Any())
                 {
                     return Results.NotFound();
                 }
@@ -169,8 +227,8 @@ namespace api.Routes
                 {
                     Page = pagination.Page,
                     PageSize = pagination.PageSize,
-                    TotalRecords = await db.Departments.CountAsync(),
-                    Data = await deparmentsPaged.ToListAsync()
+                    TotalRecords = totalRecords,
+                    Data = pagedDepartments
                 };
 
                 return Results.Ok(paginationResponse);

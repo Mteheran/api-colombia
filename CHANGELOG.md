@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning].
 ## [Unreleased]
 
 - /
+## [1.0.4] - 2024-10-25
+
+### Changed
+
+- All list-returning endpoints now support sorting by any field within their description, with options for both ascending and descending order.
+
 
 ## [1.0.3] - 2024-10-10
 

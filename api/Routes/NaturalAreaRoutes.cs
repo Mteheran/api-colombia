@@ -4,7 +4,8 @@ using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.EntityFrameworkCore;
 using static api.Utils.Messages.EndpointMetadata;
 using api.Models;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc; 
+using static api.Utils.Functions; 
 
 namespace api.Routes
 {
@@ -14,9 +15,17 @@ namespace api.Routes
         {
             const string API_NATURALAREA_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.NATURAL_AREA}";
 
-            app.MapGet($"{API_NATURALAREA_ROUTE_COMPLETE}/", async (DBContext db) =>
+            app.MapGet($"{API_NATURALAREA_ROUTE_COMPLETE}/", async (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                var listNaturalAreas = await db.NaturalAreas.ToListAsync();
+                 var queryNaturalAreas = db.NaturalAreas.AsQueryable();
+                (queryNaturalAreas, var isValidSort) = ApplySorting(queryNaturalAreas, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var listNaturalAreas = await queryNaturalAreas.ToListAsync();
                 return Results.Ok(listNaturalAreas);
             })
             .Produces<List<Map>>(200)
@@ -90,29 +99,45 @@ namespace api.Routes
                 ));
 
             app.MapGet($"{API_NATURALAREA_ROUTE_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
-                  {
+                  { 
+                    if (pagination.Page <= 0 || pagination.PageSize <= 0)
+                    {
+                        return Results.BadRequest();
+                    }
+        
+                    var sortBy = pagination.SortBy ?? string.Empty; 
+                    var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty;
+        
+                    var queryNaturalAreas = db.NaturalAreas.AsQueryable(); 
+                    (queryNaturalAreas, var isValidSort) = ApplySorting(queryNaturalAreas, sortBy, sortDirectionStr);
 
-                      if (pagination.Page <= 0 || pagination.PageSize <= 0)
-                      {
-                          return Results.BadRequest();
-                      }
+                    if (!isValidSort)
+                    {
+                        return Results.BadRequest(RequestMessages.BadRequest);
+                    }
+        
+                    var totalRecords = await queryNaturalAreas.CountAsync();
+        
+                    var pagedNaturalAreas = await queryNaturalAreas
+                        .Skip((pagination.Page - 1) * pagination.PageSize)
+                        .Take(pagination.PageSize)
+                        .ToListAsync();
 
-                      var naturalAreaPaged = db.NaturalAreas.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                      if (!await naturalAreaPaged?.AnyAsync())
-                      {
-                          return Results.NotFound();
-                      }
+                    if (!pagedNaturalAreas.Any())
+                    {
+                        return Results.NotFound();
+                    }
+        
+                    var paginationResponse = new PaginationResponseModel<NaturalArea>
+                    {
+                        Page = pagination.Page,
+                        PageSize = pagination.PageSize,
+                        TotalRecords = totalRecords,
+                        Data = pagedNaturalAreas
+                    };
 
-                      var paginationResponse = new PaginationResponseModel<NaturalArea>
-                      {
-                          Page = pagination.Page,
-                          PageSize = pagination.PageSize,
-                          TotalRecords = await db.NaturalAreas.CountAsync(),
-                          Data = await naturalAreaPaged.ToListAsync(),
-                      };
-
-                      return Results.Ok(paginationResponse);
-                  })
+                    return Results.Ok(paginationResponse);
+            })
             .Produces<PaginationResponseModel<NaturalArea>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
              summary: NaturalAreaEndpoint.MESSAGE_PAGEDLIST_SUMMARY,

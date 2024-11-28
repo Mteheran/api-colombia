@@ -16,7 +16,7 @@ namespace api.Routes
             const string API_CITY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CITY_ROUTE}";
             app.MapGet(API_CITY_ROUTE_COMPLETE, async (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                 var queryCities = db.Regions.AsQueryable();
+                 var queryCities = db.Cities.AsQueryable();
                 (queryCities, var isValidSort) = ApplySorting(queryCities, sortBy, sortDirection);
 
                 if (!isValidSort)

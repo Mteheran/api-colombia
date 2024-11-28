@@ -3,6 +3,9 @@ using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using IndigenousReservationEndpointMetadataMessages = api.Utils.Messages.EndpointMetadata.IndigenousReservationEndpoint;
+using Microsoft.AspNetCore.Mvc; 
+using static api.Utils.Functions;
+using static api.Utils.Messages.EndpointMetadata;
 
 namespace api.Routes
 {
@@ -11,12 +14,22 @@ namespace api.Routes
         public static void RegisterIndigenousReservationAPI(WebApplication app)
         {
             const string API_INDIGENOUS_RESERVATION_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.INDIGENOUS_RESERVATION_ROUTE}";
-            app.MapGet(API_INDIGENOUS_RESERVATION_COMPLETE, (DBContext db) =>
+            app.MapGet(API_INDIGENOUS_RESERVATION_COMPLETE, (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                var listIndigenousReservations = db.IndigenousReservations
-                .Include(p=> p.Department)
-                .Include(p=> p.City)
-                .Include(p=> p.NativeCommunity).ToList();
+                   var queryIndigenousReservations = db.IndigenousReservations
+                    .Include(p => p.Department)
+                    .Include(p => p.City)
+                    .Include(p => p.NativeCommunity)
+                    .AsQueryable();
+ 
+                (queryIndigenousReservations, var isValidSort) = ApplySorting(queryIndigenousReservations, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var listIndigenousReservations = queryIndigenousReservations.ToList();
                 return Results.Ok(listIndigenousReservations);
             })
             .Produces<List<IndigenousReservation>?>(200)
@@ -97,22 +110,41 @@ namespace api.Routes
                 {
                     return Results.BadRequest();
                 }
+ 
+                var sortBy = pagination.SortBy ?? string.Empty;
+                var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty;
+ 
+                var queryIndigenousReservations = db.IndigenousReservations
+                    .Include(p => p.Department)
+                    .Include(p => p.City)
+                    .Include(p => p.NativeCommunity)
+                    .AsQueryable();
+ 
+                (queryIndigenousReservations, var isValidSort) = ApplySorting(queryIndigenousReservations, sortBy, sortDirectionStr);
 
-                var IndigenousReservations = db.IndigenousReservations
-                 .Include(p=> p.Department)
-                .Include(p=> p.City)
-                .Include(p=> p.NativeCommunity).Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                if (!await IndigenousReservations?.AnyAsync())
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+ 
+                var totalRecords = await queryIndigenousReservations.CountAsync();
+ 
+                var pagedIndigenousReservations = await queryIndigenousReservations
+                    .Skip((pagination.Page - 1) * pagination.PageSize)
+                    .Take(pagination.PageSize)
+                    .ToListAsync();
+
+                if (!pagedIndigenousReservations.Any())
                 {
                     return Results.NotFound();
                 }
-
+ 
                 var paginationResponse = new PaginationResponseModel<IndigenousReservation>
                 {
                     Page = pagination.Page,
                     PageSize = pagination.PageSize,
-                    TotalRecords = await IndigenousReservations.CountAsync(),
-                    Data = await IndigenousReservations.ToListAsync()
+                    TotalRecords = totalRecords,
+                    Data = pagedIndigenousReservations
                 };
 
                 return Results.Ok(paginationResponse);

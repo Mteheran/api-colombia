@@ -3,6 +3,9 @@ using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using RadioMetadataMessages = api.Utils.Messages.EndpointMetadata.RadioEndpoint;
+using static api.Utils.Functions;
+using Microsoft.AspNetCore.Mvc;
+using static api.Utils.Messages.EndpointMetadata;
 
 namespace api.Routes
 {
@@ -11,11 +14,21 @@ namespace api.Routes
         public static void RegisterRadioRoutesAPI(WebApplication app)
         {
             const string API_RADIO_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.RADIO}";
-            app.MapGet(API_RADIO_COMPLETE, (DBContext db) =>
+            app.MapGet(API_RADIO_COMPLETE, (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                var listRadios = db.Radios
-                .Include(p => p.City).ToList();
-                return Results.Ok(listRadios);
+                var queryRadios = db.Radios
+                    .Include(p => p.City)
+                    .AsQueryable();
+
+                (queryRadios, var isValidSort) = ApplySorting(queryRadios, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var listRadios = queryRadios.ToList();
+                return Results.Ok(listRadios); 
             })
             .Produces<List<Radio>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
@@ -88,21 +101,35 @@ namespace api.Routes
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)
                 {
                     return Results.BadRequest();
-                }
+                } 
+                var sortBy = pagination.SortBy ?? string.Empty;
+                var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty;
+ 
+                var queryRadios = db.Radios.Include(p => p.City).AsQueryable();
+ 
+                (queryRadios, var isValidSort) = ApplySorting(queryRadios, sortBy, sortDirectionStr);
 
-                var Radios = db.Radios
-                .Include(p => p.City).Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                if (!await Radios?.AnyAsync())
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                } 
+                var totalRecords = await queryRadios.CountAsync();
+                var pagedRadios = await queryRadios
+                    .Skip((pagination.Page - 1) * pagination.PageSize)
+                    .Take(pagination.PageSize)
+                    .ToListAsync();
+
+                if (!pagedRadios.Any())
                 {
                     return Results.NotFound();
                 }
-
+ 
                 var paginationResponse = new PaginationResponseModel<Radio>
                 {
                     Page = pagination.Page,
                     PageSize = pagination.PageSize,
-                    TotalRecords = await Radios.CountAsync(),
-                    Data = await Radios.ToListAsync()
+                    TotalRecords = totalRecords,
+                    Data = pagedRadios
                 };
 
                 return Results.Ok(paginationResponse);

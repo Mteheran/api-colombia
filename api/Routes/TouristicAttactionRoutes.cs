@@ -3,6 +3,10 @@ using api.Utils;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.EntityFrameworkCore;
 using TouristAttractionEndpointMetadata = api.Utils.Messages.EndpointMetadata.TouristAttractionsEndpoint;
+using static api.Utils.Messages.EndpointMetadata;
+using Microsoft.AspNetCore.Mvc;
+using static api.Utils.Functions; 
+
 namespace api.Routes
 {
     public static class TuristicAttactionRoutes
@@ -11,10 +15,18 @@ namespace api.Routes
         {
             const string API_TOURISTIC_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.TOURISTIC_ROUTE}";
 
-            app.MapGet(API_TOURISTIC_ROUTE_COMPLETE, (DBContext db) =>
-            {
-                var ListTuristAtraction = db.TouristAttractions.Include(p => p.City).ToList();
-                return Results.Ok(ListTuristAtraction);
+            app.MapGet(API_TOURISTIC_ROUTE_COMPLETE, async (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            { 
+                var queryTouristAttractions = db.TouristAttractions.Include(p => p.City).AsQueryable();
+                (queryTouristAttractions, var isValidSort) = ApplySorting(queryTouristAttractions, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var listTouristAttractions = await queryTouristAttractions.ToListAsync();
+                return Results.Ok(listTouristAttractions);
             })
             .Produces<List<TouristAttraction>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
@@ -84,19 +96,36 @@ namespace api.Routes
                 {
                     return Results.BadRequest();
                 }
+ 
+                var sortBy = pagination.SortBy ?? string.Empty; 
+                var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty; 
+                var queryTouristAttractions = db.TouristAttractions.AsQueryable();
+ 
+                (queryTouristAttractions, var isValidSort) = ApplySorting(queryTouristAttractions, sortBy, sortDirectionStr);
 
-                var touristAttractionsPaged = db.TouristAttractions.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                if (!await touristAttractionsPaged?.AnyAsync())
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+ 
+                var totalRecords = await queryTouristAttractions.CountAsync();
+ 
+                var pagedTouristAttractions = await queryTouristAttractions
+                    .Skip((pagination.Page - 1) * pagination.PageSize)
+                    .Take(pagination.PageSize)
+                    .ToListAsync();
+
+                if (!pagedTouristAttractions.Any())
                 {
                     return Results.NotFound();
                 }
-
+ 
                 var paginationResponse = new PaginationResponseModel<TouristAttraction>
                 {
                     Page = pagination.Page,
                     PageSize = pagination.PageSize,
-                    TotalRecords = await db.TouristAttractions.CountAsync(),
-                    Data = await touristAttractionsPaged.ToListAsync()
+                    TotalRecords = totalRecords,
+                    Data = pagedTouristAttractions
                 };
 
                 return Results.Ok(paginationResponse);

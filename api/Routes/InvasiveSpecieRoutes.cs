@@ -3,6 +3,9 @@ using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using InvasiveSpecieEndpointMetadataMessages = api.Utils.Messages.EndpointMetadata.InvasiveSpecieEndpoint;
+using Microsoft.AspNetCore.Mvc;
+using static api.Utils.Functions;
+using static api.Utils.Messages.EndpointMetadata;
 
 namespace api.Routes
 {
@@ -11,10 +14,18 @@ namespace api.Routes
         public static void RegisterInvasiveSpecieAPI(WebApplication app)
         {
             const string API_INVASIVE_SPECIE_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.INVASIVE_SPECIE_ROUTE}";
-            app.MapGet(API_INVASIVE_SPECIE_ROUTE_COMPLETE, (DBContext db) =>
+            app.MapGet(API_INVASIVE_SPECIE_ROUTE_COMPLETE, (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                var listInvasiveSpecies = db.InvasiveSpecies.ToList();
-                return Results.Ok(listInvasiveSpecies);
+                var queryInvasiveSpecies = db.InvasiveSpecies.AsQueryable();
+                (queryInvasiveSpecies, var isValidSort) = ApplySorting(queryInvasiveSpecies, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var listInvasiveSpecies = queryInvasiveSpecies.ToList(); 
+                return Results.Ok(listInvasiveSpecies); 
             })
             .Produces<List<City>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(

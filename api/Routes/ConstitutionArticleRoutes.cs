@@ -3,6 +3,9 @@ using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using ConstitutionArticleMetadataMessages = api.Utils.Messages.EndpointMetadata.ConstitutionArticleEndpoint;
+using static api.Utils.Functions;
+using Microsoft.AspNetCore.Mvc;
+using static api.Utils.Messages.EndpointMetadata;
 
 namespace api.Routes
 {
@@ -11,11 +14,18 @@ namespace api.Routes
         public static void RegisterConstitutionArticleAPI(WebApplication app)
         {
             const string API_CONSTITUTION_ARTICLE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CONSTITUTION_ARTICLE}";
-            app.MapGet(API_CONSTITUTION_ARTICLE_COMPLETE, (DBContext db) =>
+            app.MapGet(API_CONSTITUTION_ARTICLE_COMPLETE, (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
             {
-                var listConstitutionArticles = db.ConstitutionArticles
-                .OrderBy(p=> p.Id).ToList();
-                return Results.Ok(listConstitutionArticles);
+                 var queryArticles = db.ConstitutionArticles.AsQueryable();
+                (queryArticles, var isValidSort) = ApplySorting(queryArticles, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var listArticles = queryArticles.ToList();
+                return Results.Ok(listArticles);
             })
             .Produces<List<ConstitutionArticle>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
@@ -69,25 +79,43 @@ namespace api.Routes
             app.MapGet($"{API_CONSTITUTION_ARTICLE_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)
-                {
-                    return Results.BadRequest();
-                }
+                    {
+                        return Results.BadRequest();
+                    }
+ 
+                    var sortBy = pagination.SortBy ?? string.Empty;
+                    var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty;
+ 
+                    var queryConstitutionArticles = db.ConstitutionArticles.AsQueryable();
+ 
+                    (queryConstitutionArticles, var isValidSort) = ApplySorting(queryConstitutionArticles, sortBy, sortDirectionStr);
 
-                var ConstitutionArticles = db.ConstitutionArticles.OrderBy(p => p.Id).Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                if (!await ConstitutionArticles?.AnyAsync())
-                {
-                    return Results.NotFound();
-                }
+                    if (!isValidSort)
+                    {
+                        return Results.BadRequest(RequestMessages.BadRequest);
+                    }
+ 
+                    var totalRecords = await queryConstitutionArticles.CountAsync();
+ 
+                    var pagedConstitutionArticles = await queryConstitutionArticles
+                        .Skip((pagination.Page - 1) * pagination.PageSize)
+                        .Take(pagination.PageSize)
+                        .ToListAsync();
 
-                var paginationResponse = new PaginationResponseModel<ConstitutionArticle>
-                {
-                    Page = pagination.Page,
-                    PageSize = pagination.PageSize,
-                    TotalRecords = await ConstitutionArticles.CountAsync(),
-                    Data = await ConstitutionArticles.ToListAsync()
-                };
+                    if (!pagedConstitutionArticles.Any())
+                    {
+                        return Results.NotFound();
+                    }
+ 
+                    var paginationResponse = new PaginationResponseModel<ConstitutionArticle>
+                    {
+                        Page = pagination.Page,
+                        PageSize = pagination.PageSize,
+                        TotalRecords = totalRecords,
+                        Data = pagedConstitutionArticles
+                    };
 
-                return Results.Ok(paginationResponse);
+                    return Results.Ok(paginationResponse);
             })
             .Produces<PaginationResponseModel<ConstitutionArticle>>(200)
             .WithMetadata(new SwaggerOperationAttribute(

@@ -16,8 +16,8 @@ namespace api.Routes
             const string API_PRESIDENT_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.PRESIDENT_ROUTE}";
 
            app.MapGet(API_PRESIDENT_ROUTE_COMPLETE, async (DBContext db,
-                [FromQuery, SwaggerParameter(Description = "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).")] string? sortBy,
-                [FromQuery, SwaggerParameter(Description = "Possible values: 'asc' or 'desc'.")] string? sortDirection) =>
+                [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
                 var queryPresidents = db.Presidents.AsQueryable(); 
                 (queryPresidents, var isValidSort) = ApplySorting(queryPresidents, sortBy, sortDirection);

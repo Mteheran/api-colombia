@@ -15,8 +15,8 @@ namespace api.Routes
         {
             const string API_INVASIVE_SPECIE_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.INVASIVE_SPECIE_ROUTE}";
             app.MapGet(API_INVASIVE_SPECIE_ROUTE_COMPLETE, (DBContext db,
-                [FromQuery, SwaggerParameter(Description = "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).")] string? sortBy,
-                [FromQuery, SwaggerParameter(Description = "Possible values: 'asc' or 'desc'.")] string? sortDirection) =>
+                [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
                 var queryInvasiveSpecies = db.InvasiveSpecies.AsQueryable();
                 (queryInvasiveSpecies, var isValidSort) = ApplySorting(queryInvasiveSpecies, sortBy, sortDirection);

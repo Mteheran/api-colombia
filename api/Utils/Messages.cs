@@ -5,6 +5,10 @@
         public struct EndpointMetadata
         {
 
+            public struct Swagger{
+                public const string sortedBy =  "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).";
+                public const string sortDirection = "Possible values: 'asc' or 'desc'.";
+            }
             public struct RequestMessages
             {
                 public const string BadRequest = "Bad request - Invalid sort parameter.";

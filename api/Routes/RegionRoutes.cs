@@ -15,7 +15,9 @@ namespace api.Routes
         {
             const string API_REGION_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.REGION}";
 
-            app.MapGet($"{API_REGION_ROUTE_COMPLETE}/", async (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            app.MapGet($"{API_REGION_ROUTE_COMPLETE}/", async (DBContext db,
+                [FromQuery, SwaggerParameter(Description = "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).")] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = "Possible values: 'asc' or 'desc'.")] string? sortDirection) =>
             {
                 var queryRegions = db.Regions.AsQueryable();
                 (queryRegions, var isValidSort) = ApplySorting(queryRegions, sortBy, sortDirection);
@@ -55,7 +57,9 @@ namespace api.Routes
               summary: RegionEndpoint.MESSAGE_REGION_BYID_SUMMARY,
               description: RegionEndpoint.MESSAGE_REGION_BYID_DESCRIPTION));
 
-            app.MapGet($"{API_REGION_ROUTE_COMPLETE}/{{id}}/departments", async (int id, DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            app.MapGet($"{API_REGION_ROUTE_COMPLETE}/{{id}}/departments", async (int id, DBContext db,
+                 [FromQuery, SwaggerParameter(Description = "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).")] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = "Possible values: 'asc' or 'desc'.")] string? sortDirection) =>
              {
                  if (id <= 0)
                  {

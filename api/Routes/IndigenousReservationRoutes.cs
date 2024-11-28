@@ -14,7 +14,9 @@ namespace api.Routes
         public static void RegisterIndigenousReservationAPI(WebApplication app)
         {
             const string API_INDIGENOUS_RESERVATION_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.INDIGENOUS_RESERVATION_ROUTE}";
-            app.MapGet(API_INDIGENOUS_RESERVATION_COMPLETE, (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            app.MapGet(API_INDIGENOUS_RESERVATION_COMPLETE, (DBContext db,
+                [FromQuery, SwaggerParameter(Description = "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).")] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = "Possible values: 'asc' or 'desc'.")] string? sortDirection) =>
             {
                    var queryIndigenousReservations = db.IndigenousReservations
                     .Include(p => p.Department)

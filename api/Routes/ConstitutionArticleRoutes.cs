@@ -14,7 +14,9 @@ namespace api.Routes
         public static void RegisterConstitutionArticleAPI(WebApplication app)
         {
             const string API_CONSTITUTION_ARTICLE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CONSTITUTION_ARTICLE}";
-            app.MapGet(API_CONSTITUTION_ARTICLE_COMPLETE, (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            app.MapGet(API_CONSTITUTION_ARTICLE_COMPLETE, (DBContext db,
+                [FromQuery, SwaggerParameter(Description = "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).")] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = "Possible values: 'asc' or 'desc'.")] string? sortDirection) =>
             {
                  var queryArticles = db.ConstitutionArticles.AsQueryable();
                 (queryArticles, var isValidSort) = ApplySorting(queryArticles, sortBy, sortDirection);

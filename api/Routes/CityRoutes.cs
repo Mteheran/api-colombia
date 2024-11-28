@@ -14,9 +14,11 @@ namespace api.Routes
         public static void RegisterCityAPI(WebApplication app)
         {
             const string API_CITY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CITY_ROUTE}";
-            app.MapGet(API_CITY_ROUTE_COMPLETE, async (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            app.MapGet(API_CITY_ROUTE_COMPLETE, async (DBContext db,
+                [FromQuery, SwaggerParameter(Description = "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).")] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = "Possible values: 'asc' or 'desc'.")] string? sortDirection) =>
             {
-                 var queryCities = db.Cities.AsQueryable();
+                var queryCities = db.Cities.AsQueryable();
                 (queryCities, var isValidSort) = ApplySorting(queryCities, sortBy, sortDirection);
 
                 if (!isValidSort)
@@ -40,7 +42,7 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var city = await db.Cities.Include(p=> p.Department).SingleOrDefaultAsync(p=> p.Id == id);
+                var city = await db.Cities.Include(p => p.Department).SingleOrDefaultAsync(p => p.Id == id);
                 if (city is null)
                 {
                     return Results.NotFound();
@@ -56,7 +58,7 @@ namespace api.Routes
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
-                var city = db.Cities.Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList(); 
+                var city = db.Cities.Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
                 if (city is null)
                 {
                     return Results.NotFound();
@@ -66,7 +68,7 @@ namespace api.Routes
             })
             .Produces<List<City>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: CityEndpointMetadataMessages.MESSAGE_CITY_BYNAME_SUMMARY, 
+                summary: CityEndpointMetadataMessages.MESSAGE_CITY_BYNAME_SUMMARY,
                 description: CityEndpointMetadataMessages.MESSAGE_CITY_BYNAME_DESCRIPTION
                 ));
 
@@ -75,7 +77,7 @@ namespace api.Routes
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbCities = db.Cities.ToList();
                 var cities = Functions.FilterObjectListPropertiesByKeyword<City>(dbCities, wellFormedKeyword);
-                
+
                 if (!cities.Any())
                 {
                     return Results.NotFound();
@@ -96,11 +98,11 @@ namespace api.Routes
                 {
                     return Results.BadRequest();
                 }
- 
-                var sortBy = pagination.SortBy ?? string.Empty; 
-                var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty; 
+
+                var sortBy = pagination.SortBy ?? string.Empty;
+                var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty;
                 var queryCities = db.Cities.AsQueryable();
- 
+
                 (queryCities, var isValidSort) = ApplySorting(queryCities, sortBy, sortDirectionStr);
 
                 if (!isValidSort)

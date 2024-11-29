@@ -15,7 +15,9 @@ namespace api.Routes
         public static void RegisterAirportAPI(WebApplication app)
         {
             const string API_AIRPORT_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.AIRPORT}";
-            app.MapGet(API_AIRPORT_COMPLETE, async (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            app.MapGet(API_AIRPORT_COMPLETE, async (DBContext db,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
               {
                   var queryAirports = db.Airports
                    .Include(p => p.Department)

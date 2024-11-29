@@ -15,7 +15,9 @@ namespace api.Routes
         {
             const string API_NATURALAREA_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.NATURAL_AREA}";
 
-            app.MapGet($"{API_NATURALAREA_ROUTE_COMPLETE}/", async (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            app.MapGet($"{API_NATURALAREA_ROUTE_COMPLETE}/", async (DBContext db,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
                  var queryNaturalAreas = db.NaturalAreas.AsQueryable();
                 (queryNaturalAreas, var isValidSort) = ApplySorting(queryNaturalAreas, sortBy, sortDirection);

@@ -15,7 +15,9 @@ namespace api.Routes
         {
             const string API_MAP_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.MAP_ROUTE}";
 
-            app.MapGet($"{API_MAP_ROUTE_COMPLETE}/",async (DBContext db,[FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            app.MapGet($"{API_MAP_ROUTE_COMPLETE}/",async (DBContext db,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
                  var queryMaps = db.Maps.AsQueryable();
                 (queryMaps, var isValidSort) = ApplySorting(queryMaps, sortBy, sortDirection);

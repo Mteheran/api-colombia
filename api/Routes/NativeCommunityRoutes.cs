@@ -14,7 +14,9 @@ namespace api.Routes
         public static void RegisterNativeCommunityAPI(WebApplication app)
         {
             const string API_NATIVE_COMMUNITY_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.NATIVE_COMMUNITY_ROUTE}";
-            app.MapGet(API_NATIVE_COMMUNITY_COMPLETE, (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            app.MapGet(API_NATIVE_COMMUNITY_COMPLETE, (DBContext db,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
                  var queryNativeCommunities = db.NativeCommunities.AsQueryable(); 
                 (queryNativeCommunities, var isValidSort) = ApplySorting(queryNativeCommunities, sortBy, sortDirection);

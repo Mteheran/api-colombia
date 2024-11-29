@@ -14,7 +14,9 @@ namespace api.Routes
         public static void RegisterInvasiveSpecieAPI(WebApplication app)
         {
             const string API_INVASIVE_SPECIE_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.INVASIVE_SPECIE_ROUTE}";
-            app.MapGet(API_INVASIVE_SPECIE_ROUTE_COMPLETE, (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            app.MapGet(API_INVASIVE_SPECIE_ROUTE_COMPLETE, (DBContext db,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
                 var queryInvasiveSpecies = db.InvasiveSpecies.AsQueryable();
                 (queryInvasiveSpecies, var isValidSort) = ApplySorting(queryInvasiveSpecies, sortBy, sortDirection);

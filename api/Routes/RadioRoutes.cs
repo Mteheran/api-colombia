@@ -14,7 +14,9 @@ namespace api.Routes
         public static void RegisterRadioRoutesAPI(WebApplication app)
         {
             const string API_RADIO_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.RADIO}";
-            app.MapGet(API_RADIO_COMPLETE, (DBContext db, [FromQuery] string? sortBy, [FromQuery] string? sortDirection) =>
+            app.MapGet(API_RADIO_COMPLETE, (DBContext db,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
                 var queryRadios = db.Radios
                     .Include(p => p.City)

@@ -1,5 +1,6 @@
 using api.Data.Configs;
 using api.Models;
+using api.Routes;
 using Microsoft.EntityFrameworkCore;
 
 namespace api;
@@ -20,6 +21,7 @@ public class DBContext : DbContext
     public DbSet<Airport> Airports { get; set; }
     public DbSet<ConstitutionArticle> ConstitutionArticles { get; set; }
     public DbSet<Radio> Radios { get; set; }
+    public DbSet<Holiday> Holidays {get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {
@@ -43,6 +45,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new AirportConfig());
         builder.ApplyConfiguration(new ConstitutionArticleConfig());
         builder.ApplyConfiguration(new RadioConfig());
+        builder.ApplyConfiguration(new HolidayConfig());
 
         base.OnModelCreating(builder);
     }

@@ -6,6 +6,7 @@
         public const string COUNTRY_ROUTE = "Country";
         public const string DEPARTMENT_ROUTE = "Department";
         public const string PRESIDENT_ROUTE = "President";
+        public const string HOLIDAY_ROUTE = "Holiday";
         public const string TOURISTIC_ROUTE = "TouristicAttraction";
         public const string REGION = "Region";
         public const string CATEGORY_NATURAL_AREA = "CategoryNaturalArea";

@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning].
 ## [Unreleased]
 
 - /
+
+## [1.0.5] - 2024-12-18
+
+### Changed
+
+- Endpoints were added for holidays: one returning all holidays for a specific year and the other returning holidays for a specific month and year.
+
 ## [1.0.4] - 2024-10-25
 
 ### Changed

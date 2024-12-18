@@ -209,6 +209,39 @@
                 public const string MESSAGE_RADIO_PAGEDLIST_SUMMARY = "List of Radios using pagination - api/v1/radio/pagedList?page=1&pagesize=10";
                 public const string MESSAGE_RADIO_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of Radios using pagination including page, pagesize, total records and data, example api/v1/radio/pagedList?page=1&pagesize=10";
             }
+
+            public struct HolidayEndpoint
+            {
+                 public const string MESSAGE_HOLIDAY_BY_YEAR_LIST_SUMMARY = "List of holidays in Colombia by year";
+                 public const string MESSAGE_HOLIDAY_BY_YEAR_LIST_DESCRIPTION = "This endpoint returns the list of holidays per year in Colombia";
+                 public const string MESSAGE_HOLIDAY_BY_YEAR_MONTH_LIST_SUMMARY = "List of holidays in Colombia by year and moth"; 
+                 public const string MESSAGE_HOLIDAY_BY_YEAR_MONTH_LIST_DESCRIPTION = "This endpoint returns the list of holidays per year and month in Colombia";
+                 public const string BadRequestInvalidMonth = "Bad request - Invalid month parameter.";
+                 public const string BadRequestInvalidYear = "Bad request - Invalid year parameter.";
+            }
+
+            public struct Holidays{
+                public const string NEW_YEAR_DESCRIPTION = "Año Nuevo";
+                public const string WISE_MEN_DESCRIPTION = "Día de los Reyes Magos";
+                public const string SAINT_JOSEPH_DESCRIPTION = "Día de San José";
+                public const string SUNDAY_PALMS_DESCRIPTION = "Domingo de Ramos";
+                public const string HOLY_THURSDAY_DESCRIPTION = "Jueves Santo";
+                public const string HOLY_FRIDAY_DESCRIPTION = "Viernes Santo";
+                public const string RESURRECTION_DESCRIPTION = "Domingo de Pascua o Resurrección";
+                public const string LABOR_DAY_DESCRIPTION = "Día del Trabajo"; 
+                public const string ASCENSION_DESCRIPTION =  "Día de la Ascensión"; 
+                public const string CORPUS_CHRISTI_DESCRIPTION =   "Día de Corpus Christi"; 
+                public const string SACRED_HEART_JESUS_DESCRIPTION = "Día del Sagrado Corazón de Jesús";  
+                public const string SAINT_PETER_PAUL_DESCRIPTION =  "Día de San Pedro y San Pablo";
+                public const string INDEPENDENCE_DESCRIPTION =  "Día de la Independencia";
+                public const string BOYACA_BATTLE_DESCRIPTION=  "Batalla de Boyacá";
+                public const string ASSUMPTION_VIRGIN_DESCRIPTION =  "Asunción de la Virgen";
+                public const string RACE_DESCRIPTION =  "Día de la Raza";  
+                public const string ALL_SANTS_DESCRIPTION = "Día de todos los Santos"; 
+                 public const string CARTAGENA_INDEPENDENCE_DESCRIPTION = "Independencia de Cartagena";
+                 public const string INMACULATE_CONCEPTION_DESCRIPTION = "Inmaculada Concepción";
+                 public const string CHRISTMAS_DESCRIPTION = "Navidad";
+            }
         }
     }
 }

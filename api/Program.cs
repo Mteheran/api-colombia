@@ -74,7 +74,7 @@ ConstitutionArticleRoutes.RegisterConstitutionArticleAPI(app);
 RadioRoutes.RegisterRadioRoutesAPI(app);
 HolidayRoutes.RegisterHolidayAPI(app);
 TypicalDishRoutes.RegisterTypicalDishAPI(app);
-
+TraditionalFairAndFestivalRoutes.RegisterTraditionalFairAndFestivalAPI(app);
 
 app.UseStatusCodePages(static context => {
     var request = context.HttpContext.Request;

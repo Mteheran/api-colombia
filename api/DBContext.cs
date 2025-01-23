@@ -19,6 +19,7 @@ public class DBContext : DbContext
     public DbSet<NativeCommunity> NativeCommunities { get; set; }
     public DbSet<IndigenousReservation> IndigenousReservations { get; set; }
     public DbSet<Airport> Airports { get; set; }
+    public DbSet<TypicalDish> TypicalDishes {get; set; }
     public DbSet<ConstitutionArticle> ConstitutionArticles { get; set; }
     public DbSet<Radio> Radios { get; set; }
     public DbSet<Holiday> Holidays {get; set; }
@@ -46,6 +47,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new ConstitutionArticleConfig());
         builder.ApplyConfiguration(new RadioConfig());
         builder.ApplyConfiguration(new HolidayConfig());
+        builder.ApplyConfiguration(new TypicalDishConfig());
 
         base.OnModelCreating(builder);
     }

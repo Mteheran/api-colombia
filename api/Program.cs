@@ -73,6 +73,7 @@ AirportRoutes.RegisterAirportAPI(app);
 ConstitutionArticleRoutes.RegisterConstitutionArticleAPI(app);
 RadioRoutes.RegisterRadioRoutesAPI(app);
 HolidayRoutes.RegisterHolidayAPI(app);
+TypicalDishRoutes.RegisterTypicalDishAPI(app);
 
 
 app.UseStatusCodePages(static context => {

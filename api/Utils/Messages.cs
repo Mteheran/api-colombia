@@ -242,6 +242,23 @@
                  public const string INMACULATE_CONCEPTION_DESCRIPTION = "Inmaculada Concepción";
                  public const string CHRISTMAS_DESCRIPTION = "Navidad";
             }
+
+            public struct TypicalDishEndpoint 
+            {
+                public const string MESSAGE_TYPICAL_DISH_LIST_SUMMARY = "List of typical dishes in Colombia";
+                public const string MESSAGE_TYPICAL_DISH_LIST_DESCRIPTION = "This endpoint returns the typical dishes in colombia including a general info like description, image reference..";
+                 public const string MESSAGE_TYPICAL_DISH_BYID_SUMMARY = "typical dishes information by Id";
+                public const string MESSAGE_TYPICAL_DISH_BYID_DESCRIPTION =   "This endpoint returns the typical dishes in colombia including a general info like description, image reference with the provided id";
+                public const string MESSAGE_TYPICAL_DISH_DEPARTMENT_SUMMARY = "List of typical dishes by departmentId";
+                public const string MESSAGE_TYPICAL_DISH_DEPARTMENT_DESCRIPTION = "This endpoint returns a list of typical dishes filtered by departmentid";
+                public const string MESSAGE_TYPICAL_DISH_BYNAME_SUMMARY = "Typical dishes information by name";
+                public const string MESSAGE_TYPICAL_DISH_BYNAME_DESCRIPTION = "This endpoint returns the information for the typical dishes with the provided name";
+                public const string MESSAGE_TYPICAL_DISH_SEARCH_SUMMARY = "Search typical dish by keyword ";
+                public const string MESSAGE_TYPICAL_DISH_SEARCH_DESCRIPTION = "This endpoint returns a list of typical dish any of the following fields(Name, Description) match the provided keyword ";
+                public const string MESSAGE_TYPICAL_DISH_PAGEDLIST_SUMMARY = "List of typical dishes using pagination";
+                public const string MESSAGE_TYPICAL_DISH_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of typical dishes using pagination including page, pagesize, total records and data, example api/v1/typicaldishes/pagedList?page=1&pagesize=10";
+
+            }
         }
     }
 }

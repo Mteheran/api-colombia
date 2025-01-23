@@ -9,9 +9,9 @@ public class TypicalDishConfig : IEntityTypeConfiguration<TypicalDish>
         typicalDish.ToTable("TypicalDish");
         typicalDish.HasKey(t => t.Id); 
         typicalDish.Property(t => t.Id).ValueGeneratedOnAdd();  
-        typicalDish.Property(t => t.Name).IsRequired().HasMaxLength(100);   
-        typicalDish.Property(t => t.Description).IsRequired(true).HasMaxLength(200);   
-        typicalDish.Property(t => t.Ingredients).IsRequired(true).HasMaxLength(200); 
+        typicalDish.Property(t => t.Name).IsRequired().HasMaxLength(200);   
+        typicalDish.Property(t => t.Description).IsRequired(true).HasMaxLength(1000);   
+        typicalDish.Property(t => t.Ingredients).IsRequired(true).HasMaxLength(1000); 
         typicalDish.Property(t => t.ImageUrl).IsRequired(true).HasMaxLength(255);  
         typicalDish.Property(t => t.DepartmentId).IsRequired(true);  
         typicalDish.HasOne(t => t.Department).WithMany().HasForeignKey(t => t.DepartmentId).OnDelete(DeleteBehavior.SetNull);  

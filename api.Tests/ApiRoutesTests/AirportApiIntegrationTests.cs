@@ -21,9 +21,8 @@ public class AirportApiIntegrationTests : IClassFixture<CustomWebApplicationFact
  
         response.EnsureSuccessStatusCode();  
          
-       var result = await response.Content.ReadFromJsonAsync<List<Airport>>(); 
+        var result = await response.Content.ReadFromJsonAsync<List<Airport>>();
 
- 
         Assert.NotNull(result);   
         Assert.Equal(5, result.Count);    
     }

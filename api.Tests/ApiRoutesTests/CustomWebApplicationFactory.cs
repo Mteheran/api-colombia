@@ -6,6 +6,7 @@ using System.Linq;
 using api;
 using AutoFixture;
 using api.Models;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
@@ -26,112 +27,87 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             });
   
             var serviceProvider = services.BuildServiceProvider();
-            using (var scope = serviceProvider.CreateScope())
+            using var scope = serviceProvider.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<DBContext>();
+            dbContext.Database.EnsureDeleted();   
+            dbContext.Database.EnsureCreated();   
+
+            var fixture = new Fixture();
+ 
+            fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+            fixture.Customize<DateOnly>(composer => composer.FromFactory(() => DateOnly.FromDateTime(DateTime.Now)));
+ 
+            // CategoryNaturalAreas Registers 
+            if (!dbContext.CategoryNaturalAreas.Any())
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<DBContext>();
-                dbContext.Database.EnsureDeleted();   
-                dbContext.Database.EnsureCreated();   
-
-                var fixture = new Fixture();
- 
-                fixture.Behaviors.Add(new OmitOnRecursionBehavior());
-                fixture.Customize<DateOnly>(composer => composer.FromFactory(() => DateOnly.FromDateTime(DateTime.Now)));
- 
-                // CategoryNaturalAreas Registers 
-                if (!dbContext.CategoryNaturalAreas.Any())
-                { 
-                   
-                   dbContext.Add(new CategoryNaturalArea
+                dbContext.Add(new CategoryNaturalArea
+                {
+                    Id = 1,
+                    Name = "Área Natural Única",
+                    Description =
+                        "Área geográfica que, por poseer condiciones especiales de flora o gea es un escenario natural raro.",
+                    NaturalAreas = new List<NaturalArea>
                     {
-                        Id = 1,
-                        Name = "Área Natural Única",
-                        Description = "Área geográfica que, por poseer condiciones especiales de flora o gea es un escenario natural raro.",
-                        NaturalAreas = new List<NaturalArea>  
+                        new NaturalArea
                         {
-                            new NaturalArea
-                            {
-                                Id = 1,  
-                                Name = "Área Natural Rara", 
-                                CategoryNaturalAreaId = 1,  
-                                DepartmentId = 101,  
-                                DaneCode = 12345,  
-                                LandArea = 5000,  
-                                MaritimeArea = 0,  
-                                Department = null
-                            }
+                            Id = 1,
+                            Name = "Área Natural Rara",
+                            CategoryNaturalAreaId = 1,
+                            DepartmentId = 101,
+                            DaneCode = 12345,
+                            LandArea = 5000,
+                            MaritimeArea = 0,
+                            Department = null
                         }
-                    });
+                    }
+                });
 
-
-                    dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,2).Create());  
-                    dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,3).Create());  
-                    dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,4).Create());  
-                    dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,5).Create());  
-                    dbContext.SaveChanges();
-                }
-
-                 if (!dbContext.Airports.Any())
-                { 
-                   
-                   dbContext.Add(new Airport
-                    {
-                        Id = 1,  
-                        Name = "Base Aérea BG. Arturo Lema Posada",
-                        IataCode = "N/A",
-                        OaciCode = "N/A",
-                        Type = "Militar",
-                        CityId = 91,
-                        Latitude = -75.42037792,
-                        Longitude = 6.166336066,
-                        Department = null,  
-                        City = null  
-                    });
-
-                    dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,2).Create());  
-                    dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,3).Create());  
-                    dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,4).Create());  
-                    dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,5).Create());  
-               //     dbContext.SaveChanges();
-                }
-
-
-            // if (!dbContext.Airports.Any())
-            // {
-            //     dbContext.Airports.Add(new Airport
-            //     {
-            //         Id = 1,  
-            //         Name = "Base Aérea BG. Arturo Lema Posada",
-            //         IataCode = "N/A",
-            //         OaciCode = "N/A",
-            //         Type = "Militar",
-            //         CityId = 91,
-            //         Latitude = -75.42037792,
-            //         Longitude = 6.166336066,
-            //         Department = null,  
-            //         City = null  
-            //     });
-
-             
-            //     int idCounter = 2; 
-            //     var additionalAirports = fixture.CreateMany<Airport>(4).Select(airport =>
-            //     {
-            //         airport.Id = idCounter++;  
-            //         airport.Department = null;  
-            //         airport.City = null;
-            //         return airport;
-            //     }).ToList();
-
-            //     dbContext.Airports.AddRange(additionalAirports);
-            // }
- 
-               
-
-
-                    Console.WriteLine($"LEO-dbContext CategoryNaturalAreas: {dbContext.CategoryNaturalAreas.Count()}");
-                    Console.WriteLine($"LEO-dbContext Airports: {dbContext.Airports.Count()}");  
-
-
+                dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,2)
+                    .Without(p=> p.NaturalAreas).Create());  
+                dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,3)
+                    .Without(p => p.NaturalAreas).Create());  
+                dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,4)
+                    .Without(p => p.NaturalAreas).Create());  
+                dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,5)
+                    .Without(p => p.NaturalAreas).Create());
             }
+
+            if (!dbContext.Airports.Any())
+            { 
+                   
+                dbContext.Add(new Airport
+                {
+                    Id = 1,  
+                    Name = "Base Aérea BG. Arturo Lema Posada",
+                    IataCode = "N/A",
+                    OaciCode = "N/A",
+                    Type = "Militar",
+                    CityId = 91,
+                    Latitude = -75.42037792,
+                    Longitude = 6.166336066,
+                    Department = new Department() { Id = 1, Name = "Antioquia"},  
+                    City = new City() { Id = 1, Name = "Medellin"}  
+                });
+
+                dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,2)
+                    .With(p=> p.Department, new Department() { Id = 2, Name = "Antioquia" })
+                    .With(p => p.City, new City() { Id = 2, Name = "Medellin" }).Create());  
+                dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,3)
+                    .With(p => p.Department, new Department() { Id = 3, Name = "Antioquia" })
+                    .With(p => p.City, new City() { Id = 3, Name = "Medellin" }).Create());  
+                dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,4)
+                    .With(p => p.Department, new Department() { Id = 4, Name = "Antioquia" })
+                    .With(p => p.City, new City() { Id = 4, Name = "Medellin" }).Create());  
+                dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,5)
+                    .With(p => p.Department, new Department() { Id = 5, Name = "Antioquia" })
+                    .With(p => p.City, new City() { Id = 5, Name = "Medellin" }).Create());  
+                    
+            }
+
+            dbContext.SaveChanges();
+
+            Console.WriteLine($"LEO-dbContext CategoryNaturalAreas: {dbContext.CategoryNaturalAreas.Count()}");
+            Console.WriteLine($"LEO-dbContext Airports: {dbContext.Airports.Count()}");
         });
     }
 }

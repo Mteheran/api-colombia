@@ -28,7 +28,7 @@ namespace api.Routes
                     return Results.BadRequest(RequestMessages.BadRequest);
                 }
  
-                var listTraditionalFairAndFestival = await queryTraditionalFairAndFestival.ToListAsync();
+                var listTraditionalFairAndFestival = await queryTraditionalFairAndFestival.OrderBy(p=> p.Id).ToListAsync();
                 return Results.Ok(listTraditionalFairAndFestival);
             })
             .Produces<List<TraditionalFairAndFestival>>(200)

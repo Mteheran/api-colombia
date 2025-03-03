@@ -19,6 +19,7 @@
         public const string CONSTITUTION_ARTICLE = "ConstitutionArticle";
         public const string RADIO = "Radio";
         public const string TYPICAL_DISH_ROUTE = "TypicalDish"; 
+        public const string TRADITIONAL_FAIR_AND_FESTIVAL_ROUTE = "TraditionalFairAndFestival"; 
         public const string API_ROUTE = "api/";
         public const string API_VERSION = "v1/";
 

@@ -247,7 +247,7 @@
             {
                 public const string MESSAGE_TYPICAL_DISH_LIST_SUMMARY = "List of typical dishes in Colombia";
                 public const string MESSAGE_TYPICAL_DISH_LIST_DESCRIPTION = "This endpoint returns the typical dishes in colombia including a general info like description, image reference..";
-                 public const string MESSAGE_TYPICAL_DISH_BYID_SUMMARY = "typical dishes information by Id";
+                 public const string MESSAGE_TYPICAL_DISH_BYID_SUMMARY = "Typical dishes information by Id";
                 public const string MESSAGE_TYPICAL_DISH_BYID_DESCRIPTION =   "This endpoint returns the typical dishes in colombia including a general info like description, image reference with the provided id";
                 public const string MESSAGE_TYPICAL_DISH_DEPARTMENT_SUMMARY = "List of typical dishes by departmentId";
                 public const string MESSAGE_TYPICAL_DISH_DEPARTMENT_DESCRIPTION = "This endpoint returns a list of typical dishes filtered by departmentid";
@@ -257,6 +257,22 @@
                 public const string MESSAGE_TYPICAL_DISH_SEARCH_DESCRIPTION = "This endpoint returns a list of typical dish any of the following fields(Name, Description) match the provided keyword ";
                 public const string MESSAGE_TYPICAL_DISH_PAGEDLIST_SUMMARY = "List of typical dishes using pagination";
                 public const string MESSAGE_TYPICAL_DISH_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of typical dishes using pagination including page, pagesize, total records and data, example api/v1/typicaldishes/pagedList?page=1&pagesize=10";
+
+            }
+
+            public struct TraditionalFairAndFestivalEndpoint{
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_LIST_SUMMARY = "List of traditional fair and festival in Colombia";
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_LIST_DESCRIPTION = "This endpoint returns the traditional fair and festival in colombia including a general info like name, description, city...";
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_BYID_SUMMARY = "Traditional fair and festival information by Id";
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_BYID_DESCRIPTION =   "This endpoint returns the traditional fair and festival in colombia including a general info like name, description, city with the provided id";
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_BYCITY_SUMMARY = "List of traditional fair and festival by City Id";
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_BYCITY_DESCRIPTION = "This endpoint returns a list of traditional fair and festival filtered by City Id.";
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_BYNAME_SUMMARY = "Traditional fair and festival information by name";
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_BYNAME_DESCRIPTION = "This endpoint returns the information for the traditional fair and festival with the provided name";
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_SEARCH_SUMMARY = "Search traditional fair and festival by keyword ";
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_SEARCH_DESCRIPTION = "This endpoint returns a list of  traditional fair and festival any of the following fields(Name, Description) match the provided keyword ";
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_PAGEDLIST_SUMMARY = "List of traditional fair and festival using pagination";
+                public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of traditional fair and festival using pagination including page, pagesize, total records and data, example api/v1/typicaldishes/pagedList?page=1&pagesize=10";
 
             }
         }

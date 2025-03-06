@@ -40,7 +40,8 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 | ---------- | ------------------------------------- | ------------------------------------------------ |
 | https://github.com/Mteheran/invasivespecie-colombia | https://especiesinvasoras.api-colombia.com/ | A portal to consult all invasive species in Colombia |
 
-| https://github.com/lightbluetitan/colombiapi | https://github.com/lightbluetitan/colombiapi | ColombiaAPI for R, an R package that consumes the data exposed by api-colombia  |
+| ---------- | ------------------------------------- | ------------------------------------------------ |
+| https://github.com/lightbluetitan/colombiapi | https://github.com/lightbluetitan/colombiapi | ColombiaAPI for R, an R package that consumes the data exposed by api-colombia |
 
 ## API Endpoints
 | HTTP Verbs | Endpoints                             | Action                                                               |

@@ -10,7 +10,7 @@ public class TraditionalFairAndFestivalConfig : IEntityTypeConfiguration<Traditi
         TraditionalFairAndFestivalConfig.HasKey(t => t.Id); 
         TraditionalFairAndFestivalConfig.Property(t => t.Id).ValueGeneratedOnAdd();  
         TraditionalFairAndFestivalConfig.Property(t => t.Name).IsRequired().HasMaxLength(100);   
-        TraditionalFairAndFestivalConfig.Property(t => t.Description).IsRequired(true).HasMaxLength(200);   
+        TraditionalFairAndFestivalConfig.Property(t => t.Description).IsRequired(true).HasMaxLength(2000);   
         TraditionalFairAndFestivalConfig.Property(t => t.Month).IsRequired(true).HasMaxLength(50);   
         TraditionalFairAndFestivalConfig.Property(t => t.CityId).IsRequired(true);  
         TraditionalFairAndFestivalConfig.HasOne(t => t.City).WithMany().HasForeignKey(t => t.CityId).OnDelete(DeleteBehavior.SetNull); 

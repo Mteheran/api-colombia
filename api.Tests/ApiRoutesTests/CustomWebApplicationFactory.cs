@@ -7,9 +7,19 @@ using api;
 using AutoFixture;
 using api.Models;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Microsoft.VisualBasic;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
+    private readonly string _databaseName;
+
+    public CustomWebApplicationFactory()
+    {
+        // Generate a unique database name for each instance
+        _databaseName = $"TestDatabase_{Guid.NewGuid()}";
+    }
+
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     { 
         builder.ConfigureServices(services =>
@@ -23,7 +33,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
   
             services.AddDbContext<DBContext>(options =>
             {
-                options.UseInMemoryDatabase("TestColombiaDb");
+                options.UseInMemoryDatabase(_databaseName);
             });
   
             var serviceProvider = services.BuildServiceProvider();
@@ -36,79 +46,132 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
  
             fixture.Behaviors.Add(new OmitOnRecursionBehavior());
             fixture.Customize<DateOnly>(composer => composer.FromFactory(() => DateOnly.FromDateTime(DateTime.Now)));
- 
-            // CategoryNaturalAreas Registers 
-            if (!dbContext.CategoryNaturalAreas.Any())
-            {
-                dbContext.Add(new CategoryNaturalArea
-                {
-                    Id = 1,
-                    Name = "Área Natural Única",
-                    Description =
-                        "Área geográfica que, por poseer condiciones especiales de flora o gea es un escenario natural raro.",
-                    NaturalAreas = new List<NaturalArea>
-                    {
-                        new NaturalArea
-                        {
-                            Id = 1,
-                            Name = "Área Natural Rara",
-                            CategoryNaturalAreaId = 1,
-                            DepartmentId = 101,
-                            DaneCode = 12345,
-                            LandArea = 5000,
-                            MaritimeArea = 0,
-                            Department = null
-                        }
-                    }
-                });
+            SeedDatabase(dbContext);
+        });
+    }
 
-                dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,2)
-                    .Without(p=> p.NaturalAreas).Create());  
-                dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,3)
-                    .Without(p => p.NaturalAreas).Create());  
-                dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,4)
-                    .Without(p => p.NaturalAreas).Create());  
-                dbContext.Add(fixture.Build<CategoryNaturalArea>().With(p => p.Id ,5)
-                    .Without(p => p.NaturalAreas).Create());
+    private void SeedDatabase(DBContext dbContext)
+    {
+        
+            var city1 = new City
+            {
+                Id = 1,
+                Name = "Medellín",
+                DepartmentId = 1,
+            };
+
+            var region = new Region
+            {
+                Id = 1,
+                Name = "Andina",
+                Description = "Región natural de Colombia",
+                Departments = new List<Department>()
+            };
+            
+            var deparment1 = new Department
+            {
+                Id = 1,
+                Name = "Antioquia",
+                NaturalAreas = new List<NaturalArea>(),
+                CityCapitalId = 1,
+                CityCapital = city1,
+                Region = region,
+                RegionId = region.Id,
+                Cities = new List<City> {city1}
+            };
+
+            region.Departments = new List<Department> { deparment1 };
+            city1.Department = deparment1;
+
+            var categoryNaturalArea = new CategoryNaturalArea
+            {
+                Id = 1,
+                Name = "Área Natural Única",
+                Description = "Área geográfica que, por poseer condiciones especiales de flora o gea es un escenario natural raro."
+            };
+
+            var naturalArea = new NaturalArea
+            {
+                Id = 1,
+                Name = "Parque Arví",
+                DepartmentId = deparment1.Id,
+                CategoryNaturalAreaId = categoryNaturalArea.Id,
+                CategoryNaturalArea = categoryNaturalArea
+            };
+
+            categoryNaturalArea.NaturalAreas = new List<NaturalArea> { naturalArea };
+            deparment1.NaturalAreas = new List<NaturalArea> { naturalArea };
+
+            var touristAtraction = new TouristAttraction
+            {
+                Id = 1,
+                Name = "Parque Explora",
+                Description = "Parque temático de ciencia y tecnología",
+                City = city1,
+                CityId = city1.Id
+            };
+
+            city1.TouristAttractions = new List<TouristAttraction> { touristAtraction };
+
+            if(!dbContext.Regions.Any())
+            {
+                dbContext.Add(region);
             }
 
-            if (!dbContext.Airports.Any())
-            { 
-                   
-                dbContext.Add(new Airport
-                {
-                    Id = 1,  
-                    Name = "Base Aérea BG. Arturo Lema Posada",
-                    IataCode = "N/A",
-                    OaciCode = "N/A",
-                    Type = "Militar",
-                    CityId = 91,
-                    Latitude = -75.42037792,
-                    Longitude = 6.166336066,
-                    Department = new Department() { Id = 1, Name = "Antioquia"},  
-                    City = new City() { Id = 1, Name = "Medellin"}  
-                });
+            if(!dbContext.Departments.Any())
+            {
+                dbContext.Add(deparment1);
+            }
 
-                dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,2)
-                    .With(p=> p.Department, new Department() { Id = 2, Name = "Antioquia" })
-                    .With(p => p.City, new City() { Id = 2, Name = "Medellin" }).Create());  
-                dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,3)
-                    .With(p => p.Department, new Department() { Id = 3, Name = "Antioquia" })
-                    .With(p => p.City, new City() { Id = 3, Name = "Medellin" }).Create());  
-                dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,4)
-                    .With(p => p.Department, new Department() { Id = 4, Name = "Antioquia" })
-                    .With(p => p.City, new City() { Id = 4, Name = "Medellin" }).Create());  
-                dbContext.Add(fixture.Build<Airport>().With(p => p.Id ,5)
-                    .With(p => p.Department, new Department() { Id = 5, Name = "Antioquia" })
-                    .With(p => p.City, new City() { Id = 5, Name = "Medellin" }).Create());  
-                    
+            if(!dbContext.Cities.Any())
+            {
+                dbContext.Add(city1);
+            }
+
+            if (!dbContext.CategoryNaturalAreas.Any())
+            {
+                dbContext.Add(categoryNaturalArea);
+                dbContext.Add(new CategoryNaturalArea
+                {
+                    Id = 2,
+                    Name = "Área Natural Protegida",
+                    Description = "Área geográfica que, por poseer condiciones especiales de flora o gea es un escenario natural raro.",
+                    NaturalAreas = new List<NaturalArea>()
+                });
+                dbContext.Add(new CategoryNaturalArea
+                {
+                    Id = 3,
+                    Name = "Área Natural de Interés Especial",
+                    Description = "Área geográfica que, por poseer condiciones especiales de flora o gea es un escenario natural raro.",
+                    NaturalAreas = new List<NaturalArea>()
+                });
+            }
+            
+            if (!dbContext.NaturalAreas.Any())
+            {
+                dbContext.Add(naturalArea);
+            }
+
+            if(!dbContext.TouristAttractions.Any())
+            {
+                dbContext.Add(touristAtraction);
             }
 
             dbContext.SaveChanges();
 
             Console.WriteLine($"LEO-dbContext CategoryNaturalAreas: {dbContext.CategoryNaturalAreas.Count()}");
             Console.WriteLine($"LEO-dbContext Airports: {dbContext.Airports.Count()}");
-        });
+    }
+
+    public void ResetDatabase()
+    {
+        using (var scope = Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<DBContext>();
+            dbContext.Database.EnsureDeleted();
+            dbContext.Database.EnsureCreated();
+            SeedDatabase(dbContext);
+        }
     }
 }
 

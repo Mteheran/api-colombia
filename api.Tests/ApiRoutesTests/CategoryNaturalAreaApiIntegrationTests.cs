@@ -9,9 +9,9 @@ public class CategoryNaturalAreaApiIntegrationTests : IClassFixture<CustomWebApp
 {
     private readonly HttpClient _client;
 
-    public CategoryNaturalAreaApiIntegrationTests(CustomWebApplicationFactory factory)
+    public CategoryNaturalAreaApiIntegrationTests()
     {
-        _client = factory.CreateClient();  
+        _client = new CustomWebApplicationFactory().CreateClient(); 
     }
 
     [Fact]
@@ -24,7 +24,7 @@ public class CategoryNaturalAreaApiIntegrationTests : IClassFixture<CustomWebApp
         var result = await response.Content.ReadFromJsonAsync<List<CategoryNaturalArea>>(); 
         
         Assert.NotNull(result);   
-        Assert.Equal(5, result.Count);
+        Assert.Equal(3, result.Count);
     }
 
 
@@ -36,10 +36,10 @@ public class CategoryNaturalAreaApiIntegrationTests : IClassFixture<CustomWebApp
         var response = await _client.GetAsync($"/api/v1/CategoryNaturalArea/{expectedId}");
         response.EnsureSuccessStatusCode();  
 
-        var result = await response.Content.ReadAsStringAsync(); 
+        var result = await response.Content.ReadFromJsonAsync<CategoryNaturalArea>(); 
   
         Assert.NotNull(result);  
-        Assert.False(string.IsNullOrEmpty(result));  
+        Assert.Equal(expectedId, result.Id);
     }
 
     [Fact]
@@ -61,9 +61,10 @@ public class CategoryNaturalAreaApiIntegrationTests : IClassFixture<CustomWebApp
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadFromJsonAsync<CategoryNaturalArea>(); 
         
-        Assert.NotNull(result); 
+        Assert.NotNull(result);
+        Assert.Single(result.NaturalAreas); 
     }
 
     [Fact]
@@ -76,10 +77,11 @@ public class CategoryNaturalAreaApiIntegrationTests : IClassFixture<CustomWebApp
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadFromJsonAsync<List<CategoryNaturalArea>>(); 
         
         Assert.NotNull(result);
-        Assert.Contains("name", result);  
+        Assert.Equal(3, result.Count);
+        Assert.Equal(3, result[0].Id);  
     }
 }
 

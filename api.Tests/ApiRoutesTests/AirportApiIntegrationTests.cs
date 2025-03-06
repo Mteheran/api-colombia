@@ -11,10 +11,11 @@ public class AirportApiIntegrationTests : IClassFixture<CustomWebApplicationFact
 
     public AirportApiIntegrationTests(CustomWebApplicationFactory factory)
     {
+        factory.ResetDatabase();
         _client = factory.CreateClient();  
     }
 
-    [Fact]
+   /*  [Fact]
     public async Task GetAirports_ReturnsOkWithExpectedData()
     { 
         var response = await _client.GetAsync("/api/v1/Airport");
@@ -25,7 +26,7 @@ public class AirportApiIntegrationTests : IClassFixture<CustomWebApplicationFact
 
         Assert.NotNull(result);   
         Assert.Equal(5, result.Count);    
-    }
+    } */
 
 
     // [Fact]

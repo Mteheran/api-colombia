@@ -34,12 +34,13 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 
 * Swagger documentation can be found at the following [URL](https://api-colombia.com/swagger/index.html)
 
-## Projects, Demos, POCs and Samples
+## Projects, Demos, POCs, Samples and ColombiaAPI para R
 
 | Repo | Url   | Description         |
 | ---------- | ------------------------------------- | ------------------------------------------------ |
 | https://github.com/Mteheran/invasivespecie-colombia | https://especiesinvasoras.api-colombia.com/ | A portal to consult all invasive species in Colombia |
 
+| https://github.com/lightbluetitan/colombiapi | https://github.com/lightbluetitan/colombiapi | ColombiaAPI for R, an R package that consumes the data exposed by api-colombia  |
 
 ## API Endpoints
 | HTTP Verbs | Endpoints                             | Action                                                               |

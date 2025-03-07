@@ -1,100 +1,105 @@
-// using System.Net.Http;
-// using System.Threading.Tasks;
-// using Xunit;
-// using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Xunit;
+using Microsoft.AspNetCore.Mvc.Testing;
 
-// public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
-// {
-//     private readonly HttpClient _client;
+public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
+{
+    private readonly HttpClient _client;
 
-//     public CityApiIntegrationTests(CustomWebApplicationFactory factory)
-//     {
-//         _client = factory.CreateClient();
-//     }
+    public CityApiIntegrationTests(CustomWebApplicationFactory factory)
+    {
+       _client = new CustomWebApplicationFactory().CreateClient(); 
+    }
 
-//     [Fact]
-//     public async Task GetCities_ReturnsOkWithExpectedData()
-//     {   
-//         var response = await _client.GetAsync("/api/v1/City");
+    public void Dispose()
+    {
+        _client.Dispose();
+    }
 
-//         response.EnsureSuccessStatusCode();
+    [Fact]
+    public async Task GetCities_ReturnsOkWithExpectedData()
+    {   
+        var response = await _client.GetAsync("/api/v1/City");
 
-//         var result = await response.Content.ReadAsStringAsync();
+        response.EnsureSuccessStatusCode();
 
-//         Assert.NotNull(result);
-//         Assert.False(string.IsNullOrEmpty(result));  
-//     }
+        var result = await response.Content.ReadAsStringAsync();
 
-//     [Fact]
-//     public async Task GetCityById_ReturnsOkWithCityData()
-//     {
-//         int cityId = 1;  
-//         var response = await _client.GetAsync($"/api/v1/City/{cityId}");
+        Assert.NotNull(result);
+        Assert.False(string.IsNullOrEmpty(result));  
+    }
 
-//         response.EnsureSuccessStatusCode();
+    [Fact]
+    public async Task GetCityById_ReturnsOkWithCityData()
+    {
+        int cityId = 1;  
+        var response = await _client.GetAsync($"/api/v1/City/{cityId}");
 
-//         var result = await response.Content.ReadAsStringAsync();
+        response.EnsureSuccessStatusCode();
 
-//         Assert.NotNull(result);
-//         Assert.Contains("Id", result);
-//     }
+        var result = await response.Content.ReadAsStringAsync();
 
-//     [Fact]
-//     public async Task GetCityByName_ReturnsOkWithCityData()
-//     {
-//         string cityName = "Sample City";  
-//         var response = await _client.GetAsync($"/api/v1/City/name/{cityName}");
+        Assert.NotNull(result);
+        Assert.Contains("Id", result);
+    }
 
-//         response.EnsureSuccessStatusCode();
+    [Fact]
+    public async Task GetCityByName_ReturnsOkWithCityData()
+    {
+        string cityName = "Medellín";  
+        var response = await _client.GetAsync($"/api/v1/City/name/{cityName}");
 
-//         var result = await response.Content.ReadAsStringAsync();
+        response.EnsureSuccessStatusCode();
 
-//         Assert.NotNull(result);
-//         Assert.Contains("Name", result);
-//     }
+        var result = await response.Content.ReadAsStringAsync();
 
-//     [Fact]
-//     public async Task SearchCities_ReturnsOkWithFilteredData()
-//     {
-//         string keyword = "Sample";  
-//         var response = await _client.GetAsync($"/api/v1/City/search/{keyword}");
+        Assert.NotNull(result);
+        Assert.Contains("name", result);
+    }
 
-//         response.EnsureSuccessStatusCode();
+    [Fact]
+    public async Task SearchCities_ReturnsOkWithFilteredData()
+    {
+        string keyword = "Medellín";  
+        var response = await _client.GetAsync($"/api/v1/City/search/{keyword}");
 
-//         var result = await response.Content.ReadAsStringAsync();
+        response.EnsureSuccessStatusCode();
 
-//         Assert.NotNull(result);
-//         Assert.Contains("Sample", result);
-//     }
+        var result = await response.Content.ReadAsStringAsync();
 
-//     [Fact]
-//     public async Task GetCitiesPagedList_ReturnsOkWithPagedData()
-//     {
-//         var paginationParams = "?page=1&pageSize=10";
-//         var response = await _client.GetAsync($"/api/v1/City/pagedList{paginationParams}");
+        Assert.NotNull(result);
+        Assert.Contains("Medellín", result);
+    }
 
-//         response.EnsureSuccessStatusCode();
+    [Fact]
+    public async Task GetCitiesPagedList_ReturnsOkWithPagedData()
+    {
+        var paginationParams = "?page=1&pageSize=10";
+        var response = await _client.GetAsync($"/api/v1/City/pagedList{paginationParams}");
 
-//         var result = await response.Content.ReadAsStringAsync();
+        response.EnsureSuccessStatusCode();
 
-//         Assert.NotNull(result);
-//         Assert.Contains("Page", result);
-//         Assert.Contains("PageSize", result);
-//     }
+        var result = await response.Content.ReadAsStringAsync();
 
-//     [Fact]
-//     public async Task GetCitiesWithSorting_ReturnsOkWithSortedData()
-//     {
-//         string sortBy = "Name"; 
-//         string sortDirection = "asc";  
+        Assert.NotNull(result);
+        Assert.Contains("page", result);
+        Assert.Contains("pageSize", result);
+    }
 
-//         var response = await _client.GetAsync($"/api/v1/City?sortBy={sortBy}&sortDirection={sortDirection}");
+    [Fact]
+    public async Task GetCitiesWithSorting_ReturnsOkWithSortedData()
+    {
+        string sortBy = "Name"; 
+        string sortDirection = "asc";  
 
-//         response.EnsureSuccessStatusCode();
+        var response = await _client.GetAsync($"/api/v1/City?sortBy={sortBy}&sortDirection={sortDirection}");
 
-//         var result = await response.Content.ReadAsStringAsync();
+        response.EnsureSuccessStatusCode();
 
-//         Assert.NotNull(result);
-//         Assert.Contains("Name", result);  
-//     }
-// }
+        var result = await response.Content.ReadAsStringAsync();
+
+        Assert.NotNull(result);
+        Assert.Contains("name", result);  
+    }
+}

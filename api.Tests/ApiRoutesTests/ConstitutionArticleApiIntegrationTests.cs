@@ -1,100 +1,105 @@
-// using System.Net.Http;
-// using System.Threading.Tasks;
-// using Xunit;
-// using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Xunit;
+using Microsoft.AspNetCore.Mvc.Testing;
 
-// public class ConstitutionArticleApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
-// {
-//     private readonly HttpClient _client;
+public class ConstitutionArticleApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>, IDisposable
+{
+    private readonly HttpClient _client;
 
-//     public ConstitutionArticleApiIntegrationTests(CustomWebApplicationFactory factory)
-//     {
-//         _client = factory.CreateClient();  
-//     }
+    public ConstitutionArticleApiIntegrationTests()
+    {
+       _client = new CustomWebApplicationFactory().CreateClient(); 
+    }
 
-//     [Fact]
-//     public async Task GetConstitutionArticles_ReturnsOkWithExpectedData()
-//     {   
-//         var response = await _client.GetAsync("/api/v1/ConstitutionArticle");
+    public void Dispose()
+    {
+        _client.Dispose();
+    }
+    
+    [Fact]
+    public async Task GetConstitutionArticles_ReturnsOkWithExpectedData()
+    {   
+        var response = await _client.GetAsync("/api/v1/ConstitutionArticle");
         
-//         response.EnsureSuccessStatusCode();
+        response.EnsureSuccessStatusCode();
         
-//         var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadAsStringAsync();
         
-//         Assert.NotNull(result);    
-//         Assert.False(string.IsNullOrEmpty(result));  
-//     }
+        Assert.NotNull(result);    
+        Assert.False(string.IsNullOrEmpty(result));  
+    }
 
-//     [Fact]
-//     public async Task GetConstitutionArticleById_ReturnsOkWithConstitutionArticleData()
-//     {
-//         int constitutionArticleId = 1;  
-//         var response = await _client.GetAsync($"/api/v1/ConstitutionArticle/{constitutionArticleId}");
+    [Fact]
+    public async Task GetConstitutionArticleById_ReturnsOkWithConstitutionArticleData()
+    {
+        int constitutionArticleId = 1;  
+        var response = await _client.GetAsync($"/api/v1/ConstitutionArticle/{constitutionArticleId}");
 
-//         response.EnsureSuccessStatusCode();
+        response.EnsureSuccessStatusCode();
 
-//         var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadAsStringAsync();
         
-//         Assert.NotNull(result);
-//         Assert.Contains("Id", result);  
-//     }
+        Assert.NotNull(result);
+        Assert.Contains("id", result);  
+    }
 
-//     [Fact]
-//     public async Task GetConstitutionArticlesWithSorting_ReturnsOkWithSortedData()
-//     {
-//         string sortBy = "ChapterNumber"; 
-//         string sortDirection = "asc";  
+    [Fact]
+    public async Task GetConstitutionArticlesWithSorting_ReturnsOkWithSortedData()
+    {
+        string sortBy = "titleNumber"; 
+        string sortDirection = "asc";  
 
-//         var response = await _client.GetAsync($"/api/v1/ConstitutionArticle?sortBy={sortBy}&sortDirection={sortDirection}");
+        var response = await _client.GetAsync($"/api/v1/ConstitutionArticle?sortBy={sortBy}&sortDirection={sortDirection}");
 
-//         response.EnsureSuccessStatusCode();
+        response.EnsureSuccessStatusCode();
 
-//         var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadAsStringAsync();
         
-//         Assert.NotNull(result);
-//         Assert.Contains("ChapterNumber", result);  
-//     }
+        Assert.NotNull(result);
+        Assert.Contains("titleNumber", result);  
+    }
 
-//     [Fact]
-//     public async Task SearchConstitutionArticles_ReturnsOkWithFilteredData()
-//     {
-//         string keyword = "Rights";
-//         var response = await _client.GetAsync($"/api/v1/ConstitutionArticle/search/{keyword}");
+    [Fact]
+    public async Task SearchConstitutionArticles_ReturnsOkWithFilteredData()
+    {
+        string keyword = "ADMINISTRATIVA";
+        var response = await _client.GetAsync($"/api/v1/ConstitutionArticle/search/{keyword}");
 
-//         response.EnsureSuccessStatusCode();
+        response.EnsureSuccessStatusCode();
 
-//         var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadAsStringAsync();
         
-//         Assert.NotNull(result);
-//         Assert.Contains("Rights", result);  
-//     }
+        Assert.NotNull(result);
+        Assert.Contains("id", result);  
+    }
 
-//     [Fact]
-//     public async Task GetPagedConstitutionArticles_ReturnsOkWithPagedData()
-//     {
-//         var pagination = "?page=1&pageSize=10";
-//         var response = await _client.GetAsync($"/api/v1/ConstitutionArticle/pagedList{pagination}");
+    [Fact]
+    public async Task GetPagedConstitutionArticles_ReturnsOkWithPagedData()
+    {
+        var pagination = "?page=1&pageSize=10";
+        var response = await _client.GetAsync($"/api/v1/ConstitutionArticle/pagedList{pagination}");
 
-//         response.EnsureSuccessStatusCode();
+        response.EnsureSuccessStatusCode();
 
-//         var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadAsStringAsync();
         
-//         Assert.NotNull(result);
-//         Assert.Contains("Page", result);  
-//         Assert.Contains("PageSize", result);  
-//     }
+        Assert.NotNull(result);
+        Assert.Contains("page", result);  
+        Assert.Contains("pageSize", result);  
+    }
 
-//     [Fact]
-//     public async Task GetConstitutionArticlesByChapterNumber_ReturnsOkWithChapterData()
-//     {
-//         int chapterNumber = 1;  
-//         var response = await _client.GetAsync($"/api/v1/ConstitutionArticle/byChapterNumber/{chapterNumber}");
+    [Fact]
+    public async Task GetConstitutionArticlesByChapterNumber_ReturnsOkWithChapterData()
+    {
+        int chapterNumber = 1;  
+        var response = await _client.GetAsync($"/api/v1/ConstitutionArticle/byChapterNumber/{chapterNumber}");
 
-//         response.EnsureSuccessStatusCode();
+        response.EnsureSuccessStatusCode();
 
-//         var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadAsStringAsync();
         
-//         Assert.NotNull(result);
-//         Assert.Contains("ChapterNumber", result);  
-//     }
-// }
+        Assert.NotNull(result);
+        Assert.Contains("titleNumber", result);  
+    }
+}

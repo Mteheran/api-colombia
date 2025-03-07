@@ -17,6 +17,7 @@ public class ConstitutionArticleApiIntegrationTests : IClassFixture<CustomWebApp
         _client.Dispose();
     }
     
+    
     [Fact]
     public async Task GetConstitutionArticles_ReturnsOkWithExpectedData()
     {   

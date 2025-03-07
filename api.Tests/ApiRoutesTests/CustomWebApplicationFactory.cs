@@ -112,6 +112,17 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             };
 
             city1.TouristAttractions = new List<TouristAttraction> { touristAtraction };
+          
+           var constitutionArticle = new ConstitutionArticle
+            {
+                Id = 1,
+                TitleNumber = 1,
+                Title = "DE LA RAMA EJECUTIVA",
+                ChapterNumber = 1,
+                Chapter = "DE LA FUNCION ADMINISTRATIVA",
+                ArticleNumber = 1,
+                Content = "La ley señalará las funciones que el Presidente de la República podrá elegir."
+            }; 
 
             if(!dbContext.Regions.Any())
             {
@@ -156,11 +167,14 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             {
                 dbContext.Add(touristAtraction);
             }
+ 
+            if(!dbContext.ConstitutionArticles.Any())
+            {
+                dbContext.Add(constitutionArticle);
+            } 
 
             dbContext.SaveChanges();
 
-            Console.WriteLine($"LEO-dbContext CategoryNaturalAreas: {dbContext.CategoryNaturalAreas.Count()}");
-            Console.WriteLine($"LEO-dbContext Airports: {dbContext.Airports.Count()}");
     }
 
     public void ResetDatabase()

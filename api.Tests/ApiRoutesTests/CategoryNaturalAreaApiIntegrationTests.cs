@@ -5,13 +5,18 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net.Http.Json;
 using api.Models;
 
-public class CategoryNaturalAreaApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
+public class CategoryNaturalAreaApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
 {
     private readonly HttpClient _client;
 
     public CategoryNaturalAreaApiIntegrationTests()
     {
-        _client = new CustomWebApplicationFactory().CreateClient(); 
+       _client = new CustomWebApplicationFactory().CreateClient(); 
+    }
+
+    public void Dispose()
+    {
+        _client.Dispose();
     }
 
     [Fact]

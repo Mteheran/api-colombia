@@ -1,79 +1,83 @@
-// using System.Net.Http;
-// using System.Threading.Tasks;
-// using Xunit;
-// using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Xunit;
+using Microsoft.AspNetCore.Mvc.Testing;
 
-// public class RegionApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
-// {
-//     private readonly HttpClient _client;
+public class RegionApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
+{
+    private readonly HttpClient _client;
 
-//     public RegionApiIntegrationTests(CustomWebApplicationFactory factory)
-//     {
-//         _client = factory.CreateClient();
-//     }
+    public RegionApiIntegrationTests(CustomWebApplicationFactory factory) {
+       _client = new CustomWebApplicationFactory().CreateClient(); 
+    }
 
-//     [Fact]
-//     public async Task GetRegions_ReturnsOkWithExpectedData()
-//     {
-//         var response = await _client.GetAsync("/api/v1/Region");
+    public void Dispose()
+    {
+        _client.Dispose();
+    }
 
-//         response.EnsureSuccessStatusCode();
+    [Fact]
+    public async Task GetRegions_ReturnsOkWithExpectedData()
+    {
+        var response = await _client.GetAsync("/api/v1/Region");
 
-//         var result = await response.Content.ReadAsStringAsync();
+        response.EnsureSuccessStatusCode();
 
-//         Assert.NotNull(result);
-//         Assert.False(string.IsNullOrEmpty(result));
-//     }
+        var result = await response.Content.ReadAsStringAsync();
 
-//     [Fact]
-//     public async Task GetRegionById_ReturnsOkWithRegionData()
-//     {
-//         int regionId = 1;  
-//         var response = await _client.GetAsync($"/api/v1/Region/{regionId}");
+        Assert.NotNull(result);
+        Assert.False(string.IsNullOrEmpty(result));
+    }
 
-//         response.EnsureSuccessStatusCode();
+    [Fact]
+    public async Task GetRegionById_ReturnsOkWithRegionData()
+    {
+        int regionId = 1;  
+        var response = await _client.GetAsync($"/api/v1/Region/{regionId}");
 
-//         var result = await response.Content.ReadAsStringAsync();
+        response.EnsureSuccessStatusCode();
 
-//         Assert.NotNull(result);
-//         Assert.Contains("Id", result);
-//     }
+        var result = await response.Content.ReadAsStringAsync();
 
-//     [Fact]
-//     public async Task GetRegionDepartmentsById_ReturnsOkWithDepartmentsData()
-//     {
-//         int regionId = 1;  
-//         var response = await _client.GetAsync($"/api/v1/Region/{regionId}/departments");
+        Assert.NotNull(result);
+        Assert.Contains("id", result);
+    }
 
-//         response.EnsureSuccessStatusCode();
+    [Fact]
+    public async Task GetRegionDepartmentsById_ReturnsOkWithDepartmentsData()
+    {
+        int regionId = 1;  
+        var response = await _client.GetAsync($"/api/v1/Region/{regionId}/departments");
 
-//         var result = await response.Content.ReadAsStringAsync();
+        response.EnsureSuccessStatusCode();
 
-//         Assert.NotNull(result);
-//         Assert.Contains("Departments", result);
-//     }
+        var result = await response.Content.ReadAsStringAsync();
 
-//     [Fact]
-//     public async Task GetSortedRegions_ReturnsOkWithSortedData()
-//     {
-//         string sortBy = "Name";  
-//         string sortDirection = "asc";  
-//         var response = await _client.GetAsync($"/api/v1/Region?sortBy={sortBy}&sortDirection={sortDirection}");
+        Assert.NotNull(result);
+        Assert.Contains("departments", result);
+    }
 
-//         response.EnsureSuccessStatusCode();
+    [Fact]
+    public async Task GetSortedRegions_ReturnsOkWithSortedData()
+    {
+        string sortBy = "name";  
+        string sortDirection = "asc";  
+        var response = await _client.GetAsync($"/api/v1/Region?sortBy={sortBy}&sortDirection={sortDirection}");
 
-//         var result = await response.Content.ReadAsStringAsync();
+        response.EnsureSuccessStatusCode();
 
-//         Assert.NotNull(result);
-//         Assert.False(string.IsNullOrEmpty(result));
-//     }
+        var result = await response.Content.ReadAsStringAsync();
 
-//     [Fact]
-//     public async Task GetInvalidRegionId_ReturnsNotFound()
-//     {
-//         int invalidRegionId = -1;  
-//         var response = await _client.GetAsync($"/api/v1/Region/{invalidRegionId}");
+        Assert.NotNull(result);
+        Assert.False(string.IsNullOrEmpty(result));
+    }
 
-//         Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
-//     }
-// }
+    [Fact]
+    public async Task GetInvalidRegionId_ReturnsNotFound()
+    {
+        int invalidRegionId = 1000;  
+        var response = await _client.GetAsync($"/api/v1/Region/{invalidRegionId}");
+
+        Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
+    }
+}

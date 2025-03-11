@@ -34,7 +34,7 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 
 * Swagger documentation can be found at the following [URL](https://api-colombia.com/swagger/index.html)
 
-## Projects, Demos, POCs, Samples and ColombiaAPI para R
+## Projects, Demos, POCs and Samples
 
 | Repo | Url   | Description         |
 | ---------- | ------------------------------------- | ------------------------------------------------ |

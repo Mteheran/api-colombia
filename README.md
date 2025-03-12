@@ -39,7 +39,7 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 | Repo | Url   | Description         |
 | ---------- | ------------------------------------- | ------------------------------------------------ |
 | https://github.com/Mteheran/invasivespecie-colombia | https://especiesinvasoras.api-colombia.com/ | A portal to consult all invasive species in Colombia |
-
+| https://github.com/lightbluetitan/colombiapi | https://github.com/lightbluetitan/colombiapi | ColombiaAPI for R, an R package that consumes the data exposed by api-colombia |
 
 ## API Endpoints
 | HTTP Verbs | Endpoints                             | Action                                                               |
@@ -120,6 +120,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/hamilgdev/"><img src="https://avatars.githubusercontent.com/u/37517478?v=4" width="100px;" alt="Hamilton Galeano"/><br /><sub><b>Hamilton Galeano</b></sub></a><br /><a href="https://github.com/Mteheran/api-colombia/commits?author=hamilgdev" title="Documentation">📖</a> </td>
+    <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/leomaris-reyes-1b598661/"><img src="https://avatars.githubusercontent.com/u/35940594?v=4" width="120px;" alt="Leomarys Reyes"/><br /><sub><b>Leomaris Reyes</b></sub></a><br /><a href="https://github.com/LeomarisReyes" title="Code">💻</a></td>
   </tr>
   </tbody>
   <tfoot>

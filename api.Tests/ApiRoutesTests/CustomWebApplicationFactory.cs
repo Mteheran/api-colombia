@@ -124,6 +124,19 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 Content = "La ley señalará las funciones que el Presidente de la República podrá elegir."
             }; 
 
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Rionegro",
+                CityId = 1,
+                City = city1,
+                DeparmentId = 1,
+                Department = deparment1,
+                IataCode = "MDE",
+                OaciCode = "SKRG",
+                Type = "Internacional",
+            };
+
             if(!dbContext.Regions.Any())
             {
                 dbContext.Add(region);
@@ -173,8 +186,12 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 dbContext.Add(constitutionArticle);
             } 
 
-            dbContext.SaveChanges();
+             if(!dbContext.Airports.Any())
+            {
+                dbContext.Add(airport);
+            } 
 
+            dbContext.SaveChanges();
     }
 
     public void ResetDatabase()

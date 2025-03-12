@@ -137,6 +137,23 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 Type = "Internacional",
             };
 
+            var country = new Country
+            {
+                Id = 1,
+                Name = "Colombia",
+                InternetDomain = "CO",
+                Departments = new List<Department> { deparment1 },
+                Currency = "Peso",
+                CurrencyCode = "COP",
+                CurrencySymbol = "$",
+                Flags = new string[] { "https://restcountries.com/data/col.svg" },
+                Borders = new string[] { "BRA", "ECU", "PAN", "PER", "VEN" },
+                Region = "Americas",
+                Languages = new string[] { "Spanish" },
+                Population = 50882891,
+                Surface = 1141748,
+            };
+
             if(!dbContext.Regions.Any())
             {
                 dbContext.Add(region);
@@ -186,9 +203,14 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 dbContext.Add(constitutionArticle);
             } 
 
-             if(!dbContext.Airports.Any())
+            if(!dbContext.Airports.Any())
             {
                 dbContext.Add(airport);
+            } 
+
+            if(!dbContext.Countries.Any())
+            {
+                dbContext.Add(country);
             } 
 
             dbContext.SaveChanges();

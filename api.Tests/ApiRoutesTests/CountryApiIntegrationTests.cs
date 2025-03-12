@@ -1,32 +1,34 @@
-// using System.Net.Http;
-// using System.Threading.Tasks;
-// using Xunit;
-// using Microsoft.AspNetCore.Mvc.Testing;
-// using api.Models;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Xunit;
+using Microsoft.AspNetCore.Mvc.Testing;
+using api.Models;
+using System.Net.Http.Json;
 
-// public class CountryApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
-// {
-//     private readonly HttpClient _client;
+public class CountryApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
+{
+    private readonly HttpClient _client;
 
-//     public CountryApiIntegrationTests(CustomWebApplicationFactory factory)
-//     {
-//         _client = factory.CreateClient();  
-//     }
+    public CountryApiIntegrationTests(CustomWebApplicationFactory factory)
+    {
+        _client = factory.CreateClient();  
+    }
 
-//     [Fact]
-//     public async Task GetCountry_ReturnsAllCountryData()
-//     {
-//         var response = await _client.GetAsync("/api/v1/Country");
+    [Fact]
+    public async Task GetCountry_ReturnsAllCountryData()
+    {
+        var response = await _client.GetAsync("/api/v1/Country/Colombia");
 
-//         response.EnsureSuccessStatusCode();
+        response.EnsureSuccessStatusCode();
 
-//         var result = await response.Content.ReadAsStringAsync();
+        var result =  await response.Content.ReadFromJsonAsync<Country>();
  
-//         Assert.NotNull(result);
-//         Assert.NotEmpty(result);  
- 
-//         var countries = System.Text.Json.JsonSerializer.Deserialize<List<Country>>(result);
-//         Assert.NotEmpty(countries);   
-//     } 
+        Assert.NotNull(result);
+        Assert.Equal("Colombia", result.Name);
+        Assert.Equal("Americas", result.Region);
+        Assert.Equal("COP", result.CurrencyCode);
+        Assert.Equal("$", result.CurrencySymbol);
+        Assert.Equal("Peso", result.Currency);
+    } 
 
-// }
+}

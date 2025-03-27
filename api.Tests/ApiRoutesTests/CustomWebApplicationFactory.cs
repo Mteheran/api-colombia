@@ -193,6 +193,26 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             if(!dbContext.TouristAttractions.Any())
             {
                 dbContext.Add(touristAtraction);
+
+                dbContext.Add(new TouristAttraction
+                {
+                    Id = 2,
+                    Name = "Parque Explora",
+                    Description = "Parque temático de ciencia y tecnología",
+                    CityId = city1.Id,
+                    City = city1,
+                    Images = new string[] { "https://example.com/image1.jpg", "https://example.com/image2.jpg" },
+                });
+
+                dbContext.Add(new TouristAttraction
+                {
+                    Id = 3,
+                    Name = "Parque Norte",
+                    Description = "Parque temático de ciencia y tecnología",
+                    CityId = city1.Id,
+                    City = city1,
+                    Images = new string[] { "https://example.com/image1.jpg", "https://example.com/image2.jpg" },
+                });
             }
  
             if(!dbContext.ConstitutionArticles.Any())

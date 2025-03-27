@@ -443,6 +443,38 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 });
             }
 
+            if(!dbContext.TraditionalFairAndFestival.Any())
+            {
+                dbContext.Add(new TraditionalFairAndFestival
+                {
+                    Id = 1,
+                    Name = "Sample Festival",
+                    Description = "Sample description",
+                    CityId = city1.Id,
+                    City = city1,
+                    Month = "January",
+                });
+
+                dbContext.Add(new TraditionalFairAndFestival
+                {
+                    Id = 2,
+                    Name = "Another Festival",
+                    Description = "Another description",
+                    CityId = city1.Id,
+                    City = city1,
+                    Month = "February",
+                });
+                dbContext.Add(new TraditionalFairAndFestival
+                {
+                    Id = 3,
+                    Name = "Super Event",
+                    Description = "Third description",
+                    CityId = 0,
+                    City = null,
+                    Month = "March",
+                });
+            }
+
             dbContext.SaveChanges();
     }
 

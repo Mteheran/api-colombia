@@ -384,6 +384,45 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 });
             }
 
+            if(!dbContext.Radios.Any())
+            {
+                dbContext.Add(new Radio
+                {
+                    Id = 1,
+                    Name = "Sample Radio",
+                    CityId = city1.Id,
+                    City = city1,
+                    Frequency = 101.1,
+                    Band = "FM",
+                    Url = new Uri("https://example.com/radio"),
+                    Streamers = new string[] { "Streamer1", "Streamer2" },
+                });
+
+                dbContext.Add(new Radio
+                {
+                    Id = 2,
+                    Name = "Another Radio",
+                    CityId = city1.Id,
+                    City = city1,
+                    Frequency = 102.2,
+                    Band = "AM",
+                    Url = new Uri("https://example.com/radio"),
+                    Streamers = new string[] { "Streamer1", "Streamer2" },
+                });
+
+                dbContext.Add(new Radio
+                {
+                    Id = 3,
+                    Name = "Third Radio",
+                    CityId = city1.Id,
+                    City = city1,
+                    Frequency = 103.3,
+                    Band = "AM",
+                    Url = new Uri("https://example.com/radio"),
+                    Streamers = new string[] { "Streamer1", "Streamer2" },
+                });
+            }
+
             dbContext.SaveChanges();
     }
 

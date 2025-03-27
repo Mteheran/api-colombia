@@ -1,8 +1,3 @@
-using System.Net.Http;
-using System.Threading.Tasks;
-using Xunit;
-using Microsoft.AspNetCore.Mvc.Testing;
-
 public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
 {
     private readonly HttpClient _client;

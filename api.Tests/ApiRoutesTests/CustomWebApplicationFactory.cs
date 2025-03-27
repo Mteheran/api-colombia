@@ -1,13 +1,10 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection; 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using api;
 using AutoFixture;
 using api.Models;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using Microsoft.VisualBasic;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
@@ -212,6 +209,34 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             {
                 dbContext.Add(country);
             } 
+
+            if(!dbContext.Maps.Any())
+            {
+                dbContext.Add(new Map
+                {
+                    Id = 1,
+                    Name = "Mapa de Colombia",
+                    Description = "Mapa de Colombia",
+                    UrlSource = "https://www.google.com/maps/place/Colombia/@4.570868,-74.297333,5z/data=!3m1!4b1!4m6!3m5!1s0x8e3f99a2c9d7f2b7:0x4c8e2f8a2c9d7f2b7!8m2!3d4.570868!4d-74.297333!16zL20vMDJtZzQ?entry=ttu",
+                    UrlImages = new List<string>
+                    {
+                        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Colombia_%28orthographic_projection%29.svg/1200px-Colombia_%28orthographic_projection%29.svg.png",
+                        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Colombia_location_map.svg/1200px-Colombia_location_map.svg.png"
+                    }.ToArray()
+                });
+                dbContext.Add(new Map
+                {
+                    Id = 2,
+                    Name = "Mapa de Medellín",
+                    Description = "Mapa de Medellín",
+                    UrlSource = "https://www.google.com/maps/place/Medell%C3%ADn,+Antioquia/@6.244203,-75.590654,12z/data=!3m1!4b1!4m6!3m5!1s0x8e442a2c9d7f2b7:0x4c8e2f8a2c9d7f2b7!8m2!3d6.244203!4d-75.590654!16zL20vMDJtZzQ?entry=ttu",
+                    UrlImages = new List<string>
+                    {
+                        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Colombia_%28orthographic_projection%29.svg/1200px-Colombia_%28orthographic_projection%29.svg.png",
+                        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Colombia_location_map.svg/1200px-Colombia_location_map.svg.png"
+                    }.ToArray()
+                });
+            }
 
             dbContext.SaveChanges();
     }

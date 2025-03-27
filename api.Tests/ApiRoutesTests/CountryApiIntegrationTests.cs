@@ -1,7 +1,3 @@
-using System.Net.Http;
-using System.Threading.Tasks;
-using Xunit;
-using Microsoft.AspNetCore.Mvc.Testing;
 using api.Models;
 using System.Net.Http.Json;
 
@@ -29,6 +25,5 @@ public class CountryApiIntegrationTests : IClassFixture<CustomWebApplicationFact
         Assert.Equal("COP", result.CurrencyCode);
         Assert.Equal("$", result.CurrencySymbol);
         Assert.Equal("Peso", result.Currency);
-    } 
-
+    }
 }

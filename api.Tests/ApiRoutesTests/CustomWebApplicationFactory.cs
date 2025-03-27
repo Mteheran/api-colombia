@@ -57,6 +57,13 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 DepartmentId = 1,
             };
 
+            var city2 = new City
+            {
+                Id = 20,
+                Name = "Medellín",
+                DepartmentId = 20,
+            };
+
             var region = new Region
             {
                 Id = 1,
@@ -77,8 +84,21 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 Cities = new List<City> {city1}
             };
 
-            region.Departments = new List<Department> { deparment1 };
+            var deparment2 = new Department
+            {
+                Id = 10,
+                Name = "Amazonas",
+                NaturalAreas = new List<NaturalArea>(),
+                CityCapitalId = 1,
+                CityCapital = city2,
+                Region = region,
+                RegionId = region.Id,
+                Cities = new List<City> {city2}
+            };
+
+            region.Departments = new List<Department> { deparment1, deparment2 };
             city1.Department = deparment1;
+            city2.Department = deparment2;
 
             var categoryNaturalArea = new CategoryNaturalArea
             {
@@ -472,6 +492,42 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                     CityId = 0,
                     City = null,
                     Month = "March",
+                });
+            }
+
+            if(!dbContext.TypicalDishes.Any())
+            {
+                dbContext.Add(new TypicalDish
+                {
+                    Id = 1,
+                    Name = "Bandeja Paisa",
+                    Description = "Traditional dish from Antioquia",
+                    Ingredients = "Rice, beans, meat, avocado, plantain",
+                    DepartmentId = deparment1.Id,
+                    Department = deparment1,
+                    ImageUrl = "https://example.com/bandeja_paisa.jpg",
+                });
+
+                dbContext.Add(new TypicalDish
+                {
+                    Id = 2,
+                    Name = "Arepa",
+                    Description = "Corn cake",
+                    Ingredients = "Corn flour, water, salt",
+                    DepartmentId = deparment1.Id,
+                    Department = deparment1,
+                    ImageUrl = "https://example.com/arepa.jpg",
+                });
+
+                dbContext.Add(new TypicalDish
+                {
+                    Id = 3,
+                    Name = "Sancocho",
+                    Description = "Traditional soup",
+                    Ingredients = "Meat, plantain, yucca, corn",
+                    DepartmentId = deparment2.Id,
+                    Department = deparment2,
+                    ImageUrl = "https://example.com/sancocho.jpg",
                 });
             }
 

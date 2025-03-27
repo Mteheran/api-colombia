@@ -18,7 +18,7 @@ public class TouristAttractionApiIntegrationTests : IClassFixture<CustomWebAppli
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<List<TouristAttraction>>(); 
+       var result = await response.Content.ReadFromJsonAsync<List<TouristAttraction>>();
 
         Assert.NotNull(result);
     }

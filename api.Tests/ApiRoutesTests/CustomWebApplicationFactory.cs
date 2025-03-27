@@ -310,6 +310,36 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 });
             }
 
+            if(!dbContext.NativeCommunities.Any())
+            {
+                dbContext.Add(new NativeCommunity
+                {
+                    Id = 1,
+                    Name = "Sample Community",
+                    Description = "Sample description",
+                    Languages = "Spanish, English",
+                    Images = new string[] { "https://example.com/image1.jpg", "https://example.com/image2.jpg" },
+                });
+
+                dbContext.Add(new NativeCommunity
+                {
+                    Id = 2,
+                    Name = "Another Community",
+                    Description = "Another description",
+                    Languages = "Spanish, English",
+                    Images = new string[] { "https://example.com/image1.jpg", "https://example.com/image2.jpg" },
+                });
+
+                dbContext.Add(new NativeCommunity
+                {
+                    Id = 3,
+                    Name = "Third Community",
+                    Description = "Third description",
+                    Languages = "Spanish, English",
+                    Images = new string[] { "https://example.com/image1.jpg", "https://example.com/image2.jpg" },
+                });
+            }
+
             dbContext.SaveChanges();
     }
 

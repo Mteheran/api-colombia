@@ -340,6 +340,50 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 });
             }
 
+            if(!dbContext.Presidents.Any())
+            {
+                dbContext.Add(new President
+                {
+                    Id = 1,
+                    Name = "Rafael",
+                    LastName = "Núñez",
+                    Description = "First in Colombia",
+                    Image = "https://example.com/image.jpg",
+                    PoliticalParty = "Sample Party",
+                    StartPeriodDate = new DateOnly(1865, 1, 1),
+                    EndPeriodDate = new DateOnly(1866, 1, 1),
+                    CityId = city1.Id,
+                    City = city1,
+                });
+
+                dbContext.Add(new President
+                {
+                    Id = 2,
+                    Name = "Another President",
+                    LastName = "Another",
+                    StartPeriodDate = new DateOnly(1866, 1, 1),
+                    PoliticalParty = "Sample Party",
+                    Description = "President of Colombia",
+                    Image = "https://example.com/image.jpg",
+                    CityId = city1.Id,
+                    City = city1,
+                });
+
+                dbContext.Add(new President
+                {
+                    Id = 3,
+                    Name = "Third President",
+                    LastName = "Third",
+                    StartPeriodDate = new DateOnly(1867, 1, 1),
+                    EndPeriodDate = new DateOnly(1868, 1, 1),
+                    PoliticalParty = "Sample Party",
+                    Description = "President of Colombia",
+                    Image = "https://example.com/image.jpg",
+                    CityId = city1.Id,
+                    City = city1,
+                });
+            }
+
             dbContext.SaveChanges();
     }
 

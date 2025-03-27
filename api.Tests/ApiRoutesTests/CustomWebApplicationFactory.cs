@@ -238,6 +238,39 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 });
             }
 
+            if(!dbContext.IndigenousReservations.Any())
+            {
+                dbContext.Add(new IndigenousReservation
+                {
+                    Id = 1,
+                    Name = "Emberá",
+                    CityId = city1.Id,
+                    City = city1,
+                    Department = deparment1,
+                    DeparmentId = deparment1.Id,
+                });
+
+                dbContext.Add(new IndigenousReservation
+                {
+                    Id = 2,
+                    Name = "Wayuu",
+                    CityId = city1.Id,
+                    City = city1,
+                    Department = deparment1,
+                    DeparmentId = deparment1.Id,
+                });
+
+                dbContext.Add(new IndigenousReservation
+                {
+                    Id = 3,
+                    Name = "Zenú",
+                    CityId = city1.Id,
+                    City = city1,
+                    Department = deparment1,
+                    DeparmentId = deparment1.Id,
+                });
+            }
+
             dbContext.SaveChanges();
     }
 

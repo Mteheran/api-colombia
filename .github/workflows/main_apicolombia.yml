@@ -33,9 +33,15 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Test with dotnet
-        run: dotnet test --no-restore --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+        run: dotnet test --no-build --configuration Release --logger "trx;LogFileName=testresults.trx"
+        working-directory: ./api.Tests
+      
+      - name: Publish test results
+        uses: actions/upload-artifact@v3
+        if: always()
         with:
-          working-directory: ./api.Tests
+          name: test-results
+          path: '**/*.trx'
       
       - name: Upload dotnet test results
         uses: actions/upload-artifact@v4

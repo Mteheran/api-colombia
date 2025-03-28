@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: api
+        working-directory: api.Tests
 
     steps:
       - uses: actions/checkout@v4
@@ -29,13 +29,11 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests with coverage
-        working-directory: ./api.Tests
         run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/coverage/ /p:CoverletOutputFormat=cobertura /p:Include="[api*]*" /p:Exclude="[xunit.*]*" --verbosity detailed --diag:../TestResults/diagnostics.log
           [ -f ../TestResults/*.trx ] || echo "##[warning]No test results file found"
           [ -f ../TestResults/coverage/coverage.cobertura.xml ] || echo "##[warning]No coverage file found"
       
       - name: Generate HTML report
-        working-directory: ./api.Tests
         run: |
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.10
           reportgenerator \

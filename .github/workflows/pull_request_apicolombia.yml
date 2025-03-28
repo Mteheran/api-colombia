@@ -35,7 +35,7 @@ jobs:
         run: |
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.10
           reportgenerator \
-            -reports: ../TestResults/coverage.cobertura.xml \
+            -reports: ../TestResults/coverage/coverage.cobertura.xml \
             -targetdir:CoverageReport \
             -reporttypes:HtmlInline_AzurePipelines
 

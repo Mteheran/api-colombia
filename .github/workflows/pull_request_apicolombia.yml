@@ -50,7 +50,7 @@ jobs:
 
       - name: Extract Coverage Percentage
         working-directory: ./
-         id: coverage
+        id: coverage
         run: |
           # Find the coverage file (debugging)
           echo "Looking for coverage file..."

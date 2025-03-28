@@ -47,43 +47,15 @@ jobs:
             -reports:TestResults/coverage/coverage.cobertura.xml \
             -targetdir:CoverageReport \
             -reporttypes:HtmlInline_AzurePipelines
-
-      - name: Debug Coverage File
-        working-directory: ./
-        run: |
-          echo "Checking coverage file..."
-          COV_FILE="TestResults/coverage/coverage.cobertura.xml"
-          [ -f "$COV_FILE" ] || echo "##[error]File not found at $COV_FILE"
-          echo "File exists at: $(realpath "$COV_FILE")"
-          echo "First 20 lines:"
-          head -n 20 "$COV_FILE" || echo "Couldn't read file"
-          echo "Line-rate value:"
-          grep -o 'line-rate="[^"]*"' "$COV_FILE" || echo "No line-rate found"
-
-      - name: Extract Coverage Percentage
+      
+      - name: Extract Coverage
         working-directory: ./
         id: coverage
         run: |
-          COV_FILE="TestResults/coverage/coverage.cobertura.xml"
-          
-          # Alternative XML parsing method
-          COVERAGE=$(xpath -q -e '//@line-rate' "$COV_FILE" 2>/dev/null | cut -d'"' -f2)
-          
-          # Fallback if xpath fails
-          [ -z "$COVERAGE" ] && COVERAGE=$(grep -o 'line-rate="[^"]*"' "$COV_FILE" | cut -d'"' -f2)
-          
-          # Final fallback
-          [ -z "$COVERAGE" ] && COVERAGE=$(awk -F'line-rate="' 'NF>1{print $2}' "$COV_FILE" | cut -d'"' -f1)
-          
-          # Validate
-          if [ -z "$COVERAGE" ]; then
-            echo "##[error]Could not extract coverage value"
-            exit 1
-          fi
-          
-          COVERAGE_PERCENT=$(echo "$COVERAGE * 100" | bc -l | awk '{printf "%.0f\n", $1}')
-          echo "coverage_percentage=$COVERAGE_PERCENT" >> $GITHUB_OUTPUT
-          echo "Extracted coverage: $COVERAGE_PERCENT%"
+          # Get the last line containing "Line coverage" from test output
+          COVERAGE=$(grep -oP "Line coverage: \K\d+\.\d+" TestResults/coverage/coverage.cobertura.xml)
+          echo "coverage_percentage=${COVERAGE%.*}" >> $GITHUB_OUTPUT
+          echo "Coverage: ${COVERAGE%.*}%"
 
       - name: Upload Coverage Metadata
         uses: actions/upload-artifact@v4

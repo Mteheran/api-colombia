@@ -30,7 +30,6 @@ jobs:
       - name: Test with dotnet
         working-directory: ./api.Tests
         run: |
-          mkdir -p TestResults/coverage
           dotnet test ./api.Tests \
             --no-build \
             --configuration Release \
@@ -43,11 +42,13 @@ jobs:
             /p:CoverletOutputFormat=cobertura \
 
       - name: Verify coverage file exists
+        working-directory: ./api.Tests
         run: |
           ls -la TestResults/coverage
           [ -f TestResults/coverage/coverage.cobertura.xml ] || exit 1
       
       - name: Generate HTML report
+        working-directory: ./api.Tests
         run: |
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.10
           reportgenerator \

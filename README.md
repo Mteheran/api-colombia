@@ -4,7 +4,7 @@
 
 [![Build and test - ApiColombia](https://github.com/Mteheran/api-colombia/actions/workflows/pull_request_apicolombia.yml/badge.svg)](https://github.com/Mteheran/api-colombia/actions/workflows/pull_request_apicolombia.yml)
 
-![Coverage](https://img.shields.io/badge/coverage-${{ steps.coverage.outputs.coverage_percentage }}%25-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-50%25-brightgreen)
 
 ## Introduction
 API Colombia is a public RESTful API that enables users to access a wide range of public information about the country of Colombia.

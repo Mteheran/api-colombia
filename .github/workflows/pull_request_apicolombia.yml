@@ -48,26 +48,20 @@ jobs:
             -targetdir:CoverageReport \
             -reporttypes:HtmlInline_AzurePipelines
 
-      - name: Extract coverage percentage
-        working-directory: ./
+      - name: Extract Coverage Percentage
         id: coverage
         run: |
-          # Extract coverage percentage from the cobertura.xml file
+          # Extract coverage % from XML
           COVERAGE=$(grep -oP 'line-rate="\K[0-9.]+' TestResults/coverage/coverage.cobertura.xml)
           COVERAGE_PERCENT=$(echo "$COVERAGE * 100" | bc -l | awk '{printf "%.0f\n", $1}')
           echo "coverage_percentage=$COVERAGE_PERCENT" >> $GITHUB_OUTPUT
           echo "Coverage: $COVERAGE_PERCENT%"
 
-      - name: Create coverage badge
-        working-directory: ./
-        run: |
-          echo '{"schemaVersion": 1, "label": "coverage", "message": "${{ steps.coverage.outputs.coverage_percentage }}%", "color": "success"}' > coverage.json
-      
-      - name: Upload coverage badge
+      - name: Upload Coverage Metadata
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-badge
-          path: coverage.json      
+          name: coverage-meta
+          path: TestResults/coverage/coverage.cobertura.xml
 
       - name: Publish coverage report
         uses: actions/upload-artifact@v4

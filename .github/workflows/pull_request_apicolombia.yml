@@ -30,7 +30,7 @@ jobs:
 
       - name: Run tests with coverage
         working-directory: ./api.Tests
-        run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/coverage/ /p:CoverletOutputFormat=cobertura /p:Include="[ApiColombia*]*" /p:Exclude="[xunit.*]*" --verbosity detailed --diag:../TestResults/diagnostics.log
+        run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/coverage/ /p:CoverletOutputFormat=cobertura /p:Include="[api*]*" /p:Exclude="[xunit.*]*" --verbosity detailed --diag:../TestResults/diagnostics.log
           [ -f ../TestResults/*.trx ] || echo "##[warning]No test results file found"
           [ -f ../TestResults/coverage/coverage.cobertura.xml ] || echo "##[warning]No coverage file found"
       

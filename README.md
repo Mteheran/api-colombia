@@ -1,4 +1,7 @@
 # API-COLOMBIA
+
+[![Build and deploy ASP.Net Core app to Azure Web App - ApiColombia](https://github.com/Mteheran/api-colombia/actions/workflows/main_apicolombia.yml/badge.svg)](https://github.com/Mteheran/api-colombia/actions/workflows/main_apicolombia.yml)
+
 [![Build and test - ApiColombia](https://github.com/Mteheran/api-colombia/actions/workflows/pull_request_apicolombia.yml/badge.svg)](https://github.com/Mteheran/api-colombia/actions/workflows/pull_request_apicolombia.yml)
 
 ![Coverage](https://img.shields.io/badge/coverage-${{ steps.coverage.outputs.coverage_percentage }}%25-brightgreen)

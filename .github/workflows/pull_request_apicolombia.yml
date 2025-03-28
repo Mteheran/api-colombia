@@ -30,8 +30,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          mkdir -p ../TestResults/coverage
-          dotnet test api.Tests.csproj \
+          dotnet test \
             --configuration Release \
             --settings ../coverlet.runsettings \
             --collect:"XPlat Code Coverage" \

@@ -217,8 +217,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 dbContext.Add(new TouristAttraction
                 {
                     Id = 2,
-                    Name = "Parque Explora",
-                    Description = "Parque temático de ciencia y tecnología",
+                    Name = "Pueblito paisa",
+                    Description = "Lugar emblematico de Medellin",
                     CityId = city1.Id,
                     City = city1,
                     Images = new string[] { "https://example.com/image1.jpg", "https://example.com/image2.jpg" },

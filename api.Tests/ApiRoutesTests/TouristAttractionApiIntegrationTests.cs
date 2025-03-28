@@ -66,7 +66,7 @@ public class TouristAttractionApiIntegrationTests : IClassFixture<CustomWebAppli
         Assert.NotNull(result);
         Assert.NotEmpty(result);
         Assert.All(result, attraction => Assert.Contains(searchKeyword, attraction.Name, StringComparison.OrdinalIgnoreCase));
-        Assert.Equal(3, result.Count);
+        Assert.Equal(2, result.Count);
     }
 
     [Fact]

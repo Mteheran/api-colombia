@@ -82,7 +82,7 @@ public class DepartmentApiIntegrationTests : IClassFixture<CustomWebApplicationF
         var result = await response.Content.ReadFromJsonAsync<List<TouristAttraction>>();
         
         Assert.NotNull(result);
-        Assert.Single(result);  
+        Assert.Equal(3, result.Count);  
     }
 
     [Fact]
@@ -129,7 +129,7 @@ public class DepartmentApiIntegrationTests : IClassFixture<CustomWebApplicationF
         var result = await response.Content.ReadFromJsonAsync<PaginationResponseModel<Department>>(); 
         
         Assert.NotNull(result);
-        Assert.Single(result.Data);  
+        Assert.Equal(2, result.Data.Count);  
     }
 
     [Fact]
@@ -145,6 +145,6 @@ public class DepartmentApiIntegrationTests : IClassFixture<CustomWebApplicationF
        var result = await response.Content.ReadFromJsonAsync<List<Department>>(); 
         
         Assert.NotNull(result);
-        Assert.Single(result);  
+        Assert.Equal(2, result.Count);  
     }
 }

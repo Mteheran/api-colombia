@@ -29,33 +29,24 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests with coverage
-        run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/coverage/ /p:CoverletOutputFormat=cobertura /p:MergeWith=../TestResults/coverage/coverage.json
+        run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/coverage.json/ /p:CoverletOutputFormat=json
       
       - name: Verify coverage file exists
         working-directory: ./
         run: |
           echo "Current directory: $(pwd)"
-          echo "Looking for coverage file at: $(pwd)/TestResults/coverage/coverage.cobertura.xml"
+          echo "Looking for coverage file at: $(pwd)/TestResults/coverage.json"
           ls -la TestResults/coverage/ || echo "Directory listing failed"
-          [ -f TestResults/coverage/coverage.cobertura.xml ] || (echo "##[error]Coverage file not found in $(pwd)/TestResults/coverage/" && exit 1)
-      
-      - name: Generate HTML report
-        working-directory: ./
-        run: |
-          dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.10
-          reportgenerator \
-            -reports:TestResults/coverage/coverage.cobertura.xml \
-            -targetdir:CoverageReport \
-            -reporttypes:HtmlInline_AzurePipelines
+          [ -f TestResults/coverage.json ] || (echo "##[error]Coverage file not found in $(pwd)/TestResults/coverage/" && exit 1)
       
       - name: Extract Coverage
         working-directory: ./
         id: coverage
         run: |
-          # Get the last line containing "Line coverage" from test output
-          COVERAGE=$(grep -oP "Line coverage: \K\d+\.\d+" TestResults/coverage/coverage.cobertura.xml)
-          echo "coverage_percentage=${COVERAGE%.*}" >> $GITHUB_OUTPUT
-          echo "Coverage: ${COVERAGE%.*}%"
+          # Read directly from JSON (no XML parsing needed)
+          PERCENT=$(jq -r '.summary.line' TestResults/coverage.json | awk '{printf "%.0f\n", $1*100}')
+          echo "coverage_percentage=$PERCENT" >> $GITHUB_OUTPUT
+          echo "Coverage: $PERCENT%"
 
       - name: Upload Coverage Metadata
         uses: actions/upload-artifact@v4

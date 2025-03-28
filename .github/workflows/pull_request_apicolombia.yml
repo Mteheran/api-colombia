@@ -39,20 +39,25 @@ jobs:
           ls -la TestResults/ || echo "Directory listing failed"
           [ -f TestResults/coverage.json ] || (echo "##[error]Coverage file not found in $(pwd)/TestResults/" && exit 1)
       
-      - name: Extract Coverage
-        working-directory: ./
+      - name: Calculate coverage percentage
         id: coverage
         run: |
-          # Read directly from JSON (no XML parsing needed)
-          PERCENT=$(jq -r '.summary.line' TestResults/coverage.json | awk '{printf "%.0f\n", $1*100}')
+          # Install jq if not already available
+          command -v jq >/dev/null || sudo apt-get install -y jq
+          
+          # Calculate coverage from raw data
+          TOTAL_LINES=$(jq '[.Modules[].Lines | length] | add' TestResults/coverage.json)
+          COVERED_LINES=$(jq '[.Modules[].Lines | map(select(. > 0)) | length] | add' TestResults/coverage.json)
+          PERCENT=$(echo "scale=0; $COVERED_LINES * 100 / $TOTAL_LINES" | bc)
+          
           echo "coverage_percentage=$PERCENT" >> $GITHUB_OUTPUT
-          echo "Coverage: $PERCENT%"
+          echo "Calculated coverage: $PERCENT% ($COVERED_LINES/$TOTAL_LINES lines)"
 
       - name: Upload Coverage Metadata
         uses: actions/upload-artifact@v4
         with:
           name: coverage-meta
-          path: TestResults/coverage/coverage.cobertura.xml
+          path: TestResults/coverage.json
 
       - name: Publish coverage report
         uses: actions/upload-artifact@v4

@@ -49,6 +49,7 @@ jobs:
             -reporttypes:HtmlInline_AzurePipelines
 
       - name: Extract Coverage Percentage
+        working-directory: ./
         id: coverage
         run: |
           # Extract coverage % from XML

@@ -29,8 +29,8 @@ jobs:
 
       - name: Test with dotnet
         working-directory: ./api.Tests
-        run: |
-          dotnet test \
+        run: | 
+            dotnet test \
             --no-build \
             --configuration Release \
             --settings coverlet.runsettings \

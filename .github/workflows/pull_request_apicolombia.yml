@@ -30,10 +30,8 @@ jobs:
       - name: Test with dotnet
         working-directory: ./api.Tests
         run: |
-         # Ensure output directory exists
-          mkdir -p ../TestResults/coverage
-
-          dotnet test \
+          mkdir -p TestResults/coverage
+          dotnet test ./api.Tests \
             --no-build \
             --configuration Release \
             --settings coverlet.runsettings \
@@ -41,8 +39,8 @@ jobs:
             --logger trx \
             --results-directory TestResults \
             /p:CollectCoverage=true \
-            /p:CoverletOutput=../TestResults/coverage/ \
-            /p:CoverletOutputFormat=cobertura
+            /p:CoverletOutput=TestResults/coverage/ \
+            /p:CoverletOutputFormat=cobertura \
 
       - name: Verify coverage file exists
         run: |

@@ -29,15 +29,15 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests with coverage
-        run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/coverage.json/ /p:CoverletOutputFormat=json
+        run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/ /p:CoverletOutputFormat=json
       
       - name: Verify coverage file exists
         working-directory: ./
         run: |
           echo "Current directory: $(pwd)"
           echo "Looking for coverage file at: $(pwd)/TestResults/coverage.json"
-          ls -la TestResults/coverage/ || echo "Directory listing failed"
-          [ -f TestResults/coverage.json ] || (echo "##[error]Coverage file not found in $(pwd)/TestResults/coverage/" && exit 1)
+          ls -la TestResults/ || echo "Directory listing failed"
+          [ -f TestResults/coverage.json ] || (echo "##[error]Coverage file not found in $(pwd)/TestResults/" && exit 1)
       
       - name: Extract Coverage
         working-directory: ./

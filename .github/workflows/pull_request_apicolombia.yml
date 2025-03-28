@@ -1,4 +1,3 @@
-
 name: Build and test - ApiColombia
 
 on:
@@ -11,57 +10,61 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: api
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
-          include-prerelease: true
+
+      - name: Restore dependencies
+        run: dotnet restore
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release --no-restore
 
-      - name: Test with dotnet
+      - name: Run tests with coverage
         working-directory: ./api.Tests
         run: |
+          # Create output directories
+          mkdir -p ../TestResults/coverage
+          
+          # Run tests with coverage
           dotnet test \
             --no-build \
             --configuration Release \
-            --settings coverlet.runsettings \
+            --settings ../coverlet.runsettings \
             --collect:"XPlat Code Coverage" \
             --logger trx \
-            --results-directory TestResults \
+            --results-directory ../TestResults \
             /p:CollectCoverage=true \
             /p:CoverletOutput=../TestResults/coverage/ \
-            /p:CoverletOutputFormat=cobertura
-    
-      - name: Verify coverage file exists
-        working-directory: ./api.Tests
-        run: |
-          ls -la TestResults/coverage
-          [ -f TestResults/coverage/coverage.cobertura.xml ] || exit 1
-      
+            /p:CoverletOutputFormat=cobertura \
+            --verbosity normal
+          
+          # Verify test results were created
+          [ -f ../TestResults/*.trx ] || echo "##[error]No test results file found" && exit 1
+          [ -f ../TestResults/coverage/coverage.cobertura.xml ] || echo "##[error]No coverage file found" && exit 1
+
       - name: Generate HTML report
-        working-directory: ./api.Tests
         run: |
+          # Install report generator
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.10
+          
+          # Generate report from root directory
           reportgenerator \
             -reports:TestResults/coverage/coverage.cobertura.xml \
             -targetdir:CoverageReport \
             -reporttypes:HtmlInline_AzurePipelines
-      
+
       - name: Publish coverage report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: CoverageReport
-        
+
       - name: Publish test results
         uses: actions/upload-artifact@v4
         if: always()

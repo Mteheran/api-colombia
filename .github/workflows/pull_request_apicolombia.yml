@@ -40,6 +40,7 @@ jobs:
           [ -f TestResults/coverage.json ] || (echo "##[error]Coverage file not found in $(pwd)/TestResults/" && exit 1)
       
       - name: Calculate coverage percentage
+        working-directory: ./
         id: coverage
         run: |
           # Install jq if not already available

@@ -2,7 +2,6 @@
 name: Build and test - ApiColombia
 
 on:
-  push:
   pull_request:
     branches:
       - main
@@ -29,15 +28,17 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Test with dotnet
-        run: dotnet test --configuration Release --logger "trx;LogFileName=testresults.trx"
+        run: dotnet test --configuration Release --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
         working-directory: ./api.Tests
-      
+
       - name: Publish test results
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results
-          path: '**/*.trx'
+          path: |
+           **/*.trx
+           **/coverage.cobertura.xml
       
       - name: Upload dotnet test results
         uses: actions/upload-artifact@v4

@@ -30,16 +30,16 @@ jobs:
       - name: Test with dotnet
         working-directory: ./api.Tests
         run: | 
-         dotnet test \
-         --no-build \
-         --configuration Release \
-         --settings coverlet.runsettings \
-         --collect:"XPlat Code Coverage" \
-         --logger trx \
-         --results-directory TestResults \
-         /p:CollectCoverage=true \
-         /p:CoverletOutput=TestResults/coverage/ \
-         /p:CoverletOutputFormat=cobertura \
+          dotnet test \
+          --no-build \
+          --configuration Release \
+          --settings coverlet.runsettings \
+          --collect:"XPlat Code Coverage" \
+          --logger trx \
+          --results-directory TestResults \
+          /p:CollectCoverage=true \
+          /p:CoverletOutput=TestResults/coverage/ \
+          /p:CoverletOutputFormat=cobertura \
 
       - name: Verify coverage file exists
         working-directory: ./api.Tests

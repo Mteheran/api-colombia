@@ -31,6 +31,12 @@ jobs:
       - name: Run tests with coverage
         run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/coverage/ /p:CoverletOutputFormat=cobertura
       
+      - name: Verify coverage file exists
+        run: |
+          echo "Checking for coverage file..."
+          ls -la TestResults/coverage/
+          [ -f TestResults/coverage/coverage.cobertura.xml ] || (echo "##[error]Coverage file not found!" && exit 1)
+
       - name: Generate HTML report
         run: |
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.10

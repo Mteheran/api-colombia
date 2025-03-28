@@ -33,10 +33,11 @@ jobs:
       
       - name: Verify coverage file exists
         run: |
-          echo "Checking for coverage file..."
-          ls -la TestResults/coverage/
-          [ -f TestResults/coverage/coverage.cobertura.xml ] || (echo "##[error]Coverage file not found!" && exit 1)
-
+          echo "Current directory: $(pwd)"
+          echo "Looking for coverage file at: $(pwd)/TestResults/coverage/coverage.cobertura.xml"
+          ls -la TestResults/coverage/ || echo "Directory listing failed"
+          [ -f TestResults/coverage/coverage.cobertura.xml ] || (echo "##[error]Coverage file not found in $(pwd)/TestResults/coverage/" && exit 1)
+      
       - name: Generate HTML report
         run: |
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.10

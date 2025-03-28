@@ -49,6 +49,7 @@ jobs:
             -reporttypes:HtmlInline_AzurePipelines
 
       - name: Debug Coverage File
+        working-directory: ./
         run: |
           echo "Checking coverage file..."
           COV_FILE="TestResults/coverage/coverage.cobertura.xml"
@@ -60,6 +61,7 @@ jobs:
           grep -o 'line-rate="[^"]*"' "$COV_FILE" || echo "No line-rate found"
 
       - name: Extract Coverage Percentage
+        working-directory: ./
         id: coverage
         run: |
           COV_FILE="TestResults/coverage/coverage.cobertura.xml"

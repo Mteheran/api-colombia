@@ -28,20 +28,36 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Test with dotnet
-        run: dotnet test --configuration Release --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
+        run: |
+          dotnet test \
+            --no-build \
+            --configuration Release \
+            --settings coverlet.runsettings \
+            --collect:"XPlat Code Coverage" \
+            --logger trx \
+            --results-directory TestResults \
+            /p:CollectCoverage=true \
+            /p:CoverletOutput=../TestResults/coverage/ \
+            /p:CoverletOutputFormat=cobertura
         working-directory: ./api.Tests
 
+      - name: Generate HTML report
+        run: |
+          dotnet tool install --global dotnet-reportgenerator-globaltool
+          reportgenerator \
+            -reports:./**/coverage.cobertura.xml \
+            -targetdir:./CoverageReport \
+            -reporttypes:HtmlInline_AzurePipelines
+
+      - name: Publish coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: ./CoverageReport
+        
       - name: Publish test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: test-results
-          path: |
-           **/*.trx
-           **/coverage.cobertura.xml
-      
-      - name: Upload dotnet test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: dotnet-results-${{ matrix.dotnet-version }}
-          path: TestResults-${{ matrix.dotnet-version }}
+          path: ./TestResults

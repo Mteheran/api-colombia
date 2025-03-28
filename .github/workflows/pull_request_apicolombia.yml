@@ -28,7 +28,11 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Test with dotnet
+        working-directory: ./api.Tests
         run: |
+         # Ensure output directory exists
+          mkdir -p ../TestResults/coverage
+
           dotnet test \
             --no-build \
             --configuration Release \
@@ -39,27 +43,29 @@ jobs:
             /p:CollectCoverage=true \
             /p:CoverletOutput=../TestResults/coverage/ \
             /p:CoverletOutputFormat=cobertura
-        working-directory: ./api.Tests
 
+      - name: Verify coverage file exists
+        run: |
+          ls -la TestResults/coverage
+          [ -f TestResults/coverage/coverage.cobertura.xml ] || exit 1
+      
       - name: Generate HTML report
         run: |
-          dotnet tool install --global dotnet-reportgenerator-globaltool
+          dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.10
           reportgenerator \
-            -reports:./**/coverage.cobertura.xml \
-            -targetdir:./CoverageReport \
+            -reports:TestResults/coverage/coverage.cobertura.xml \
+            -targetdir:CoverageReport \
             -reporttypes:HtmlInline_AzurePipelines
-        working-directory: ./api.Tests
-
+      
       - name: Publish coverage report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: ./CoverageReport
-          working-directory: ./api.Tests
+          path: CoverageReport
         
       - name: Publish test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: test-results
-          path: ./TestResults
+          path: TestResults

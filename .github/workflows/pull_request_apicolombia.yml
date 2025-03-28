@@ -50,13 +50,24 @@ jobs:
 
       - name: Extract Coverage Percentage
         working-directory: ./
-        id: coverage
+         id: coverage
         run: |
-          # Extract coverage % from XML
-          COVERAGE=$(grep -oP 'line-rate="\K[0-9.]+' TestResults/coverage/coverage.cobertura.xml)
+          # Find the coverage file (debugging)
+          echo "Looking for coverage file..."
+          find . -name "coverage.cobertura.xml" || echo "Coverage file not found!"
+          
+          # Extract coverage percentage safely
+          COVERAGE=$(awk -F'line-rate="' '$2 {print $2}' TestResults/coverage/coverage.cobertura.xml | cut -d'"' -f1)
           COVERAGE_PERCENT=$(echo "$COVERAGE * 100" | bc -l | awk '{printf "%.0f\n", $1}')
+          
+          # Validate the number
+          if ! [[ "$COVERAGE_PERCENT" =~ ^[0-9]+$ ]]; then
+            echo "##[error]Invalid coverage value: $COVERAGE_PERCENT"
+            exit 1
+          fi
+          
           echo "coverage_percentage=$COVERAGE_PERCENT" >> $GITHUB_OUTPUT
-          echo "Coverage: $COVERAGE_PERCENT%"
+          echo "Extracted Coverage: $COVERAGE_PERCENT%"
 
       - name: Upload Coverage Metadata
         uses: actions/upload-artifact@v4

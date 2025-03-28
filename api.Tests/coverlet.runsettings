@@ -9,6 +9,7 @@
           <Exclude>[*.Tests]*,[xunit.*]*</Exclude>
           <SingleHit>false</SingleHit>
           <UseSourceLink>true</UseSourceLink>
+          <outputDirectory>.\TestResults\</outputDirectory>
         </Configuration>
       </DataCollector>
     </DataCollectors>

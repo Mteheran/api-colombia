@@ -29,7 +29,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests with coverage
-        run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/coverage/ /p:CoverletOutputFormat=cobertura
+        run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/coverage/ /p:CoverletOutputFormat=cobertura /p:MergeWith=../TestResults/coverage/coverage.json
       
       - name: Verify coverage file exists
         working-directory: ./
@@ -52,22 +52,31 @@ jobs:
         working-directory: ./
         id: coverage
         run: |
-          # Find the coverage file (debugging)
-          echo "Looking for coverage file..."
-          find . -name "coverage.cobertura.xml" || echo "Coverage file not found!"
+          # Target the specific coverage file we control
+          COV_FILE="TestResults/coverage/coverage.cobertura.xml"
           
-          # Extract coverage percentage safely
-          COVERAGE=$(awk -F'line-rate="' '$2 {print $2}' TestResults/coverage/coverage.cobertura.xml | cut -d'"' -f1)
+          # Verify file exists
+          if [ ! -f "$COV_FILE" ]; then
+            echo "##[error]Coverage file not found at $COV_FILE"
+            find . -name "coverage.cobertura.xml" || echo "No coverage files found anywhere"
+            exit 1
+          fi
+          
+          # Extract coverage with validation
+          COVERAGE=$(awk -F'line-rate="' 'NF>1{print $2}' "$COV_FILE" | cut -d'"' -f1)
           COVERAGE_PERCENT=$(echo "$COVERAGE * 100" | bc -l | awk '{printf "%.0f\n", $1}')
           
-          # Validate the number
-          if ! [[ "$COVERAGE_PERCENT" =~ ^[0-9]+$ ]]; then
+          # Validate the result
+          if ! [[ "$COVERAGE_PERCENT" =~ ^[0-9]+$ ]] || [ "$COVERAGE_PERCENT" -lt 0 ] || [ "$COVERAGE_PERCENT" -gt 100 ]; then
             echo "##[error]Invalid coverage value: $COVERAGE_PERCENT"
+            echo "Raw coverage value: $COVERAGE"
+            echo "File contents:"
+            head -n 20 "$COV_FILE"
             exit 1
           fi
           
           echo "coverage_percentage=$COVERAGE_PERCENT" >> $GITHUB_OUTPUT
-          echo "Extracted Coverage: $COVERAGE_PERCENT%"
+          echo "Successfully extracted coverage: $COVERAGE_PERCENT%"
 
       - name: Upload Coverage Metadata
         uses: actions/upload-artifact@v4

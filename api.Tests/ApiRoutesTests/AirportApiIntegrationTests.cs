@@ -41,6 +41,16 @@ public class AirportApiIntegrationTests : IClassFixture<CustomWebApplicationFact
     }
 
     [Fact]
+    public async Task GetAirportById_ReturnsBadRequest()
+    {
+        int airportId = 0;
+        var response = await _client.GetAsync($"/api/v1/Airport/{airportId}");
+        
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task GetAirportByName_ReturnsOkWithAirportData()
     {
         string airportName = "Rionegro";  

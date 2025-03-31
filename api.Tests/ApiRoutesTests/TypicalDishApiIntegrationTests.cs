@@ -41,6 +41,16 @@ public class TypicalDishApiIntegrationTests : IClassFixture<CustomWebApplication
     }
 
     [Fact]
+    public async Task GetTypicalDishById_ReturnsBadRequest()
+    {
+        int typicalDishId = 0;  
+        var response = await _client.GetAsync($"/api/v1/TypicalDish/{typicalDishId}");
+
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task GetTypicalDishByDepartment_ReturnsOkWithTypicalDishData()
     {
         int departmentId = 1;  

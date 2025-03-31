@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
@@ -36,6 +37,16 @@ public class IndigenousReservationApiIntegrationTests : IClassFixture<CustomWebA
 
         Assert.NotNull(result);
         Assert.Equal(id, result.Id);
+    }
+
+    [Fact]
+    public async Task GetIndigenousReservationById_ReturnsBadRequest()
+    {
+        int id = 0;  
+        var response = await _client.GetAsync($"/api/v1/IndigenousReservation/{id}");
+
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
     [Fact]

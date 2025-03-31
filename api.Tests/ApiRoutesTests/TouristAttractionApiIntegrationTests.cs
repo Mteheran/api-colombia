@@ -39,6 +39,16 @@ public class TouristAttractionApiIntegrationTests : IClassFixture<CustomWebAppli
     }
 
     [Fact]
+    public async Task GetTouristAttractionById_ReturnsBadRequest()
+    {
+        int attractionId = 0;  
+        var response = await _client.GetAsync($"/api/v1/TouristicAttraction/{attractionId}");
+
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task GetTouristAttractionByName_ReturnsOkWithTouristAttractionData()
     {
         string attractionName = "Parque Explora";  

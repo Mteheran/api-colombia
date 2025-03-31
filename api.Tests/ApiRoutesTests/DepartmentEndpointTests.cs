@@ -44,6 +44,17 @@ public class DepartmentApiIntegrationTests : IClassFixture<CustomWebApplicationF
     }
 
     [Fact]
+    public async Task GetDepartmentById_ReturnsBadRequest()
+    {
+        int departmentId = 0;  
+        var response = await _client.GetAsync($"/api/v1/Department/{departmentId}");
+        
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+
+    [Fact]
     public async Task GetCitiesByDepartment_ReturnsOkWithCitiesData()
     {
         int departmentId = 1;  

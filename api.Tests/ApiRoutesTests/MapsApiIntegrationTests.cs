@@ -52,4 +52,14 @@ public class MapsApiIntegrationTests : IClassFixture<CustomWebApplicationFactory
         Assert.NotNull(result);
         Assert.Equal(itemId, result.Id);
     }
+
+    [Fact]
+    public async Task GetMapById_ReturnsBadRequest()
+    {
+        int itemId = 0;
+        var response = await _client.GetAsync($"/api/v1/Map/{itemId}");
+
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
 }

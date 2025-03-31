@@ -41,6 +41,16 @@ public class NativeCommunityApiIntegrationTests : IClassFixture<CustomWebApplica
     }
 
     [Fact]
+    public async Task GetNativeCommunityById_ReturnsBadRequest()
+    {
+        int communityId = 0;  
+        var response = await _client.GetAsync($"/api/v1/NativeCommunity/{communityId}");
+
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task GetNativeCommunityByName_ReturnsOkWithNativeCommunityData()
     {
         string communityName = "Sample Community";  

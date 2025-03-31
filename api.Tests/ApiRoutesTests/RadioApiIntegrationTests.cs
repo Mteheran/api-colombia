@@ -39,6 +39,16 @@ public class RadioApiIntegrationTests : IClassFixture<CustomWebApplicationFactor
     }
 
     [Fact]
+    public async Task GetRadioById_ReturnsBadRequest()
+    {
+        int radioId = 0;  
+        var response = await _client.GetAsync($"/api/v1/Radio/{radioId}");
+
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task GetRadioByName_ReturnsOkWithRadioData()
     {
         string radioName = "Sample Radio";  

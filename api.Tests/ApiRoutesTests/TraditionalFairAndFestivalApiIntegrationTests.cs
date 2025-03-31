@@ -40,6 +40,16 @@ public class TraditionalFairAndFestivalApiIntegrationTests : IClassFixture<Custo
     }
 
     [Fact]
+    public async Task GetTraditionalFairAndFestivalById_BBadRequest()
+    {
+        int id = 0; 
+        var response = await _client.GetAsync($"/api/v1/TraditionalFairAndFestival/{id}");
+
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task GetTraditionalFairAndFestivalByCity_ReturnsOkWithFilteredData()
     {
         int cityId = 1;  

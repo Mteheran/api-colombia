@@ -40,6 +40,16 @@ public class NaturalAreaApiIntegrationTests : IClassFixture<CustomWebApplication
     }
 
     [Fact]
+    public async Task GetNaturalAreaById_ReturnsBadRequest()
+    {
+        int naturalAreaId = 0;  
+        var response = await _client.GetAsync($"/api/v1/NaturalArea/{naturalAreaId}");
+
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task GetNaturalAreaByName_ReturnsOkWithNaturalAreaData()
     {
         string naturalAreaName = "Parque Arví";  

@@ -39,6 +39,16 @@ public class RegionApiIntegrationTests : IClassFixture<CustomWebApplicationFacto
     }
 
     [Fact]
+    public async Task GetRegionById_ReturnsOkWithBadRequest()
+    {
+        int regionId = 0;  
+        var response = await _client.GetAsync($"/api/v1/Region/{regionId}");
+
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task GetRegionDepartmentsById_ReturnsOkWithDepartmentsData()
     {
         int regionId = 1;  

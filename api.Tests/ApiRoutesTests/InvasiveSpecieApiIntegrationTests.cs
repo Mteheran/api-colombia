@@ -39,6 +39,17 @@ public class InvasiveSpecieApiIntegrationTests : IClassFixture<CustomWebApplicat
     }
 
     [Fact]
+    public async Task GetInvasiveSpecieById_ReturnsBadRequest()
+    {
+        int id = 0;  
+        var response = await _client.GetAsync($"/api/v1/InvasiveSpecie/{id}");
+
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+
+    [Fact]
     public async Task GetInvasiveSpecieByName_ReturnsOkWithSpecieData()
     {
         string name = "Sample Specie";  

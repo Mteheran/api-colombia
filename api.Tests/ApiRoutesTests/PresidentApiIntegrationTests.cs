@@ -40,6 +40,16 @@ public class PresidentApiIntegrationTests : IClassFixture<CustomWebApplicationFa
     }
 
     [Fact]
+    public async Task GetPresidentById_ReturnsBadRequest()
+    {
+        int presidentId = 0;  
+        var response = await _client.GetAsync($"/api/v1/President/{presidentId}");
+
+        Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task GetPresidentByName_ReturnsOkWithPresidentData()
     {
         string presidentName = "Rafael";  

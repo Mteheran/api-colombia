@@ -1,3 +1,7 @@
+using System.Net.Http.Json;
+using api.Models;
+using api.Utils;
+
 public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
 {
     private readonly HttpClient _client;
@@ -19,10 +23,10 @@ public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadFromJsonAsync<List<City>>(); 
 
         Assert.NotNull(result);
-        Assert.False(string.IsNullOrEmpty(result));  
+        Assert.Equal(2, result.Count);
     }
 
     [Fact]
@@ -33,10 +37,10 @@ public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadFromJsonAsync<City>(); 
 
         Assert.NotNull(result);
-        Assert.Contains("Id", result);
+        Assert.Equal(cityId, result.Id);
     }
 
     [Fact]
@@ -47,10 +51,10 @@ public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadFromJsonAsync<List<City>>();
 
         Assert.NotNull(result);
-        Assert.Contains("name", result);
+        Assert.Equal(cityName, result[0].Name);
     }
 
     [Fact]
@@ -61,10 +65,11 @@ public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadFromJsonAsync<List<City>>();
 
         Assert.NotNull(result);
-        Assert.Contains("Medellín", result);
+        Assert.Single(result);
+        Assert.All(result, city => Assert.Contains(keyword, city.Name, StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -74,12 +79,13 @@ public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory
         var response = await _client.GetAsync($"/api/v1/City/pagedList{paginationParams}");
 
         response.EnsureSuccessStatusCode();
-
-        var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadFromJsonAsync<PaginationResponseModel<City>>();
 
         Assert.NotNull(result);
-        Assert.Contains("page", result);
-        Assert.Contains("pageSize", result);
+        Assert.Equal(10, result.PageSize);
+        Assert.Equal(1, result.Page);
+        Assert.Equal(2, result.TotalRecords);
+        Assert.Equal(2, result.Data.Count);
     }
 
     [Fact]
@@ -92,9 +98,11 @@ public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadFromJsonAsync<List<City>>();
 
-        Assert.NotNull(result);
-        Assert.Contains("name", result);  
+        Assert.NotNull(result); 
+        Assert.Equal(2, result.Count);
+        Assert.Equal("Cali", result[0].Name);
+        Assert.Equal("Medellín", result[1].Name);
     }
 }

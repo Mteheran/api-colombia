@@ -1,3 +1,7 @@
+using System.Net.Http.Json;
+using api.Models;
+using api.Utils;
+
 public class ConstitutionArticleApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>, IDisposable
 {
     private readonly HttpClient _client;
@@ -20,10 +24,10 @@ public class ConstitutionArticleApiIntegrationTests : IClassFixture<CustomWebApp
         
         response.EnsureSuccessStatusCode();
         
-        var result = await response.Content.ReadAsStringAsync();
-        
-        Assert.NotNull(result);    
-        Assert.False(string.IsNullOrEmpty(result));  
+        var result = await response.Content.ReadFromJsonAsync<List<ConstitutionArticle>>();
+
+        Assert.NotNull(result);
+        Assert.Equal(2, result.Count);
     }
 
     [Fact]
@@ -34,10 +38,10 @@ public class ConstitutionArticleApiIntegrationTests : IClassFixture<CustomWebApp
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
-        
+        var result = await response.Content.ReadFromJsonAsync<ConstitutionArticle>();
+
         Assert.NotNull(result);
-        Assert.Contains("id", result);  
+        Assert.Equal(constitutionArticleId, result.Id);
     }
 
     [Fact]
@@ -50,10 +54,10 @@ public class ConstitutionArticleApiIntegrationTests : IClassFixture<CustomWebApp
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
-        
+        var result = await response.Content.ReadFromJsonAsync<List<ConstitutionArticle>>();
+
         Assert.NotNull(result);
-        Assert.Contains("titleNumber", result);  
+        Assert.Equal(2, result.Count);
     }
 
     [Fact]
@@ -64,10 +68,10 @@ public class ConstitutionArticleApiIntegrationTests : IClassFixture<CustomWebApp
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
-        
+        var result = await response.Content.ReadFromJsonAsync<List<ConstitutionArticle>>();
+
         Assert.NotNull(result);
-        Assert.Contains("id", result);  
+        Assert.Single(result);
     }
 
     [Fact]
@@ -78,11 +82,13 @@ public class ConstitutionArticleApiIntegrationTests : IClassFixture<CustomWebApp
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadFromJsonAsync<PaginationResponseModel<ConstitutionArticle>>();
         
         Assert.NotNull(result);
-        Assert.Contains("page", result);  
-        Assert.Contains("pageSize", result);  
+        Assert.Equal(10, result.PageSize);
+        Assert.Equal(1, result.Page);
+        Assert.Equal(2, result.TotalRecords);
+        Assert.Equal(2, result.Data.Count);
     }
 
     [Fact]
@@ -93,9 +99,10 @@ public class ConstitutionArticleApiIntegrationTests : IClassFixture<CustomWebApp
 
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadAsStringAsync();
+        var result = await response.Content.ReadFromJsonAsync<List<ConstitutionArticle>>();
         
         Assert.NotNull(result);
-        Assert.Contains("titleNumber", result);  
+        Assert.Equal(2, result.Count);
+        Assert.All(result, article => Assert.Equal(chapterNumber, article.ChapterNumber));
     }
 }

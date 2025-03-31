@@ -60,7 +60,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             var city2 = new City
             {
                 Id = 20,
-                Name = "Medellín",
+                Name = "Cali",
                 DepartmentId = 20,
             };
 
@@ -238,6 +238,17 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             if(!dbContext.ConstitutionArticles.Any())
             {
                 dbContext.Add(constitutionArticle);
+
+                dbContext.Add(new ConstitutionArticle
+                {
+                    Id = 2,
+                    TitleNumber = 2,
+                    Title = "DE LA RAMA LEGISLATIVA",
+                    ChapterNumber = 1,
+                    Chapter = "DE LA FUNCION LEGISLATIVA",
+                    ArticleNumber = 2,
+                    Content = "La ley señalará las funciones que el Presidente de la República podrá elegir."
+                });
             } 
 
             if(!dbContext.Airports.Any())

@@ -1,0 +1,84 @@
+name: Build and test - ApiColombia
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+  
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api.Tests
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run tests with coverage
+        run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/ /p:CoverletOutputFormat=json
+      
+      - name: Verify coverage file exists
+        working-directory: ./
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Looking for coverage file at: $(pwd)/TestResults/coverage.json"
+          ls -la TestResults/ || echo "Directory listing failed"
+          [ -f TestResults/coverage.json ] || (echo "##[error]Coverage file not found in $(pwd)/TestResults/" && exit 1)
+      
+      - name: Calculate coverage percentage
+        working-directory: ./
+        id: coverage
+        run: |
+          # Install jq if missing
+          command -v jq >/dev/null || sudo apt-get install -y jq
+          
+          # Safely calculate coverage (handles null values)
+          TOTAL_LINES=$(jq '[.Modules[].Lines? | select(.!=null) | length] | add' TestResults/coverage.json || echo "0")
+          COVERED_LINES=$(jq '[.Modules[].Lines? | select(.!=null) | map(select(. > 0)) | length] | add' TestResults/coverage.json || echo "0")
+          
+          # Default to 0 if no valid data
+          [ -z "$TOTAL_LINES" ] && TOTAL_LINES=0
+          [ -z "$COVERED_LINES" ] && COVERED_LINES=0
+          
+          # Calculate percentage (avoid division by zero)
+          if [ "$TOTAL_LINES" -gt 0 ]; then
+            PERCENT=$(echo "scale=0; $COVERED_LINES * 100 / $TOTAL_LINES" | bc)
+          else
+            PERCENT=0
+          fi
+          
+          echo "coverage_percentage=$PERCENT" >> $GITHUB_OUTPUT
+          echo "Coverage: $PERCENT% ($COVERED_LINES/$TOTAL_LINES lines)"
+
+      - name: Upload Coverage Metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-meta
+          path: TestResults/coverage.json
+
+      - name: Publish coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: CoverageReport
+
+      - name: Publish test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: TestResults

@@ -98,3 +98,7 @@ app.UseSwaggerUI();
 app.UseOutputCache();
 
 app.Run();
+
+public partial class Program{
+
+}

@@ -132,37 +132,49 @@ async function fetchData(url) {
 
 // ESTE ES EL CONSUMO DE COUNTRY COLOMBIA EN LA CUAL DE MANERA ASINCRONA SE CONSUME
 btnSolicitar.addEventListener("click", async function () {
-  // Agrego un evento al botón
-  // Obtengo el valor de la versión y los datos seleccionados
-  const version = selectVersion.value;
-  const data = selectData.value;
+    // Agrego un evento al botón
+    // Obtengo el valor de la versión y los datos seleccionados
+    const version = selectVersion.value;
+    const data = selectData.value;
 
-  // Construyo la URL de la API basada en la versión y los datos seleccionados
-  let apiUrl = "";
+    // Construyo la URL de la API basada en la versión y los datos seleccionados
+    let apiUrl = "";
 
-  // Verificar si se seleccionó el nuevo endpoint
-  if (data === "CountryColombia") {
-    apiUrl = "https://api-colombia.com/api/v1/country/Colombia";
-  }else if (data === "Holiday") {
-    const year = selectYear.value;
-    apiUrl = `https://api-colombia.com/api/${version}/Holiday/year/${year}`;
-  }
-  else {
-    apiUrl = `${apiBaseUrl}${version}/${data}`;
-  }
+    // Verificar si se seleccionó el nuevo endpoint
+    if (data === "CountryColombia") {
+        apiUrl = "https://api-colombia.com/api/v1/country/Colombia";
+    } else if (data === "Holiday") {
+        const year = selectYear.value;
+        apiUrl = `https://api-colombia.com/api/${version}/Holiday/year/${year}`;
+    }
+    else {
+        apiUrl = `${apiBaseUrl}${version}/${data}`;
+    }
 
-  try {
-    resultadoDiv.innerText = "Cargando datos...";
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const responseData = await fetchData(apiUrl);
-  
-    resultadoDiv.innerText = JSON.stringify(responseData, null, 2);
-  } catch (error) {
-    // Aqui capturo y manejo los errores de la solicitud a la API
+    try {
+        resultadoDiv.innerText = "Cargando datos...";
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const responseData = await fetchData(apiUrl);
 
-    // Muestro un mensaje de error en el div resultado cuando no se consuma correctamente
-    resultadoDiv.innerText = "Error al obtener los datos";
-  }
+        let truncatedData = responseData;
+        if (Array.isArray(responseData)) {
+            truncatedData = responseData.slice(0, 200); // Limitar a solo 200 resultados para evitar que se bloquee la UI
+        } else if (typeof responseData === "object") {
+            truncatedData = Object.keys(responseData)
+                .slice(0, 200)
+                .reduce((obj, key) => {
+                    obj[key] = responseData[key];
+                    return obj;
+                }, {});
+        }
+
+        resultadoDiv.innerText = JSON.stringify(truncatedData, null, 2);
+    } catch (error) {
+        // Aqui capturo y manejo los errores de la solicitud a la API
+
+        // Muestro un mensaje de error en el div resultado cuando no se consuma correctamente
+        resultadoDiv.innerText = "Error al obtener los datos";
+    }
 });
 
 // ESTA FUNCIÓN ES PARA HACERLE SAER AL USUARIO QUE ENDPOINT SE ESTA CONSUMIENDO EN LA API

@@ -46,6 +46,8 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 | ---------- | ------------------------------------- | ------------------------------------------------ |
 | https://github.com/Mteheran/invasivespecie-colombia | https://especiesinvasoras.api-colombia.com/ | A portal to consult all invasive species in Colombia |
 | https://github.com/lightbluetitan/colombiapi | https://github.com/lightbluetitan/colombiapi | ColombiaAPI for R, an R package that consumes the data exposed by api-colombia |
+| https://github.com/JuanPabloDiaz/turismo | https://turismo.colombia.jpdiaz.dev | Interactive tourism map of Colombia showcasing tourist destinations across the country |
+| https://github.com/JuanPabloDiaz/colombia | https://colombia.jpdiaz.dev | A web app that offers an interactive and comprehensive exploration of Colombia's geography, culture, biodiversity, and institutions through maps, multimedia, and detailed data from api-colombia.com |
 
 ## API Endpoints
 | HTTP Verbs | Endpoints                             | Action                                                               |

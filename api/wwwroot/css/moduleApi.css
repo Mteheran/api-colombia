@@ -47,8 +47,8 @@
   background-color: #22292a;
   padding: 10px;
   margin-top: 2em;
-  width: 595px;
-  height: 2.7em;
+  width: 594px;
+  height: 3.7em;
   border-bottom: 1px solid #ffffff;
 }
 
@@ -116,25 +116,25 @@
 
 .parteDerecha .module-api .resultado {
   position: absolute;
-  margin-top: 9.6em;
+  margin-top: 10.6em;
   font-size: 12px;
-  width: 595px;
+  width: 593px;
   overflow-y: auto;
   background-color: #22292a;
   border-radius: 0px 0px 7px 7px;
-  height: 429px;
+  height: 520px;
   overflow-x: auto;
   overflow-y: auto;
 }
 
 .resultado {
   color: #ffffff; /* Fondo gris claro */
-  padding: 10px 18px; /* Espaciado interno */
+  padding: 8px 18px; /* Espaciado interno */
   border-radius: 5px; /* Bordes redondeados */
   font-family: 'Krona One'; /* Fuente monoespaciada para mantener la estructura */
   line-height: 1.7; /* Espaciado entre líneas */
   white-space: pre;  /* Preserva los espacio con elementos <br> */
-  width: fit-content; /* Ajusta el ancho al contenido */
+  width: 593px; /* Ajusta el ancho al contenido */
 }
 
 

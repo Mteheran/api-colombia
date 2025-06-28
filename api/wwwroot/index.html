@@ -131,8 +131,8 @@
             <a href="#" class="botonModo">
               <img id="modoWeb2" src="/assets/icons/sun-icon.svg" alt="modo oscuro/claro" />
               <select id="select-theme" name="select" aria-label="Seleccionar tema" title="Seleccionar tema">
-                <option value="claro" selected>Claro</option>
-                <option value="oscuro">Oscuro</option>
+                <option value="claro" aria-label="claro" selected>Claro</option>
+                <option value="oscuro" arial="oscuro">Oscuro</option>
               </select>
             </a>
           </div>
@@ -147,7 +147,7 @@
         Explora fácilmente Colombia con nuestra API: información pública desde
         lo general hasta lo específico, sin autenticación.
       </p>
-      <button class="botonDocumentacion">Lee la documentación</button>
+      <button class="botonDocumentacion">Lee la documentación</button>565656
 
       <div class="cards">
         <div class="caja uno">
@@ -231,10 +231,10 @@
           <p style="font-family: 'Poppins'; font-weight: bold; font-size: 13px">
             https://api-colombia.com/api/
           </p>
-          <select id="selectVersion">
+          <select id="selectVersion" name="version" aria-label="Selecciona una versión">
             <option value="v1">v1</option>
           </select>
-          <select id="selectData">
+          <select id="selectData" name="data" aria-label="Selecciona un tipo de dato">
             <option value="Department">Department</option>
             <option value="President">President</option>
             <option value="NaturalArea">NaturalArea</option>
@@ -251,59 +251,59 @@
             <option value="TypicalDish">TypicalDish</option>
             <option value="constitutionarticle">ConstitutionArticle</option>
           </select>
-          <select id="selectYear" style="display: none"></select>
+          <select id="selectYear" name="Seleccionar año" aria-label="Seleccionar año" style="display: none"></select>
           <button id="btnSolicitar">Solicitar</button>
         </div>
         <div class="block-api">
           <div class="text-api1">
-            <span class="api" style="color: #c586c0; padding-left: 1em">fetch</span>
-            <p class="parentesis-apertura" style="color: #d4d4d4; margin-left: 0.003em">
+            <span class="api" style="color: #c586c0; padding-left: 1em; font-size: small">fetch</span>
+            <p class="parentesis-apertura" style="color: #d4d4d4; margin-left: 0.003em; font-size: small">
               (
             </p>
-            <p class="url-api" style="color: #ce9178; margin-left: 0.003em">
+            <p class="url-api" style="color: #ce9178; margin-left: 0.003em; font-size: small">
               'https://api-colombia.com/api/v1/
             </p>
-            <p class="endpoint" id="endpoint" style="color: #ce9178; margin-left: 0.003em">
+            <p class="endpoint" id="endpoint" style="color: #ce9178; margin-left: 0.003em; font-size: small">
               Department'
             </p>
-            <p class="parentesis-cierre" style="color: #d4d4d4; margin-left: 0.003em">
+            <p class="parentesis-cierre" style="color: #d4d4d4; margin-left: 0.003em; font-size: small">
               )
             </p>
             <br />
           </div>
           <div class="text-api2">
-            <span class="then" style="color: #d4d4d4">.then (</span>
-            <p class="text" style="color: #9cdcfe">response</p>
-            <p class="text2" style="margin-left: 1em">=></p>
-            <p class="text" style="color: #9cdcfe; margin-left: 1em">
+            <span class="then" style="color: #d4d4d4; font-size: small">.then (</span>
+            <p class="text" style="color: #9cdcfe; font-size: small;">response</p>
+            <p class="text2" style="margin-left: 1em; font-size: small">=></p>
+            <p class="text" style="color: #9cdcfe; margin-left: 1em; font-size: small">
               response
             </p>
-            <p class="text3" style="margin-left: 0.3em">.</p>
-            <p class="text4" style="color: #c586c0; margin-left: 0.3em">
+            <p class="text3" style="margin-left: 0.3em; font-size: small">.</p>
+            <p class="text4" style="color: #c586c0; margin-left: 0.3em; font-size: small">
               json
             </p>
-            <p class="text5">())</p>
+            <p class="text5" style="font-size: small">())</p>
           </div>
 
           <div class="text-api3">
-            <span class="then" style="color: #d4d4d4">.then (</span>
-            <p class="text" style="color: #9cdcfe">json</p>
-            <p class="text2" style="margin-left: 1em">=></p>
-            <p class="text" style="color: #9cdcfe; margin-left: 1em">
+            <span class="then" style="color: #d4d4d4; font-size: small">.then (</span>
+            <p class="text" style="color: #9cdcfe; font-size: small">json</p>
+            <p class="text2" style="margin-left: 1em; font-size: small">=></p>
+            <p class="text" style="color: #9cdcfe; margin-left: 1em; font-size: small">
               console
             </p>
-            <p class="text3" style="margin-left: 0.3em">.</p>
-            <p class="text4" style="color: #c586c0; margin-left: 0.3em">
+            <p class="text3" style="margin-left: 0.3em; font-size: small">.</p>
+            <p class="text4" style="color: #c586c0; margin-left: 0.3em; font-size: small">
               log
             </p>
-            <p class="parentesis-apertura2" style="color: #ffffff; margin-left: 0.1em">
+            <p class="parentesis-apertura2" style="color: #ffffff; margin-left: 0.1em; font-size: small">
               (
             </p>
-            <p class="text" style="color: #9cdcfe">json</p>
-            <p class="parentesis-cierre2" style="color: #ffffff; margin-left: 0.003em">
+            <p class="text" style="color: #9cdcfe; font-size: small">json</p>
+            <p class="parentesis-cierre2" style="color: #ffffff; margin-left: 0.003em; font-size: small">
               )
             </p>
-            <p class="parentesis-cierre2" style="color: #ffffff; margin-left: 0.003em">
+            <p class="parentesis-cierre2" style="color: #ffffff; margin-left: 0.003em; font-size: small">
               )
             </p>
           </div>

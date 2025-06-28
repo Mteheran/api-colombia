@@ -1049,3 +1049,19 @@ h1 {
 .card-description {
     height: 70px;
 }
+
+body.dark #parrafoApi {
+  color: white;
+}
+
+body.dark #red {
+  color: #EA0628;
+}
+
+body.dark #blue{
+  color: #1F6AF4;
+}
+
+body.dark .menu-desplegable span{
+  color: #ffffff;
+}

@@ -26,6 +26,7 @@ const toggleColor = (button,body,imagen) =>{
 
 const toggleColor2 = (button,body,imagen,cuerpo,imagen2) =>{
     let dark = true;
+    const parrafo = document.getElementById("parrafoApi");
     button.addEventListener("change", () =>{
         dark = !dark; 
         cuerpo.classList.toggle("dark");
@@ -34,10 +35,12 @@ const toggleColor2 = (button,body,imagen,cuerpo,imagen2) =>{
         if (!dark) { 
             imagen.src = "assets/icons/moon-icon.svg"
             imagen2.src= "assets/logo-dark.svg"
+            parrafo.classList.add("parrafoApi");
             
         } else {
             imagen.src = "assets/icons/sun-icon.svg"
             imagen2.src = "assets/logo-light.svg"
+            parrafo.classList.remove("parrafoApi");
         }
         
     });

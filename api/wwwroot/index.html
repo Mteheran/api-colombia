@@ -19,7 +19,7 @@
   <meta property="og:site_name" content="API Colombia" />
   <link rel="icon" href="assets/logo-dark.svg" type="image/png" />
   <script src="https://kit.fontawesome.com/ea43250ec2.js" crossorigin="anonymous"></script>
-  <link rel="icon" type="image/jpg" href="assets/favicon.png"/>
+  <link rel="icon" type="image/jpg" href="assets/favicon.png" />
   <!-- 
   <meta property="og:image" content="https://apicolombia.azurewebsites.net/images/logo.png" />
   <link rel="stylesheet" href="css/hightlightjs-dark.css" />
@@ -43,10 +43,12 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJNGSCNKL7"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
 
-  gtag('config', 'G-MJNGSCNKL7');
+  gtag("config", "G-MJNGSCNKL7");
 </script>
 
 <body class="light">
@@ -90,8 +92,8 @@
   </header>
 
   <section id="informacionGeneral">
-    <img id="mariposaPequeña" src="./assets/crown-decorative-medium.png" />
-    <img id="mariposaGrande" src="./assets/crown-decorative-big-removebg-preview.png" />
+    <img id="mariposaPequeña" src="./assets/crown-decorative-medium.png" alt="Imagen de mariposaPequeña" />
+    <img id="mariposaGrande" src="./assets/crown-decorative-big-removebg-preview.png" alt="Imagen de mariposaGrande" />
     <h1>
       Explora <span id="yellow">Col</span><span id="blue">om</span><span id="red">bia</span> con API-Colombia
     </h1>
@@ -103,7 +105,7 @@
     <div class="modal hidden">
       <section class="contenidoModal">
         <div class="encabezadoModal">
-          <button id="closeModal">
+          <button id="closeModal" aria-label="Cerrar modal" title="Cerrar modal">
             <i class="fa-solid fa-rectangle-xmark"></i>
           </button>
           <span> Menú </span>
@@ -112,13 +114,13 @@
         <div class="cuerpoModal">
           <div id="menuMobile">
             <a href="https://api-colombia.com/swagger/index.html" target="_blank">
-              <h6>Documentación</h6>
+              <spam>Documentación</spam>
             </a>
             <a href="#informacionAPIS">
-              <h6>Funcionalidades</h6>
+              <spam>Funcionalidades</spam>
             </a>
             <a href="#Colaboradores">
-              <h6>Contribuidores</h6>
+              <spam>Contribuidores</spam>
             </a>
             <div class="section-githubModal">
               <a href="#">
@@ -128,9 +130,9 @@
             </div>
             <a href="#" class="botonModo">
               <img id="modoWeb2" src="/assets/icons/sun-icon.svg" alt="modo oscuro/claro" />
-              <select id="select-theme" name="select">
-                <option value="claro" selected>Claro</option>
-                <option value="oscuro">Oscuro</option>
+              <select id="select-theme" name="select" aria-label="Seleccionar tema" title="Seleccionar tema">
+                <option value="claro" aria-label="claro" selected>Claro</option>
+                <option value="oscuro" arial="oscuro">Oscuro</option>
               </select>
             </a>
           </div>
@@ -149,72 +151,76 @@
 
       <div class="cards">
         <div class="caja uno">
-          <img src="./assets/crown-decorative.svg" />
-          <h4>Información General de Colombia</h4>
-          <p>
-            Accede a datos completos sobre Colombia, incluyendo su capital,
-            superficie, población, idiomas, y más.
-          </p>
-          <br />
-          <h6>
-            Get Info Colombia
-            <a href="https://api-colombia.com/api/v1/Country/Colombia" target="_blank" rel="noopener"><img
-                src="./assets/icons/external-link-icon.svg" style="width: 16px; height: 16px; margin-left: 2px" />
+          <img src="./assets/crown-decorative.svg" alt="Corona decorativa" />
+          <h2>Información General de Colombia</h2>
+          <div class="card-description">
+            <p>
+              Accede a datos completos sobre Colombia, incluyendo su capital,
+              superficie, población, idiomas, y más.
+            </p>
+          </div>
+
+          <div class="card-button-container">
+            <a href="https://api-colombia.com/api/v1/Country/Colombia" target="_blank" rel="noopener"
+              class="card-button">
+              Get Info Colombia
+              <img src="./assets/icons/external-link-icon.svg" alt="" aria-hidden="true" />
             </a>
-          </h6>
+          </div>
         </div>
         <div class="caja dos">
-          <img src="./assets/crown-decorative.svg" />
-          <h4>Departamentos</h4>
-          <p>
-            Directorio completo de departamentos, revelando la geografía única
-            de Colombia.
-            <br />
-            <br />
-          </p>
-          <br />
-
-          <h6>
-            Get Departments
-            <a href="https://api-colombia.com/api/v1/Department" target="_blank" rel="noopener">
-              <img src="./assets/icons/external-link-icon.svg" style="width: 16px; height: 16px; margin-left: 2px" />
+          <img src="./assets/crown-decorative.svg" alt="Corona decorativa" />
+          <h2>Departamentos</h2>
+          <div class="card-description">
+            <p>
+              Directorio completo de departamentos, revelando la 
+              geografía
+              única de Colombia.
+            </p>
+          </div>
+          <div class="card-button-container">
+            <a href="https://api-colombia.com/api/v1/Department" target="_blank" rel="noopener" class="card-button">
+              Get Department
+              <img src="./assets/icons/external-link-icon.svg" alt="Enlace externo"
+                style="width: 16px; height: 16px; margin-left: 2px" />
             </a>
-          </h6>
+          </div>
         </div>
         <div class="caja tres">
-          <img src="./assets/crown-decorative.svg" />
-          <h4>Regiones</h4>
-          <p>
-            Explora las regiones de Colombia, cada una con su encanto y
-            particularidades, listas para ser descubiertas.
-            <br />
-            <br />
-          </p>
-          <br />
-          <h6>
-            Get Region
-            <a href="https://api-colombia.com/api/v1/Region" target="_blank" rel="noopener">
-              <img src="./assets/icons/external-link-icon.svg" style="width: 16px; height: 16px; margin-left: 2px" />
-            </a>
-          </h6>
-        </div>
+          <img src="./assets/crown-decorative.svg" alt="Corona decorativa" />
+          <h2>Regiones</h2>
+          <div class="card-description">
+            <p>
+              Explora las regiones de Colombia, cada una con su encanto y
+              particularidades, listas para ser descubiertas.
+            </p>
+          </div>
 
-        <div class="caja cuatro">
-          <img src="./assets/crown-decorative.svg" />
-          <h4>Atracciones Turísticas</h4>
-          <p>
-            Maravillosas atracciones turísticas que Colombia tiene para
-            ofrecer, desde museos hasta parques naturales.
-            <br />
-            <br />
-          </p>
-          <br />
-          <h6>
-            Get Info Colombia
-            <a href="https://api-colombia.com/api/v1/TouristicAttraction" target="_blank" rel="noopener">
-              <img src="./assets/icons/external-link-icon.svg" style="width: 16px; height: 16px; margin-left: 2px" />
+          <div class="card-button-container">
+            <a href="https://api-colombia.com/api/v1/Region" target="_blank" rel="noopener" class="card-button">
+              Get Región
+              <img src="./assets/icons/external-link-icon.svg" alt="Enlace externo"
+                style="width: 16px; height: 16px; margin-left: 2px" />
             </a>
-          </h6>
+          </div>
+        </div>
+        <div class="caja cuatro">
+          <img src="./assets/crown-decorative.svg" alt="Corona decorativa" />
+          <h2>Atracciones Turísticas</h2>
+          <div class="card-description">
+            <p>
+              Maravillosas atracciones turísticas que Colombia tiene para
+              ofrecer, desde museos hasta parques naturales.
+            </p>
+          </div>
+          <div class="card-button-container">
+            <a href="https://api-colombia.com/api/v1/TouristicAttraction" target="_blank" rel="noopener"
+              class="card-button">
+              Get Info Colombia
+              <img src="./assets/icons/external-link-icon.svg" alt="Enlace externo"
+                style="width: 16px; height: 16px; margin-left: 2px" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -223,13 +229,13 @@
     <div class="parteDerecha">
       <div class="module-api">
         <div class="options-api">
-          <p style="font-family: 'Poppins'; font-weight: bold; font-size: 13px">
+          <p id="parrafoApi" style="font-family: 'Poppins'; font-weight: bold; font-size: 13px">
             https://api-colombia.com/api/
           </p>
-          <select id="selectVersion">
+          <select id="selectVersion" name="version" aria-label="Selecciona una versión">
             <option value="v1">v1</option>
           </select>
-          <select id="selectData">
+          <select id="selectData" name="data" aria-label="Selecciona un tipo de dato">
             <option value="Department">Department</option>
             <option value="President">President</option>
             <option value="NaturalArea">NaturalArea</option>
@@ -245,40 +251,62 @@
             <option value="Holiday">Holiday</option>
             <option value="TypicalDish">TypicalDish</option>
             <option value="constitutionarticle">ConstitutionArticle</option>
-
           </select>
-          <select id="selectYear" style="display: none;"></select>
+          <select id="selectYear" name="Seleccionar año" aria-label="Seleccionar año" style="display: none"></select>
           <button id="btnSolicitar">Solicitar</button>
         </div>
         <div class="block-api">
           <div class="text-api1">
-            <span class="api" style="color: #C586C0; padding-left: 1em;">fetch</span>
-            <p class="parentesis-apertura" style="color: #D4D4D4; margin-left:.003em;">(</p>
-            <p class="url-api" style="color: #ce9178; margin-left:.003em;">'https://api-colombia.com/api/v1/</p>
-            <p class="endpoint" id="endpoint" style="color: #ce9178; margin-left:.003em;">Department'</p>
-            <p class="parentesis-cierre" style="color: #D4D4D4; margin-left:.003em;">)</p><br>
+            <span class="api" style="color: #c586c0; padding-left: 1em; font-size: small">fetch</span>
+            <p class="parentesis-apertura" style="color: #d4d4d4; margin-left: 0.003em; font-size: small">
+              (
+            </p>
+            <p class="url-api" style="color: #ce9178; margin-left: 0.003em; font-size: small">
+              'https://api-colombia.com/api/v1/
+            </p>
+            <p class="endpoint" id="endpoint" style="color: #ce9178; margin-left: 0.003em; font-size: small">
+              Department'
+            </p>
+            <p class="parentesis-cierre" style="color: #d4d4d4; margin-left: 0.003em; font-size: small">
+              )
+            </p>
+            <br />
           </div>
           <div class="text-api2">
-            <span class="then" style="color: #D4D4D4;">.then (</span>
-            <p class="text" style="color: #9CDCFE;">response </p>
-            <p class="text2" style="margin-left: 1em;"> =></p>
-            <p class="text" style="color: #9CDCFE; margin-left: 1em;">response </p>
-            <p class="text3" style="margin-left: .3em;"> .</p>
-            <p class="text4" style="color: #C586C0; margin-left: .3em;">json</p>
-            <p class="text5">())</p>
+            <span class="then" style="color: #d4d4d4; font-size: small">.then (</span>
+            <p class="text" style="color: #9cdcfe; font-size: small;">response</p>
+            <p class="text2" style="margin-left: 1em; font-size: small">=></p>
+            <p class="text" style="color: #9cdcfe; margin-left: 1em; font-size: small">
+              response
+            </p>
+            <p class="text3" style="margin-left: 0.3em; font-size: small">.</p>
+            <p class="text4" style="color: #c586c0; margin-left: 0.3em; font-size: small">
+              json
+            </p>
+            <p class="text5" style="font-size: small">())</p>
           </div>
 
           <div class="text-api3">
-            <span class="then" style="color: #D4D4D4;">.then (</span>
-            <p class="text" style="color: #9CDCFE;">json</p>
-            <p class="text2" style="margin-left: 1em;"> =></p>
-            <p class="text" style="color: #9CDCFE; margin-left: 1em;">console </p>
-            <p class="text3" style="margin-left: .3em;"> .</p>
-            <p class="text4" style="color: #C586C0; margin-left: .3em;">log</p>
-            <p class="parentesis-apertura2" style="color: #FFFFFF; margin-left:.1em;">(</p>
-            <p class="text" style="color: #9CDCFE;">json </p>
-            <p class="parentesis-cierre2" style="color: #FFFFFF; margin-left:.003em;">)</p>
-            <p class="parentesis-cierre2" style="color: #FFFFFF; margin-left:.003em;">)</p>
+            <span class="then" style="color: #d4d4d4; font-size: small">.then (</span>
+            <p class="text" style="color: #9cdcfe; font-size: small">json</p>
+            <p class="text2" style="margin-left: 1em; font-size: small">=></p>
+            <p class="text" style="color: #9cdcfe; margin-left: 1em; font-size: small">
+              console
+            </p>
+            <p class="text3" style="margin-left: 0.3em; font-size: small">.</p>
+            <p class="text4" style="color: #c586c0; margin-left: 0.3em; font-size: small">
+              log
+            </p>
+            <p class="parentesis-apertura2" style="color: #ffffff; margin-left: 0.1em; font-size: small">
+              (
+            </p>
+            <p class="text" style="color: #9cdcfe; font-size: small">json</p>
+            <p class="parentesis-cierre2" style="color: #ffffff; margin-left: 0.003em; font-size: small">
+              )
+            </p>
+            <p class="parentesis-cierre2" style="color: #ffffff; margin-left: 0.003em; font-size: small">
+              )
+            </p>
           </div>
         </div>
         <div class="api">
@@ -298,27 +326,25 @@
     </p>
     <div class="contenedorprincipal">
       <div class="colaboradores partuna">
-        <a href="https://www.linkedin.com/in/mteheran/" target="_blank"> <img
-            src="./assets/contributors/miguel-teheran-contributor.png" />
+        <a href="https://www.linkedin.com/in/mteheran/" target="_blank">
+          <img src="./assets/contributors/miguel-teheran-contributor.png" alt="Miguel Teheran" />
         </a>
 
-        <a href="https://www.linkedin.com/in/alejandrohv/" target="_blank"> <img
-            src="./assets/contributors/alejandro-herreño-contributor.png" />
+        <a href="https://www.linkedin.com/in/alejandrohv/" target="_blank">
+          <img src="./assets/contributors/alejandro-herreño-contributor.png" alt="Alejandro Herreño" />
         </a>
-
-
       </div>
       <div class="colaboradores partdos">
         <a href="https://www.linkedin.com/in/rina-plata/" target="_blank"><img
-            src="./assets/contributors/rita-plata-contributor.png" /></a>
+            src="./assets/contributors/rita-plata-contributor.png" alt="Rina Plata" /></a>
         <a href="https://www.linkedin.com/in/mariobot/" target="_blank"><img
-            src="./assets/contributors/mario-botero-contributor.png" /></a>
+            src="./assets/contributors/mario-botero-contributor.png" alt="Mario Botero" /></a>
       </div>
       <div class="colaboradores parttres">
         <a href="https://www.linkedin.com/in/veronicaguaman/" target="_blank"><img
-            src="./assets/contributors/veronica-guaman-contributor.png" /></a>
-        <a href="https://www.linkedin.com/in/lilivalgo/" target="_blank"" target=" _blank"><img
-            src="./assets/contributors/lili-valencia-contributor.png" /></a>
+            src="./assets/contributors/veronica-guaman-contributor.png" alt="Veronica Guaman" /></a>
+        <a href="https://www.linkedin.com/in/lilivalgo/" target="_blank"><img
+            src="./assets/contributors/lili-valencia-contributor.png" alt="Lili Valencia" /></a>
       </div>
     </div>
   </section>

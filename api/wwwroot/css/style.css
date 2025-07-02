@@ -1,29 +1,27 @@
-@import './moduleApi.css';
+@import "./moduleApi.css";
 
 @font-face {
-    font-family: 'Krona One';
-    src: url('/fonts/krona-one-latin-400-normal.woff2') format('woff2');
+    font-family: "Krona One";
+    src: url("/fonts/krona-one-latin-400-normal.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Poppins';
-    src: url('/fonts/poppins-latin-200-normal.woff2') format('woff2');
+    font-family: "Poppins";
+    src: url("/fonts/poppins-latin-200-normal.woff2") format("woff2");
 }
 
 * {
     margin: 0;
     padding: 0;
-
 }
 
 :root {
-    --tipografia-body: 'Cormorant Garamond', serif;
-    --neutral-color-background: #FDFDFD;
-    --secundary-color: #E6E9EA;
+    --tipografia-body: "Cormorant Garamond", serif;
+    --neutral-color-background: #fdfdfd;
+    --secundary-color: #e6e9ea;
     --third-color: #565656;
-   
 }
 
 .light {
@@ -60,14 +58,12 @@
     height: 32px;
     align-items: center;
     flex-wrap: wrap;
-
 }
 
 .menu-desplegable a,
 .menu-desplegable h6 {
-
     height: 16px;
-    font-family: 'Krona One', sans-serif;
+    font-family: "Krona One", sans-serif;
     font-size: 12px;
     line-height: 14.4px;
     letter-spacing: 0.5px;
@@ -78,11 +74,10 @@
 
 .menu-desplegable span {
     flex-wrap: wrap;
-    color: #E6E9EA;
+    color: #565656;
     font-size: 28px;
     font-weight: 500;
     margin-top: -11px;
-
 }
 
 .section-iconosExtras {
@@ -92,14 +87,13 @@
     align-items: center;
     width: 126px;
     gap: 32px;
-
 }
 
 .section-github {
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: #E6E9EA;
+    background-color: #e6e9ea;
     border-radius: 5px;
     padding: 3px;
 }
@@ -108,7 +102,7 @@
     background-color: white;
     border-radius: 5px;
     padding: 3px;
-    font-family: 'Krona One', sans-serif;
+    font-family: "Krona One", sans-serif;
     font-size: 12px;
     font-weight: 400;
 }
@@ -128,9 +122,7 @@
     padding-bottom: 8px;
     border-bottom: 2px solid #595b5c;
     border-radius: 4px;
-
 }
-
 
 #informacionGeneral {
     position: relative;
@@ -139,7 +131,7 @@
     display: flex;
     flex-direction: column;
     gap: 7px;
-    font-family: 'Krona One', sans-serif;
+    font-family: "Krona One", sans-serif;
     align-items: center;
 }
 
@@ -155,15 +147,21 @@
 }
 
 #yellow {
-    color: #FFCD00
+    color: #ffbd07;
+    font-weight: 800;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 #blue {
-    color: #003087
+    color: #003087;
+    font-weight: 800;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 #red {
-    color: #C8102E
+    color: #c8102e;
+    font-weight: 800;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 #informacionGeneral p {
@@ -171,7 +169,7 @@
     width: 554px;
     max-width: 100%;
     text-align: center;
-    font-family: 'Poppins';
+    font-family: "Poppins";
     font-size: large;
     font-weight: light;
 }
@@ -179,18 +177,17 @@
 .botonDocumentacion {
     margin-top: 16px;
     border-style: none;
-    background-color: #FFCD00;
+    background-color: #ffcd00;
     font-size: 17px;
-    font-family: 'Krona One', sans-serif;
+    font-family: "Krona One", sans-serif;
     text-align: center;
     width: 266px;
     height: 54px;
-    color: #22292A;
-
+    color: #22292a;
 }
 
 .botonDocumentacion:hover {
-    cursor: pointer
+    cursor: pointer;
 }
 
 #mariposaGrande {
@@ -214,13 +211,12 @@
     gap: 4em;
     flex-direction: row;
     margin-top: 30px;
-    font-family: 'Krona One', sans-serif;
+    font-family: "Krona One", sans-serif;
     font-size: 20px;
     text-align: left;
     color: var(--third-color);
     width: 100%;
     max-width: 100%;
-
 }
 
 .parteIzquierda,
@@ -246,25 +242,20 @@
 
 @media screen and (max-width: 767px) {
     #informacionAPIS .parteIzquierda h1 {
-        margin-left: .2em;
+        margin-left: 0.2em;
     }
-
-    
 }
-
-
 
 .parteDerecha .content-api {
-    background-color: #22292A;
+    background-color: #22292a;
 }
 
-.botonDocumentacion{
+.botonDocumentacion {
     font-size: 14px;
     font-weight: 400;
     line-height: 16.8px;
     letter-spacing: 0.5px;
     text-align: center;
-
 }
 
 /* .parteDerecha {
@@ -274,72 +265,74 @@
 } */
 
 #department-data {
-	border: 1px solid #ccc;
-	padding: 20px;
-	margin: 20px 0;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px 0;
 }
 
-.cards{
+.cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 0.5fr));
-    grid-auto-rows: 200px;
-    grid-gap: 10px;
+    grid-auto-rows: 210px;
+    gap: 1.5em;
+    padding: 1.5em;
     font-size: 10px;
-    color: #22292A;
+    color: #22292a;
     margin-top: 1.4em;
     max-width: 100%;
-
-
+    height: 100%;
 }
 
 .caja {
-    padding: 12px 10px;
+    padding: 12px 10px 5px 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 1.5rem;
+    transition: transform 0.3s ease;
+    height: 200px;
 }
 
-.caja h4 {
-    font-family: 'Krona One';
-    font-size: medium;
-    font-weight: 400;
+.caja h2 {
+    font-family: "Krona One";
+    font-size: 1rem;
+    font-weight: 500;
     line-height: 19.2px;
     letter-spacing: 0.5px;
     text-align: left;
-    margin-top: 8px;
-
+    margin: 0.5em 0;
+    height: 40px;
 }
 
 .caja p {
-    font-family: 'Poppins';
-    font-size: medium;
+    font-family: "Poppins";
+    font-size: 0.94rem;
     font-weight: 300;
     line-height: 16.8px;
     letter-spacing: 0.5px;
     text-align: left;
-    margin-top: 8px;
-    color: #22292A;
-
+    margin-top: 10px;
+    color: #22292a;
+    margin: 0.5em 0;
 }
 
-.caja h6 {
-    font-family: 'Krona One';
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 14.4px;
-    letter-spacing: 0.5px;
-    text-align: left;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
+/* .caja h6 {
+  font-family: "Krona One";
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.4px;
+  letter-spacing: 0.5px;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+} */
 
 .uno,
 .cuatro {
-    background-color: #FEF9C3;
+    background-color: #fef9c3;
 }
 
 .dos,
 .tres {
-    background-color: #93C5FD;
-
+    background-color: #93c5fd;
 }
 
 #Colaboradores {
@@ -351,17 +344,16 @@
 }
 
 #Colaboradores h1 {
-    font-family: 'Krona One';
+    font-family: "Krona One";
     font-size: 24px;
     font-weight: 400;
     line-height: 28.8px;
     color: var(--third-color);
     margin-bottom: 1.4em;
-
 }
 
 #Colaboradores p {
-    font-family: 'Poppins';
+    font-family: "Poppins";
     font-size: 18px;
     font-weight: 300;
     line-height: 28.8px;
@@ -369,11 +361,7 @@
     text-align: center;
     width: 45%;
     color: var(--third-color);
-
-
 }
-
-
 
 .contenedorprincipal {
     margin: 20px 3px;
@@ -384,14 +372,11 @@
     flex-wrap: wrap;
 }
 
-
-
 .contenedorprincipal img:hover {
-    opacity: 0.7; /* Cambia la opacidad según tu preferencia */
+    opacity: 0.7;
+    /* Cambia la opacidad según tu preferencia */
     cursor: pointer;
 }
-
-
 
 .partuna {
     display: flex;
@@ -413,8 +398,8 @@
     flex-direction: row;
     margin-top: -90px;
     justify-content: space-around;
-
 }
+
 /*
 
 
@@ -485,10 +470,7 @@ section{
 
 /* START MODULE API */
 
-
-
 /* END MODULE API */
-
 
 /* INFORMATION ABOUT SPONSORSHIPS */
 
@@ -505,15 +487,15 @@ section{
 }
 
 .sponsorships p {
-    font-family: 'Poppins';
+    font-family: "Poppins";
     font-size: 17px;
 }
 
 .sponsor {
     display: flex;
     gap: 19px;
-    background-color: #FECACA;
-    padding: .7em 1.5em;
+    background-color: #fecaca;
+    padding: 0.7em 1.5em;
     width: 7em;
     border-radius: 7px;
     text-decoration: none;
@@ -521,7 +503,7 @@ section{
 }
 
 .sponsor p {
-    font-family: 'Krona One';
+    font-family: "Krona One";
     font-size: 12px;
     margin-left: 1em;
 }
@@ -542,7 +524,7 @@ section{
 /* END INFORMATION ABOUT SPONSORSHIPS */
 /*             FOOTER             */
 footer {
-    background-color: #FDFDFD;
+    background-color: #fdfdfd;
     /* position: relative; */
     text-align: center;
     margin-top: 1em;
@@ -555,19 +537,17 @@ footer {
     margin-bottom: 13px;
 }
 
-
-
 footer .made {
     display: flex;
-    gap: .5em;
+    gap: 0.5em;
 
     margin-top: 1em;
 }
 
 footer .made span {
-    font-family: 'Krona One';
+    font-family: "Krona One";
     color: #575757;
-    margin-top: .5em;
+    margin-top: 0.5em;
     width: 9em;
     font-size: 12px;
 }
@@ -576,7 +556,6 @@ footer .hearts>img {
     width: 25px;
     height: 25px;
     object-fit: contain;
-
 }
 
 .menuicon {
@@ -590,20 +569,22 @@ footer .hearts>img {
 /* Entre un tamaño de 600px hasta 1001px */
 
 @media (min-width: 1002px) {
-    .cards{
+    .cards {
         grid-template-columns: repeat(auto-fill, minmax(257px, 0.8fr));
     }
-    #informacionAPIS{
-        gap:1.2em;
+
+    #informacionAPIS {
+        gap: 1.2em;
     }
 }
+
 @media (700px <=width <=1001px) {
     .navegador {
         display: none;
     }
 
     .menuicon {
-        display: flex
+        display: flex;
     }
 
     .menuicon img {
@@ -611,7 +592,7 @@ footer .hearts>img {
         transform: scale(0.65);
         height: 66px;
         margin-top: -2px;
-        background-color: #E6E9EA;
+        background-color: #e6e9ea;
         border-radius: 10%;
     }
 
@@ -690,7 +671,7 @@ footer .hearts>img {
     }
 
     .menuicon {
-        display: flex
+        display: flex;
     }
 
     .menuicon img {
@@ -698,7 +679,7 @@ footer .hearts>img {
         transform: scale(0.65);
         height: 66px;
         margin-top: -2px;
-        background-color: #E6E9EA;
+        background-color: #e6e9ea;
         border-radius: 10%;
     }
 
@@ -724,7 +705,6 @@ footer .hearts>img {
     .cards {
         margin-top: 22px;
         gap: 1em;
-
 
         grid-template-columns: auto;
     }
@@ -773,11 +753,9 @@ footer .hearts>img {
     .botonDocumentacion {
         font-size: medium;
     }
-
 }
 
 @media (max-width: 527px) {
-
     #mariposaGrande {
         display: none;
     }
@@ -796,7 +774,7 @@ footer .hearts>img {
     }
 
     .menuicon {
-        display: flex
+        display: flex;
     }
 
     .menuicon img {
@@ -804,7 +782,7 @@ footer .hearts>img {
         transform: scale(0.5);
         height: 66px;
         margin-top: -2px;
-        background-color: #E6E9EA;
+        background-color: #e6e9ea;
         border-radius: 10%;
     }
 
@@ -820,7 +798,7 @@ footer .hearts>img {
     }
 
     .cards {
-        grid-template-columns: auto
+        grid-template-columns: auto;
     }
 
     #Logo-API {
@@ -854,7 +832,6 @@ footer .hearts>img {
 
 /* FIN RESPONSIVE */
 
-
 .modal {
     display: flex;
     justify-content: flex-start;
@@ -865,7 +842,6 @@ footer .hearts>img {
     height: 100%;
     background-color: #05050549;
     z-index: 30;
-
 }
 
 .modal section {
@@ -875,7 +851,6 @@ footer .hearts>img {
     display: flex;
     flex-direction: column;
     justify-content: left;
-
 }
 
 .encabezadoModal {
@@ -896,41 +871,42 @@ footer .hearts>img {
     display: flex;
 }
 
-#closeModal{
+#closeModal {
     width: auto;
-    margin-bottom:5px;
+    margin-bottom: 5px;
     padding: 0%;
     background-color: transparent;
     border-style: none;
-    
 }
-.fa-solid , .fa-rectangle-xmark{
-    color:gray;
+
+.fa-solid,
+.fa-rectangle-xmark {
+    color: gray;
     width: 58px;
     font-size: x-large;
-    
 }
-.menuMobile{
+
+.menuMobile {
     display: flex;
     flex-direction: column;
     margin: 0.5em 0.9em;
-    gap:1em;
+    gap: 1em;
 }
-#menuMobile .section-githubModal p{
-    background-color: #E6E9EA;
+
+#menuMobile .section-githubModal p {
+    background-color: #e6e9ea;
     border-radius: 4px;
-    color: #22292A;
+    color: #22292a;
     font-weight: 600;
     margin-top: 0;
     width: 40px;
     font-size: medium;
-
-
 }
-#menuMobile h6{
-    font-family: 'Krona One', sans-serif;
+
+#menuMobile h6 {
+    font-family: "Krona One", sans-serif;
     font-size: 12px;
-    color:var(--third-color);
+    color: var(--third-color);
     line-height: 14.4px;
     letter-spacing: 0.5px;
     height: 3vh;
@@ -939,18 +915,18 @@ footer .hearts>img {
     border-radius: 6px;
     align-content: center;
     text-decoration: none;
-
-    
-    
 }
-#menuMobile a{
+
+#menuMobile a {
     text-decoration: none;
 }
-#menuMobile h6:hover{
+
+#menuMobile h6:hover {
     cursor: pointer;
     background-color: rgb(255 252 252);
 }
-.section-githubModal{
+
+.section-githubModal {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -962,71 +938,130 @@ footer .hearts>img {
     border-radius: 4px;
     margin: 8px 11px;
     padding: 0 0.2em;
-
-
 }
-.botonModo{
-    background-color: #FDFDFD;
+
+.botonModo {
+    background-color: #fdfdfd;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     width: 120px;
     height: 35px;
     border-radius: 4px;
-    
-    margin: 8px 11px;
 
+    margin: 8px 11px;
 }
 
-.botonModo select{
+.botonModo select {
     color: black;
     text-underline-position: under;
     border-color: white;
     border-width: thick;
-
 }
 
-#modoWeb2{
+#modoWeb2 {
     width: 25px;
     height: 30px;
 }
 
-.dark, .dark footer, .dark footer .made span{
-    background-color: #22292A;
-    color:#FDFDFD;
+.dark,
+.dark footer,
+.dark footer .made span {
+    background-color: #22292a;
+    color: #fdfdfd;
 }
-.dark .menu-desplegable h6, h1{
-    color:#FDFDFD;
+
+.dark .menu-desplegable h6,
+h1 {
+    color: #fdfdfd;
 }
-.dark .parteIzquierda > p, .dark .parteIzquierda h1{
-    color:#FDFDFD
+
+.dark .parteIzquierda>p,
+.dark .parteIzquierda h1 {
+    color: #fdfdfd;
 }
-.dark #Colaboradores h1, .dark #Colaboradores p{
-    color:#FDFDFD
+
+.dark #Colaboradores h1,
+.dark #Colaboradores p {
+    color: #fdfdfd;
 }
-.dark #informacionGeneral h1{
-    color:#FDFDFD;
+
+.dark #informacionGeneral h1 {
+    color: #fdfdfd;
 }
-.dark #modoWeb{
+
+.dark #modoWeb {
     background-color: #979494;
     border-radius: 7px;
 }
-.dark .section-github{
+
+.dark .section-github {
     background-color: #979494;
-    color:black;
+    color: black;
 }
 
-.dark .encabezadoModal{
-    background-color: #22292A;
-    color:white;
+.dark .encabezadoModal {
+    background-color: #22292a;
+    color: white;
 }
-.dark.contenidoModal{
-    background-color: #22292A;
-    color:white;
+
+.dark.contenidoModal {
+    background-color: #22292a;
+    color: white;
 }
-.dark #menuMobile h6{
+
+.dark #menuMobile h6 {
     color: white;
     background-color: #c9c4c482;
 }
 
+.card-button-container {
+    display: flex;
+    justify-content: space-around;
+}
 
+.card-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background-color: #ffbd07;
+    color: rgb(0, 0, 0);
+    padding: 0.6em 1.2em;
+    border-radius: 9999px;
+    font-weight: bold;
+    font-size: 0.6rem;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    margin: 0.5em 0;
+}
+
+.card-button:hover {
+    background-color: #cbccce;
+}
+
+.card-button img {
+    width: 16px;
+    height: 16px;
+}
+
+.card-description {
+    height: 70px;
+}
+
+body.dark #parrafoApi {
+  color: white;
+}
+
+body.dark #red {
+  color: #EA0628;
+}
+
+body.dark #blue{
+  color: #1F6AF4;
+}
+
+body.dark .menu-desplegable span{
+  color: #ffffff;
+}

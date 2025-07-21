@@ -74,9 +74,10 @@
             <h6>Contribuidores</h6>
           </a>
         </li>
-        <span>|</span>
+        <li>
+          <span>|</span>
+        </li>
       </ul>
-
       <div class="section-iconosExtras">
         <img id="modoWeb" src="/assets/icons/sun-icon.svg" alt="modo oscuro/claro" />
 
@@ -131,7 +132,9 @@
             <a href="#" class="botonModo">
               <img id="modoWeb2" src="/assets/icons/sun-icon.svg" alt="modo oscuro/claro" />
               <select id="select-theme" name="select" aria-label="Seleccionar tema" title="Seleccionar tema">
-                <option value="claro" aria-label="claro" selected>Claro</option>
+                <option value="claro" aria-label="claro" selected>
+                  Claro
+                </option>
                 <option value="oscuro" arial="oscuro">Oscuro</option>
               </select>
             </a>
@@ -173,8 +176,7 @@
           <h2>Departamentos</h2>
           <div class="card-description">
             <p>
-              Directorio completo de departamentos, revelando la 
-              geografía
+              Directorio completo de departamentos, revelando la geografía
               única de Colombia.
             </p>
           </div>
@@ -274,12 +276,16 @@
           </div>
           <div class="text-api2">
             <span class="then" style="color: #d4d4d4; font-size: small">.then (</span>
-            <p class="text" style="color: #9cdcfe; font-size: small;">response</p>
+            <p class="text" style="color: #9cdcfe; font-size: small">
+              response
+            </p>
             <p class="text2" style="margin-left: 1em; font-size: small">=></p>
             <p class="text" style="color: #9cdcfe; margin-left: 1em; font-size: small">
               response
             </p>
-            <p class="text3" style="margin-left: 0.3em; font-size: small">.</p>
+            <p class="text3" style="margin-left: 0.3em; font-size: small">
+              .
+            </p>
             <p class="text4" style="color: #c586c0; margin-left: 0.3em; font-size: small">
               json
             </p>
@@ -293,7 +299,9 @@
             <p class="text" style="color: #9cdcfe; margin-left: 1em; font-size: small">
               console
             </p>
-            <p class="text3" style="margin-left: 0.3em; font-size: small">.</p>
+            <p class="text3" style="margin-left: 0.3em; font-size: small">
+              .
+            </p>
             <p class="text4" style="color: #c586c0; margin-left: 0.3em; font-size: small">
               log
             </p>
@@ -318,6 +326,7 @@
     </div>
     <!-- END MODULE API -->
   </section>
+
   <section id="Colaboradores">
     <h1>Contribuidores</h1>
     <p>
@@ -349,40 +358,57 @@
     </div>
   </section>
 
-  <div class="sponsorships sponsorships-responsive">
-    <p class="text-responsive">
-      API-Colombia, con mas de 100k solicitudes, es tu fuente
-    </p>
-    <p class="text-responsive">
-      abierta sobre Colombia. Te invitamos a contribuir o patrocinar
-    </p>
-    <p class="text-responsive">
-      para enriquecer y expandir nuestro proyecto.
-    </p>
+<section id="Sponsor">
+  <h1>Patrocinadores</h1>
+  <p class="text-responsive">
+    Gracias al apoyo de nuestros patrocinadores, API-Colombia se mantiene
+    activa y gratuita, con más de <strong>2 millones</strong> de solicitudes
+    mensuales.
+  </p>
+  <p class="text-responsive">
+    Creemos en la colaboración abierta. Si deseas apoyar este proyecto,
+    puedes convertirte en patrocinador también.
+  </p>
 
-    <a href="https://github.com/sponsors/Mteheran " target="_blank" class="sponsor">
-      <svg class="icon1" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_76_638)">
-          <path
-            d="M19.5 12.572L12 20L4.5 12.572C4.00531 12.0906 3.61564 11.512 3.35555 10.8726C3.09545 10.2333 2.97056 9.54694 2.98874 8.85693C3.00691 8.16691 3.16776 7.48813 3.46116 6.86333C3.75455 6.23853 4.17414 5.68125 4.69349 5.22657C5.21284 4.7719 5.8207 4.42968 6.47881 4.22147C7.13692 4.01327 7.83101 3.94358 8.51737 4.0168C9.20373 4.09001 9.8675 4.30455 10.4669 4.6469C11.0663 4.98925 11.5882 5.45199 12 6.00599C12.4135 5.45602 12.9361 4.99731 13.5351 4.6586C14.1341 4.31988 14.7965 4.10844 15.4809 4.03751C16.1654 3.96658 16.8571 4.03769 17.5128 4.24639C18.1685 4.45508 18.774 4.79687 19.2916 5.25036C19.8091 5.70385 20.2274 6.25928 20.5204 6.88189C20.8134 7.50449 20.9747 8.18088 20.9943 8.8687C21.0139 9.55653 20.8913 10.241 20.6341 10.8792C20.377 11.5175 19.9909 12.0958 19.5 12.578"
-            stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </g>
-        <defs>
-          <clipPath id="clip0_76_638">
-            <rect width="24" height="24" fill="white" />
-          </clipPath>
-        </defs>
+  <div class="sponsors-container">
+    <div class="sponsor-card" role="group" aria-labelledby="sponsor-name" aria-describedby="sponsor-role">
+      <img src="./assets/sponsors/david-caballero.png" alt="Fotografía de David Caballero" class="sponsor-photo" />
+
+      <div class="sponsor-info">
+        <span id="sponsor-name" class="sponsor-name">David Caballero</span>
+        <a
+          href="https://www.linkedin.com/in/dcaballerom/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Perfil de LinkedIn de David Caballero"
+        >
+          <img src="./assets/sponsors/linkedin-icon.png" alt="Icono de LinkedIn" class="linkedin-icon" />
+        </a>
+      </div>
+
+      <span id="sponsor-role" class="sr-only">Patrocinador oficial</span>
+    </div>
+  </div>
+
+  <div class="boton-donar-container">
+    <a href="https://github.com/sponsors/Mteheran" target="_blank" class="boton-donar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M19.5 12.572L12 20L4.5 12.572C4.00531 12.0906 3.61564 11.512 3.35555 10.8726C3.09545 10.2333 2.97056 9.54694 2.98874 8.85693C3.00691 8.16691 3.16776 7.48813 3.46116 6.86333C3.75455 6.23853 4.17414 5.68125 4.69349 5.22657C5.21284 4.7719 5.8207 4.42968 6.47881 4.22147C7.13692 4.01327 7.83101 3.94358 8.51737 4.0168C9.20373 4.09001 9.8675 4.30455 10.4669 4.6469C11.0663 4.98925 11.5882 5.45199 12 6.00599C12.4135 5.45602 12.9361 4.99731 13.5351 4.6586C14.1341 4.31988 14.7965 4.10844 15.4809 4.03751C16.1654 3.96658 16.8571 4.03769 17.5128 4.24639C18.1685 4.45508 18.774 4.79687 19.2916 5.25036C19.8091 5.70385 20.2274 6.25928 20.5204 6.88189C20.8134 7.50449 20.9747 8.18088 20.9943 8.8687C21.0139 9.55653 20.8913 10.241 20.6341 10.8792C20.377 11.5175 19.9909 12.0958 19.5 12.578"
+          stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
 
-      <p>Patrocinar</p>
+      <span>Patrocinar</span>
 
-      <svg class="icon2" width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
           d="M15 5C14.4477 5 14 4.55228 14 4C14 3.44772 14.4477 3 15 3H20C20.5523 3 21 3.44772 21 4V9C21 9.55228 20.5523 10 20 10C19.4477 10 19 9.55228 19 9V6.41421L11.7071 13.7071C11.3166 14.0976 10.6834 14.0976 10.2929 13.7071C9.90237 13.3166 9.90237 12.6834 10.2929 12.2929L17.5858 5H15ZM3.87868 5.87868C4.44129 5.31607 5.20435 5 6 5H12C12.5523 5 13 5.44772 13 6C13 6.55228 12.5523 7 12 7H6C5.73478 7 5.48043 7.10536 5.29289 7.29289C5.10536 7.48043 5 7.73478 5 8V18C5 18.2652 5.10536 18.5196 5.29289 18.7071C5.48043 18.8946 5.73478 19 6 19H16C16.2652 19 16.5196 18.8946 16.7071 18.7071C16.8946 18.5196 17 18.2652 17 18V12C17 11.4477 17.4477 11 18 11C18.5523 11 19 11.4477 19 12V18C19 18.7957 18.6839 19.5587 18.1213 20.1213C17.5587 20.6839 16.7957 21 16 21H6C5.20435 21 4.44129 20.6839 3.87868 20.1213C3.31607 19.5587 3 18.7956 3 18V8C3 7.20435 3.31607 6.44129 3.87868 5.87868Z"
           fill="black" />
       </svg>
     </a>
   </div>
+</section>
+
 
   <footer>
     <img id="Logo-API" src="assets/logo-light.svg" alt="Logo-API" />

@@ -363,6 +363,34 @@
     color: var(--third-color);
 }
 
+#Sponsor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--third-color);
+    margin: 4em 9px;
+}
+
+#Sponsor h1 {
+    font-family: "Krona One";
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.8px;
+    color: var(--third-color);
+    margin-bottom: 1.4em;
+}
+
+#Sponsor p {
+    font-family: "Poppins";
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 28.8px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    width: 55%;
+    color: var(--third-color);
+}
+
 .contenedorprincipal {
     margin: 20px 3px;
     width: 76vw;
@@ -519,6 +547,82 @@ section{
 
 .sponsor .icon2 {
     margin-left: 101px;
+}
+
+.sponsors-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 2rem;
+}
+
+.boton-donar-container {
+    padding: 2rem;
+}
+
+.boton-donar {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #fecaca;
+    padding: 10px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #000;
+    font-family: "Krona One", sans-serif;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.boton-donar:hover {
+    background-color: #fca5a5;
+}
+
+.boton-donar svg {
+    vertical-align: middle;
+}
+
+.sponsor-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    max-width: 220px;
+    margin: auto;
+    font-family: 'Poppins', sans-serif;
+}
+
+.sponsor-photo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sponsor-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sponsor-name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.linkedin-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.sponsor-role {
+    margin: 0;
+    color: #737373;
+    font-size: 14px;
 }
 
 /* END INFORMATION ABOUT SPONSORSHIPS */
@@ -981,9 +1085,22 @@ h1 {
     color: #fdfdfd;
 }
 
+.dark #Sponsor h1,
+.dark #Sponsor p {
+    color: #fdfdfd;
+}
+
+.dark #Sponsor span {
+    color: #fdfdfd;
+}
+
 .dark #Colaboradores h1,
 .dark #Colaboradores p {
     color: #fdfdfd;
+}
+
+.dark #Sponsor .boton-donar-container span {
+  color: #000000;
 }
 
 .dark #informacionGeneral h1 {
@@ -1051,17 +1168,28 @@ h1 {
 }
 
 body.dark #parrafoApi {
-  color: white;
+    color: white;
 }
 
 body.dark #red {
-  color: #EA0628;
+    color: #ea0628;
 }
 
-body.dark #blue{
-  color: #1F6AF4;
+body.dark #blue {
+    color: #1f6af4;
 }
 
-body.dark .menu-desplegable span{
-  color: #ffffff;
+body.dark .menu-desplegable span {
+    color: #ffffff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }

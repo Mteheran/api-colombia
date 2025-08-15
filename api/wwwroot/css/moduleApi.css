@@ -7,7 +7,6 @@
 }
 
 .module-api .options-api {
-  position: absolute;
   display: flex;
   border: 1px solid ;
   padding: 5px 7px;
@@ -47,7 +46,7 @@
   background-color: #22292a;
   padding: 10px;
   margin-top: 2em;
-  width: 594px;
+  width: 599px;
   height: 3.7em;
   border-bottom: 1px solid #ffffff;
 }
@@ -118,7 +117,7 @@
   position: absolute;
   margin-top: 10.6em;
   font-size: 12px;
-  width: 593px;
+  width: 598px;
   overflow-y: auto;
   background-color: #22292a;
   border-radius: 0px 0px 7px 7px;

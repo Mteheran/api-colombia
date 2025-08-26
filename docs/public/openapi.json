@@ -1,0 +1,4551 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API Colombia",
+    "description": "Open and free API that contains general information about Colombia",
+    "termsOfService": "https://github.com/Mteheran/api-colombia",
+    "contact": {
+      "name": "Miguel Teheran",
+      "url": "https://mteheran.dev"
+    },
+    "version": "1.0.5"
+  },
+  "servers": [
+    {
+      "url": "https://api-colombia.com"
+    }
+  ],
+  "paths": {
+    "/api/v1/Country/Colombia": {
+      "get": {
+        "tags": [
+          "Country"
+        ],
+        "summary": "General info about Colombia",
+        "description": "This endpoint returns the information about Colombia like TimeZone, Languages, Currency, etc...",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Country"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Region": {
+      "get": {
+        "tags": [
+          "Region"
+        ],
+        "summary": "List of regions in Colombia",
+        "description": " This endpoint returns a list of regions in Colombia",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Region"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Region/{id}": {
+      "get": {
+        "tags": [
+          "Region"
+        ],
+        "summary": "Region information by Id",
+        "description": "This endpoint returns the information for the region with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Region"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Region/{id}/departments": {
+      "get": {
+        "tags": [
+          "Region"
+        ],
+        "summary": "Region information by Id including deparment's list",
+        "description": "This endpoint returns the information for the region with the provided id including deparments",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Region"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Department": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "summary": "List of departments in Colombia",
+        "description": "This endpoint returns the departments in colombia including a general info like description, phone prefix, capital city, etc...",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Department"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Department/{id}": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "summary": "Department information by Id",
+        "description": "This endpoint returns the information for the department with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Department"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Department/{id}/cities": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "summary": "List of cities by departmentId",
+        "description": "This endpoint returns a list of cities filtered by departmentid",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Department/{id}/naturalareas": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "summary": "List of natural areas by departmentId",
+        "description": "This endpoint returns a list of natural areas filtered by departmentid",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Department"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Department/{id}/touristicattractions": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "summary": "List of natural areas by departmentId",
+        "description": "This endpoint returns a list of natural areas filtered by departmentid",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TouristAttraction"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Department/name/{name}": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "summary": "Department information by name",
+        "description": "This endpoint returns the information for the department with the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Antioquia"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Department"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Department/search/{keyword}": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "summary": "Search departments by keyword ",
+        "description": "This endpoint returns a list of departments any of the following fields(Name, Description, PhonePrefix) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Arauca"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Department"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Department/pagedList": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "summary": "List of departments using pagination",
+        "description": "This endpoint returns a list of departments using pagination including page, pagesize, total records and data, example api/v1/department/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DepartmentPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/City": {
+      "get": {
+        "tags": [
+          "City"
+        ],
+        "summary": "List of cities in Colombia",
+        "description": "This endpoint returns the cities in colombia including general info like description, department, Surface city, etc...",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/City/{id}": {
+      "get": {
+        "tags": [
+          "City"
+        ],
+        "summary": "City information by Id",
+        "description": "This endpoint returns the information for the city with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/City/name/{name}": {
+      "get": {
+        "tags": [
+          "City"
+        ],
+        "summary": "City information by name",
+        "description": "This endpoint returns the information for the city with the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Arauca"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/City/search/{keyword}": {
+      "get": {
+        "tags": [
+          "City"
+        ],
+        "summary": "Search cities by keyword ",
+        "description": "This endpoint returns a list of cities any of the following fields(Name, Description, PostalCode) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Arauca"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/City/pagedList": {
+      "get": {
+        "tags": [
+          "City"
+        ],
+        "summary": "List of cities using pagination",
+        "description": "This endpoint returns a list of cities using pagination including page, pagesize, total records and data, example api/v1/city/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CityPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/President": {
+      "get": {
+        "tags": [
+          "President"
+        ],
+        "summary": "List of presidents in Colombia",
+        "description": "This endpoint returns the presidents in colombia including general info like political party, city, start period, etc...",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/President"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/President/{id}": {
+      "get": {
+        "tags": [
+          "President"
+        ],
+        "summary": "President information by Id",
+        "description": "This endpoint returns the information for the president with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/President"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/President/name/{name}": {
+      "get": {
+        "tags": [
+          "President"
+        ],
+        "summary": "President information by name",
+        "description": "This endpoint returns the information for the president with the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Rafael"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/President"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/President/year/{year}": {
+      "get": {
+        "tags": [
+          "President"
+        ],
+        "summary": "President of the provided year",
+        "description": "This endpoint returns the president or presidents in the provided year",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 2023
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/President"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/President/search/{keyword}": {
+      "get": {
+        "tags": [
+          "President"
+        ],
+        "summary": "Search presidents by keyword ",
+        "description": "This endpoint returns a list of presidents any of the following fields(Name, Description, PoliticalParty,LastName) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Rafael"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/President"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/President/pagedList": {
+      "get": {
+        "tags": [
+          "President"
+        ],
+        "summary": "List of presidents using pagination",
+        "description": "This endpoint returns a list of presidents using pagination including page, pagesize, total records and data, example api/v1/president/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PresidentPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TouristicAttraction": {
+      "get": {
+        "tags": [
+          "TouristicAttraction"
+        ],
+        "summary": "List of touristic attractions in Colombia",
+        "description": " This endpoint returns a list of touristic attractions including information about the city where they are located, the latitude and Longitude and image",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TouristAttraction"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TouristicAttraction/{id}": {
+      "get": {
+        "tags": [
+          "TouristicAttraction"
+        ],
+        "summary": "Touristic attraction by id",
+        "description": "This endpoint returns an specific touristic attraction by the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TouristAttraction"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TouristicAttraction/name/{name}": {
+      "get": {
+        "tags": [
+          "TouristicAttraction"
+        ],
+        "summary": "Touristic attraction by name",
+        "description": "This endpoint returns an specific touristic attraction by the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Museo del oro"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TouristAttraction"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TouristicAttraction/search/{keyword}": {
+      "get": {
+        "tags": [
+          "TouristicAttraction"
+        ],
+        "summary": "Search touristic attractions by keyword ",
+        "description": "This endpoint returns a list of touristic attractions any of the following fields(Name, Description,LastName,Latitude, Longitude) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Arauca"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TouristAttraction"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TouristicAttraction/pagedList": {
+      "get": {
+        "tags": [
+          "TouristicAttraction"
+        ],
+        "summary": "List of touristic attraction using pagination",
+        "description": "This endpoint returns a list of touristic attractions using pagination including page, pagesize, total records and data, example api/v1/TouristicAttraction/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TouristAttractionPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/CategoryNaturalArea": {
+      "get": {
+        "tags": [
+          "CategoryNaturalArea"
+        ],
+        "summary": "List of category natural areas in Colombia",
+        "description": " This endpoint returns a list of category natural areas  in Colombia",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryNaturalArea"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/CategoryNaturalArea/{id}": {
+      "get": {
+        "tags": [
+          "CategoryNaturalArea"
+        ],
+        "summary": "Category natural area information by Id",
+        "description": "This endpoint returns the information for the category natural area with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryNaturalArea"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/CategoryNaturalArea/{id}/NaturalAreas": {
+      "get": {
+        "tags": [
+          "CategoryNaturalArea"
+        ],
+        "summary": "Category natural area information by Id",
+        "description": "This endpoint returns the information for the category natural area with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryNaturalArea"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/NaturalArea": {
+      "get": {
+        "tags": [
+          "NaturalArea"
+        ],
+        "summary": "List of natural areas in Colombia",
+        "description": " This endpoint returns a list of natural areas  in Colombia",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Map"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/NaturalArea/{id}": {
+      "get": {
+        "tags": [
+          "NaturalArea"
+        ],
+        "summary": "Natural area information by Id",
+        "description": "This endpoint returns the information for the natural area with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NaturalArea"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/NaturalArea/name/{name}": {
+      "get": {
+        "tags": [
+          "NaturalArea"
+        ],
+        "summary": "Natural place by name",
+        "description": "This endpoint returns an specific natural places by the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Cueva de los Guácharos"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NaturalArea"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/NaturalArea/search/{keyword}": {
+      "get": {
+        "tags": [
+          "NaturalArea"
+        ],
+        "summary": "Search natural places by keyword ",
+        "description": "This endpoint returns a list of touristic attractions any of the following fields(Name, Description,LastName,Latitude, Longitude) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Cueva de los Guácharos"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NaturalArea"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/NaturalArea/pagedList": {
+      "get": {
+        "tags": [
+          "NaturalArea"
+        ],
+        "summary": "List of natural places using pagination",
+        "description": "This endpoint returns a list of natural places in Colombia using pagination including page, pagesize, total records and data, example api/v1/naturalarea/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NaturalAreaPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Map": {
+      "get": {
+        "tags": [
+          "Map"
+        ],
+        "summary": "List of Maps related to Colombia",
+        "description": "Returns a list of maps including, natural areas, deparmets distribution, water, etc...",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Map"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Map/{id}": {
+      "get": {
+        "tags": [
+          "Map"
+        ],
+        "summary": "Map information by Id",
+        "description": "This endpoint returns the information for the map with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Map"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/InvasiveSpecie": {
+      "get": {
+        "tags": [
+          "InvasiveSpecie"
+        ],
+        "summary": "List of invasive species in Colombia",
+        "description": "This endpoint returns the  invasive species in colombia including general info like commonNames, image, manage, etc...",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/InvasiveSpecie/{id}": {
+      "get": {
+        "tags": [
+          "InvasiveSpecie"
+        ],
+        "summary": "Invasive specie information by Id",
+        "description": "This endpoint returns the information for the  invasive specie with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/InvasiveSpecie/name/{name}": {
+      "get": {
+        "tags": [
+          "InvasiveSpecie"
+        ],
+        "summary": "Invasive specie information by name",
+        "description": "This endpoint returns the information for the  invasive specie with the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Acacia negra, gris"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/InvasiveSpecie/search/{keyword}": {
+      "get": {
+        "tags": [
+          "InvasiveSpecie"
+        ],
+        "summary": "Search  invasive species by keyword ",
+        "description": "This endpoint returns a list of  invasive species any of the following fields(Name, CommonName, Manage) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Acacia negra, gris"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/InvasiveSpecie/pagedList": {
+      "get": {
+        "tags": [
+          "InvasiveSpecie"
+        ],
+        "summary": "List of  invasive species using pagination",
+        "description": "This endpoint returns a list of  invasive species using pagination including page, pagesize, total records and data, example api/v1/invasivespecie/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CityPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/NativeCommunity": {
+      "get": {
+        "tags": [
+          "NativeCommunity"
+        ],
+        "summary": "List of native communities in Colombia",
+        "description": "This endpoint returns the native communities in colombia including general info like name, description, images, etc...",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NativeCommunity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/NativeCommunity/{id}": {
+      "get": {
+        "tags": [
+          "NativeCommunity"
+        ],
+        "summary": "Native communities information by Id",
+        "description": "This endpoint returns the information for the native community with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/NativeCommunity/name/{name}": {
+      "get": {
+        "tags": [
+          "NativeCommunity"
+        ],
+        "summary": "Native community information by name",
+        "description": "This endpoint returns the information for the  native community with the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Achagua Piapoco"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/NativeCommunity/search/{keyword}": {
+      "get": {
+        "tags": [
+          "NativeCommunity"
+        ],
+        "summary": "Search native communities by keyword ",
+        "description": "This endpoint returns a list of  native communities any of the following fields(Name, Description, Languages) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Achagua Piapoco"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NativeCommunity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/NativeCommunity/pagedList": {
+      "get": {
+        "tags": [
+          "NativeCommunity"
+        ],
+        "summary": "List of native communities using pagination",
+        "description": "This endpoint returns a list of native communities using pagination including page, pagesize, total records and data, example api/v1/nativecommunity/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NativeCommunityPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/IndigenousReservation": {
+      "get": {
+        "tags": [
+          "IndigenousReservation"
+        ],
+        "summary": "List of Indigenous reservations in Colombia",
+        "description": "This endpoint returns the Indigenous reservations in colombia including general info like name, description, images, etc...",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IndigenousReservation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/IndigenousReservation/{id}": {
+      "get": {
+        "tags": [
+          "IndigenousReservation"
+        ],
+        "summary": "Indigenous reservations information by Id",
+        "description": "This endpoint returns the information for the indigenous reservation with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/IndigenousReservation/name/{name}": {
+      "get": {
+        "tags": [
+          "IndigenousReservation"
+        ],
+        "summary": "Indigenous reservation information by name",
+        "description": "This endpoint returns the information for the  indigenous reservation with the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Pared Y Parecito"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/IndigenousReservation/search/{keyword}": {
+      "get": {
+        "tags": [
+          "IndigenousReservation"
+        ],
+        "summary": "Search Indigenous reservations by keyword ",
+        "description": "This endpoint returns a list of  Indigenous reservations any of the following fields(Name, Description, Languages) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Pared Y Parecito"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IndigenousReservation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/IndigenousReservation/pagedList": {
+      "get": {
+        "tags": [
+          "IndigenousReservation"
+        ],
+        "summary": "List of Indigenous reservations using pagination",
+        "description": "This endpoint returns a list of Indigenous reservations using pagination including page, pagesize, total records and data, example api/v1/IndigenousReservation/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndigenousReservationPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Airport": {
+      "get": {
+        "tags": [
+          "Airport"
+        ],
+        "summary": "List of Airports in Colombia",
+        "description": "This endpoint returns the Airports in colombia including general info like name, description, images, etc...",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Airport"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Airport/{id}": {
+      "get": {
+        "tags": [
+          "Airport"
+        ],
+        "summary": "Airports information by Id",
+        "description": "This endpoint returns the information for the airports with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Airport/name/{name}": {
+      "get": {
+        "tags": [
+          "Airport"
+        ],
+        "summary": "Airports information by name",
+        "description": "This endpoint returns the information for the airport with the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Aeropuerto Internacional El Edén"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Airport/search/{keyword}": {
+      "get": {
+        "tags": [
+          "Airport"
+        ],
+        "summary": "Search Airports by keyword ",
+        "description": "This endpoint returns a list of  Airports any of the following fields(Name, Description, city) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Aeropuerto Internacional El Edén"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Airport"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Airport/pagedList": {
+      "get": {
+        "tags": [
+          "Airport"
+        ],
+        "summary": "List of Airports using pagination",
+        "description": "This endpoint returns a list of Airports using pagination including page, pagesize, total records and data, example api/v1/airport/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AirportPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ConstitutionArticle": {
+      "get": {
+        "tags": [
+          "ConstitutionArticle"
+        ],
+        "summary": "List of Constitution Articles in Colombia",
+        "description": "This endpoint returns the Constitution Articles in colombia including general info like title, chapter number, content, etc...",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConstitutionArticle"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ConstitutionArticle/{id}": {
+      "get": {
+        "tags": [
+          "ConstitutionArticle"
+        ],
+        "summary": "Constitution Articles information by Id",
+        "description": "This endpoint returns the information for the airports with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ConstitutionArticle/search/{keyword}": {
+      "get": {
+        "tags": [
+          "ConstitutionArticle"
+        ],
+        "summary": "Search Constitution Articles by keyword ",
+        "description": "This endpoint returns a list of  Constitution Articles any of the following fields(title, chapter number, content) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "DE LOS PRINCIPIOS FUNDAMENTALES"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConstitutionArticle"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ConstitutionArticle/pagedList": {
+      "get": {
+        "tags": [
+          "ConstitutionArticle"
+        ],
+        "summary": "List of Constitution Articles using pagination",
+        "description": "This endpoint returns a list of Constitution Articles using pagination including page, pagesize, total records and data, example api/v1/ConstitutionArticles/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConstitutionArticlePaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ConstitutionArticle/byChapterNumber/{chapternumber}": {
+      "get": {
+        "tags": [
+          "ConstitutionArticle"
+        ],
+        "summary": "Search Constitution Articles by keyword ",
+        "description": "This endpoint returns a list of  Constitution Articles any of the following fields(title, chapter number, content) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "chapternumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConstitutionArticle"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Radio": {
+      "get": {
+        "tags": [
+          "Radio"
+        ],
+        "summary": "List of Radios in Colombia",
+        "description": "This endpoint returns the radios in colombia including general info like name, url, frequency, etc...",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Radio"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Radio/{id}": {
+      "get": {
+        "tags": [
+          "Radio"
+        ],
+        "summary": "Radios information by Id",
+        "description": "This endpoint returns the information for the radio with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Radio/name/{name}": {
+      "get": {
+        "tags": [
+          "Radio"
+        ],
+        "summary": "Radios information by name",
+        "description": "This endpoint returns the information for the radio with the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "RCN La radio"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Radio/search/{keyword}": {
+      "get": {
+        "tags": [
+          "Radio"
+        ],
+        "summary": "Search Radios by keyword ",
+        "description": "This endpoint returns a list of Radios any of the following fields(Name, Frequency, URL, Streamers) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "RCN La radio"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Radio"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Radio/pagedList": {
+      "get": {
+        "tags": [
+          "Radio"
+        ],
+        "summary": "List of Radios using pagination",
+        "description": "This endpoint returns a list of Radios using pagination including page, pagesize, total records and data, example api/v1/radio/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RadioPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Holiday/year/{year}": {
+      "get": {
+        "tags": [
+          "Holiday"
+        ],
+        "summary": "List of holidays in Colombia by year",
+        "description": "This endpoint returns the list of holidays per year in Colombia",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 2025
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Holiday"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Holiday/year/{year}/month/{month}": {
+      "get": {
+        "tags": [
+          "Holiday"
+        ],
+        "summary": "List of holidays in Colombia by year and moth",
+        "description": "This endpoint returns the list of holidays per year and month in Colombia",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 2025
+            }
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 12
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Holiday"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TypicalDish": {
+      "get": {
+        "tags": [
+          "TypicalDish"
+        ],
+        "summary": "List of typical dishes in Colombia",
+        "description": "This endpoint returns the typical dishes in colombia including a general info like description, image reference..",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TypicalDish"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TypicalDish/{id}": {
+      "get": {
+        "tags": [
+          "TypicalDish"
+        ],
+        "summary": "Typical dishes information by Id",
+        "description": "This endpoint returns the typical dishes in colombia including a general info like description, image reference with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TypicalDish"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TypicalDish/{id}/department": {
+      "get": {
+        "tags": [
+          "TypicalDish"
+        ],
+        "summary": "List of typical dishes by departmentId",
+        "description": "This endpoint returns a list of typical dishes filtered by departmentid",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TypicalDish"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TypicalDish/name/{name}": {
+      "get": {
+        "tags": [
+          "TypicalDish"
+        ],
+        "summary": "Typical dishes information by name",
+        "description": "This endpoint returns the information for the typical dishes with the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bandeja Paisa"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TypicalDish"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TypicalDish/search/{keyword}": {
+      "get": {
+        "tags": [
+          "TypicalDish"
+        ],
+        "summary": "Search typical dish by keyword ",
+        "description": "This endpoint returns a list of typical dish any of the following fields(Name, Description) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bandeja Paisa"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TypicalDish"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TypicalDish/pagedList": {
+      "get": {
+        "tags": [
+          "TypicalDish"
+        ],
+        "summary": "List of typical dishes using pagination",
+        "description": "This endpoint returns a list of typical dishes using pagination including page, pagesize, total records and data, example api/v1/typicaldishes/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TypicalDishPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TraditionalFairAndFestival": {
+      "get": {
+        "tags": [
+          "TraditionalFairAndFestival"
+        ],
+        "summary": "List of traditional fair and festival in Colombia",
+        "description": "This endpoint returns the traditional fair and festival in colombia including a general info like name, description, city...",
+        "parameters": [
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TraditionalFairAndFestival"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TraditionalFairAndFestival/{id}": {
+      "get": {
+        "tags": [
+          "TraditionalFairAndFestival"
+        ],
+        "summary": "Traditional fair and festival information by Id",
+        "description": "This endpoint returns the traditional fair and festival in colombia including a general info like name, description, city with the provided id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TraditionalFairAndFestival"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TraditionalFairAndFestival/{id}/city": {
+      "get": {
+        "tags": [
+          "TraditionalFairAndFestival"
+        ],
+        "summary": "List of traditional fair and festival by City Id",
+        "description": "This endpoint returns a list of traditional fair and festival filtered by City Id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "It can be sorted by any of the fields that have numerical, string, or date values (for example: Id, name, description, etc.).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "Possible values: 'asc' or 'desc'.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TraditionalFairAndFestival"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TraditionalFairAndFestival/name/{name}": {
+      "get": {
+        "tags": [
+          "TraditionalFairAndFestival"
+        ],
+        "summary": "Traditional fair and festival information by name",
+        "description": "This endpoint returns the information for the traditional fair and festival with the provided name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Cumpleaños de Leticia"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TraditionalFairAndFestival"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TraditionalFairAndFestival/search/{keyword}": {
+      "get": {
+        "tags": [
+          "TraditionalFairAndFestival"
+        ],
+        "summary": "Search traditional fair and festival by keyword ",
+        "description": "This endpoint returns a list of  traditional fair and festival any of the following fields(Name, Description) match the provided keyword ",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Cumpleaños de Leticia"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TraditionalFairAndFestival"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TraditionalFairAndFestival/pagedList": {
+      "get": {
+        "tags": [
+          "TraditionalFairAndFestival"
+        ],
+        "summary": "List of traditional fair and festival using pagination",
+        "description": "This endpoint returns a list of traditional fair and festival using pagination including page, pagesize, total records and data, example api/v1/typicaldishes/pagedList?page=1&pagesize=10",
+        "parameters": [
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TraditionalFairAndFestivalPaginationResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Airport": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "iataCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "oaciCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "deparmentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "department": {
+            "$ref": "#/components/schemas/Department"
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "city": {
+            "$ref": "#/components/schemas/City"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AirportPaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Airport"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoryNaturalArea": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "naturalAreas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NaturalArea"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "City": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "surface": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "population": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "departmentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "department": {
+            "$ref": "#/components/schemas/Department"
+          },
+          "touristAttractions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TouristAttraction"
+            },
+            "nullable": true
+          },
+          "presidents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/President"
+            },
+            "nullable": true
+          },
+          "indigenousReservations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IndigenousReservation"
+            },
+            "nullable": true
+          },
+          "airports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Airport"
+            },
+            "nullable": true
+          },
+          "radios": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Radio"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CityPaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/City"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConstitutionArticle": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "titleNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "chapterNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "chapter": {
+            "type": "string",
+            "nullable": true
+          },
+          "articleNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConstitutionArticlePaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConstitutionArticle"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Country": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "stateCapital": {
+            "type": "string",
+            "nullable": true
+          },
+          "surface": {
+            "type": "number",
+            "format": "float"
+          },
+          "population": {
+            "type": "number",
+            "format": "float"
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "timeZone": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "currencySymbol": {
+            "type": "string",
+            "nullable": true
+          },
+          "isoCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "internetDomain": {
+            "type": "string",
+            "nullable": true
+          },
+          "phonePrefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "radioPrefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "aircraftPrefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "subRegion": {
+            "type": "string",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "nullable": true
+          },
+          "borders": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "flags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Department": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityCapitalId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "municipalities": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "surface": {
+            "type": "number",
+            "format": "float"
+          },
+          "population": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "phonePrefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cityCapital": {
+            "$ref": "#/components/schemas/City"
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          },
+          "cities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/City"
+            },
+            "nullable": true
+          },
+          "regionId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "region": {
+            "$ref": "#/components/schemas/Region"
+          },
+          "naturalAreas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NaturalArea"
+            },
+            "nullable": true
+          },
+          "maps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Map"
+            },
+            "nullable": true
+          },
+          "indigenousReservations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IndigenousReservation"
+            },
+            "nullable": true
+          },
+          "airports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Airport"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DepartmentPaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Department"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Holiday": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IndigenousReservation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "procedureType": {
+            "type": "string",
+            "nullable": true
+          },
+          "administrativeActType": {
+            "type": "string",
+            "nullable": true
+          },
+          "administrativeActNumber": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "administrativeActDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "nativeCommunityId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nativeCommunity": {
+            "$ref": "#/components/schemas/NativeCommunity"
+          },
+          "deparmentId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "department": {
+            "$ref": "#/components/schemas/Department"
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "city": {
+            "$ref": "#/components/schemas/City"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IndigenousReservationPaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IndigenousReservation"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Map": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "departmentId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "urlImages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "urlSource": {
+            "type": "string",
+            "nullable": true
+          },
+          "department": {
+            "$ref": "#/components/schemas/Department"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NativeCommunity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "languages": {
+            "type": "string",
+            "nullable": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "indigenousReservations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IndigenousReservation"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NativeCommunityPaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NativeCommunity"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NaturalArea": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "areaGroupId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "categoryNaturalAreaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "departmentId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "daneCode": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "landArea": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "maritimeArea": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "department": {
+            "$ref": "#/components/schemas/Department"
+          },
+          "categoryNaturalArea": {
+            "$ref": "#/components/schemas/CategoryNaturalArea"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NaturalAreaPaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NaturalArea"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "President": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "startPeriodDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "endPeriodDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "politicalParty": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "city": {
+            "$ref": "#/components/schemas/City"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PresidentPaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/President"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Radio": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "frequency": {
+            "type": "number",
+            "format": "double"
+          },
+          "band": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "city": {
+            "$ref": "#/components/schemas/City"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "streamers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RadioPaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Radio"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Region": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "departments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Department"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TouristAttraction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "latitude": {
+            "type": "string",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "city": {
+            "$ref": "#/components/schemas/City"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TouristAttractionPaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TouristAttraction"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TraditionalFairAndFestival": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "month": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "city": {
+            "$ref": "#/components/schemas/City"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TraditionalFairAndFestivalPaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TraditionalFairAndFestival"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TypicalDish": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "ingredients": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "departmentId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "department": {
+            "$ref": "#/components/schemas/Department"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TypicalDishPaginationResponseModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TypicalDish"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Country",
+      "description": "Información general de Colombia"
+    },
+    {
+      "name": "Region",
+      "description": "Regiones de Colombia"
+    },
+    {
+      "name": "Department",
+      "description": "Departamentos de Colombia"
+    },
+    {
+      "name": "City",
+      "description": "Ciudades de Colombia"
+    },
+    {
+      "name": "President",
+      "description": "Presidentes de Colombia"
+    },
+    {
+      "name": "TouristicAttraction",
+      "description": "Atracciones turísticas de Colombia"
+    },
+    {
+      "name": "CategoryNaturalArea",
+      "description": "Categorías de áreas naturales"
+    },
+    {
+      "name": "NaturalArea",
+      "description": "Áreas naturales de Colombia"
+    },
+    {
+      "name": "Map",
+      "description": "Mapas de Colombia"
+    },
+    {
+      "name": "InvasiveSpecie",
+      "description": "Especies invasoras en Colombia"
+    },
+    {
+      "name": "NativeCommunity",
+      "description": "Comunidades indígenas de Colombia"
+    },
+    {
+      "name": "IndigenousReservation",
+      "description": "Resguardos indígenas de Colombia"
+    },
+    {
+      "name": "Airport",
+      "description": "Aeropuertos de Colombia"
+    },
+    {
+      "name": "ConstitutionArticle",
+      "description": "Artículos de la Constitución"
+    },
+    {
+      "name": "Radio",
+      "description": "Emisoras de radio de Colombia"
+    },
+    {
+      "name": "Holiday",
+      "description": "Festivos de Colombia"
+    },
+    {
+      "name": "TypicalDish",
+      "description": "Platos típicos de Colombia"
+    },
+    {
+      "name": "TraditionalFairAndFestival",
+      "description": "Ferias y fiestas tradicionales de Colombia"
+    }
+  ]
+}

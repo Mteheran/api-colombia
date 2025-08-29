@@ -1,46 +1,38 @@
-const selector = document.getElementById('languageSelector');
-const flag = document.getElementById('selectedFlag');
+let translations = {};
+const languageSelector = document.getElementById('languageSelector');
 
-function translatePage(lang) {
-  const elements = document.querySelectorAll('[data-translate]');
-  elements.forEach((el) => {
-    const key = el.getAttribute('data-translate');
-    const translation = window.translations[lang][key];
-    if (translation) {
-      el.innerHTML = translation;
+async function fetchTranslations() {
+  try {
+    const response = await fetch('/js/translations.json');
+    if (!response.ok) {
+      throw new Error('Failed to load translations.');
     }
-  });
-
-  const p = document.querySelectorAll('.sponsorships-responsive p');
-  if (p.length >= 3) {
-    p[0].innerText = window.translations[lang].sponsorText1;
-    p[1].innerText = window.translations[lang].sponsorText2;
-    p[2].innerText = window.translations[lang].sponsorText3;
+    translations = await response.json();
+    setInitialLanguage();
+  } catch (error) {
+    console.error(error);
   }
-
-  const sponsorBtn = document.querySelector('.sponsor p');
-  if (sponsorBtn) sponsorBtn.innerText = window.translations[lang].sponsor;
-
-  const madeWith = document.querySelector('.made span');
-  if (madeWith) madeWith.innerText = window.translations[lang].madeWith;
 }
 
-selector.addEventListener('change', (e) => {
-  const selected = e.target.options[e.target.selectedIndex];
-  const flagUrl = selected.dataset.flag;
-  const lang = selected.value;
+function setInitialLanguage() {
+  const storedLang = localStorage.getItem('language') || 'es';
+  languageSelector.value = storedLang;
+  translatePage(storedLang);
+}
 
-  flag.src = flagUrl;
-  localStorage.setItem('lang', lang);
-  translatePage(lang);
+function translatePage(lang) {
+  document.querySelectorAll('[data-i18n-key]').forEach(element => {
+    const key = element.getAttribute('data-i18n-key');
+    if (translations[lang] && translations[lang][key]) {
+      element.innerText = translations[lang][key];
+    }
+  });
+}
+
+languageSelector.addEventListener('change', (event) => {
+  const newLang = event.target.value;
+  localStorage.setItem('language', newLang);
+  translatePage(newLang);
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const lang = localStorage.getItem('lang') || 'es';
-  selector.value = lang;
-  const option = selector.querySelector(`option[value="${lang}"]`);
-  if (option) {
-    flag.src = option.dataset.flag;
-  }
-  translatePage(lang);
-});
+document.addEventListener('DOMContentLoaded', fetchTranslations);

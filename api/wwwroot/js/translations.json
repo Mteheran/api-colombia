@@ -1,7 +1,10 @@
 {
   "es": {
     "title": "Explora Colombia con API-Colombia",
+    "explore": "Explora", 
+    "with": "con",
     "subtitle": "Un proyecto Open-source que ofrece acceso a datos sobre su diversidad, todo a tu alcance.",
+    "menu": "Menú",
     "documentation": "Documentación",
     "features": "Funcionalidades",
     "contributors": "Contribuidores",
@@ -25,7 +28,10 @@
   },
   "en": {
     "title": "Explore Colombia with API-Colombia",
+    "explore": "Explore", 
+    "with": "with",
     "subtitle": "An open-source project that provides access to data about its diversity, all at your fingertips.",
+    "menu": "Menu",
     "documentation": "Documentation",
     "features": "Features",
     "contributors": "Contributors",
@@ -49,7 +55,10 @@
   },
   "pt": {
     "title": "Explore a Colômbia com API-Colombia",
+    "explore": "Explore", 
+    "with": "com",
     "subtitle": "Um projeto open-source que oferece acesso a dados sobre sua diversidade, tudo ao seu alcance.",
+    "menu": "Menu",
     "documentation": "Documentação",
     "features": "Funcionalidades",
     "contributors": "Colaboradores",

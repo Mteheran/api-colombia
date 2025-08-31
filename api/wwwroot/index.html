@@ -61,17 +61,17 @@
       <ul class="menu-desplegable">
         <li>
           <a href="https://api-colombia.com/swagger/index.html" target="_blank">
-            <h6>Documentación</h6>
+            <h6 data-i18n-key="documentation">Documentación</h6>
           </a>
         </li>
         <li>
           <a href="#informacionAPIS">
-            <h6>Funcionalidades</h6>
+            <h6 data-i18n-key="features">Funcionalidades</h6>
           </a>
         </li>
         <li>
           <a href="#Colaboradores">
-            <h6>Contribuidores</h6>
+            <h6 data-i18n-key="contributors">Contribuidores</h6>
           </a>
         </li>
         <li><span>|</span></li>
@@ -103,33 +103,36 @@
   <section id="informacionGeneral">
     <img id="mariposaPequeña" src="./assets/crown-decorative-medium.png" alt="Imagen de mariposaPequeña" />
     <img id="mariposaGrande" src="./assets/crown-decorative-big-removebg-preview.png" alt="Imagen de mariposaGrande" />
-    <h1 data-i18n-key="title" >
-      Explora <span id="yellow">Col</span><span id="blue">om</span><span id="red">bia</span> con API-Colombia
+    <h1>
+      <span data-i18n-key="explore"></span>
+      <span id="yellow">Col</span><span id="blue">om</span><span id="red">bia</span>
+      <span data-i18n-key="with"></span> API-Colombia
     </h1>
-    <p>
+
+    <p data-i18n-key="subtitle">
       Un proyecto Open-source que ofrece acceso a datos <br />
       sobre su diversidad, todo a tu alcance.
     </p>
-    <button class="botonDocumentacion">Documentación</button>
+    <button data-i18n-key="documentation" class="botonDocumentacion">Documentación</button>
     <div class="modal hidden">
       <section class="contenidoModal">
         <div class="encabezadoModal">
           <button id="closeModal" aria-label="Cerrar modal" title="Cerrar modal">
             <i class="fa-solid fa-rectangle-xmark"></i>
           </button>
-          <span> Menú </span>
+          <span data-i18n-key="menu"> Menú </span>
         </div>
 
         <div class="cuerpoModal">
           <div id="menuMobile">
             <a href="https://api-colombia.com/swagger/index.html" target="_blank">
-              <spam>Documentación</spam>
+              <spa data-i18n-key="documentation" >Documentación</spa>
             </a>
             <a href="#informacionAPIS">
-              <spam>Funcionalidades</spam>
+              <span data-i18n-key="features">Funcionalidades</span>
             </a>
             <a href="#Colaboradores">
-              <spam>Contribuidores</spam>
+              <span data-i18n-key="contributors">Contribuidores</span>
             </a>
             <div class="section-githubModal">
               <a href="#">
@@ -151,19 +154,19 @@
   </section>
   <section id="informacionAPIS">
     <div class="parteIzquierda">
-      <h1>Funcionalidades Únicas</h1>
-      <p>
+      <h1 data-i18n-key="uniqueFeatures">Funcionalidades Únicas</h1>
+      <p data-i18n-key="featuresDescription">
         Explora fácilmente Colombia con nuestra API: información pública desde
         lo general hasta lo específico, sin autenticación.
       </p>
-      <button class="botonDocumentacion">Lee la documentación</button>
+      <button data-i18n-key="readDocs" class="botonDocumentacion">Lee la documentación</button>
 
       <div class="cards">
         <div class="caja uno">
           <img src="./assets/crown-decorative.svg" alt="Corona decorativa" />
-          <h2>Información General de Colombia</h2>
+          <h2 data-i18n-key="feature1">Información General de Colombia</h2>
           <div class="card-description">
-            <p>
+            <p data-i18n-key="feature1Desc">
               Accede a datos completos sobre Colombia, incluyendo su capital,
               superficie, población, idiomas, y más.
             </p>
@@ -179,10 +182,10 @@
         </div>
         <div class="caja dos">
           <img src="./assets/crown-decorative.svg" alt="Corona decorativa" />
-          <h2>Departamentos</h2>
+          <h2 data-i18n-key="feature2">Departamentos</h2>
           <div class="card-description">
             <p>
-              Directorio completo de departamentos, revelando la 
+              Directorio completo de departamentos, revelando la
               geografía
               única de Colombia.
             </p>

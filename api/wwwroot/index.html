@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" style="display: flex; flex-direction: column; align-items: center">
+<html lang="en"
+  style="display: flex; flex-direction: column; align-items: center">
 
-<head>
-  <meta charset="utf-8" />
-  <title>API - Colombia, public, open and free API about Colombia</title>
-  <meta name="description" content="API Colombia is a public RESTful API that enable users to obtain a 
+  <head>
+    <meta charset="utf-8" />
+    <title>API - Colombia, public, open and free API about Colombia</title>
+    <meta name="description"
+      content="API Colombia is a public RESTful API that enable users to obtain a 
   variety of public information about the country 'Colombia'" />
-  <meta name="author" content="Miguel Teheran, Rina Plata, Mario Botero, Veronica Guaman, Alejandro Herreño" />
-  <meta name="keywords" content="apicolombia, api-colombia, public, api, colombia API colombia" />
-  <meta http-equiv="cleartype" content="on" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta property="og:locale" content="en" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="API Colombia is a public RESTful API that enable users to obtain a 
+    <meta name="author"
+      content="Miguel Teheran, Rina Plata, Mario Botero, Veronica Guaman, Alejandro Herreño" />
+    <meta name="keywords"
+      content="apicolombia, api-colombia, public, api, colombia API colombia" />
+    <meta http-equiv="cleartype" content="on" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title"
+      content="API Colombia is a public RESTful API that enable users to obtain a 
   variety of public information about the country 'Colombia'" />
-  <meta property="og:url" content="https://api-colombia.com/" />
-  <meta property="og:site_name" content="API Colombia" />
-  <link rel="icon" href="assets/logo-dark.svg" type="image/png" />
-  <script src="https://kit.fontawesome.com/ea43250ec2.js" crossorigin="anonymous"></script>
-  <link rel="icon" type="image/jpg" href="assets/favicon.png" />
-  <!-- 
+    <meta property="og:url" content="https://api-colombia.com/" />
+    <meta property="og:site_name" content="API Colombia" />
+    <link rel="icon" href="assets/logo-dark.svg" type="image/png" />
+    <script src="https://kit.fontawesome.com/ea43250ec2.js"
+      crossorigin="anonymous"></script>
+    <link rel="icon" type="image/jpg" href="assets/favicon.png" />
+    <!-- 
   <meta property="og:image" content="https://apicolombia.azurewebsites.net/images/logo.png" />
   <link rel="stylesheet" href="css/hightlightjs-dark.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
@@ -37,11 +43,12 @@
   </script>
   -->
 
-  <link rel="stylesheet" href="/css/style.css" />
-</head>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MJNGSCNKL7"></script>
-<script>
+  <script async
+    src="https://www.googletagmanager.com/gtag/js?id=G-MJNGSCNKL7"></script>
+  <script>
   window.dataLayer = window.dataLayer || [];
   function gtag() {
     dataLayer.push(arguments);
@@ -51,500 +58,467 @@
   gtag("config", "G-MJNGSCNKL7");
 </script>
 
-<body class="light">
-  <header id="ContenedorHeader">
-    <img id="Logo-API" src="/assets/logo-light.svg" alt="Logo-API" />
-    <div class="menuicon">
-      <img id="hamburguer" src="/assets/icons/menu-icon.svg" alt="icono" />
-    </div>
-    <nav class="navegador">
-      <ul class="menu-desplegable">
-        <li>
-          <a href="https://api-colombia.com/swagger/index.html" target="_blank">
-            <h6 data-i18n-key="documentation">Documentación</h6>
-          </a>
-        </li>
-        <li>
-          <a href="#informacionAPIS">
-            <h6 data-i18n-key="features">Funcionalidades</h6>
-          </a>
-        </li>
-        <li>
-          <a href="#Colaboradores">
-            <h6 data-i18n-key="contributors">Contribuidores</h6>
-          </a>
-        </li>
-        <li><span>|</span></li>
-      </ul>
-
-      <div class="section-iconosExtras">
-        <img id="modoWeb" src="/assets/icons/sun-icon.svg" alt="modo oscuro/claro" />
-
-        <div class="section-github">
-          <a href="https://github.com/Mteheran/api-colombia" target="_blank">
-            <img id="githubIcon" src="/assets/icons/github-icon.svg" alt="logo-github" />
-
-            <p>221</p>
-          </a>
+  <body class="light">
+    <div class="main-container">
+      <header id="ContenedorHeader">
+        <img id="Logo-API" src="/assets/logo-light.svg" alt="Logo-API" />
+        <div class="menuicon">
+          <img id="hamburguer" src="/assets/icons/menu-icon.svg" alt="icono" />
         </div>
-<div class="language-selector">
-  <img id="selectedFlag" src="/assets/es.png" alt="Idioma actual" />
-  <span id="languageText">ES</span>
-  <img class="arrow-icon" src="/assets/down.png" alt="Desplegar selector" tabindex="0" />
-  <select id="languageSelector" aria-label="Seleccionar idioma">
-    <option value="es" data-flag="/assets/es.png">ES</option>
-    <option value="en" data-flag="/assets/en.png">EN</option>
-    <option value="pt" data-flag="/assets/pr.png">PT</option>
-  </select>
-</div>
-      </div>
-    </nav>
-  </header>
+        <nav class="navegador">
+          <ul class="menu-desplegable">
+            <li>
+              <a href="https://api-colombia.com/swagger/index.html"
+                target="_blank">
+                <h6 data-i18n-key="documentation">Documentación</h6>
+              </a>
+            </li>
+            <li>
+              <a href="#informacionAPIS">
+                <h6 data-i18n-key="features">Funcionalidades</h6>
+              </a>
+            </li>
+            <li>
+              <a href="#Colaboradores">
+                <h6 data-i18n-key="contributors">Contribuidores</h6>
+              </a>
+            </li>
+            <li><span>|</span></li>
+          </ul>
+          <div class="section-iconosExtras">
+            <img id="modoWeb" src="/assets/icons/sun-icon.svg"
+              alt="modo oscuro/claro" />
 
-  <section id="informacionGeneral">
-    <img id="mariposaPequeña" src="./assets/crown-decorative-medium.png" alt="Imagen de mariposaPequeña" />
-    <img id="mariposaGrande" src="./assets/crown-decorative-big-removebg-preview.png" alt="Imagen de mariposaGrande" />
-    <h1>
-      <span data-i18n-key="explore"></span>
-      <span id="yellow">Col</span><span id="blue">om</span><span id="red">bia</span>
-      <span data-i18n-key="with"></span> API-Colombia
-    </h1>
+            <div class="section-github">
+              <a href="https://github.com/Mteheran/api-colombia"
+                target="_blank">
+                <img id="githubIcon" src="/assets/icons/github-icon.svg"
+                  alt="logo-github" />
 
-    <p data-i18n-key="subtitle">
-      Un proyecto Open-source que ofrece acceso a datos <br />
-      sobre su diversidad, todo a tu alcance.
-    </p>
-    <button data-i18n-key="documentation" class="botonDocumentacion">Documentación</button>
-    <div class="modal hidden">
-      <section class="contenidoModal">
-        <div class="encabezadoModal">
-          <button id="closeModal" aria-label="Cerrar modal" title="Cerrar modal">
-            <i class="fa-solid fa-rectangle-xmark"></i>
-          </button>
-          <span data-i18n-key="menu"> Menú </span>
+                <p>221</p>
+              </a>
+            </div>
+            <div class="language-selector">
+              <img id="selectedFlag" src="/assets/es.png" alt="Idioma actual" />
+              <span id="languageText">ES</span>
+              <img class="arrow-icon" src="/assets/down.png" alt="Desplegar selector" tabindex="0" />
+              <select id="languageSelector" aria-label="Seleccionar idioma">
+                <option value="es" data-flag="/assets/es.png">ES</option>
+                <option value="en" data-flag="/assets/en.png">EN</option>
+                <option value="pt" data-flag="/assets/pr.png">PT</option>
+              </select>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <section id="informacionGeneral">
+        <img id="mariposaPequeña" src="./assets/crown-decorative-medium.png"
+          alt="Imagen de mariposaPequeña" />
+        <img id="mariposaGrande"
+          src="./assets/crown-decorative-big-removebg-preview.png"
+          alt="Imagen de mariposaGrande" />
+        <h1>
+          <span data-i18n-key="explore"></span>
+          <span id="yellow">Col</span><span id="blue">om</span><span
+            id="red">bia</span>
+          <span data-i18n-key="with"></span> API-Colombia
+        </h1>
+        <p data-i18n-key="subtitle">
+          Un proyecto Open-source que ofrece acceso a datos <br />
+          sobre su diversidad, todo a tu alcance.
+        </p>
+        <button data-i18n-key="documentation"
+          class="botonDocumentacion">Documentación</button>
+        <div class="modal hidden">
+          <section class="contenidoModal">
+            <div class="encabezadoModal">
+              <button id="closeModal" aria-label="Cerrar modal"
+                title="Cerrar modal">
+                <i class="fa-solid fa-rectangle-xmark"></i>
+              </button>
+              <span data-i18n-key="menu"> Menú </span> </div>
+
+            <div class="cuerpoModal">
+              <div id="menuMobile">
+                <a href="https://api-colombia.com/swagger/index.html"
+                  target="_blank">
+                  <spa data-i18n-key="documentation">Documentación</spa>
+                </a>
+                <a href="#informacionAPIS">
+                  <span data-i18n-key="features">Funcionalidades</span>
+                </a>
+                <a href="#Colaboradores">
+                  <span data-i18n-key="contributors">Contribuidores</span>
+                </a>
+                <div class="section-githubModal">
+                  <a href="#">
+                    <img id="githubIcon2" src="/assets/icons/github-icon.svg"
+                      alt="logo-github" />
+                  </a>
+                  <p>219</p>
+                </div>
+                <a href="#" class="botonModo">
+                  <img id="modoWeb2" src="/assets/icons/sun-icon.svg"
+                    alt="modo oscuro/claro" />
+                  <select id="select-theme" name="select"
+                    aria-label="Seleccionar tema" title="Seleccionar tema">
+                    <option value="claro" aria-label="claro" selected>
+                      Claro
+                    </option>
+                    <option value="oscuro" arial="oscuro">Oscuro</option>
+                  </select>
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+      <section id="informacionAPIS">
+        <div class="parteIzquierda">
+          <h1 data-i18n-key="uniqueFeatures">Funcionalidades Únicas</h1>
+          <p data-i18n-key="featuresDescription">
+            Explora fácilmente Colombia con nuestra API: información pública
+            desde
+            lo general hasta lo específico, sin autenticación.
+          </p>
+          <button data-i18n-key="readDocs" class="botonDocumentacion">Lee la
+            documentación</button>
+
+          <div class="cards">
+            <div class="caja uno">
+              <img src="./assets/crown-decorative.svg"
+                alt="Corona decorativa" />
+              <h2 data-i18n-key="feature1">Información General de Colombia</h2>
+              <div class="card-description">
+                <p data-i18n-key="feature1Desc">
+                  Accede a datos completos sobre Colombia, incluyendo su
+                  capital,
+                  superficie, población, idiomas, y más.
+                </p>
+              </div>
+
+              <div class="card-button-container">
+                <a data-i18n-key="featuregetInfoColombia"
+                  href="https://api-colombia.com/api/v1/Country/Colombia"
+                  target="_blank" rel="noopener"
+                  class="card-button">
+                  Get Info Colombia
+                  <img src="./assets/icons/external-link-icon.svg" alt
+                    aria-hidden="true" rel="noopener" />
+                </a>
+              </div>
+            </div>
+            <div class="caja dos">
+              <img src="./assets/crown-decorative.svg"
+                alt="Corona decorativa" />
+              <h2 data-i18n-key="feature2">Departamentos</h2>
+              <div class="card-description">
+                <p data-i18n-key="feature2Desc">
+                  Directorio completo de departamentos, revelando la geografía
+                  única de Colombia.
+                </p>
+              </div>
+              <div class="card-button-container">
+                <a data-i18n-key="featuregetInfoColombia"
+                  href="https://api-colombia.com/api/v1/Department"
+                  target="_blank" rel="noopener" class="card-button">
+                  Get Department
+                  <img src="./assets/icons/external-link-icon.svg"
+                    alt="Enlace externo"
+                    style="width: 16px; height: 16px; margin-left: 2px" />
+                </a>
+              </div>
+            </div>
+            <div class="caja tres">
+              <img src="./assets/crown-decorative.svg"
+                alt="Corona decorativa" />
+              <h2 data-i18n-key="feature3">Regiones</h2>
+              <div class="card-description">
+                <p data-i18n-key="feature3Desc" class="feature3Desc">
+                  Explora las regiones de Colombia, cada una con su encanto y
+                  particularidades, listas para ser descubiertas.
+                </p>
+              </div>
+
+              <div class="card-button-container">
+                <a data-i18n-key="feature3"
+                  href="https://api-colombia.com/api/v1/Region" target="_blank"
+                  rel="noopener" class="card-button">
+                  Get Región
+                  <img src="./assets/icons/external-link-icon.svg"
+                    alt="Enlace externo"
+                    style="width: 16px; height: 16px; margin-left: 2px" />
+                </a>
+              </div>
+            </div>
+            <div class="caja cuatro">
+              <img src="./assets/crown-decorative.svg"
+                alt="Corona decorativa" />
+              <h2 data-i18n-key="feature4">Atracciones Turísticas</h2>
+              <div class="card-description">
+                <p data-i18n-key="feature4Desc">
+                  Maravillosas atracciones turísticas que Colombia tiene para
+                  ofrecer, desde museos hasta parques naturales.
+                </p>
+              </div>
+              <div class="card-button-container">
+                <a data-i18n-key="featuregetInfoColombia"
+                  href="https://api-colombia.com/api/v1/TouristicAttraction"
+                  target="_blank" rel="noopener"
+                  class="card-button">
+                  Get Info Colombia
+                  <img src="./assets/icons/external-link-icon.svg"
+                    alt="Enlace externo"
+                    style="width: 16px; height: 16px; margin-left: 2px" />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="cuerpoModal">
-          <div id="menuMobile">
-            <a href="https://api-colombia.com/swagger/index.html" target="_blank">
-              <spa data-i18n-key="documentation" >Documentación</spa>
-            </a>
-          </li>
-          <li>
-            <a href="#informacionAPIS">
-              <span data-i18n-key="features">Funcionalidades</span>
-            </a>
-          </li>
-          <li>
-            <a href="#Colaboradores">
-              <span data-i18n-key="contributors">Contribuidores</span>
-            </a>
-          </li>
-          <li>
-            <span>|</span>
-          </li>
-        </ul>
-        <div class="section-iconosExtras">
-          <img id="modoWeb" src="/assets/icons/sun-icon.svg" alt="modo oscuro/claro" />
+        <!-- START MODULE API -->
+        <div class="parteDerecha">
+          <div class="module-api">
+            <div class="options-api">
+              <p id="parrafoApi"
+                style="font-family: 'Poppins'; font-weight: bold; font-size: 13px">
+                https://api-colombia.com/api/
+              </p>
+              <select id="selectVersion" name="version"
+                aria-label="Selecciona una versión">
+                <option value="v1">v1</option>
+              </select>
+              <select id="selectData" name="data"
+                aria-label="Selecciona un tipo de dato">
+                <option value="Department">Department</option>
+                <option value="President">President</option>
+                <option value="NaturalArea">NaturalArea</option>
+                <option value="CategoryNaturalArea">CategoryNaturalArea</option>
+                <option value="Map">Map</option>
+                <option value="Region">Region</option>
+                <option value="TouristicAttraction">Touristic</option>
+                <option value="CountryColombia">Country/Colombia</option>
+                <option value="Invasivespecie">InvasiveSpecie</option>
+                <option value="NativeCommunity">NativeCommunity</option>
+                <option value="Airport">Airport</option>
+                <option value="Radio">Radio</option>
+                <option value="Holiday">Holiday</option>
+                <option value="TypicalDish">TypicalDish</option>
+                <option value="constitutionarticle">ConstitutionArticle</option>
+              </select>
+              <select id="selectYear" name="Seleccionar año"
+                aria-label="Seleccionar año" style="display: none"></select>
+              <button data-i18n-key="solicitar"
+                id="btnSolicitar">Solicitar</button>
+            </div>
+            <div class="block-api">
+              <div class="text-api1">
+                <span class="api"
+                  style="color: #c586c0; padding-left: 1em; font-size: small">fetch</span>
+                <p class="parentesis-apertura"
+                  style="color: #d4d4d4; margin-left: 0.003em; font-size: small">
+                  (
+                </p>
+                <p class="url-api"
+                  style="color: #ce9178; margin-left: 0.003em; font-size: small">
+                  'https://api-colombia.com/api/v1/
+                </p>
+                <p class="endpoint" id="endpoint"
+                  style="color: #ce9178; margin-left: 0.003em; font-size: small">
+                  Department'
+                </p>
+                <p class="parentesis-cierre"
+                  style="color: #d4d4d4; margin-left: 0.003em; font-size: small">
+                  )
+                </p>
+                <br />
+              </div>
+              <div class="text-api2">
+                <span class="then"
+                  style="color: #d4d4d4; font-size: small">.then (</span>
+                <p class="text" style="color: #9cdcfe; font-size: small">
+                  response
+                </p>
+                <p class="text2"
+                  style="margin-left: 1em; font-size: small">=></p>
+                <p class="text"
+                  style="color: #9cdcfe; margin-left: 1em; font-size: small">
+                  response
+                </p>
+                <p class="text3" style="margin-left: 0.3em; font-size: small">
+                  .
+                </p>
+                <p class="text4"
+                  style="color: #c586c0; margin-left: 0.3em; font-size: small">
+                  json
+                </p>
+                <p class="text5" style="font-size: small">())</p>
+              </div>
 
-          <div class="section-github">
-            <a href="https://github.com/Mteheran/api-colombia" target="_blank">
-              <img id="githubIcon" src="/assets/icons/github-icon.svg" alt="logo-github" />
+              <div class="text-api3">
+                <span class="then"
+                  style="color: #d4d4d4; font-size: small">.then (</span>
+                <p class="text"
+                  style="color: #9cdcfe; font-size: small">json</p>
+                <p class="text2"
+                  style="margin-left: 1em; font-size: small">=></p>
+                <p class="text"
+                  style="color: #9cdcfe; margin-left: 1em; font-size: small">
+                  console
+                </p>
+                <p class="text3" style="margin-left: 0.3em; font-size: small">
+                  .
+                </p>
+                <p class="text4"
+                  style="color: #c586c0; margin-left: 0.3em; font-size: small">
+                  log
+                </p>
+                <p class="parentesis-apertura2"
+                  style="color: #ffffff; margin-left: 0.1em; font-size: small">
+                  (
+                </p>
+                <p class="text"
+                  style="color: #9cdcfe; font-size: small">json</p>
+                <p class="parentesis-cierre2"
+                  style="color: #ffffff; margin-left: 0.003em; font-size: small">
+                  )
+                </p>
+                <p class="parentesis-cierre2"
+                  style="color: #ffffff; margin-left: 0.003em; font-size: small">
+                  )
+                </p>
+              </div>
+            </div>
+            <div class="api">
+              <code class="resultado">
+                <p>Cargando...</p>
+              </code>
+            </div>
+          </div>
+        </div>
+        <!-- END MODULE API -->
+      </section>
 
-              <p>221</p>
+      <section id="Colaboradores">
+        <h1 data-i18n-key="contributors">Contribuidores</h1>
+        <p data-i18n-key="contributorsText">
+          Creemos en la colaboración y el intercambio de conocimiento como
+          pilares
+          para construir herramientas innovadoras que beneficien a todos.
+        </p>
+        <div class="contenedorprincipal">
+          <div class="colaboradores partuna">
+            <a href="https://www.linkedin.com/in/mteheran/" target="_blank">
+              <img src="./assets/contributors/miguel-teheran-contributor.png"
+                alt="Miguel Teheran" />
             </a>
+
+            <a href="https://www.linkedin.com/in/alejandrohv/" target="_blank">
+              <img
+                src="./assets/contributors/alejandro-herreño-contributor.png"
+                alt="Alejandro Herreño" />
+            </a>
+          </div>
+          <div class="colaboradores partdos">
+            <a href="https://www.linkedin.com/in/rina-plata/"
+              target="_blank"><img
+                src="./assets/contributors/rita-plata-contributor.png"
+                alt="Rina Plata" /></a>
+            <a href="https://www.linkedin.com/in/mariobot/" target="_blank"><img
+                src="./assets/contributors/mario-botero-contributor.png"
+                alt="Mario Botero" /></a>
+          </div>
+          <div class="colaboradores parttres">
+            <a href="https://www.linkedin.com/in/veronicaguaman/"
+              target="_blank"><img
+                src="./assets/contributors/veronica-guaman-contributor.png"
+                alt="Veronica Guaman" /></a>
+            <a href="https://www.linkedin.com/in/lilivalgo/"
+              target="_blank"><img
+                src="./assets/contributors/lili-valencia-contributor.png"
+                alt="Lili Valencia" /></a>
           </div>
         </div>
       </section>
-    </div>
-  </section>
-  <section id="informacionAPIS">
-    <div class="parteIzquierda">
-      <h1 data-i18n-key="uniqueFeatures">Funcionalidades Únicas</h1>
-      <p data-i18n-key="featuresDescription">
-        Explora fácilmente Colombia con nuestra API: información pública desde
-        lo general hasta lo específico, sin autenticación.
-      </p>
-      <button data-i18n-key="readDocs" class="botonDocumentacion">Lee la documentación</button>
 
-      <div class="cards">
-        <div class="caja uno">
-          <img src="./assets/crown-decorative.svg" alt="Corona decorativa" />
-          <h2 data-i18n-key="feature1">Información General de Colombia</h2>
-          <div class="card-description">
-            <p data-i18n-key="feature1Desc">
-              Accede a datos completos sobre Colombia, incluyendo su capital,
-              superficie, población, idiomas, y más.
-            </p>
-          </div>
-
-          <div class="card-button-container">
-            <a data-i18n-key="featuregetInfoColombia" href="https://api-colombia.com/api/v1/Country/Colombia" target="_blank" rel="noopener"
-              class="card-button">
-              Get Info Colombia
-              <img src="./assets/icons/external-link-icon.svg" alt="" aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-        <div class="caja dos">
-          <img src="./assets/crown-decorative.svg" alt="Corona decorativa" />
-          <h2 data-i18n-key="feature2">Departamentos</h2>
-          <div class="card-description">
-            <p data-i18n-key="feature2Desc">
-              Directorio completo de departamentos, revelando la
-              geografía
-              única de Colombia.
-            </p>
-          </div>
-          <div class="card-button-container">
-            <a data-i18n-key="featuregetInfoColombia" href="https://api-colombia.com/api/v1/Department" target="_blank" rel="noopener" class="card-button">
-              Get Department
-              <img src="./assets/icons/external-link-icon.svg" alt="Enlace externo"
-                style="width: 16px; height: 16px; margin-left: 2px" />
-            </a>
-          </div>
-        </div>
-        <div class="caja tres">
-          <img src="./assets/crown-decorative.svg" alt="Corona decorativa" />
-          <h2 data-i18n-key="feature3">Regiones</h2>
-          <div class="card-description">
-            <p data-i18n-key="feature3Desc" class="feature3Desc">
-              Explora las regiones de Colombia, cada una con su encanto y
-              particularidades, listas para ser descubiertas.
-            </p>
-          </div>
-        </section>
-      </div>
-    </section>
-    <section id="informacionAPIS">
-      <div class="parteIzquierda">
-        <h1>Funcionalidades Únicas</h1>
-        <p>
-          Explora fácilmente Colombia con nuestra API: información pública desde
-          lo general hasta lo específico, sin autenticación.
+      <section id="Sponsor">
+        <h1>Patrocinadores</h1>
+        <p class="text-responsive">
+          Gracias al apoyo de nuestros patrocinadores, API-Colombia se mantiene
+          activa y gratuita, con más de <strong>2 millones</strong> de
+          solicitudes
+          mensuales.
         </p>
-        <button class="botonDocumentacion">Lee la documentación</button>
+        <p class="text-responsive">
+          Creemos en la colaboración abierta. Si deseas apoyar este proyecto,
+          puedes convertirte en patrocinador también.
+        </p>
 
-          <div class="card-button-container">
-            <a data-i18n-key="feature3" href="https://api-colombia.com/api/v1/Region" target="_blank" rel="noopener" class="card-button">
-              Get Región
-              <img src="./assets/icons/external-link-icon.svg" alt="Enlace externo"
-                style="width: 16px; height: 16px; margin-left: 2px" />
-            </a>
-          </div>
-        </div>
-        <div class="caja cuatro">
-          <img src="./assets/crown-decorative.svg" alt="Corona decorativa" />
-          <h2 data-i18n-key="feature4" >Atracciones Turísticas</h2>
-          <div class="card-description">
-            <p data-i18n-key="feature4Desc">
-              Maravillosas atracciones turísticas que Colombia tiene para
-              ofrecer, desde museos hasta parques naturales.
-            </p>
-          </div>
-          <div class="card-button-container">
-            <a data-i18n-key="featuregetInfoColombia" href="https://api-colombia.com/api/v1/TouristicAttraction" target="_blank" rel="noopener"
-              class="card-button">
-              Get Info Colombia
-              <img src="./assets/icons/external-link-icon.svg" alt="Enlace externo"
-                style="width: 16px; height: 16px; margin-left: 2px" />
-            </a>
-          </div>
-        </div>
-      </div>
+        <div class="sponsors-container">
+          <div class="sponsor-card" role="group" aria-labelledby="sponsor-name"
+            aria-describedby="sponsor-role">
+            <img src="./assets/sponsors/david-caballero.png"
+              alt="Fotografía de David Caballero" class="sponsor-photo" />
 
-    <!-- START MODULE API -->
-    <div class="parteDerecha">
-      <div class="module-api">
-        <div class="options-api">
-          <p id="parrafoApi" style="font-family: 'Poppins'; font-weight: bold; font-size: 13px">
-            https://api-colombia.com/api/
-          </p>
-          <select id="selectVersion" name="version" aria-label="Selecciona una versión">
-            <option value="v1">v1</option>
-          </select>
-          <select id="selectData" name="data" aria-label="Selecciona un tipo de dato">
-            <option value="Department">Department</option>
-            <option value="President">President</option>
-            <option value="NaturalArea">NaturalArea</option>
-            <option value="CategoryNaturalArea">CategoryNaturalArea</option>
-            <option value="Map">Map</option>
-            <option value="Region">Region</option>
-            <option value="TouristicAttraction">Touristic</option>
-            <option value="CountryColombia">Country/Colombia</option>
-            <option value="Invasivespecie">InvasiveSpecie</option>
-            <option value="NativeCommunity">NativeCommunity</option>
-            <option value="Airport">Airport</option>
-            <option value="Radio">Radio</option>
-            <option value="Holiday">Holiday</option>
-            <option value="TypicalDish">TypicalDish</option>
-            <option value="constitutionarticle">ConstitutionArticle</option>
-          </select>
-          <select id="selectYear" name="Seleccionar año" aria-label="Seleccionar año" style="display: none"></select>
-          <button data-i18n-key="solicitar" id="btnSolicitar">Solicitar</button>
-        </div>
-        <div class="block-api">
-          <div class="text-api1">
-            <span class="api" style="color: #c586c0; padding-left: 1em; font-size: small">fetch</span>
-            <p class="parentesis-apertura" style="color: #d4d4d4; margin-left: 0.003em; font-size: small">
-              (
-            </p>
-            <select id="selectVersion" name="version" aria-label="Selecciona una versión">
-              <option value="v1">v1</option>
-            </select>
-            <select id="selectData" name="data" aria-label="Selecciona un tipo de dato">
-              <option value="Department">Department</option>
-              <option value="President">President</option>
-              <option value="NaturalArea">NaturalArea</option>
-              <option value="CategoryNaturalArea">CategoryNaturalArea</option>
-              <option value="Map">Map</option>
-              <option value="Region">Region</option>
-              <option value="TouristicAttraction">Touristic</option>
-              <option value="CountryColombia">Country/Colombia</option>
-              <option value="Invasivespecie">InvasiveSpecie</option>
-              <option value="NativeCommunity">NativeCommunity</option>
-              <option value="Airport">Airport</option>
-              <option value="Radio">Radio</option>
-              <option value="Holiday">Holiday</option>
-              <option value="TypicalDish">TypicalDish</option>
-              <option value="constitutionarticle">ConstitutionArticle</option>
-            </select>
-            <select id="selectYear" name="Seleccionar año" aria-label="Seleccionar año" style="display: none"></select>
-            <button id="btnSolicitar">Solicitar</button>
-          </div>
-          <div class="block-api">
-            <div class="text-api1">
-              <span class="api" style="color: #c586c0; padding-left: 1em; font-size: small">fetch</span>
-              <p class="parentesis-apertura" style="color: #d4d4d4; margin-left: 0.003em; font-size: small">
-                (
-              </p>
-              <p class="url-api" style="color: #ce9178; margin-left: 0.003em; font-size: small">
-                'https://api-colombia.com/api/v1/
-              </p>
-              <p class="endpoint" id="endpoint" style="color: #ce9178; margin-left: 0.003em; font-size: small">
-                Department'
-              </p>
-              <p class="parentesis-cierre" style="color: #d4d4d4; margin-left: 0.003em; font-size: small">
-                )
-              </p>
-              <br />
-            </div>
-            <div class="text-api2">
-              <span class="then" style="color: #d4d4d4; font-size: small">.then (</span>
-              <p class="text" style="color: #9cdcfe; font-size: small">
-                response
-              </p>
-              <p class="text2" style="margin-left: 1em; font-size: small">=></p>
-              <p class="text" style="color: #9cdcfe; margin-left: 1em; font-size: small">
-                response
-              </p>
-              <p class="text3" style="margin-left: 0.3em; font-size: small">
-                .
-              </p>
-              <p class="text4" style="color: #c586c0; margin-left: 0.3em; font-size: small">
-                json
-              </p>
-              <p class="text5" style="font-size: small">())</p>
+            <div class="sponsor-info">
+              <span id="sponsor-name" class="sponsor-name">David
+                Caballero</span>
+              <a
+                href="https://www.linkedin.com/in/dcaballerom/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                target="_blank" rel="noopener noreferrer"
+                aria-label="Perfil de LinkedIn de David Caballero">
+                <img src="./assets/sponsors/linkedin-icon.png"
+                  alt="Icono de LinkedIn" class="linkedin-icon" />
+              </a>
             </div>
 
-            <div class="text-api3">
-              <span class="then" style="color: #d4d4d4; font-size: small">.then (</span>
-              <p class="text" style="color: #9cdcfe; font-size: small">json</p>
-              <p class="text2" style="margin-left: 1em; font-size: small">=></p>
-              <p class="text" style="color: #9cdcfe; margin-left: 1em; font-size: small">
-                console
-              </p>
-              <p class="text3" style="margin-left: 0.3em; font-size: small">
-                .
-              </p>
-              <p class="text4" style="color: #c586c0; margin-left: 0.3em; font-size: small">
-                log
-              </p>
-              <p class="parentesis-apertura2" style="color: #ffffff; margin-left: 0.1em; font-size: small">
-                (
-              </p>
-              <p class="text" style="color: #9cdcfe; font-size: small">json</p>
-              <p class="parentesis-cierre2" style="color: #ffffff; margin-left: 0.003em; font-size: small">
-                )
-              </p>
-              <p class="parentesis-cierre2" style="color: #ffffff; margin-left: 0.003em; font-size: small">
-                )
-              </p>
-            </div>
-          </div>
-          <div class="api">
-            <code class="resultado">
-              <p>Cargando...</p>
-            </code>
+            <span id="sponsor-role" class="sr-only">Patrocinador oficial</span>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- END MODULE API -->
-  </section>
-  <section id="Colaboradores">
-    <h1 data-i18n-key="contributors">Contribuidores</h1>
-    <p data-i18n-key="contributorsText">
-      Creemos en la colaboración y el intercambio de conocimiento como pilares
-      para construir herramientas innovadoras que beneficien a todos.
-    </p>
-    <div class="contenedorprincipal">
-      <div class="colaboradores partuna">
-        <a href="https://www.linkedin.com/in/mteheran/" target="_blank">
-          <img src="./assets/contributors/miguel-teheran-contributor.png" alt="Miguel Teheran" />
-        </a>
 
-    <section id="Colaboradores">
-      <h1>Contribuidores</h1>
-      <p>
-        Creemos en la colaboración y el intercambio de conocimiento como pilares
-        para construir herramientas innovadoras que beneficien a todos.
-      </p>
-      <div class="contenedorprincipal">
-        <div class="colaboradores partuna">
-          <a href="https://www.linkedin.com/in/mteheran/" target="_blank">
-            <img src="./assets/contributors/miguel-teheran-contributor.png" alt="Miguel Teheran" />
-          </a>
+        <div class="boton-donar-container">
+          <a href="https://github.com/sponsors/Mteheran" target="_blank"
+            class="boton-donar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19.5 12.572L12 20L4.5 12.572C4.00531 12.0906 3.61564 11.512 3.35555 10.8726C3.09545 10.2333 2.97056 9.54694 2.98874 8.85693C3.00691 8.16691 3.16776 7.48813 3.46116 6.86333C3.75455 6.23853 4.17414 5.68125 4.69349 5.22657C5.21284 4.7719 5.8207 4.42968 6.47881 4.22147C7.13692 4.01327 7.83101 3.94358 8.51737 4.0168C9.20373 4.09001 9.8675 4.30455 10.4669 4.6469C11.0663 4.98925 11.5882 5.45199 12 6.00599C12.4135 5.45602 12.9361 4.99731 13.5351 4.6586C14.1341 4.31988 14.7965 4.10844 15.4809 4.03751C16.1654 3.96658 16.8571 4.03769 17.5128 4.24639C18.1685 4.45508 18.774 4.79687 19.2916 5.25036C19.8091 5.70385 20.2274 6.25928 20.5204 6.88189C20.8134 7.50449 20.9747 8.18088 20.9943 8.8687C21.0139 9.55653 20.8913 10.241 20.6341 10.8792C20.377 11.5175 19.9909 12.0958 19.5 12.578"
+                stroke="#C8102E" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
 
-          <a href="https://www.linkedin.com/in/alejandrohv/" target="_blank">
-            <img src="./assets/contributors/alejandro-herreño-contributor.png" alt="Alejandro Herreño" />
+            <span data-i18n-key="sponsor">Patrocinar</span>
+
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M15 5C14.4477 5 14 4.55228 14 4C14 3.44772 14.4477 3 15 3H20C20.5523 3 21 3.44772 21 4V9C21 9.55228 20.5523 10 20 10C19.4477 10 19 9.55228 19 9V6.41421L11.7071 13.7071C11.3166 14.0976 10.6834 14.0976 10.2929 13.7071C9.90237 13.3166 9.90237 12.6834 10.2929 12.2929L17.5858 5H15ZM3.87868 5.87868C4.44129 5.31607 5.20435 5 6 5H12C12.5523 5 13 5.44772 13 6C13 6.55228 12.5523 7 12 7H6C5.73478 7 5.48043 7.10536 5.29289 7.29289C5.10536 7.48043 5 7.73478 5 8V18C5 18.2652 5.10536 18.5196 5.29289 18.7071C5.48043 18.8946 5.73478 19 6 19H16C16.2652 19 16.5196 18.8946 16.7071 18.7071C16.8946 18.5196 17 18.2652 17 18V12C17 11.4477 17.4477 11 18 11C18.5523 11 19 11.4477 19 12V18C19 18.7957 18.6839 19.5587 18.1213 20.1213C17.5587 20.6839 16.7957 21 16 21H6C5.20435 21 4.44129 20.6839 3.87868 20.1213C3.31607 19.5587 3 18.7956 3 18V8C3 7.20435 3.31607 6.44129 3.87868 5.87868Z"
+                fill="black" />
+            </svg>
           </a>
         </div>
-        <div class="colaboradores partdos">
-          <a href="https://www.linkedin.com/in/rina-plata/" target="_blank"><img
-              src="./assets/contributors/rita-plata-contributor.png" alt="Rina Plata" /></a>
-          <a href="https://www.linkedin.com/in/mariobot/" target="_blank"><img
-              src="./assets/contributors/mario-botero-contributor.png" alt="Mario Botero" /></a>
-        </div>
-        <div class="colaboradores parttres">
-          <a href="https://www.linkedin.com/in/veronicaguaman/" target="_blank"><img
-              src="./assets/contributors/veronica-guaman-contributor.png" alt="Veronica Guaman" /></a>
-          <a href="https://www.linkedin.com/in/lilivalgo/" target="_blank"><img
-              src="./assets/contributors/lili-valencia-contributor.png" alt="Lili Valencia" /></a>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="Sponsor">
-      <h1>Patrocinadores</h1>
-      <p class="text-responsive">
-        Gracias al apoyo de nuestros patrocinadores, API-Colombia se mantiene
-        activa y gratuita, con más de <strong>2 millones</strong> de solicitudes
-        mensuales.
-      </p>
-      <p class="text-responsive">
-        Creemos en la colaboración abierta. Si deseas apoyar este proyecto,
-        puedes convertirte en patrocinador también.
-      </p>
+      <footer>
+        <img id="Logo-API" src="assets/logo-light.svg" alt="Logo-API" />
+        <div class="made">
+          <span data-i18n-key="madeWith"> Hecho con el </span>
 
-      <div class="sponsors-container">
-        <div class="sponsor-card" role="group" aria-labelledby="sponsor-name" aria-describedby="sponsor-role">
-          <img src="./assets/sponsors/david-caballero.png" alt="Fotografía de David Caballero" class="sponsor-photo" />
-
-          <div class="sponsor-info">
-            <span id="sponsor-name" class="sponsor-name">David Caballero</span>
-            <a href="https://www.linkedin.com/in/dcaballerom/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
-              target="_blank" rel="noopener noreferrer" aria-label="Perfil de LinkedIn de David Caballero">
-              <img src="./assets/sponsors/linkedin-icon.png" alt="Icono de LinkedIn" class="linkedin-icon" />
-            </a>
+          <div class="hearts">
+            <img src="./assets/yellow-heart.png" alt="corazon amarrillo" />
+            <img src="./assets/blue-heart.png" alt="corazon azul" />
+            <img src="./assets/red-heart.png" alt="corazon rojo" />
           </div>
-
-          <span id="sponsor-role" class="sr-only">Patrocinador oficial</span>
         </div>
-      </div>
-
-      <div class="boton-donar-container">
-        <a href="https://github.com/sponsors/Mteheran" target="_blank" class="boton-donar">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M19.5 12.572L12 20L4.5 12.572C4.00531 12.0906 3.61564 11.512 3.35555 10.8726C3.09545 10.2333 2.97056 9.54694 2.98874 8.85693C3.00691 8.16691 3.16776 7.48813 3.46116 6.86333C3.75455 6.23853 4.17414 5.68125 4.69349 5.22657C5.21284 4.7719 5.8207 4.42968 6.47881 4.22147C7.13692 4.01327 7.83101 3.94358 8.51737 4.0168C9.20373 4.09001 9.8675 4.30455 10.4669 4.6469C11.0663 4.98925 11.5882 5.45199 12 6.00599C12.4135 5.45602 12.9361 4.99731 13.5351 4.6586C14.1341 4.31988 14.7965 4.10844 15.4809 4.03751C16.1654 3.96658 16.8571 4.03769 17.5128 4.24639C18.1685 4.45508 18.774 4.79687 19.2916 5.25036C19.8091 5.70385 20.2274 6.25928 20.5204 6.88189C20.8134 7.50449 20.9747 8.18088 20.9943 8.8687C21.0139 9.55653 20.8913 10.241 20.6341 10.8792C20.377 11.5175 19.9909 12.0958 19.5 12.578"
-              stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-
-          <span>Patrocinar</span>
-
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M15 5C14.4477 5 14 4.55228 14 4C14 3.44772 14.4477 3 15 3H20C20.5523 3 21 3.44772 21 4V9C21 9.55228 20.5523 10 20 10C19.4477 10 19 9.55228 19 9V6.41421L11.7071 13.7071C11.3166 14.0976 10.6834 14.0976 10.2929 13.7071C9.90237 13.3166 9.90237 12.6834 10.2929 12.2929L17.5858 5H15ZM3.87868 5.87868C4.44129 5.31607 5.20435 5 6 5H12C12.5523 5 13 5.44772 13 6C13 6.55228 12.5523 7 12 7H6C5.73478 7 5.48043 7.10536 5.29289 7.29289C5.10536 7.48043 5 7.73478 5 8V18C5 18.2652 5.10536 18.5196 5.29289 18.7071C5.48043 18.8946 5.73478 19 6 19H16C16.2652 19 16.5196 18.8946 16.7071 18.7071C16.8946 18.5196 17 18.2652 17 18V12C17 11.4477 17.4477 11 18 11C18.5523 11 19 11.4477 19 12V18C19 18.7957 18.6839 19.5587 18.1213 20.1213C17.5587 20.6839 16.7957 21 16 21H6C5.20435 21 4.44129 20.6839 3.87868 20.1213C3.31607 19.5587 3 18.7956 3 18V8C3 7.20435 3.31607 6.44129 3.87868 5.87868Z"
-              fill="black" />
-          </svg>
-        </a>
-      </div>
-    </section>
-
-
-    <footer>
-      <img id="Logo-API" src="assets/logo-light.svg" alt="Logo-API" />
-      <div class="made">
-        <span> Hecho con el </span>
-
-        <div class="hearts">
-          <img src="./assets/yellow-heart.png" alt="corazon amarrillo" />
-          <img src="./assets/blue-heart.png" alt="corazon azul" />
-          <img src="./assets/red-heart.png" alt="corazon rojo" />
-        </div>
-      </div>
-      <div class="colaboradores parttres">
-        <a href="https://www.linkedin.com/in/veronicaguaman/" target="_blank"><img
-            src="./assets/contributors/veronica-guaman-contributor.png" alt="Veronica Guaman" /></a>
-        <a href="https://www.linkedin.com/in/lilivalgo/" target="_blank"><img
-            src="./assets/contributors/lili-valencia-contributor.png" alt="Lili Valencia" /></a>
-      </div>
+      </footer>
+      <script src="js/moduleApi.js"></script>
+      <script src="js/modal.js"></script>
+      <script src="js/scriptantiguo.js"></script>
+      <script src="js/scriptHome.js"></script>
+      <script src="/js/translations.js"></script>
+      <script src="/js/i18n.js"></script>
     </div>
-  </section>
-
-  <div class="sponsorships sponsorships-responsive">
-    <p data-i18n-key="sponsorText1" class="text-responsive">
-      API-Colombia, con mas de 2M solicitudes, es tu fuente
-    </p>
-    <p data-i18n-key="sponsorText2" class="text-responsive">
-      abierta sobre Colombia. Te invitamos a contribuir o patrocinar
-    </p>
-    <p data-i18n-key="sponsorText3" class="text-responsive">
-      para enriquecer y expandir nuestro proyecto.
-    </p>
-
-    <a href="https://github.com/sponsors/Mteheran " target="_blank" class="sponsor">
-      <svg class="icon1" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_76_638)">
-          <path
-            d="M19.5 12.572L12 20L4.5 12.572C4.00531 12.0906 3.61564 11.512 3.35555 10.8726C3.09545 10.2333 2.97056 9.54694 2.98874 8.85693C3.00691 8.16691 3.16776 7.48813 3.46116 6.86333C3.75455 6.23853 4.17414 5.68125 4.69349 5.22657C5.21284 4.7719 5.8207 4.42968 6.47881 4.22147C7.13692 4.01327 7.83101 3.94358 8.51737 4.0168C9.20373 4.09001 9.8675 4.30455 10.4669 4.6469C11.0663 4.98925 11.5882 5.45199 12 6.00599C12.4135 5.45602 12.9361 4.99731 13.5351 4.6586C14.1341 4.31988 14.7965 4.10844 15.4809 4.03751C16.1654 3.96658 16.8571 4.03769 17.5128 4.24639C18.1685 4.45508 18.774 4.79687 19.2916 5.25036C19.8091 5.70385 20.2274 6.25928 20.5204 6.88189C20.8134 7.50449 20.9747 8.18088 20.9943 8.8687C21.0139 9.55653 20.8913 10.241 20.6341 10.8792C20.377 11.5175 19.9909 12.0958 19.5 12.578"
-            stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </g>
-        <defs>
-          <clipPath id="clip0_76_638">
-            <rect width="24" height="24" fill="white" />
-          </clipPath>
-        </defs>
-      </svg>
-
-      <p data-i18n-key="sponsor">Patrocinar</p>
-
-      <svg class="icon2" width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd"
-          d="M15 5C14.4477 5 14 4.55228 14 4C14 3.44772 14.4477 3 15 3H20C20.5523 3 21 3.44772 21 4V9C21 9.55228 20.5523 10 20 10C19.4477 10 19 9.55228 19 9V6.41421L11.7071 13.7071C11.3166 14.0976 10.6834 14.0976 10.2929 13.7071C9.90237 13.3166 9.90237 12.6834 10.2929 12.2929L17.5858 5H15ZM3.87868 5.87868C4.44129 5.31607 5.20435 5 6 5H12C12.5523 5 13 5.44772 13 6C13 6.55228 12.5523 7 12 7H6C5.73478 7 5.48043 7.10536 5.29289 7.29289C5.10536 7.48043 5 7.73478 5 8V18C5 18.2652 5.10536 18.5196 5.29289 18.7071C5.48043 18.8946 5.73478 19 6 19H16C16.2652 19 16.5196 18.8946 16.7071 18.7071C16.8946 18.5196 17 18.2652 17 18V12C17 11.4477 17.4477 11 18 11C18.5523 11 19 11.4477 19 12V18C19 18.7957 18.6839 19.5587 18.1213 20.1213C17.5587 20.6839 16.7957 21 16 21H6C5.20435 21 4.44129 20.6839 3.87868 20.1213C3.31607 19.5587 3 18.7956 3 18V8C3 7.20435 3.31607 6.44129 3.87868 5.87868Z"
-          fill="black" />
-      </svg>
-    </a>
-  </div>
-
-  <footer>
-    <img id="Logo-API" src="assets/logo-light.svg" alt="Logo-API" />
-    <div class="made">
-      <span data-i18n-key="madeWith"> Hecho con el </span>
-
-      <div class="hearts">
-        <img src="./assets/yellow-heart.png" alt="corazon amarrillo" />
-        <img src="./assets/blue-heart.png" alt="corazon azul" />
-        <img src="./assets/red-heart.png" alt="corazon rojo" />
-      </div>
-    </div>
-  </footer>
-  <script src="js/moduleApi.js"></script>
-  <script src="js/modal.js"></script>
-  <script src="js/scriptantiguo.js"></script>
-  <script src="js/scriptHome.js"></script>
-  <script src="/js/i18n.js"></script>
-</body>
+  </body>
 
 </html>

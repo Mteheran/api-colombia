@@ -46,7 +46,7 @@ body {
 #ContenedorHeader {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 90%;
   height: 66px;
   margin-top: 16px;
   justify-content: space-between;
@@ -54,13 +54,12 @@ body {
 }
 
 .navegador {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 40em;
-    align-items: center;
-    margin-right: 2em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 2em;
 }
 
 .menu-desplegable {
@@ -94,12 +93,11 @@ body {
 }
 
 .section-iconosExtras {
-    flex-wrap: wrap;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 126px;
-    gap: 32px;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 32px;
 }
 
 .section-github {
@@ -1196,6 +1194,17 @@ body.dark .menu-desplegable span {
   color: #ffffff;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .language-selector {
   display: flex;
   align-items: center;
@@ -1230,7 +1239,7 @@ body.dark .menu-desplegable span {
 .language-selector .arrow-icon {
   width: 10px;
   height: 10px;
-  margin-left: auto; 
+  margin-left: auto;
 }
 
 .language-selector select {
@@ -1246,9 +1255,9 @@ body.dark .menu-desplegable span {
   appearance: none;
   opacity: 0;
   z-index: 2;
-  text-align-last: center; 
+  text-align-last: center;
   -moz-text-align-last: center; 
-  padding: 0 5px;
+  padding: 0 5px
 }
 
 .language-selector select::-ms-expand {
@@ -1265,16 +1274,4 @@ body.dark .menu-desplegable span {
     width: 18px;
     height: 12px;
   }
-}
-
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
 }

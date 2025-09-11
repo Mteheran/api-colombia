@@ -1,5 +1,7 @@
 let translations = {};
 const languageSelector = document.getElementById('languageSelector');
+const selectedFlag = document.getElementById('selectedFlag');
+const languageText = document.getElementById('languageText');
 
 async function fetchTranslations() {
   try {
@@ -18,6 +20,7 @@ function setInitialLanguage() {
   const storedLang = localStorage.getItem('language') || 'es';
   languageSelector.value = storedLang;
   translatePage(storedLang);
+  updateFlagAndText(storedLang);
 }
 
 function translatePage(lang) {
@@ -29,11 +32,19 @@ function translatePage(lang) {
   });
 }
 
+function updateFlagAndText(lang) {
+  const selectedOption = languageSelector.options[languageSelector.selectedIndex];
+  const newFlagSrc = selectedOption.getAttribute('data-flag');
+  
+  selectedFlag.src = newFlagSrc;
+  languageText.textContent = lang.toUpperCase();
+}
+
 languageSelector.addEventListener('change', (event) => {
   const newLang = event.target.value;
   localStorage.setItem('language', newLang);
   translatePage(newLang);
+  updateFlagAndText(newLang);
 });
 
 document.addEventListener('DOMContentLoaded', fetchTranslations);
- 

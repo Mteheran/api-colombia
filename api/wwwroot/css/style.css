@@ -1067,51 +1067,58 @@ body.dark .menu-desplegable span {
 }
 
 .language-selector {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1px;
-    padding: 6px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: white;
-    width: 69px;
-    height: 30px;
-    font-family: "Krona One", sans-serif;
-    font-size: 12px;
-    line-height: 14.4px;
-    letter-spacing: 0.5px;
-    color: var(--third-color);
-    position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  width: 69px;
+  height: 30px;
+  font-family: "Krona One", sans-serif;
+  font-size: 12px;
+  line-height: 14.4px;
+  letter-spacing: 0.5px;
+  color: var(--third-color);
+  position: relative;
+  justify-content: center;
 }
 
 .language-selector img#selectedFlag {
   width: 20px;
   height: 14px;
   border-radius: 2px;
+  margin-right: auto;
 }
 
-.language-selector img.arrow-icon {
-  width: 29px;
+#languageText {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.language-selector .arrow-icon {
+  width: 10px;
   height: 10px;
-  pointer-events: none;
+  margin-left: auto; 
 }
 
 .language-selector select {
-  border: none;
-  background: transparent;
-  font-family: "Krona One", sans-serif;
-  font-size: 12px;
-  line-height: 14.4px;
-  letter-spacing: 0.5px;
-  color: var(--third-color);
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  padding: 4px;
-  appearance: none;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  opacity: 0;
+  z-index: 2;
+  text-align-last: center; 
+  -moz-text-align-last: center; 
+  padding: 0 5px;
 }
 
 .language-selector select::-ms-expand {
@@ -1124,13 +1131,8 @@ body.dark .menu-desplegable span {
     font-size: 10px;
     gap: 6px;
   }
-
-  .language-selector img {
+  .language-selector img#selectedFlag {
     width: 18px;
     height: 12px;
-  }
-
-  .language-selector select {
-    font-size: 10px;
   }
 }

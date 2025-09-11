@@ -58,7 +58,6 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 40em;
   align-items: center;
   margin-right: 2em;
 }
@@ -98,7 +97,6 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 126px;
   gap: 32px;
 }
 
@@ -1205,4 +1203,75 @@ body.dark .menu-desplegable span {
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  width: 69px;
+  height: 30px;
+  font-family: "Krona One", sans-serif;
+  font-size: 12px;
+  line-height: 14.4px;
+  letter-spacing: 0.5px;
+  color: var(--third-color);
+  position: relative;
+  justify-content: center;
+}
+
+.language-selector img#selectedFlag {
+  width: 20px;
+  height: 14px;
+  border-radius: 2px;
+  margin-right: auto;
+}
+
+#languageText {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.language-selector .arrow-icon {
+  width: 10px;
+  height: 10px;
+  margin-left: auto;
+}
+
+.language-selector select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  opacity: 0;
+  z-index: 2;
+  text-align-last: center;
+  -moz-text-align-last: center; 
+  padding: 0 5px
+}
+
+.language-selector select::-ms-expand {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .language-selector {
+    padding: 4px 8px;
+    font-size: 10px;
+    gap: 6px;
+  }
+  .language-selector img#selectedFlag {
+    width: 18px;
+    height: 12px;
+  }
 }

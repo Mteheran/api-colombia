@@ -10,6 +10,7 @@
     "contributors": "Contribuidores",
     "uniqueFeatures": "Funcionalidades Únicas",
     "featuresDescription": "Explora fácilmente Colombia con nuestra API: información pública desde lo general hasta lo específico, sin autenticación.",
+    "featuregetInfoColombia": "Get Info Colombia",
     "readDocs": "Lee la documentación",
     "feature1": "Información General de Colombia",
     "feature1Desc": "Accede a datos completos sobre Colombia, incluyendo su capital, superficie, población, idiomas, y más.",
@@ -20,11 +21,12 @@
     "feature4": "Atracciones Turísticas",
     "feature4Desc": "Maravillosas atracciones turísticas que Colombia tiene para ofrecer, desde museos hasta parques naturales.",
     "contributorsText": "Creemos en la colaboración y el intercambio de conocimiento como pilares para construir herramientas innovadoras que beneficien a todos.",
-    "sponsorText1": "API-Colombia, con más de 100k solicitudes, es tu fuente",
+    "sponsorText1": "API-Colombia, con mas de 2M solicitudes, es tu fuente",
     "sponsorText2": "abierta sobre Colombia. Te invitamos a contribuir o patrocinar",
     "sponsorText3": "para enriquecer y expandir nuestro proyecto.",
     "sponsor": "Patrocinar",
-    "madeWith": "Hecho con el"
+    "madeWith": "Hecho con el",
+    "solicitar": "Solicitar"
   },
   "en": {
     "title": "Explore Colombia with API-Colombia",
@@ -47,11 +49,12 @@
     "feature4": "Tourist Attractions",
     "feature4Desc": "Wonderful tourist attractions Colombia has to offer, from museums to natural parks.",
     "contributorsText": "We believe in collaboration and knowledge sharing as pillars to build innovative tools that benefit everyone.",
-    "sponsorText1": "API-Colombia, with over 100k requests, is your open source",
+    "sponsorText1": "API-Colombia, with over 2 million requests, is your source.",
     "sponsorText2": "information about Colombia. We invite you to contribute or sponsor",
     "sponsorText3": "to enrich and expand our project.",
     "sponsor": "Sponsor",
-    "madeWith": "Made with"
+    "madeWith": "Made with",
+    "solicitar": "Apply"
   },
   "pt": {
     "title": "Explore a Colômbia com API-Colombia",
@@ -64,6 +67,7 @@
     "contributors": "Colaboradores",
     "uniqueFeatures": "Funcionalidades Únicas",
     "featuresDescription": "Explore facilmente a Colômbia com nossa API: informações públicas do geral ao específico, sem autenticação.",
+    "featuregetInfoColombia": "Obter infor sobre a Colômbia", 
     "readDocs": "Leia a documentação",
     "feature1": "Informações Gerais da Colômbia",
     "feature1Desc": "Acesse dados completos sobre a Colômbia, incluindo sua capital, área, população, idiomas e muito mais.",
@@ -74,10 +78,11 @@
     "feature4": "Atrações Turísticas",
     "feature4Desc": "Maravilhosas atrações turísticas que a Colômbia tem a oferecer, desde museus até parques naturais.",
     "contributorsText": "Acreditamos na colaboração e no compartilhamento de conhecimento como pilares para construir ferramentas inovadoras que beneficiem a todos.",
-    "sponsorText1": "API-Colombia, com mais de 100 mil solicitações, é sua fonte",
+    "sponsorText1": "API-Colombia, com mais de 2 milhões de solicitações, é a sua fonte",
     "sponsorText2": "aberta sobre a Colômbia. Convidamos você a contribuir ou patrocinar",
     "sponsorText3": "para enriquecer e expandir nosso projeto.",
     "sponsor": "Patrocinar",
-    "madeWith": "Feito com"
+    "madeWith": "Feito com",
+    "solicitar": "Solicitar"
   }
 }

@@ -35,6 +35,30 @@ Read this document in [Español](/README_es.md)
 * Update the connection string to your preferred database in the "appsettings.json" file.
 * Run the `dotnet build` command to generate the build of the project.
 
+## Documentation
+The documentation site is built with VitePress and lives in the `docs/` folder.
+
+Prerequisites:
+- Node.js 18+ installed.
+
+Setup:
+- `cd docs`
+- `npm install`
+
+Local development:
+- `npm run docs:dev`
+Starts the VitePress dev server with hot-reload.
+
+Build static site:
+- `npm run docs:build`
+The generated site will be in `docs/.vitepress/dist`.
+
+Preview built site:
+- `npm run docs:preview`
+Useful to simulate a production-like server locally.
+
+Note: Run all the commands above inside the `docs/` directory.
+
 ## Usage
 The public page [api-colombia.com](https://api-colombia.com/) has useful information about the API and a brief description of the available endpoints and the same allows access to the endpoints described below.
 

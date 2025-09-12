@@ -40,7 +40,7 @@ jobs:
         uses: aws-actions/codeguru-reviewer@v1.1
         with:
           build_path: target # build artifact(s) directory
-          s3_bucket: codeguru-reviewer-my-bucket  # S3 Bucket with "codeguru-reviewer-*" prefix
+          s3_bucket: codeguru-reviewer-demo-api-colombia # S3 Bucket with "codeguru-reviewer-*" prefix
       
       # Step 3: Upload results into GitHub
       - name: Upload review result

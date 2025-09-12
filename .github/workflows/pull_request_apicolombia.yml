@@ -28,6 +28,11 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release --no-restore
 
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # This is a required field for CodeGuru
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:

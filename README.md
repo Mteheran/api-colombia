@@ -153,6 +153,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/hamilgdev/"><img src="https://avatars.githubusercontent.com/u/37517478?v=4" width="100px;" alt="Hamilton Galeano"/><br /><sub><b>Hamilton Galeano</b></sub></a><br /><a href="https://github.com/Mteheran/api-colombia/commits?author=hamilgdev" title="Documentation">📖</a> </td>
     <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/leomaris-reyes-1b598661/"><img src="https://avatars.githubusercontent.com/u/35940594?v=4" width="120px;" alt="Leomarys Reyes"/><br /><sub><b>Leomaris Reyes</b></sub></a><br /><a href="https://github.com/LeomarisReyes" title="Code">💻</a></td>
+    <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/enzonotario/"><img src="https://avatars.githubusercontent.com/u/10469299?v=4" width="120px;" alt="Enzo Notario"/><br /><sub><b>Enzo Notario</b></sub></a><br /><a href="https://github.com/enzonotario" title="Code">💻</a></td>
   </tr>
   </tbody>
   <tfoot>

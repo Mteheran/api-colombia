@@ -28,6 +28,16 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release --no-restore
 
+      - name: Install Cursor CLI
+        run: |
+          curl https://cursor.com/install -fsS | bash
+          echo "$HOME/.cursor/bin" >> $GITHUB_PATH
+      - name: Run Cursor Agent
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+        run: |
+              cursor-agent -p "You have full access to git, GitHub CLI, and PR operations. Create all the comments in the pull request adding, suggestions, posible security issues and recomendations" --model gpt-5
+
       - name: Run tests with coverage
         run: dotnet test --no-build --configuration Release --settings ./coverlet.runsettings --collect:"XPlat Code Coverage" --logger trx --results-directory ../TestResults /p:CollectCoverage=true /p:CoverletOutput=../TestResults/ /p:CoverletOutputFormat=json
       

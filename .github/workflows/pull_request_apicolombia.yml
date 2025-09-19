@@ -10,6 +10,9 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     defaults:
       run:
         working-directory: api.Tests
@@ -27,6 +30,12 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release --no-restore
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install Cursor CLI
         run: |

@@ -1,5 +1,5 @@
 const apiBaseUrl = "https://api-colombia.com/api/";
-const cache = new Map(); // Mapeo para almacenar las respuestas en caché
+const cache = new Map(); // Mapeo para almacenar las respuestas en cachéß
 
 // Obtengo los elementos necesarios por su ID o clase
 const selectVersion = document.getElementById("selectVersion");
@@ -12,7 +12,6 @@ async function fetchData(apiUrl) {
   try {
     // Verifico si la respuesta está en caché
     if (cache.has(apiUrl)) {
-      console.log("Datos obtenidos de la caché");
       return cache.get(apiUrl);
     }
 
@@ -54,7 +53,6 @@ selectData.addEventListener("change", function () {
 async function fetchData(apiUrl) {
   try {
     if (cache.has(apiUrl)) {
-      console.log("✅ Datos obtenidos de la caché:", apiUrl);
       return cache.get(apiUrl);
     }
 
@@ -115,7 +113,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   try {
     const responseData = await fetchData(apiUrl);
-    console.log(responseData);
     resultadoDiv.innerText = JSON.stringify(responseData, null, 2);
   } catch (error) {
     resultadoDiv.innerHTML = "<p>No se encontraron datos. Vuelva a intentarlo</p>";
@@ -189,7 +186,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   try {
     const responseData = await fetchData(apiUrl);
-    console.log(responseData);
     resultadoDiv.innerText = JSON.stringify(responseData, null, 2);
   } catch (error) {
     console.error("Error al obtener los datos:", error);

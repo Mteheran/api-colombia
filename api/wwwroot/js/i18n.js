@@ -103,9 +103,7 @@ function getBrowserInfo() {
     platform: navigator.platform,
     online: navigator.onLine
   };
-  
-  console.log('🌐 Browser Info:', info);
-  return info;
+    return info;
 }
 
 languageSelector.addEventListener('change', (event) => {

@@ -2,6 +2,9 @@
 {
     public static class Util
     {
+        // Shared names and routes
+        public const string CorsPolicyName = "corsApiColombia";
+
         public const string CITY_ROUTE = "City";
         public const string COUNTRY_ROUTE = "Country";
         public const string DEPARTMENT_ROUTE = "Department";

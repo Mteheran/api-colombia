@@ -29,7 +29,7 @@ namespace api.Routes
                 var listInvasiveSpecies = queryInvasiveSpecies.ToList(); 
                 return Results.Ok(listInvasiveSpecies); 
             })
-            .Produces<List<City>?>(200)
+            .Produces<List<InvasiveSpecie>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: InvasiveSpecieEndpointMetadataMessages.MESSAGE_INVASIVE_SPECIE_LIST_SUMMARY,
                  description: InvasiveSpecieEndpointMetadataMessages.MESSAGE_INVASIVE_SPECIE_LIST_DESCRIPTION
@@ -42,15 +42,15 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var city = await db.InvasiveSpecies.SingleOrDefaultAsync(p => p.Id == id);
-                if (city is null)
+                var invasiveSpecie = await db.InvasiveSpecies.SingleOrDefaultAsync(p => p.Id == id);
+                if (invasiveSpecie is null)
                 {
                     return Results.NotFound();
                 }
 
-                return Results.Ok(city);
+                return Results.Ok(invasiveSpecie);
             })
-            .Produces<City?>(200)
+            .Produces<InvasiveSpecie?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: InvasiveSpecieEndpointMetadataMessages.MESSAGE_INVASIVE_SPECIE_BYID_SUMMARY,
                  description: InvasiveSpecieEndpointMetadataMessages.MESSAGE_INVASIVE_SPECIE_BYID_DESCRIPTION
@@ -58,15 +58,13 @@ namespace api.Routes
 
             app.MapGet($"{API_INVASIVE_SPECIE_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
-                var city = db.InvasiveSpecies.Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
-                if (city is null)
-                {
-                    return Results.NotFound();
-                }
-
-                return Results.Ok(city);
+                var search = name.Trim().ToUpperInvariant();
+                var invasiveSpecies = db.InvasiveSpecies
+                    .Where(x => (x.Name ?? string.Empty).ToUpperInvariant().Contains(search))
+                    .ToList();
+                return Results.Ok(invasiveSpecies);
             })
-            .Produces<List<City>?>(200)
+            .Produces<List<InvasiveSpecie>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: InvasiveSpecieEndpointMetadataMessages.MESSAGE_INVASIVE_SPECIE_BYNAME_SUMMARY,
                 description: InvasiveSpecieEndpointMetadataMessages.MESSAGE_INVASIVE_SPECIE_BYNAME_DESCRIPTION
@@ -76,16 +74,10 @@ namespace api.Routes
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbInvasiveSpecies = db.InvasiveSpecies.ToList();
-                var InvasiveSpecies = Functions.FilterObjectListPropertiesByKeyword<InvasiveSpecie>(dbInvasiveSpecies, wellFormedKeyword);
-
-                if (!InvasiveSpecies.Any())
-                {
-                    return Results.NotFound();
-                }
-
-                return Results.Ok(InvasiveSpecies);
+                var invasiveSpecies = Functions.FilterObjectListPropertiesByKeyword<InvasiveSpecie>(dbInvasiveSpecies, wellFormedKeyword);
+                return Results.Ok(invasiveSpecies);
             })
-            .Produces<List<City>>(200)
+            .Produces<List<InvasiveSpecie>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: InvasiveSpecieEndpointMetadataMessages.MESSAGE_INVASIVE_SPECIE_SEARCH_SUMMARY,
                  description: InvasiveSpecieEndpointMetadataMessages.MESSAGE_INVASIVE_SPECIE_SEARCH_DESCRIPTION

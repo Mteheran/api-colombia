@@ -1,6 +1,5 @@
 using api.Data.Configs;
 using api.Models;
-using api.Routes;
 using Microsoft.EntityFrameworkCore;
 
 namespace api;

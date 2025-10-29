@@ -47,18 +47,19 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var city = await db.IndigenousReservations
+                var reservation = await db.IndigenousReservations
                 .Include(p=> p.Department)
                 .Include(p=> p.City)
-                .Include(p=> p.NativeCommunity).SingleOrDefaultAsync(p => p.Id == id);
-                if (city is null)
+                .Include(p=> p.NativeCommunity)
+                .SingleOrDefaultAsync(p => p.Id == id);
+                if (reservation is null)
                 {
                     return Results.NotFound();
                 }
 
-                return Results.Ok(city);
+                return Results.Ok(reservation);
             })
-            .Produces<City?>(200)
+            .Produces<IndigenousReservation?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: IndigenousReservationEndpointMetadataMessages.MESSAGE_INDIGENOUS_RESERVATION_BYID_SUMMARY,
                  description: IndigenousReservationEndpointMetadataMessages.MESSAGE_INDIGENOUS_RESERVATION_BYID_DESCRIPTION

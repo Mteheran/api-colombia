@@ -10,7 +10,7 @@
     "contributors": "Contribuidores",
     "uniqueFeatures": "Funcionalidades Únicas",
     "featuresDescription": "Explora fácilmente Colombia con nuestra API: información pública desde lo general hasta lo específico, sin autenticación.",
-    "featuregetInfoColombia": "Get Info Colombia",
+    "featuregetInfoColombia": "Obtener Info Colombia",
     "readDocs": "Lee la documentación",
     "feature1": "Información General de Colombia",
     "feature1Desc": "Accede a datos completos sobre Colombia, incluyendo su capital, superficie, población, idiomas, y más.",
@@ -26,7 +26,15 @@
     "sponsorText3": "para enriquecer y expandir nuestro proyecto.",
     "sponsor": "Patrocinar",
     "madeWith": "Hecho con el",
-    "solicitar": "Solicitar"
+    "solicitar": "Solicitar",
+    "loadingData": "Cargando datos...",
+    "loading": "Cargando...",
+    "errorLoadingData": "Error al obtener los datos",
+    "noDataFound": "No se encontraron datos. Vuelva a intentarlo",
+    "sponsors": "Patrocinadores",
+    "sponsorsDescription1": "Gracias al apoyo de nuestros patrocinadores, API-Colombia se mantiene activa y gratuita, con más de",
+    "sponsorsDescription2": "solicitudes mensuales.",
+    "sponsorsDescription3": "Creemos en la colaboración abierta. Si deseas apoyar este proyecto, puedes convertirte en patrocinador también."
   },
   "en": {
     "title": "Explore Colombia with API-Colombia",
@@ -39,6 +47,7 @@
     "contributors": "Contributors",
     "uniqueFeatures": "Unique Features",
     "featuresDescription": "Easily explore Colombia with our API: public information from general to specific, no authentication required.",
+    "featuregetInfoColombia": "Get Info Colombia",
     "readDocs": "Read the documentation",
     "feature1": "General Information about Colombia",
     "feature1Desc": "Access complete data about Colombia, including its capital, area, population, languages, and more.",
@@ -54,7 +63,15 @@
     "sponsorText3": "to enrich and expand our project.",
     "sponsor": "Sponsor",
     "madeWith": "Made with",
-    "solicitar": "Apply"
+    "solicitar": "Request",
+    "loadingData": "Loading data...",
+    "loading": "Loading...",
+    "errorLoadingData": "Error loading data",
+    "noDataFound": "No data found. Please try again",
+    "sponsors": "Sponsors",
+    "sponsorsDescription1": "Thanks to the support of our sponsors, API-Colombia remains active and free, with over",
+    "sponsorsDescription2": "monthly requests.",
+    "sponsorsDescription3": "We believe in open collaboration. If you want to support this project, you can become a sponsor too."
   },
   "pt": {
     "title": "Explore a Colômbia com API-Colombia",
@@ -67,7 +84,7 @@
     "contributors": "Colaboradores",
     "uniqueFeatures": "Funcionalidades Únicas",
     "featuresDescription": "Explore facilmente a Colômbia com nossa API: informações públicas do geral ao específico, sem autenticação.",
-    "featuregetInfoColombia": "Obter infor sobre a Colômbia", 
+    "featuregetInfoColombia": "Obter Info Colômbia", 
     "readDocs": "Leia a documentação",
     "feature1": "Informações Gerais da Colômbia",
     "feature1Desc": "Acesse dados completos sobre a Colômbia, incluindo sua capital, área, população, idiomas e muito mais.",
@@ -83,6 +100,14 @@
     "sponsorText3": "para enriquecer e expandir nosso projeto.",
     "sponsor": "Patrocinar",
     "madeWith": "Feito com",
-    "solicitar": "Solicitar"
+    "solicitar": "Solicitar",
+    "loadingData": "Carregando dados...",
+    "loading": "Carregando...",
+    "errorLoadingData": "Erro ao obter os dados",
+    "noDataFound": "Nenhum dado encontrado. Tente novamente",
+    "sponsors": "Patrocinadores",
+    "sponsorsDescription1": "Graças ao apoio de nossos patrocinadores, a API-Colombia permanece ativa e gratuita, com mais de",
+    "sponsorsDescription2": "solicitações mensais.",
+    "sponsorsDescription3": "Acreditamos na colaboração aberta. Se você deseja apoiar este projeto, pode se tornar um patrocinador também."
   }
 }

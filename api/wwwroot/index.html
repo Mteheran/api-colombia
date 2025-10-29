@@ -46,6 +46,7 @@
   -->
 
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/accessibility.css" />
   </head>
 
   <script async
@@ -62,76 +63,79 @@
 
   <body class="light">
     <div class="main-container">
-      <header id="ContenedorHeader">
-        <img id="Logo-API" src="/assets/logo-light.svg" alt="Logo-API" />
-        <div class="menuicon">
-          <img id="hamburguer" src="/assets/icons/menu-icon.svg" alt="icono" />
-        </div>
-        <nav class="navegador">
-          <ul class="menu-desplegable">
-            <li>
+      <header id="ContenedorHeader" role="banner">
+        <img id="Logo-API" src="/assets/logo-light.svg" alt="API Colombia - Logo" />
+        <button id="hamburguer" class="menuicon" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="menuMobile">
+          <img src="/assets/icons/menu-icon.svg" alt="" aria-hidden="true" />
+        </button>
+        <nav class="navegador" aria-label="Navegación principal">
+          <ul class="menu-desplegable" role="menubar">
+            <li role="none">
               <a href="https://api-colombia.com/swagger/index.html"
-                target="_blank">
-                <h6 data-i18n-key="documentation">Documentación</h6>
+                target="_blank" rel="noopener noreferrer" role="menuitem"
+                aria-label="Documentación (abre en nueva pestaña)">
+                <span data-i18n-key="documentation">Documentación</span>
               </a>
             </li>
-            <li>
-              <a href="#informacionAPIS">
-                <h6 data-i18n-key="features">Funcionalidades</h6>
+            <li role="none">
+              <a href="#informacionAPIS" role="menuitem">
+                <span data-i18n-key="features">Funcionalidades</span>
               </a>
             </li>
-            <li>
-              <a href="#Colaboradores">
-                <h6 data-i18n-key="contributors">Contribuidores</h6>
+            <li role="none">
+              <a href="#Colaboradores" role="menuitem">
+                <span data-i18n-key="contributors">Contribuidores</span>
               </a>
             </li>
             <li><span>|</span></li>
           </ul>
           <div class="section-iconosExtras">
-            <img id="modoWeb" src="/assets/icons/sun-icon.svg"
-              alt="modo oscuro/claro" />
+            <button id="modoWeb" type="button" aria-label="Cambiar tema de color" aria-pressed="false" style="background:none;border:none;padding:0;cursor:pointer;">
+              <img src="/assets/icons/sun-icon.svg"
+                alt="" aria-hidden="true" />
+            </button>
 
             <div class="section-github">
               <a href="https://github.com/Mteheran/api-colombia"
-                target="_blank">
+                target="_blank" rel="noopener noreferrer"
+                aria-label="Repositorio en GitHub (263 estrellas) - abre en nueva pestaña">
                 <img id="githubIcon" src="/assets/icons/github-icon.svg"
-                  alt="logo-github" />
-
-                <p>263</p>
+                  alt="" aria-hidden="true" />
+                <span aria-hidden="true">263</span>
               </a>
             </div>
-            <div class="language-selector" id="languageSelector">
-              <div class="language-selector-display">
-                <img id="selectedFlag" src="/assets/es.png" alt="Idioma actual" />
-                <span id="languageText">ES</span>
-                <img class="arrow-icon" src="/assets/down.png" alt="Desplegar selector" />
-              </div>
-              <div class="language-dropdown" id="languageDropdown">
-                <div class="language-option" data-lang="es" data-flag="/assets/es.png">
-                  <img src="/assets/es.png" alt="Español" />
-                  <span>ES</span>
-                </div>
-                <div class="language-option" data-lang="en" data-flag="/assets/en.png">
-                  <img src="/assets/en.png" alt="English" />
-                  <span>EN</span>
-                </div>
-                <div class="language-option" data-lang="pt" data-flag="/assets/pr.png">
-                  <img src="/assets/pr.png" alt="Português" />
-                  <span>PT</span>
-                </div>
-              </div>
+            <div class="language-selector" id="languageSelector" role="group" aria-label="Selector de idioma">
+              <button class="language-selector-display" aria-label="Idioma actual: Español. Haz clic para cambiar" aria-expanded="false" aria-haspopup="true" type="button">
+                <img id="selectedFlag" src="/assets/es.png" alt="" aria-hidden="true" />
+                <span id="languageText" aria-hidden="true">ES</span>
+                <img class="arrow-icon" src="/assets/down.png" alt="" aria-hidden="true" />
+              </button>
+              <ul class="language-dropdown" id="languageDropdown" role="menu" aria-label="Opciones de idioma">
+                <li role="menuitem" class="language-option" data-lang="es" data-flag="/assets/es.png" tabindex="-1">
+                  <img src="/assets/es.png" alt="" aria-hidden="true" />
+                  <span>Español</span>
+                </li>
+                <li role="menuitem" class="language-option" data-lang="en" data-flag="/assets/en.png" tabindex="-1">
+                  <img src="/assets/en.png" alt="" aria-hidden="true" />
+                  <span>English</span>
+                </li>
+                <li role="menuitem" class="language-option" data-lang="pt" data-flag="/assets/pr.png" tabindex="-1">
+                  <img src="/assets/pr.png" alt="" aria-hidden="true" />
+                  <span>Português</span>
+                </li>
+              </ul>
             </div>
           </div>
         </nav>
       </header>
 
-      <section id="informacionGeneral">
+      <section id="informacionGeneral" aria-labelledby="main-heading">
         <img id="mariposaPequeña" src="./assets/crown-decorative-medium.png"
-          alt="Imagen de mariposaPequeña" />
+          alt="" role="presentation" aria-hidden="true" />
         <img id="mariposaGrande"
           src="./assets/crown-decorative-big-removebg-preview.png"
-          alt="Imagen de mariposaGrande" />
-        <h1>
+          alt="" role="presentation" aria-hidden="true" />
+        <h1 id="main-heading">
           <span data-i18n-key="explore"></span>
           <span id="yellow">Col</span><span id="blue">om</span><span
             id="red">bia</span>
@@ -142,21 +146,22 @@
           sobre su diversidad, todo a tu alcance.
         </p>
         <button data-i18n-key="documentation"
-          class="botonDocumentacion">Documentación</button>
-        <div class="modal hidden">
+          class="botonDocumentacion" type="button">Documentación</button>
+        <div class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
           <section class="contenidoModal">
             <div class="encabezadoModal">
               <button id="closeModal" aria-label="Cerrar modal"
                 title="Cerrar modal">
                 <i class="fa-solid fa-rectangle-xmark"></i>
               </button>
-              <span data-i18n-key="menu"> Menú </span> </div>
+              <span data-i18n-key="menu" id="modal-title"> Menú </span> </div>
 
             <div class="cuerpoModal">
-              <div id="menuMobile">
+              <nav id="menuMobile" aria-label="Navegación móvil">
                 <a href="https://api-colombia.com/swagger/index.html"
-                  target="_blank">
-                  <spa data-i18n-key="documentation">Documentación</spa>
+                  target="_blank" rel="noopener noreferrer"
+                  aria-label="Documentación (abre en nueva pestaña)">
+                  <span data-i18n-key="documentation">Documentación</span>
                 </a>
                 <a href="#informacionAPIS">
                   <span data-i18n-key="features">Funcionalidades</span>
@@ -165,46 +170,49 @@
                   <span data-i18n-key="contributors">Contribuidores</span>
                 </a>
                 <div class="section-githubModal">
-                  <a href="#">
+                  <a href="https://github.com/Mteheran/api-colombia"
+                    target="_blank" rel="noopener noreferrer"
+                    aria-label="Repositorio en GitHub (219 estrellas) - abre en nueva pestaña">
                     <img id="githubIcon2" src="/assets/icons/github-icon.svg"
-                      alt="logo-github" />
+                      alt="" aria-hidden="true" />
+                    <span aria-hidden="true">219</span>
                   </a>
-                  <p>219</p>
                 </div>
-                <a href="#" class="botonModo">
+                <div class="botonModo">
+                  <label for="select-theme" class="sr-only">Seleccionar tema de color</label>
                   <img id="modoWeb2" src="/assets/icons/sun-icon.svg"
-                    alt="modo oscuro/claro" />
+                    alt="" aria-hidden="true" />
                   <select id="select-theme" name="select"
-                    aria-label="Seleccionar tema" title="Seleccionar tema">
-                    <option value="claro" aria-label="claro" selected>
+                    aria-label="Seleccionar tema">
+                    <option value="claro">
                       Claro
                     </option>
-                    <option value="oscuro" arial="oscuro">Oscuro</option>
+                    <option value="oscuro">Oscuro</option>
                   </select>
-                </a>
-                
-                <div class="language-selector-mobile" id="languageSelectorMobile">
-                  <div class="language-selector-display-mobile">
-                    <img id="selectedFlagMobile" src="/assets/es.png" alt="Idioma actual" />
-                    <span id="languageTextMobile">ES</span>
-                    <img class="arrow-icon-mobile" src="/assets/down.png" alt="Desplegar selector" />
-                  </div>
-                  <div class="language-dropdown-mobile" id="languageDropdownMobile">
-                    <div class="language-option-mobile" data-lang="es" data-flag="/assets/es.png">
-                      <img src="/assets/es.png" alt="Español" />
-                      <span>ES</span>
-                    </div>
-                    <div class="language-option-mobile" data-lang="en" data-flag="/assets/en.png">
-                      <img src="/assets/en.png" alt="English" />
-                      <span>EN</span>
-                    </div>
-                    <div class="language-option-mobile" data-lang="pt" data-flag="/assets/pr.png">
-                      <img src="/assets/pr.png" alt="Português" />
-                      <span>PT</span>
-                    </div>
-                  </div>
                 </div>
-              </div>
+                
+                <div class="language-selector-mobile" id="languageSelectorMobile" role="group" aria-label="Selector de idioma móvil">
+                  <button class="language-selector-display-mobile" aria-label="Idioma actual: Español. Haz clic para cambiar" aria-expanded="false" aria-haspopup="true" type="button">
+                    <img id="selectedFlagMobile" src="/assets/es.png" alt="" aria-hidden="true" />
+                    <span id="languageTextMobile" aria-hidden="true">ES</span>
+                    <img class="arrow-icon-mobile" src="/assets/down.png" alt="" aria-hidden="true" />
+                  </button>
+                  <ul class="language-dropdown-mobile" id="languageDropdownMobile" role="menu" aria-label="Opciones de idioma">
+                    <li role="menuitem" class="language-option-mobile" data-lang="es" data-flag="/assets/es.png" tabindex="-1">
+                      <img src="/assets/es.png" alt="" aria-hidden="true" />
+                      <span>Español (ES)</span>
+                    </li>
+                    <li role="menuitem" class="language-option-mobile" data-lang="en" data-flag="/assets/en.png" tabindex="-1">
+                      <img src="/assets/en.png" alt="" aria-hidden="true" />
+                      <span>English (EN)</span>
+                    </li>
+                    <li role="menuitem" class="language-option-mobile" data-lang="pt" data-flag="/assets/pr.png" tabindex="-1">
+                      <img src="/assets/pr.png" alt="" aria-hidden="true" />
+                      <span>Português (PT)</span>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
             </div>
           </section>
         </div>
@@ -217,13 +225,13 @@
             desde
             lo general hasta lo específico, sin autenticación.
           </p>
-          <button data-i18n-key="readDocs" class="botonDocumentacion">Lee la
+          <button data-i18n-key="readDocs" class="botonDocumentacion" type="button">Lee la
             documentación</button>
 
           <div class="cards">
-            <div class="caja uno">
+            <article class="caja uno">
               <img src="./assets/crown-decorative.svg"
-                alt="Corona decorativa" />
+                alt="" role="presentation" aria-hidden="true" />
               <h2 data-i18n-key="feature1">Información General de Colombia</h2>
               <div class="card-description">
                 <p data-i18n-key="feature1Desc">
@@ -239,14 +247,14 @@
                   target="_blank" rel="noopener"
                   class="card-button">
                   Get Info Colombia
-                  <img src="./assets/icons/external-link-icon.svg" alt
-                    aria-hidden="true" rel="noopener" />
+                  <img src="./assets/icons/external-link-icon.svg" alt=""
+                    aria-hidden="true" />
                 </a>
               </div>
-            </div>
-            <div class="caja dos">
+            </article>
+            <article class="caja dos">
               <img src="./assets/crown-decorative.svg"
-                alt="Corona decorativa" />
+                alt="" role="presentation" aria-hidden="true" />
               <h2 data-i18n-key="feature2">Departamentos</h2>
               <div class="card-description">
                 <p data-i18n-key="feature2Desc">
@@ -257,17 +265,17 @@
               <div class="card-button-container">
                 <a data-i18n-key="featuregetInfoColombia"
                   href="https://api-colombia.com/api/v1/Department"
-                  target="_blank" rel="noopener" class="card-button">
+                  target="_blank" rel="noopener noreferrer" class="card-button">
                   Get Department
                   <img src="./assets/icons/external-link-icon.svg"
-                    alt="Enlace externo"
+                    alt="" aria-hidden="true"
                     style="width: 16px; height: 16px; margin-left: 2px" />
                 </a>
               </div>
-            </div>
-            <div class="caja tres">
+            </article>
+            <article class="caja tres">
               <img src="./assets/crown-decorative.svg"
-                alt="Corona decorativa" />
+                alt="" role="presentation" aria-hidden="true" />
               <h2 data-i18n-key="feature3">Regiones</h2>
               <div class="card-description">
                 <p data-i18n-key="feature3Desc" class="feature3Desc">
@@ -282,14 +290,14 @@
                   rel="noopener" class="card-button">
                   Get Región
                   <img src="./assets/icons/external-link-icon.svg"
-                    alt="Enlace externo"
+                    alt="" aria-hidden="true"
                     style="width: 16px; height: 16px; margin-left: 2px" />
                 </a>
               </div>
-            </div>
-            <div class="caja cuatro">
+            </article>
+            <article class="caja cuatro">
               <img src="./assets/crown-decorative.svg"
-                alt="Corona decorativa" />
+                alt="" role="presentation" aria-hidden="true" />
               <h2 data-i18n-key="feature4">Atracciones Turísticas</h2>
               <div class="card-description">
                 <p data-i18n-key="feature4Desc">
@@ -304,11 +312,11 @@
                   class="card-button">
                   Get Info Colombia
                   <img src="./assets/icons/external-link-icon.svg"
-                    alt="Enlace externo"
+                    alt="" aria-hidden="true"
                     style="width: 16px; height: 16px; margin-left: 2px" />
                 </a>
               </div>
-            </div>
+            </article>
           </div>
         </div>
 
@@ -317,7 +325,7 @@
           <div class="module-api">
             <div class="options-api">
               <p id="parrafoApi"
-                style="font-family: 'Poppins'; font-weight: bold; font-size: 13px">
+                style="font-family: 'Poppins'; font-weight: bold; font-size: 14px">
                 https://api-colombia.com/api/
               </p>
               <select id="selectVersion" name="version"

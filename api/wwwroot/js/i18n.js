@@ -73,7 +73,14 @@ function updateFlagAndText(lang) {
     'pt': '/assets/pr.png'
   };
   
+  const languageNames = {
+    'es': 'Español',
+    'en': 'English',
+    'pt': 'Português'
+  };
+  
   const newFlagSrc = flagMap[lang];
+  const languageName = languageNames[lang];
   
   // Actualizar selector desktop
   if (selectedFlag && languageText) {
@@ -81,10 +88,18 @@ function updateFlagAndText(lang) {
     languageText.textContent = lang.toUpperCase();
   }
   
+  if (languageSelectorDisplay) {
+    languageSelectorDisplay.setAttribute('aria-label', `Idioma actual: ${languageName}. Haz clic para cambiar`);
+  }
+  
   // Actualizar selector móvil
   if (selectedFlagMobile && languageTextMobile) {
     selectedFlagMobile.src = newFlagSrc;
     languageTextMobile.textContent = lang.toUpperCase();
+  }
+  
+  if (languageSelectorDisplayMobile) {
+    languageSelectorDisplayMobile.setAttribute('aria-label', `Idioma actual: ${languageName}. Haz clic para cambiar`);
   }
 }
 
@@ -162,10 +177,27 @@ function changeLanguage(newLang) {
 if (languageSelectorDisplay) {
   languageSelectorDisplay.addEventListener('click', (e) => {
     e.stopPropagation();
-    languageDropdown.classList.toggle('active');
+    const isExpanded = languageDropdown.classList.toggle('active');
+    languageSelectorDisplay.setAttribute('aria-expanded', isExpanded);
     // Cerrar el móvil si está abierto
     if (languageDropdownMobile) {
       languageDropdownMobile.classList.remove('active');
+      if (languageSelectorDisplayMobile) {
+        languageSelectorDisplayMobile.setAttribute('aria-expanded', 'false');
+      }
+    }
+    // Focus en primera opción si se abre
+    if (isExpanded) {
+      const firstOption = languageDropdown.querySelector('.language-option');
+      if (firstOption) firstOption.focus();
+    }
+  });
+  
+  // Soporte de teclado
+  languageSelectorDisplay.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      languageSelectorDisplay.click();
     }
   });
 }
@@ -174,10 +206,27 @@ if (languageSelectorDisplay) {
 if (languageSelectorDisplayMobile) {
   languageSelectorDisplayMobile.addEventListener('click', (e) => {
     e.stopPropagation();
-    languageDropdownMobile.classList.toggle('active');
+    const isExpanded = languageDropdownMobile.classList.toggle('active');
+    languageSelectorDisplayMobile.setAttribute('aria-expanded', isExpanded);
     // Cerrar el desktop si está abierto
     if (languageDropdown) {
       languageDropdown.classList.remove('active');
+      if (languageSelectorDisplay) {
+        languageSelectorDisplay.setAttribute('aria-expanded', 'false');
+      }
+    }
+    // Focus en primera opción si se abre
+    if (isExpanded) {
+      const firstOption = languageDropdownMobile.querySelector('.language-option-mobile');
+      if (firstOption) firstOption.focus();
+    }
+  });
+  
+  // Soporte de teclado
+  languageSelectorDisplayMobile.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      languageSelectorDisplayMobile.click();
     }
   });
 }
@@ -185,10 +234,33 @@ if (languageSelectorDisplayMobile) {
 // Event listeners para opciones del dropdown desktop
 if (languageDropdown) {
   const options = languageDropdown.querySelectorAll('.language-option');
-  options.forEach(option => {
+  options.forEach((option, index) => {
     option.addEventListener('click', () => {
       const lang = option.getAttribute('data-lang');
       changeLanguage(lang);
+    });
+    
+    // Navegación por teclado
+    option.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const lang = option.getAttribute('data-lang');
+        changeLanguage(lang);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextOption = options[index + 1];
+        if (nextOption) nextOption.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevOption = options[index - 1];
+        if (prevOption) prevOption.focus();
+        else if (languageSelectorDisplay) languageSelectorDisplay.focus();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        languageDropdown.classList.remove('active');
+        languageSelectorDisplay.setAttribute('aria-expanded', 'false');
+        languageSelectorDisplay.focus();
+      }
     });
   });
 }
@@ -196,10 +268,33 @@ if (languageDropdown) {
 // Event listeners para opciones del dropdown móvil
 if (languageDropdownMobile) {
   const optionsMobile = languageDropdownMobile.querySelectorAll('.language-option-mobile');
-  optionsMobile.forEach(option => {
+  optionsMobile.forEach((option, index) => {
     option.addEventListener('click', () => {
       const lang = option.getAttribute('data-lang');
       changeLanguage(lang);
+    });
+    
+    // Navegación por teclado
+    option.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const lang = option.getAttribute('data-lang');
+        changeLanguage(lang);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextOption = optionsMobile[index + 1];
+        if (nextOption) nextOption.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevOption = optionsMobile[index - 1];
+        if (prevOption) prevOption.focus();
+        else if (languageSelectorDisplayMobile) languageSelectorDisplayMobile.focus();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        languageDropdownMobile.classList.remove('active');
+        languageSelectorDisplayMobile.setAttribute('aria-expanded', 'false');
+        languageSelectorDisplayMobile.focus();
+      }
     });
   });
 }
@@ -208,9 +303,35 @@ if (languageDropdownMobile) {
 document.addEventListener('click', (e) => {
   if (languageDropdown && !languageSelector.contains(e.target)) {
     languageDropdown.classList.remove('active');
+    if (languageSelectorDisplay) {
+      languageSelectorDisplay.setAttribute('aria-expanded', 'false');
+    }
   }
   if (languageDropdownMobile && !languageSelectorMobile.contains(e.target)) {
     languageDropdownMobile.classList.remove('active');
+    if (languageSelectorDisplayMobile) {
+      languageSelectorDisplayMobile.setAttribute('aria-expanded', 'false');
+    }
+  }
+});
+
+// Cerrar dropdowns con Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (languageDropdown && languageDropdown.classList.contains('active')) {
+      languageDropdown.classList.remove('active');
+      if (languageSelectorDisplay) {
+        languageSelectorDisplay.setAttribute('aria-expanded', 'false');
+        languageSelectorDisplay.focus();
+      }
+    }
+    if (languageDropdownMobile && languageDropdownMobile.classList.contains('active')) {
+      languageDropdownMobile.classList.remove('active');
+      if (languageSelectorDisplayMobile) {
+        languageSelectorDisplayMobile.setAttribute('aria-expanded', 'false');
+        languageSelectorDisplayMobile.focus();
+      }
+    }
   }
 });
 

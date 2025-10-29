@@ -19,7 +19,7 @@
 }
 
 .module-api .options-api select {
-  background-color: rgba(179, 179, 179, .5);
+  background-color: #e6e9ea;
   border: none;
   width: 93.3px;
   font-family: 'Poppins';
@@ -27,6 +27,8 @@
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
+  color: #22292a;
+  padding: 2px 4px;
 }
 
 .module-api .options-api button {
@@ -136,6 +138,12 @@
   width: 593px; /* Ajusta el ancho al contenido */
 }
 
+
+/* Modo Dark para select */
+.dark .module-api .options-api select {
+  background-color: #ffffff;
+  color: #22292a;
+}
 
 /* #CECFA0 */
 /* #CB8F77 */

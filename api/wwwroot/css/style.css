@@ -17,6 +17,15 @@
   padding: 0;
 }
 
+html {
+  font-size: 100%;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
 html,
 body {
   overflow-x: hidden;
@@ -38,7 +47,6 @@ body {
 .main-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   max-width: 100%;
   overflow-x: hidden;
 }
@@ -46,11 +54,10 @@ body {
 #ContenedorHeader {
   display: flex;
   flex-direction: row;
-  width: 100%;
-  height: 66px;
-  margin-top: 16px;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding: 0.5em 1.5em;
 }
 
 .navegador {
@@ -59,37 +66,43 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-right: 2em;
+  margin-right: 1em;
+  gap: 1.5em;
 }
 
 .menu-desplegable {
-  display: flex;
-  flex-direction: row;
-  gap: 32px;
   list-style: none;
-  height: 32px;
+  display: flex;
+  gap: 2em;
+  margin: 0;
+  padding: 0;
   align-items: center;
-  flex-wrap: wrap;
 }
 
 .menu-desplegable a,
 .menu-desplegable h6 {
-  height: 16px;
   font-family: "Krona One", sans-serif;
-  font-size: 12px;
-  line-height: 14.4px;
-  letter-spacing: 0.5px;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.4px;
   text-align: center;
   color: var(--third-color);
-  text-decoration-line: none;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-.menu-desplegable span {
+.menu-desplegable a span {
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+}
+
+.menu-desplegable > li > span {
   flex-wrap: wrap;
   color: #565656;
-  font-size: 28px;
+  font-size: 1.5rem;
   font-weight: 500;
-  margin-top: -11px;
+  margin-top: -8px;
+  line-height: 1;
 }
 
 .section-iconosExtras {
@@ -97,7 +110,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 32px;
+  gap: 1.5em;
 }
 
 .section-github {
@@ -105,8 +118,8 @@ body {
   flex-direction: row;
   align-items: center;
   background-color: #e6e9ea;
-  border-radius: 5px;
-  padding: 3px;
+  border-radius: 15px;
+  padding: 6px;
 }
 
 .section-github p {
@@ -114,15 +127,16 @@ body {
   border-radius: 5px;
   padding: 3px;
   font-family: "Krona One", sans-serif;
-  font-size: 12px;
+  font-size: 0.875rem;
   font-weight: 400;
 }
 
 #Logo-API {
-  margin-left: 4em;
+  margin-left: 0.5em;
+  margin-right: 3em;
   margin-top: 11px;
-  width: 122px;
-  height: 38.1px;
+  width: 140px;
+  height: 44px;
 }
 
 .menu-desplegable li:hover {
@@ -150,9 +164,9 @@ body {
   width: 554px;
   max-width: 100%;
   text-align: center;
-  font-size: 40px;
+  font-size: 2.5rem;
   font-weight: 400;
-  line-height: 48px;
+  line-height: 1.2;
   letter-spacing: 0.5px;
   color: var(--third-color);
 }
@@ -189,12 +203,13 @@ body {
   margin-top: 16px;
   border-style: none;
   background-color: #ffcd00;
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-family: "Krona One", sans-serif;
   text-align: center;
   width: 266px;
   height: 54px;
   color: #22292a;
+  border-radius: 50px;
 }
 
 .botonDocumentacion:hover {
@@ -203,15 +218,15 @@ body {
 
 #mariposaGrande {
   position: absolute;
-  width: 24vw;
-  left: 72%;
+  width: 15vw;
+  left: 71%;
   z-index: -10;
 }
 
 #mariposaPequeña {
   position: absolute;
   max-width: 100%;
-  left: 10%;
+  right: 83%;
   z-index: -10;
   transform: scaleY(-1);
   top: 26%;
@@ -223,7 +238,7 @@ body {
   flex-direction: row;
   margin-top: 30px;
   font-family: "Krona One", sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem;
   text-align: left;
   color: var(--third-color);
   width: 100%;
@@ -237,17 +252,17 @@ body {
 }
 
 .parteIzquierda h1 {
-  font-size: 24px;
-  line-height: 28.8px;
+  font-size: 1.5rem;
+  line-height: 1.2;
   margin-bottom: 0.7em;
   color: var(--third-color);
 }
 
 .parteIzquierda p {
   font-family: Poppins;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: light;
-  line-height: 28.8px;
+  line-height: 1.6;
   letter-spacing: 0.5px;
 }
 
@@ -262,18 +277,12 @@ body {
 }
 
 .botonDocumentacion {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 16.8px;
+  line-height: 1.2;
   letter-spacing: 0.5px;
   text-align: center;
 }
-
-/* .parteDerecha {
-    background-color: #22292A;
-    color: #fff;
-    width: 25em;
-} */
 
 #department-data {
   border: 1px solid #ccc;
@@ -284,9 +293,9 @@ body {
 .cards {
   display: grid;
   grid-auto-rows: 210px;
-  gap: 1.5em;
+  gap: 2em;
   padding: 1.5em;
-  font-size: 10px;
+  font-size: 0.875rem;
   color: #22292a;
   margin-top: 1.4em;
   max-width: 100%;
@@ -297,15 +306,20 @@ body {
   padding: 12px 10px 5px 10px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 1.5rem;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 200px;
+}
+
+.caja:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .caja h2 {
   font-family: "Krona One";
   font-size: 1rem;
   font-weight: 500;
-  line-height: 19.2px;
+  line-height: 1.2;
   letter-spacing: 0.5px;
   text-align: left;
   margin: 0.5em 0;
@@ -316,25 +330,13 @@ body {
   font-family: "Poppins";
   font-size: 0.94rem;
   font-weight: 300;
-  line-height: 16.8px;
+  line-height: 1.5;
   letter-spacing: 0.5px;
   text-align: left;
   margin-top: 10px;
   color: #22292a;
   margin: 0.5em 0;
 }
-
-/* .caja h6 {
-  font-family: "Krona One";
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 14.4px;
-  letter-spacing: 0.5px;
-  text-align: left;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-} */
 
 .uno,
 .cuatro {
@@ -356,18 +358,18 @@ body {
 
 #Colaboradores h1 {
   font-family: "Krona One";
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 400;
-  line-height: 28.8px;
+  line-height: 1.2;
   color: var(--third-color);
   margin-bottom: 1.4em;
 }
 
 #Colaboradores p {
   font-family: "Poppins";
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 300;
-  line-height: 28.8px;
+  line-height: 1.6;
   letter-spacing: 0.5px;
   text-align: center;
   width: 45%;
@@ -384,21 +386,21 @@ body {
 
 #Sponsor h1 {
   font-family: "Krona One";
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 400;
-  line-height: 28.8px;
+  line-height: 1.2;
   color: var(--third-color);
   margin-bottom: 1.4em;
 }
 
 #Sponsor p {
   font-family: "Poppins";
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 300;
-  line-height: 28.8px;
+  line-height: 1.6;
   letter-spacing: 0.5px;
   text-align: center;
-  width: 55%;
+  width: 70%;
   color: var(--third-color);
 }
 
@@ -413,7 +415,6 @@ body {
 
 .contenedorprincipal img:hover {
   opacity: 0.7;
-  /* Cambia la opacidad según tu preferencia */
   cursor: pointer;
 }
 
@@ -439,78 +440,6 @@ body {
   justify-content: space-around;
 }
 
-/*
-
-
-.menu-desplegable{
-    display: inline-flex;
-    height: 16px;
-    gap: 32px;
-
-}
-*/
-/*
-.menu-desplegable a, .menu-desplegable h6{
-    height: 16px;
-    font-family: 'Krona One', sans-serif;
-    font-size: 14px; 
-    font-weight: normal;
-    line-height: 14.4px;
-    letter-spacing: 0.5px;
-    text-align: center;
-    color:#565656;
-    text-decoration-line:none;
-}
-
-.menu-desplegable span{
-    color: #E6E9EA;
-    font-size: 28px;
-    font-weight: 500;
-    margin-top: -11px;
-    
-}
-
-.section-github{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color:#E6E9EA;
-    border-radius: 5px;
-    gap:8px;
-    width: 70px;
-    height: 30px;
-    
-}
-
-.section-github p{
-
-    background-color: white;
-    border-radius: 5px;
-    padding: 3px;
-    font-family: 'Krona One', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-}
-#Logo-API{
-    margin-left: 120px;
-    margin-top: 16px;
-    width: 122px;
-    height: 38.1px;
-}
-
-#githubIcon{
-    padding-left: 4px;
-}
-
-section{
-    height: 600px;
-}
-*/
-
-/* START MODULE API */
-
-/* END MODULE API */
-
 /* INFORMATION ABOUT SPONSORSHIPS */
 
 .sponsorships {
@@ -527,7 +456,7 @@ section{
 
 .sponsorships p {
   font-family: "Poppins";
-  font-size: 17px;
+  font-size: 1.0625rem;
 }
 
 .sponsor {
@@ -543,7 +472,7 @@ section{
 
 .sponsor p {
   font-family: "Krona One";
-  font-size: 12px;
+  font-size: 0.875rem;
   margin-left: 1em;
 }
 
@@ -583,7 +512,7 @@ section{
   text-decoration: none;
   color: #000;
   font-family: "Krona One", sans-serif;
-  font-size: 14px;
+  font-size: 0.875rem;
   transition: background-color 0.3s ease;
 }
 
@@ -622,7 +551,7 @@ section{
 
 .sponsor-name {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 .linkedin-icon {
@@ -633,21 +562,17 @@ section{
 .sponsor-role {
   margin: 0;
   color: #737373;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
-/* END INFORMATION ABOUT SPONSORSHIPS */
-/*             FOOTER             */
 footer {
   background-color: #fdfdfd;
-  /* position: relative; */
   text-align: center;
   margin-top: 1em;
   display: flex;
   flex-direction: row;
   padding: 0 1.4em;
   align-items: center;
-  /* gap: 1em; */
   justify-content: space-between;
   margin-bottom: 13px;
 }
@@ -664,7 +589,7 @@ footer .made span {
   color: #575757;
   margin-top: 0.5em;
   width: 9em;
-  font-size: 12px;
+  font-size: 0.875rem;
 }
 
 footer .hearts > img {
@@ -677,11 +602,7 @@ footer .hearts > img {
   display: none;
 }
 
-/*             FIN FOOTER             */
-
-/* RESPONSIVE  */
-
-/* Entre un tamaño de 600px hasta 1001px */
+/* RESPONSIVE */
 
 @media (min-width: 1002px) {
   .cards {
@@ -703,7 +624,6 @@ footer .hearts > img {
   }
 
   .menuicon img {
-    /* Esto asegura que el contenedor tome solo el espacio que la imagen necesita */
     transform: scale(0.65);
     height: 66px;
     margin-top: -2px;
@@ -720,13 +640,13 @@ footer .hearts > img {
   }
 
   #mariposaPequeña {
-    left: 4%;
+    right: 78%;
     top: 37%;
   }
 
   #mariposaGrande {
     width: 19vw;
-    left: 80%;
+    left: 75%;
     top: 8.5em;
   }
 
@@ -790,7 +710,6 @@ footer .hearts > img {
   }
 
   .menuicon img {
-    /* Esto asegura que el contenedor tome solo el espacio que la imagen necesita */
     transform: scale(0.65);
     height: 66px;
     margin-top: -2px;
@@ -803,7 +722,7 @@ footer .hearts > img {
   }
 
   #mariposaPequeña {
-    left: 2.4%;
+    left: 5%;
     top: 37%;
   }
 
@@ -819,7 +738,7 @@ footer .hearts > img {
 
   .cards {
     margin-top: 22px;
-    gap: 1em;
+    gap: 1.5em;
 
     grid-template-columns: auto;
   }
@@ -876,7 +795,7 @@ footer .hearts > img {
   }
 
   #mariposaPequeña {
-    left: 2.4%;
+    left: 5%;
     top: 77%;
   }
 
@@ -893,7 +812,6 @@ footer .hearts > img {
   }
 
   .menuicon img {
-    /* Esto asegura que el contenedor tome solo el espacio que la imagen necesita */
     transform: scale(0.5);
     height: 66px;
     margin-top: -2px;
@@ -922,7 +840,6 @@ footer .hearts > img {
 
   #Colaboradores p {
     width: 91%;
-    font-size: smaller;
   }
 
   .contenedorprincipal {
@@ -945,7 +862,6 @@ footer .hearts > img {
   }
 }
 
-/* FIN RESPONSIVE */
 
 .modal {
   display: flex;
@@ -960,22 +876,24 @@ footer .hearts > img {
 }
 
 .modal section {
-  width: 50vw;
+  width: 65vw;
+  max-width: 400px;
   height: 100%;
   background-color: #e6e9ea;
   display: flex;
   flex-direction: column;
-  justify-content: left;
+  justify-content: flex-start;
 }
 
 .encabezadoModal {
-  height: 87px;
+  height: 80px;
   display: flex;
   background-color: #e6e9ea;
   align-items: center;
   justify-content: space-between;
   flex-direction: row-reverse;
-  margin-left: 1.2em;
+  padding: 1em 1.5em;
+  border-bottom: 1px solid #d1d5db;
 }
 
 .hidden {
@@ -1004,8 +922,8 @@ footer .hearts > img {
 .menuMobile {
   display: flex;
   flex-direction: column;
-  margin: 0.5em 0.9em;
-  gap: 1em;
+  padding: 1.5em 1em;
+  gap: 0.5em;
 }
 
 #menuMobile .section-githubModal p {
@@ -1020,39 +938,82 @@ footer .hearts > img {
 
 #menuMobile h6 {
   font-family: "Krona One", sans-serif;
-  font-size: 12px;
+  font-size: 0.875rem;
   color: var(--third-color);
-  line-height: 14.4px;
+  line-height: 1.4;
   letter-spacing: 0.5px;
-  height: 3vh;
-  padding: 6px 12px;
-  margin: 7px 9px;
-  border-radius: 6px;
-  align-content: center;
+  padding: 14px 16px;
+  margin: 0;
+  border-radius: 8px;
   text-decoration: none;
+  transition: background-color 0.2s ease;
 }
 
 #menuMobile a {
   text-decoration: none;
+  display: block;
 }
 
-#menuMobile h6:hover {
+#menuMobile a span {
+  display: block;
+  font-family: "Krona One", sans-serif;
+  font-size: 0.875rem;
+  color: var(--third-color);
+  padding: 14px 16px;
+  margin: 0;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+#menuMobile h6:hover,
+#menuMobile a span:hover {
   cursor: pointer;
-  background-color: rgb(255 252 252);
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .section-githubModal {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   align-content: center;
-  width: 78px;
-  height: 37px;
+  width: 120px;
+  height: 40px;
   background-color: white;
   align-items: center;
-  border-radius: 4px;
+  border-radius: 20px;
+  margin-top: 2em;
+  margin-bottom: 1em;
   margin: 8px 11px;
-  padding: 0 0.2em;
+  padding: 0 0.5em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.section-githubModal a {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+}
+
+.section-githubModal a img {
+  width: 22px;
+  height: 22px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.section-githubModal a span {
+  font-family: "Krona One", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #22292a;
+  line-height: 1;
+  display: block;
 }
 
 .botonModo {
@@ -1060,11 +1021,12 @@ footer .hearts > img {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 120px;
-  height: 35px;
-  border-radius: 4px;
-
+  width: 135px;
+  height: 40px;
+  border-radius: 20px;
   margin: 8px 11px;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .botonModo select {
@@ -1118,19 +1080,33 @@ h1 {
   color: #fdfdfd;
 }
 
+#modoWeb {
+  width: 45px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#modoWeb img {
+  width: 24px;
+  height: 24px;
+}
+
 .dark #modoWeb {
-  background-color: #979494;
-  border-radius: 7px;
+  background-color: #ffffff !important;
+  border-radius: 15px;
 }
 
 .dark .section-github {
-  background-color: #979494;
+  background-color: #ffffff;
   color: black;
 }
 
 .dark .encabezadoModal {
   background-color: #22292a;
   color: white;
+  border-bottom-color: #404040;
 }
 
 .dark.contenidoModal {
@@ -1138,9 +1114,95 @@ h1 {
   color: white;
 }
 
+.dark .modal section {
+  background-color: #22292a;
+}
+
 .dark #menuMobile h6 {
   color: white;
-  background-color: #c9c4c482;
+}
+
+.dark #menuMobile a span {
+  color: rgb(255, 255, 255);
+}
+
+.dark #menuMobile .section-githubModal  a span {
+  color: rgb(0, 0, 0);
+}
+
+.dark #menuMobile h6:hover,
+.dark #menuMobile a span:hover {
+  background-color: #3a3a3a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark .section-githubModal {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark .section-githubModal a span {
+  color: white;
+}
+
+.dark .botonModo {
+  background-color: #ffffff;
+}
+
+.dark .language-selector-display {
+  background-color: white;
+  border-color: #ddd;
+  color: #565656;
+}
+
+.dark .language-selector-display:hover {
+  background-color: #f9f9f9;
+  border-color: #999;
+}
+
+.dark .language-dropdown {
+  background-color: white;
+  border-color: #c0c0c0;
+}
+
+.dark .language-option {
+  color: #565656;
+}
+
+.dark .language-option:hover {
+  background-color: #f0f0f0;
+}
+
+.dark .language-option span {
+  color: #565656;
+}
+
+.dark .language-selector-display-mobile {
+  background-color: white;
+  border-color: #ddd;
+  color: #565656;
+}
+
+.dark .language-selector-display-mobile:hover {
+  background-color: #f9f9f9;
+  border-color: #999;
+}
+
+.dark .language-dropdown-mobile {
+  background-color: white;
+  border-color: #c0c0c0;
+}
+
+.dark .language-option-mobile {
+  color: #565656;
+}
+
+.dark .language-option-mobile:hover {
+  background-color: #f0f0f0;
+}
+
+.dark .language-option-mobile span {
+  color: #565656;
 }
 
 .card-button-container {
@@ -1155,14 +1217,17 @@ h1 {
   gap: 0.4rem;
   background-color: #ffbd07;
   color: rgb(0, 0, 0);
-  padding: 0.6em 1.2em;
+  padding: 0.6em 1em;
   border-radius: 9999px;
   font-weight: bold;
-  font-size: 0.6rem;
+  font-size: 0.875rem;
   text-decoration: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
   margin: 0.5em 0;
+  width: 165px;
+  max-width: 100%;
+  white-space: nowrap;
 }
 
 .card-button:hover {
@@ -1176,6 +1241,14 @@ h1 {
 
 .card-description {
   height: 70px;
+}
+
+@media (max-width: 380px) {
+  .card-button {
+    width: 145px;
+    font-size: 0.875rem;
+    padding: 0.55em 0.8em;
+  }
 }
 
 body.dark #parrafoApi {
@@ -1194,6 +1267,44 @@ body.dark .menu-desplegable span {
   color: #ffffff;
 }
 
+.dark .caja {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .caja:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+  transform: translateY(-4px);
+}
+
+.dark .caja h2 {
+  color: #22292a;
+}
+
+.dark .caja p {
+  color: #22292a;
+}
+
+.dark .uno,
+.dark .cuatro {
+  background-color: #fde68a;
+}
+
+.dark .dos,
+.dark .tres {
+  background-color: #60a5fa;
+}
+
+.dark .card-button {
+  background-color: #fbbf24;
+  color: #000000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark .card-button:hover {
+  background-color: #f59e0b;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1206,28 +1317,42 @@ body.dark .menu-desplegable span {
 }
 
 .language-selector {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 6px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: white;
-  width: 69px;
-  height: 30px;
-  font-family: "Krona One", sans-serif;
-  font-size: 12px;
-  line-height: 14.4px;
-  letter-spacing: 0.5px;
-  color: var(--third-color);
   position: relative;
-  justify-content: center;
+  font-family: "Krona One", sans-serif;
+  font-size: 0.875rem;
 }
 
-.language-selector img#selectedFlag {
-  width: 20px;
-  height: 14px;
-  border-radius: 2px;
+.language-selector-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border: 1.5px solid #ddd;
+  border-radius: 15px;
+  background-color: #e6e9ea;
+  min-width: 138px;
+  width: auto;
+  height: 36px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  color: rgb(32, 32, 32);
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.language-selector-display:hover {
+  border-color: #777;
+  background-color: #cccccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.language-selector-display img#selectedFlag {
+  width: 28px;
+  height: 20px;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
   margin-right: auto;
 }
 
@@ -1236,42 +1361,179 @@ body.dark .menu-desplegable span {
   text-align: center;
 }
 
-.language-selector .arrow-icon {
-  width: 10px;
-  height: 10px;
+.language-selector-display .arrow-icon {
+  width: 12px;
+  height: 12px;
   margin-left: auto;
+  transition: transform 0.2s ease;
 }
 
-.language-selector select {
+.language-selector-display:hover .arrow-icon {
+  transform: translateY(2px);
+}
+
+.language-dropdown {
+  display: none;
   position: absolute;
-  top: 0;
+  top: calc(100% + 4px);
   left: 0;
   width: 100%;
-  height: 100%;
-  border: none;
-  background: transparent;
+  background-color: #ffffff;
+  border: 1.5px solid #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgb(198, 198, 198);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.language-dropdown.active {
+  display: block;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 8px;
   cursor: pointer;
-  outline: none;
-  appearance: none;
-  opacity: 0;
-  z-index: 2;
-  text-align-last: center;
-  -moz-text-align-last: center; 
-  padding: 0 5px
+  transition: background-color 0.2s ease;
+  color: white;
 }
 
-.language-selector select::-ms-expand {
+.language-option:first-child {
+  padding-top: 12px;
+}
+
+.language-option:last-child {
+  padding-bottom: 12px;
+}
+
+.language-option:hover {
+  background-color: #858585;
+}
+
+.language-option img {
+  width: 28px;
+  height: 20px;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
+.language-option span {
+  font-size: 0.875rem;
+  color: rgb(0, 0, 0);
+}
+
+
+.language-selector-mobile {
+  position: relative;
+  font-family: "Krona One", sans-serif;
+  font-size: 0.875rem;
+  margin: 8px 11px;
+}
+
+.language-selector-display-mobile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border: 1.5px solid #ddd;
+  border-radius: 20px;
+  background-color: #979494;
+  min-width: 132px;
+  width: auto;
+  height: 40px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  color: white;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.language-selector-display-mobile:hover {
+  border-color: #777;
+  background-color: #858585;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.language-selector-display-mobile img#selectedFlagMobile {
+  width: 30px;
+  height: 22px;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+  margin-right: auto;
+}
+
+#languageTextMobile {
+  flex-grow: 1;
+  text-align: center;
+  font-weight: 600;
+}
+
+.language-selector-display-mobile .arrow-icon-mobile {
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  transition: transform 0.2s ease;
+}
+
+.language-selector-display-mobile:hover .arrow-icon-mobile {
+  transform: translateY(2px);
+}
+
+.language-dropdown-mobile {
   display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background-color: #979494;
+  border: 1.5px solid #777;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  overflow: hidden;
 }
 
-@media (max-width: 480px) {
-  .language-selector {
-    padding: 4px 8px;
-    font-size: 10px;
-    gap: 6px;
-  }
-  .language-selector img#selectedFlag {
-    width: 18px;
-    height: 12px;
-  }
+.language-dropdown-mobile.active {
+  display: block;
+}
+
+.language-option-mobile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: white;
+}
+
+.language-option-mobile:first-child {
+  padding-top: 14px;
+}
+
+.language-option-mobile:last-child {
+  padding-bottom: 14px;
+}
+
+.language-option-mobile:hover {
+  background-color: #858585;
+}
+
+.language-option-mobile img {
+  width: 30px;
+  height: 22px;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
+.language-option-mobile span {
+  font-size: 0.875rem;
+  color: white;
+  font-weight: 600;
 }

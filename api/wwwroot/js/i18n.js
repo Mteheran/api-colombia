@@ -1,7 +1,16 @@
 let translations = {};
 const languageSelector = document.getElementById('languageSelector');
+const languageSelectorDisplay = document.querySelector('.language-selector-display');
+const languageDropdown = document.getElementById('languageDropdown');
 const selectedFlag = document.getElementById('selectedFlag');
 const languageText = document.getElementById('languageText');
+
+// Selector móvil
+const languageSelectorMobile = document.getElementById('languageSelectorMobile');
+const languageSelectorDisplayMobile = document.querySelector('.language-selector-display-mobile');
+const languageDropdownMobile = document.getElementById('languageDropdownMobile');
+const selectedFlagMobile = document.getElementById('selectedFlagMobile');
+const languageTextMobile = document.getElementById('languageTextMobile');
 
 async function fetchTranslations() {
   try {
@@ -12,7 +21,7 @@ async function fetchTranslations() {
     translations = await response.json();
     setInitialLanguage();
   } catch (error) {
-    console.error(error);
+    // Error loading translations
   }
 }
 
@@ -34,8 +43,6 @@ function setInitialLanguage() {
   const defaultLang = storedLang || getBrowserLanguage();
   
   document.documentElement.setAttribute('lang', defaultLang);
-  
-  languageSelector.value = defaultLang;
   translatePage(defaultLang);
   updateFlagAndText(defaultLang);
 }
@@ -49,12 +56,51 @@ function translatePage(lang) {
   });
 }
 
+function getTranslation(key) {
+  const currentLang = document.documentElement.getAttribute('lang') || 'es';
+  return translations[currentLang] && translations[currentLang][key] 
+    ? translations[currentLang][key] 
+    : key;
+}
+
+// Hacer la función disponible globalmente
+window.getTranslation = getTranslation;
+
 function updateFlagAndText(lang) {
-  const selectedOption = languageSelector.options[languageSelector.selectedIndex];
-  const newFlagSrc = selectedOption.getAttribute('data-flag');
+  const flagMap = {
+    'es': '/assets/es.png',
+    'en': '/assets/en.png',
+    'pt': '/assets/pr.png'
+  };
   
-  selectedFlag.src = newFlagSrc;
-  languageText.textContent = lang.toUpperCase();
+  const languageNames = {
+    'es': 'Español',
+    'en': 'English',
+    'pt': 'Português'
+  };
+  
+  const newFlagSrc = flagMap[lang];
+  const languageName = languageNames[lang];
+  
+  // Actualizar selector desktop
+  if (selectedFlag && languageText) {
+    selectedFlag.src = newFlagSrc;
+    languageText.textContent = lang.toUpperCase();
+  }
+  
+  if (languageSelectorDisplay) {
+    languageSelectorDisplay.setAttribute('aria-label', `Idioma actual: ${languageName}. Haz clic para cambiar`);
+  }
+  
+  // Actualizar selector móvil
+  if (selectedFlagMobile && languageTextMobile) {
+    selectedFlagMobile.src = newFlagSrc;
+    languageTextMobile.textContent = lang.toUpperCase();
+  }
+  
+  if (languageSelectorDisplayMobile) {
+    languageSelectorDisplayMobile.setAttribute('aria-label', `Idioma actual: ${languageName}. Haz clic para cambiar`);
+  }
 }
 
 function detectBrowser() {
@@ -106,12 +152,187 @@ function getBrowserInfo() {
     return info;
 }
 
-languageSelector.addEventListener('change', (event) => {
-  const newLang = event.target.value;
+// Función para cambiar idioma (usada por ambos selectores)
+function changeLanguage(newLang) {
   document.documentElement.setAttribute('lang', newLang);
   localStorage.setItem('language', newLang);
+  
   translatePage(newLang);
   updateFlagAndText(newLang);
+  
+  // Cerrar dropdowns
+  if (languageDropdown) {
+    languageDropdown.classList.remove('active');
+  }
+  if (languageDropdownMobile) {
+    languageDropdownMobile.classList.remove('active');
+  }
+  
+  // Disparar evento personalizado para notificar a otros módulos
+  const languageChangeEvent = new CustomEvent('languageChanged', { detail: { language: newLang } });
+  window.dispatchEvent(languageChangeEvent);
+}
+
+// Toggle dropdown desktop
+if (languageSelectorDisplay) {
+  languageSelectorDisplay.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isExpanded = languageDropdown.classList.toggle('active');
+    languageSelectorDisplay.setAttribute('aria-expanded', isExpanded);
+    // Cerrar el móvil si está abierto
+    if (languageDropdownMobile) {
+      languageDropdownMobile.classList.remove('active');
+      if (languageSelectorDisplayMobile) {
+        languageSelectorDisplayMobile.setAttribute('aria-expanded', 'false');
+      }
+    }
+    // Focus en primera opción si se abre
+    if (isExpanded) {
+      const firstOption = languageDropdown.querySelector('.language-option');
+      if (firstOption) firstOption.focus();
+    }
+  });
+  
+  // Soporte de teclado
+  languageSelectorDisplay.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      languageSelectorDisplay.click();
+    }
+  });
+}
+
+// Toggle dropdown móvil
+if (languageSelectorDisplayMobile) {
+  languageSelectorDisplayMobile.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isExpanded = languageDropdownMobile.classList.toggle('active');
+    languageSelectorDisplayMobile.setAttribute('aria-expanded', isExpanded);
+    // Cerrar el desktop si está abierto
+    if (languageDropdown) {
+      languageDropdown.classList.remove('active');
+      if (languageSelectorDisplay) {
+        languageSelectorDisplay.setAttribute('aria-expanded', 'false');
+      }
+    }
+    // Focus en primera opción si se abre
+    if (isExpanded) {
+      const firstOption = languageDropdownMobile.querySelector('.language-option-mobile');
+      if (firstOption) firstOption.focus();
+    }
+  });
+  
+  // Soporte de teclado
+  languageSelectorDisplayMobile.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      languageSelectorDisplayMobile.click();
+    }
+  });
+}
+
+// Event listeners para opciones del dropdown desktop
+if (languageDropdown) {
+  const options = languageDropdown.querySelectorAll('.language-option');
+  options.forEach((option, index) => {
+    option.addEventListener('click', () => {
+      const lang = option.getAttribute('data-lang');
+      changeLanguage(lang);
+    });
+    
+    // Navegación por teclado
+    option.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const lang = option.getAttribute('data-lang');
+        changeLanguage(lang);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextOption = options[index + 1];
+        if (nextOption) nextOption.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevOption = options[index - 1];
+        if (prevOption) prevOption.focus();
+        else if (languageSelectorDisplay) languageSelectorDisplay.focus();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        languageDropdown.classList.remove('active');
+        languageSelectorDisplay.setAttribute('aria-expanded', 'false');
+        languageSelectorDisplay.focus();
+      }
+    });
+  });
+}
+
+// Event listeners para opciones del dropdown móvil
+if (languageDropdownMobile) {
+  const optionsMobile = languageDropdownMobile.querySelectorAll('.language-option-mobile');
+  optionsMobile.forEach((option, index) => {
+    option.addEventListener('click', () => {
+      const lang = option.getAttribute('data-lang');
+      changeLanguage(lang);
+    });
+    
+    // Navegación por teclado
+    option.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const lang = option.getAttribute('data-lang');
+        changeLanguage(lang);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextOption = optionsMobile[index + 1];
+        if (nextOption) nextOption.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevOption = optionsMobile[index - 1];
+        if (prevOption) prevOption.focus();
+        else if (languageSelectorDisplayMobile) languageSelectorDisplayMobile.focus();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        languageDropdownMobile.classList.remove('active');
+        languageSelectorDisplayMobile.setAttribute('aria-expanded', 'false');
+        languageSelectorDisplayMobile.focus();
+      }
+    });
+  });
+}
+
+// Cerrar dropdown cuando se hace clic fuera
+document.addEventListener('click', (e) => {
+  if (languageDropdown && !languageSelector.contains(e.target)) {
+    languageDropdown.classList.remove('active');
+    if (languageSelectorDisplay) {
+      languageSelectorDisplay.setAttribute('aria-expanded', 'false');
+    }
+  }
+  if (languageDropdownMobile && !languageSelectorMobile.contains(e.target)) {
+    languageDropdownMobile.classList.remove('active');
+    if (languageSelectorDisplayMobile) {
+      languageSelectorDisplayMobile.setAttribute('aria-expanded', 'false');
+    }
+  }
+});
+
+// Cerrar dropdowns con Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (languageDropdown && languageDropdown.classList.contains('active')) {
+      languageDropdown.classList.remove('active');
+      if (languageSelectorDisplay) {
+        languageSelectorDisplay.setAttribute('aria-expanded', 'false');
+        languageSelectorDisplay.focus();
+      }
+    }
+    if (languageDropdownMobile && languageDropdownMobile.classList.contains('active')) {
+      languageDropdownMobile.classList.remove('active');
+      if (languageSelectorDisplayMobile) {
+        languageSelectorDisplayMobile.setAttribute('aria-expanded', 'false');
+        languageSelectorDisplayMobile.focus();
+      }
+    }
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {

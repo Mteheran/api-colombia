@@ -2,6 +2,15 @@ const toggleModal = (button, modal) => {
     button.addEventListener("click", () => {
         modal.classList.toggle("show");
         modal.classList.toggle("hidden");
+        
+        // Actualizar atributos ARIA
+        const isHidden = modal.classList.contains("hidden");
+        modal.setAttribute("aria-hidden", isHidden);
+        
+        // Si el botón tiene aria-expanded, actualizarlo
+        if (button.hasAttribute("aria-expanded")) {
+            button.setAttribute("aria-expanded", !isHidden);
+        }
     });
 };
 

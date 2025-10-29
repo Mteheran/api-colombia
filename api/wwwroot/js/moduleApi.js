@@ -1,7 +1,6 @@
 const apiBaseUrl = "https://api-colombia.com/api/";
-const cache = new Map(); // Mapeo para almacenar las respuestas en cachéß
+const cache = new Map();
 
-// Obtengo los elementos necesarios por su ID o clase
 const selectVersion = document.getElementById("selectVersion");
 const selectData = document.getElementById("selectData");
 const btnSolicitar = document.getElementById("btnSolicitar");
@@ -77,30 +76,6 @@ async function fetchData(apiUrl) {
 }
 
 
-// Agrego un evento al botón de solicitar datos
-/* btnSolicitar.addEventListener("click", async function () {
-  const version = selectVersion.value;
-  const data = selectData.value;
-  let apiUrl = "";
-
-  if (data === "CountryColombia") {
-    apiUrl = "https://api-colombia.com/api/v1/country/Colombia";
-  } else if (data === "Holiday") {
-    const year = selectYear.value;
-    apiUrl = `https://api-colombia.com/api/${version}/Holiday/year/${year}`;
-  } else {
-    apiUrl = `${apiBaseUrl}${version}/${data}`;
-  }
-
-  try {
-    const responseData = await fetchData(apiUrl);
-    resultadoDiv.innerText = JSON.stringify(responseData, null, 2);
-
-  } catch (error) {
-    console.error("Error al obtener los datos:", error);
-  }
-}); */
-
 // Muestra en la UI qué endpoint se está consumiendo
 document.getElementById("selectData").addEventListener("change", function () {
   var selectedOption = this.value;
@@ -115,7 +90,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     const responseData = await fetchData(apiUrl);
     resultadoDiv.innerText = JSON.stringify(responseData, null, 2);
   } catch (error) {
-    resultadoDiv.innerHTML = "<p>No se encontraron datos. Vuelva a intentarlo</p>";
+    const errorMsg = window.getTranslation ? window.getTranslation('noDataFound') : 'No se encontraron datos. Vuelva a intentarlo';
+    resultadoDiv.innerHTML = `<p>${errorMsg}</p>`;
   }
 });
 
@@ -149,7 +125,8 @@ btnSolicitar.addEventListener("click", async function () {
     }
 
     try {
-        resultadoDiv.innerText = "Cargando datos...";
+        const loadingMsg = window.getTranslation ? window.getTranslation('loadingData') : 'Cargando datos...';
+        resultadoDiv.innerText = loadingMsg;
         await new Promise(resolve => setTimeout(resolve, 1000));
         const responseData = await fetchData(apiUrl);
 
@@ -170,7 +147,8 @@ btnSolicitar.addEventListener("click", async function () {
         // Aqui capturo y manejo los errores de la solicitud a la API
 
         // Muestro un mensaje de error en el div resultado cuando no se consuma correctamente
-        resultadoDiv.innerText = "Error al obtener los datos";
+        const errorMsg = window.getTranslation ? window.getTranslation('errorLoadingData') : 'Error al obtener los datos';
+        resultadoDiv.innerText = errorMsg;
     }
 });
 
@@ -188,8 +166,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     const responseData = await fetchData(apiUrl);
     resultadoDiv.innerText = JSON.stringify(responseData, null, 2);
   } catch (error) {
-    console.error("Error al obtener los datos:", error);
-    resultadoDiv.innerHTML =
-      "<p>No se encontraron datos. Vuelva a intentarlo</p>";
+    const errorMsg = window.getTranslation ? window.getTranslation('noDataFound') : 'No se encontraron datos. Vuelva a intentarlo';
+    resultadoDiv.innerHTML = `<p>${errorMsg}</p>`;
   }
+});
+
+window.addEventListener('languageChanged', (event) => {
+  // Los mensajes se actualizarán automáticamente
 });

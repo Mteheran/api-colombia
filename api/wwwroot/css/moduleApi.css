@@ -19,7 +19,7 @@
 }
 
 .module-api .options-api select {
-  background-color: rgba(179, 179, 179, .5);
+  background-color: #e6e9ea;
   border: none;
   width: 93.3px;
   font-family: 'Poppins';
@@ -27,6 +27,8 @@
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
+  color: #22292a;
+  padding: 2px 4px;
 }
 
 .module-api .options-api button {
@@ -74,7 +76,7 @@
 .parteDerecha .block-api .endpoint,
 .parteDerecha .block-api .parentesis-cierre,
 .parteDerecha .block-api .parentesis-cierre2 {
-  font-size: 9px;
+  font-size: 0.6875rem;
   color: #ffffff;
   font-family: 'Krona One';
   margin-left: 1em;
@@ -89,7 +91,7 @@
 }
 
 .parteDerecha .block-api .then {
-  font-size: 9px;
+  font-size: 0.6875rem;
   margin-top: 1.8em;
   margin-left: 1.8em;
 }
@@ -102,7 +104,7 @@
 .parteDerecha .block-api .text5 {
   color: #ffffff;
   font-family: 'Krona One';
-  font-size: 9px;
+  font-size: 0.6875rem;
 }
 
 .parteDerecha .block-api .text,
@@ -116,7 +118,7 @@
 .parteDerecha .module-api .resultado {
   position: absolute;
   margin-top: 10.6em;
-  font-size: 12px;
+  font-size: 0.875rem;
   width: 598px;
   overflow-y: auto;
   background-color: #22292a;
@@ -127,15 +129,17 @@
 }
 
 .resultado {
-  color: #ffffff; /* Fondo gris claro */
-  padding: 8px 18px; /* Espaciado interno */
-  border-radius: 5px; /* Bordes redondeados */
-  font-family: 'Krona One'; /* Fuente monoespaciada para mantener la estructura */
-  line-height: 1.7; /* Espaciado entre líneas */
-  white-space: pre;  /* Preserva los espacio con elementos <br> */
-  width: 593px; /* Ajusta el ancho al contenido */
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 5px;
+  font-family: 'Krona One';
+  line-height: 1.7;
+  white-space: pre;
+  width: 593px;
 }
 
 
-/* #CECFA0 */
-/* #CB8F77 */
+.dark .module-api .options-api select {
+  background-color: #ffffff;
+  color: #22292a;
+}

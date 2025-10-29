@@ -109,8 +109,8 @@ body {
   flex-direction: row;
   align-items: center;
   background-color: #e6e9ea;
-  border-radius: 5px;
-  padding: 3px;
+  border-radius: 15px;
+  padding: 6px;
 }
 
 .section-github p {
@@ -968,13 +968,14 @@ footer .hearts > img {
   flex-direction: row;
   justify-content: center;
   align-content: center;
-  width: 90px;
-  height: 44px;
+  width: 120px;
+  height: 40px;
   background-color: white;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 20px;
   margin-top: 2em;
   margin-bottom: 1em;
+  margin: 8px 11px;
   padding: 0 0.5em;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
@@ -1013,8 +1014,8 @@ footer .hearts > img {
   justify-content: space-around;
   width: 135px;
   height: 40px;
-  border-radius: 8px;
-  margin: 1em 0;
+  border-radius: 20px;
+  margin: 8px 11px;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
@@ -1071,8 +1072,8 @@ h1 {
 }
 
 #modoWeb {
-  width: 32px;
-  height: 32px;
+  width: 45px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1085,7 +1086,7 @@ h1 {
 
 .dark #modoWeb {
   background-color: #ffffff !important;
-  border-radius: 7px;
+  border-radius: 15px;
 }
 
 .dark .section-github {
@@ -1113,7 +1114,11 @@ h1 {
 }
 
 .dark #menuMobile a span {
-  color: white;
+  color: rgb(255, 255, 255);
+}
+
+.dark #menuMobile .section-githubModal  a span {
+  color: rgb(0, 0, 0);
 }
 
 .dark #menuMobile h6:hover,
@@ -1123,7 +1128,7 @@ h1 {
 }
 
 .dark .section-githubModal {
-  background-color: #3a3a3a;
+  background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -1132,7 +1137,7 @@ h1 {
 }
 
 .dark .botonModo {
-  background-color: #3a3a3a;
+  background-color: #ffffff;
 }
 
 .dark .language-selector-display {

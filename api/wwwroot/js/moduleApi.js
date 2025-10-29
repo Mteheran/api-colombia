@@ -1,7 +1,6 @@
 const apiBaseUrl = "https://api-colombia.com/api/";
-const cache = new Map(); // Mapeo para almacenar las respuestas en cachéß
+const cache = new Map();
 
-// Obtengo los elementos necesarios por su ID o clase
 const selectVersion = document.getElementById("selectVersion");
 const selectData = document.getElementById("selectData");
 const btnSolicitar = document.getElementById("btnSolicitar");
@@ -76,30 +75,6 @@ async function fetchData(apiUrl) {
   }
 }
 
-
-// Agrego un evento al botón de solicitar datos
-/* btnSolicitar.addEventListener("click", async function () {
-  const version = selectVersion.value;
-  const data = selectData.value;
-  let apiUrl = "";
-
-  if (data === "CountryColombia") {
-    apiUrl = "https://api-colombia.com/api/v1/country/Colombia";
-  } else if (data === "Holiday") {
-    const year = selectYear.value;
-    apiUrl = `https://api-colombia.com/api/${version}/Holiday/year/${year}`;
-  } else {
-    apiUrl = `${apiBaseUrl}${version}/${data}`;
-  }
-
-  try {
-    const responseData = await fetchData(apiUrl);
-    resultadoDiv.innerText = JSON.stringify(responseData, null, 2);
-
-  } catch (error) {
-    console.error("Error al obtener los datos:", error);
-  }
-}); */
 
 // Muestra en la UI qué endpoint se está consumiendo
 document.getElementById("selectData").addEventListener("change", function () {
@@ -191,15 +166,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     const responseData = await fetchData(apiUrl);
     resultadoDiv.innerText = JSON.stringify(responseData, null, 2);
   } catch (error) {
-    console.error("Error al obtener los datos:", error);
     const errorMsg = window.getTranslation ? window.getTranslation('noDataFound') : 'No se encontraron datos. Vuelva a intentarlo';
     resultadoDiv.innerHTML = `<p>${errorMsg}</p>`;
   }
 });
 
-// Listener para cambios de idioma
 window.addEventListener('languageChanged', (event) => {
-  // Los mensajes se actualizarán automáticamente cuando se ejecuten las funciones
-  // ya que usan window.getTranslation() que obtiene el idioma actual
-  console.log('Idioma cambiado a:', event.detail.language);
+  // Los mensajes se actualizarán automáticamente
 });

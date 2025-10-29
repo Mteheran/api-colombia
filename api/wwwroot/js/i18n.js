@@ -21,7 +21,7 @@ async function fetchTranslations() {
     translations = await response.json();
     setInitialLanguage();
   } catch (error) {
-    console.error(error);
+    // Error loading translations
   }
 }
 

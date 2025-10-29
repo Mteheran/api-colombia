@@ -129,21 +129,17 @@
 }
 
 .resultado {
-  color: #ffffff; /* Fondo gris claro */
-  padding: 8px 18px; /* Espaciado interno */
-  border-radius: 5px; /* Bordes redondeados */
-  font-family: 'Krona One'; /* Fuente monoespaciada para mantener la estructura */
-  line-height: 1.7; /* Espaciado entre líneas */
-  white-space: pre;  /* Preserva los espacio con elementos <br> */
-  width: 593px; /* Ajusta el ancho al contenido */
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 5px;
+  font-family: 'Krona One';
+  line-height: 1.7;
+  white-space: pre;
+  width: 593px;
 }
 
 
-/* Modo Dark para select */
 .dark .module-api .options-api select {
   background-color: #ffffff;
   color: #22292a;
 }
-
-/* #CECFA0 */
-/* #CB8F77 */

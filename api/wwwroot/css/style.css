@@ -275,12 +275,6 @@ body {
   text-align: center;
 }
 
-/* .parteDerecha {
-    background-color: #22292A;
-    color: #fff;
-    width: 25em;
-} */
-
 #department-data {
   border: 1px solid #ccc;
   padding: 20px;
@@ -334,18 +328,6 @@ body {
   color: #22292a;
   margin: 0.5em 0;
 }
-
-/* .caja h6 {
-  font-family: "Krona One";
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 14.4px;
-  letter-spacing: 0.5px;
-  text-align: left;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-} */
 
 .uno,
 .cuatro {
@@ -424,7 +406,6 @@ body {
 
 .contenedorprincipal img:hover {
   opacity: 0.7;
-  /* Cambia la opacidad según tu preferencia */
   cursor: pointer;
 }
 
@@ -449,78 +430,6 @@ body {
   margin-top: -90px;
   justify-content: space-around;
 }
-
-/*
-
-
-.menu-desplegable{
-    display: inline-flex;
-    height: 16px;
-    gap: 32px;
-
-}
-*/
-/*
-.menu-desplegable a, .menu-desplegable h6{
-    height: 16px;
-    font-family: 'Krona One', sans-serif;
-    font-size: 14px; 
-    font-weight: normal;
-    line-height: 14.4px;
-    letter-spacing: 0.5px;
-    text-align: center;
-    color:#565656;
-    text-decoration-line:none;
-}
-
-.menu-desplegable span{
-    color: #E6E9EA;
-    font-size: 28px;
-    font-weight: 500;
-    margin-top: -11px;
-    
-}
-
-.section-github{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color:#E6E9EA;
-    border-radius: 5px;
-    gap:8px;
-    width: 70px;
-    height: 30px;
-    
-}
-
-.section-github p{
-
-    background-color: white;
-    border-radius: 5px;
-    padding: 3px;
-    font-family: 'Krona One', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-}
-#Logo-API{
-    margin-left: 120px;
-    margin-top: 16px;
-    width: 140px;
-    height: 44px;
-}
-
-#githubIcon{
-    padding-left: 4px;
-}
-
-section{
-    height: 600px;
-}
-*/
-
-/* START MODULE API */
-
-/* END MODULE API */
 
 /* INFORMATION ABOUT SPONSORSHIPS */
 
@@ -647,18 +556,14 @@ section{
   font-size: 14px;
 }
 
-/* END INFORMATION ABOUT SPONSORSHIPS */
-/*             FOOTER             */
 footer {
   background-color: #fdfdfd;
-  /* position: relative; */
   text-align: center;
   margin-top: 1em;
   display: flex;
   flex-direction: row;
   padding: 0 1.4em;
   align-items: center;
-  /* gap: 1em; */
   justify-content: space-between;
   margin-bottom: 13px;
 }
@@ -688,11 +593,7 @@ footer .hearts > img {
   display: none;
 }
 
-/*             FIN FOOTER             */
-
-/* RESPONSIVE  */
-
-/* Entre un tamaño de 600px hasta 1001px */
+/* RESPONSIVE */
 
 @media (min-width: 1002px) {
   .cards {
@@ -714,7 +615,6 @@ footer .hearts > img {
   }
 
   .menuicon img {
-    /* Esto asegura que el contenedor tome solo el espacio que la imagen necesita */
     transform: scale(0.65);
     height: 66px;
     margin-top: -2px;
@@ -801,7 +701,6 @@ footer .hearts > img {
   }
 
   .menuicon img {
-    /* Esto asegura que el contenedor tome solo el espacio que la imagen necesita */
     transform: scale(0.65);
     height: 66px;
     margin-top: -2px;
@@ -904,7 +803,6 @@ footer .hearts > img {
   }
 
   .menuicon img {
-    /* Esto asegura que el contenedor tome solo el espacio que la imagen necesita */
     transform: scale(0.5);
     height: 66px;
     margin-top: -2px;
@@ -955,7 +853,6 @@ footer .hearts > img {
   }
 }
 
-/* FIN RESPONSIVE */
 
 .modal {
   display: flex;
@@ -1332,7 +1229,6 @@ h1 {
   height: 70px;
 }
 
-/* Ajuste de botones en móviles */
 @media (max-width: 380px) {
   .card-button {
     width: 145px;
@@ -1357,7 +1253,6 @@ body.dark .menu-desplegable span {
   color: #ffffff;
 }
 
-/* Estilos dark para las cards */
 .dark .caja {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1517,7 +1412,6 @@ body.dark .menu-desplegable span {
 }
 
 
-/* Language Selector Mobile */
 .language-selector-mobile {
   position: relative;
   font-family: "Krona One", sans-serif;

@@ -100,15 +100,26 @@
                 <p>263</p>
               </a>
             </div>
-            <div class="language-selector">
-              <img id="selectedFlag" src="/assets/es.png" alt="Idioma actual" />
-              <span id="languageText">ES</span>
-              <img class="arrow-icon" src="/assets/down.png" alt="Desplegar selector" tabindex="0" />
-              <select id="languageSelector" aria-label="Seleccionar idioma">
-                <option value="es" data-flag="/assets/es.png">ES</option>
-                <option value="en" data-flag="/assets/en.png">EN</option>
-                <option value="pt" data-flag="/assets/pr.png">PT</option>
-              </select>
+            <div class="language-selector" id="languageSelector">
+              <div class="language-selector-display">
+                <img id="selectedFlag" src="/assets/es.png" alt="Idioma actual" />
+                <span id="languageText">ES</span>
+                <img class="arrow-icon" src="/assets/down.png" alt="Desplegar selector" />
+              </div>
+              <div class="language-dropdown" id="languageDropdown">
+                <div class="language-option" data-lang="es" data-flag="/assets/es.png">
+                  <img src="/assets/es.png" alt="Español" />
+                  <span>ES</span>
+                </div>
+                <div class="language-option" data-lang="en" data-flag="/assets/en.png">
+                  <img src="/assets/en.png" alt="English" />
+                  <span>EN</span>
+                </div>
+                <div class="language-option" data-lang="pt" data-flag="/assets/pr.png">
+                  <img src="/assets/pr.png" alt="Português" />
+                  <span>PT</span>
+                </div>
+              </div>
             </div>
           </div>
         </nav>
@@ -172,15 +183,26 @@
                   </select>
                 </a>
                 
-                <div class="language-selector-mobile">
-                  <img id="selectedFlagMobile" src="/assets/es.png" alt="Idioma actual" />
-                  <span id="languageTextMobile">ES</span>
-                  <img class="arrow-icon-mobile" src="/assets/down.png" alt="Desplegar selector" />
-                  <select id="languageSelectorMobile" aria-label="Seleccionar idioma">
-                    <option value="es" data-flag="/assets/es.png">ES</option>
-                    <option value="en" data-flag="/assets/en.png">EN</option>
-                    <option value="pt" data-flag="/assets/pr.png">PT</option>
-                  </select>
+                <div class="language-selector-mobile" id="languageSelectorMobile">
+                  <div class="language-selector-display-mobile">
+                    <img id="selectedFlagMobile" src="/assets/es.png" alt="Idioma actual" />
+                    <span id="languageTextMobile">ES</span>
+                    <img class="arrow-icon-mobile" src="/assets/down.png" alt="Desplegar selector" />
+                  </div>
+                  <div class="language-dropdown-mobile" id="languageDropdownMobile">
+                    <div class="language-option-mobile" data-lang="es" data-flag="/assets/es.png">
+                      <img src="/assets/es.png" alt="Español" />
+                      <span>ES</span>
+                    </div>
+                    <div class="language-option-mobile" data-lang="en" data-flag="/assets/en.png">
+                      <img src="/assets/en.png" alt="English" />
+                      <span>EN</span>
+                    </div>
+                    <div class="language-option-mobile" data-lang="pt" data-flag="/assets/pr.png">
+                      <img src="/assets/pr.png" alt="Português" />
+                      <span>PT</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

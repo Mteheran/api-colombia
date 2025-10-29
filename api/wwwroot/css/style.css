@@ -1148,26 +1148,60 @@ h1 {
   background-color: #c9c4c482;
 }
 
-.dark .language-selector {
+.dark .language-selector-display {
   background-color: #979494;
   border-color: #666;
   color: white;
 }
 
-.dark .language-selector:hover {
+.dark .language-selector-display:hover {
   background-color: #858585;
   border-color: #888;
 }
 
-.dark .language-selector-mobile {
+.dark .language-dropdown {
+  background-color: #979494;
+  border-color: #666;
+}
+
+.dark .language-option {
+  color: white;
+}
+
+.dark .language-option:hover {
+  background-color: #858585;
+}
+
+.dark .language-option span {
+  color: white;
+}
+
+.dark .language-selector-display-mobile {
   background-color: #979494;
   border-color: #666;
   color: white;
 }
 
-.dark .language-selector-mobile:hover {
+.dark .language-selector-display-mobile:hover {
   background-color: #858585;
   border-color: #888;
+}
+
+.dark .language-dropdown-mobile {
+  background-color: #979494;
+  border-color: #666;
+}
+
+.dark .language-option-mobile {
+  color: white;
+}
+
+.dark .language-option-mobile:hover {
+  background-color: #858585;
+}
+
+.dark .language-option-mobile span {
+  color: white;
 }
 
 .card-button-container {
@@ -1233,6 +1267,12 @@ body.dark .menu-desplegable span {
 }
 
 .language-selector {
+  position: relative;
+  font-family: "Krona One", sans-serif;
+  font-size: 12px;
+}
+
+.language-selector-display {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -1242,74 +1282,96 @@ body.dark .menu-desplegable span {
   background-color: white;
   width: 75px;
   height: 32px;
-  font-family: "Krona One", sans-serif;
-  font-size: 12px;
   line-height: 14.4px;
   letter-spacing: 0.5px;
   color: var(--third-color);
-  position: relative;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.language-selector:hover {
+.language-selector-display:hover {
   border-color: #999;
   background-color: #f9f9f9;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.language-selector img#selectedFlag {
+.language-selector-display img#selectedFlag {
   width: 20px;
   height: 14px;
   border-radius: 2px;
   margin-right: auto;
-  pointer-events: none;
 }
 
 #languageText {
   flex-grow: 1;
   text-align: center;
-  pointer-events: none;
 }
 
-.language-selector .arrow-icon {
+.language-selector-display .arrow-icon {
   width: 10px;
   height: 10px;
   margin-left: auto;
   transition: transform 0.2s ease;
-  pointer-events: none;
 }
 
-.language-selector:hover .arrow-icon {
+.language-selector-display:hover .arrow-icon {
   transform: translateY(2px);
 }
 
-.language-selector select {
+.language-dropdown {
+  display: none;
   position: absolute;
-  top: 0;
+  top: calc(100% + 4px);
   left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  outline: none;
-  appearance: none;
-  opacity: 0;
-  z-index: 2;
-  text-align-last: center;
-  -moz-text-align-last: center; 
-  padding: 0 5px;
+  width: 91px;
+  background-color: white;
+  border: 1px solid #999;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  overflow: hidden;
 }
 
-.language-selector select::-ms-expand {
-  display: none;
+.language-dropdown.active {
+  display: block;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  justify-content: center;
+}
+
+.language-option:hover {
+  background-color: #f0f0f0;
+}
+
+.language-option img {
+  width: 20px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.language-option span {
+  font-size: 12px;
+  color: var(--third-color);
 }
 
 
 /* Language Selector Mobile */
 .language-selector-mobile {
+  position: relative;
+  font-family: "Krona One", sans-serif;
+  font-size: 12px;
+  margin: 8px 11px;
+}
+
+.language-selector-display-mobile {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -1319,81 +1381,84 @@ body.dark .menu-desplegable span {
   background-color: white;
   width: 120px;
   height: 38px;
-  font-family: "Krona One", sans-serif;
-  font-size: 12px;
   line-height: 14.4px;
   letter-spacing: 0.5px;
   color: var(--third-color);
-  position: relative;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin: 8px 11px;
 }
 
-.language-selector-mobile:hover {
+.language-selector-display-mobile:hover {
   border-color: #999;
   background-color: #f9f9f9;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.language-selector-mobile img#selectedFlagMobile {
+.language-selector-display-mobile img#selectedFlagMobile {
   width: 22px;
   height: 16px;
   border-radius: 2px;
   margin-right: auto;
-  pointer-events: none;
 }
 
 #languageTextMobile {
   flex-grow: 1;
   text-align: center;
-  pointer-events: none;
   font-weight: 600;
 }
 
-.language-selector-mobile .arrow-icon-mobile {
+.language-selector-display-mobile .arrow-icon-mobile {
   width: 12px;
   height: 12px;
   margin-left: auto;
   transition: transform 0.2s ease;
-  pointer-events: none;
 }
 
-.language-selector-mobile:hover .arrow-icon-mobile {
+.language-selector-display-mobile:hover .arrow-icon-mobile {
   transform: translateY(2px);
 }
 
-.language-selector-mobile select {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  outline: none;
-  appearance: none;
-  opacity: 0;
-  z-index: 2;
-  text-align-last: center;
-  -moz-text-align-last: center; 
-  padding: 0 5px;
-}
-
-.language-selector-mobile select::-ms-expand {
+.language-dropdown-mobile {
   display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 144px;
+  background-color: white;
+  border: 1px solid #999;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  overflow: hidden;
 }
 
-@media (max-width: 480px) {
-  .language-selector {
-    padding: 4px 8px;
-    font-size: 10px;
-    gap: 6px;
-  }
-  .language-selector img#selectedFlag {
-    width: 18px;
-    height: 12px;
-  }
+.language-dropdown-mobile.active {
+  display: block;
+}
+
+.language-option-mobile {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  justify-content: center;
+}
+
+.language-option-mobile:hover {
+  background-color: #f0f0f0;
+}
+
+.language-option-mobile img {
+  width: 22px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.language-option-mobile span {
+  font-size: 12px;
+  color: var(--third-color);
+  font-weight: 600;
 }

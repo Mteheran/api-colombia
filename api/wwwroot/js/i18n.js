@@ -1,10 +1,14 @@
 let translations = {};
 const languageSelector = document.getElementById('languageSelector');
+const languageSelectorDisplay = document.querySelector('.language-selector-display');
+const languageDropdown = document.getElementById('languageDropdown');
 const selectedFlag = document.getElementById('selectedFlag');
 const languageText = document.getElementById('languageText');
 
 // Selector móvil
 const languageSelectorMobile = document.getElementById('languageSelectorMobile');
+const languageSelectorDisplayMobile = document.querySelector('.language-selector-display-mobile');
+const languageDropdownMobile = document.getElementById('languageDropdownMobile');
 const selectedFlagMobile = document.getElementById('selectedFlagMobile');
 const languageTextMobile = document.getElementById('languageTextMobile');
 
@@ -39,11 +43,6 @@ function setInitialLanguage() {
   const defaultLang = storedLang || getBrowserLanguage();
   
   document.documentElement.setAttribute('lang', defaultLang);
-  
-  languageSelector.value = defaultLang;
-  if (languageSelectorMobile) {
-    languageSelectorMobile.value = defaultLang;
-  }
   translatePage(defaultLang);
   updateFlagAndText(defaultLang);
 }
@@ -68,15 +67,22 @@ function getTranslation(key) {
 window.getTranslation = getTranslation;
 
 function updateFlagAndText(lang) {
-  const selectedOption = languageSelector.options[languageSelector.selectedIndex];
-  const newFlagSrc = selectedOption.getAttribute('data-flag');
+  const flagMap = {
+    'es': '/assets/es.png',
+    'en': '/assets/en.png',
+    'pt': '/assets/pr.png'
+  };
+  
+  const newFlagSrc = flagMap[lang];
   
   // Actualizar selector desktop
-  selectedFlag.src = newFlagSrc;
-  languageText.textContent = lang.toUpperCase();
+  if (selectedFlag && languageText) {
+    selectedFlag.src = newFlagSrc;
+    languageText.textContent = lang.toUpperCase();
+  }
   
   // Actualizar selector móvil
-  if (languageSelectorMobile && selectedFlagMobile && languageTextMobile) {
+  if (selectedFlagMobile && languageTextMobile) {
     selectedFlagMobile.src = newFlagSrc;
     languageTextMobile.textContent = lang.toUpperCase();
   }
@@ -136,31 +142,77 @@ function changeLanguage(newLang) {
   document.documentElement.setAttribute('lang', newLang);
   localStorage.setItem('language', newLang);
   
-  // Sincronizar ambos selectores
-  languageSelector.value = newLang;
-  if (languageSelectorMobile) {
-    languageSelectorMobile.value = newLang;
-  }
-  
   translatePage(newLang);
   updateFlagAndText(newLang);
+  
+  // Cerrar dropdowns
+  if (languageDropdown) {
+    languageDropdown.classList.remove('active');
+  }
+  if (languageDropdownMobile) {
+    languageDropdownMobile.classList.remove('active');
+  }
   
   // Disparar evento personalizado para notificar a otros módulos
   const languageChangeEvent = new CustomEvent('languageChanged', { detail: { language: newLang } });
   window.dispatchEvent(languageChangeEvent);
 }
 
-// Listener para selector desktop
-languageSelector.addEventListener('change', (event) => {
-  changeLanguage(event.target.value);
-});
-
-// Listener para selector móvil
-if (languageSelectorMobile) {
-  languageSelectorMobile.addEventListener('change', (event) => {
-    changeLanguage(event.target.value);
+// Toggle dropdown desktop
+if (languageSelectorDisplay) {
+  languageSelectorDisplay.addEventListener('click', (e) => {
+    e.stopPropagation();
+    languageDropdown.classList.toggle('active');
+    // Cerrar el móvil si está abierto
+    if (languageDropdownMobile) {
+      languageDropdownMobile.classList.remove('active');
+    }
   });
 }
+
+// Toggle dropdown móvil
+if (languageSelectorDisplayMobile) {
+  languageSelectorDisplayMobile.addEventListener('click', (e) => {
+    e.stopPropagation();
+    languageDropdownMobile.classList.toggle('active');
+    // Cerrar el desktop si está abierto
+    if (languageDropdown) {
+      languageDropdown.classList.remove('active');
+    }
+  });
+}
+
+// Event listeners para opciones del dropdown desktop
+if (languageDropdown) {
+  const options = languageDropdown.querySelectorAll('.language-option');
+  options.forEach(option => {
+    option.addEventListener('click', () => {
+      const lang = option.getAttribute('data-lang');
+      changeLanguage(lang);
+    });
+  });
+}
+
+// Event listeners para opciones del dropdown móvil
+if (languageDropdownMobile) {
+  const optionsMobile = languageDropdownMobile.querySelectorAll('.language-option-mobile');
+  optionsMobile.forEach(option => {
+    option.addEventListener('click', () => {
+      const lang = option.getAttribute('data-lang');
+      changeLanguage(lang);
+    });
+  });
+}
+
+// Cerrar dropdown cuando se hace clic fuera
+document.addEventListener('click', (e) => {
+  if (languageDropdown && !languageSelector.contains(e.target)) {
+    languageDropdown.classList.remove('active');
+  }
+  if (languageDropdownMobile && !languageSelectorMobile.contains(e.target)) {
+    languageDropdownMobile.classList.remove('active');
+  }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   getBrowserInfo();

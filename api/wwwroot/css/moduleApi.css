@@ -76,7 +76,7 @@
 .parteDerecha .block-api .endpoint,
 .parteDerecha .block-api .parentesis-cierre,
 .parteDerecha .block-api .parentesis-cierre2 {
-  font-size: 9px;
+  font-size: 0.6875rem;
   color: #ffffff;
   font-family: 'Krona One';
   margin-left: 1em;
@@ -91,7 +91,7 @@
 }
 
 .parteDerecha .block-api .then {
-  font-size: 9px;
+  font-size: 0.6875rem;
   margin-top: 1.8em;
   margin-left: 1.8em;
 }
@@ -104,7 +104,7 @@
 .parteDerecha .block-api .text5 {
   color: #ffffff;
   font-family: 'Krona One';
-  font-size: 9px;
+  font-size: 0.6875rem;
 }
 
 .parteDerecha .block-api .text,
@@ -118,7 +118,7 @@
 .parteDerecha .module-api .resultado {
   position: absolute;
   margin-top: 10.6em;
-  font-size: 12px;
+  font-size: 0.875rem;
   width: 598px;
   overflow-y: auto;
   background-color: #22292a;

@@ -17,6 +17,15 @@
   padding: 0;
 }
 
+html {
+  font-size: 100%;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
 html,
 body {
   overflow-x: hidden;
@@ -73,8 +82,8 @@ body {
 .menu-desplegable a,
 .menu-desplegable h6 {
   font-family: "Krona One", sans-serif;
-  font-size: 11.5px;
-  line-height: 16px;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
   letter-spacing: 0.4px;
   text-align: center;
   color: var(--third-color);
@@ -83,14 +92,14 @@ body {
 }
 
 .menu-desplegable a span {
-  font-size: 11.5px;
-  line-height: 16px;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
 }
 
 .menu-desplegable > li > span {
   flex-wrap: wrap;
   color: #565656;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 500;
   margin-top: -8px;
   line-height: 1;
@@ -118,7 +127,7 @@ body {
   border-radius: 5px;
   padding: 3px;
   font-family: "Krona One", sans-serif;
-  font-size: 12px;
+  font-size: 0.875rem;
   font-weight: 400;
 }
 
@@ -155,9 +164,9 @@ body {
   width: 554px;
   max-width: 100%;
   text-align: center;
-  font-size: 40px;
+  font-size: 2.5rem;
   font-weight: 400;
-  line-height: 48px;
+  line-height: 1.2;
   letter-spacing: 0.5px;
   color: var(--third-color);
 }
@@ -194,7 +203,7 @@ body {
   margin-top: 16px;
   border-style: none;
   background-color: #ffcd00;
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-family: "Krona One", sans-serif;
   text-align: center;
   width: 266px;
@@ -210,7 +219,7 @@ body {
 #mariposaGrande {
   position: absolute;
   width: 24vw;
-  left: 78%;
+  left: 75%;
   z-index: -10;
 }
 
@@ -229,7 +238,7 @@ body {
   flex-direction: row;
   margin-top: 30px;
   font-family: "Krona One", sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem;
   text-align: left;
   color: var(--third-color);
   width: 100%;
@@ -243,17 +252,17 @@ body {
 }
 
 .parteIzquierda h1 {
-  font-size: 24px;
-  line-height: 28.8px;
+  font-size: 1.5rem;
+  line-height: 1.2;
   margin-bottom: 0.7em;
   color: var(--third-color);
 }
 
 .parteIzquierda p {
   font-family: Poppins;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: light;
-  line-height: 28.8px;
+  line-height: 1.6;
   letter-spacing: 0.5px;
 }
 
@@ -268,9 +277,9 @@ body {
 }
 
 .botonDocumentacion {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 16.8px;
+  line-height: 1.2;
   letter-spacing: 0.5px;
   text-align: center;
 }
@@ -286,7 +295,7 @@ body {
   grid-auto-rows: 210px;
   gap: 2em;
   padding: 1.5em;
-  font-size: 10px;
+  font-size: 0.875rem;
   color: #22292a;
   margin-top: 1.4em;
   max-width: 100%;
@@ -310,7 +319,7 @@ body {
   font-family: "Krona One";
   font-size: 1rem;
   font-weight: 500;
-  line-height: 19.2px;
+  line-height: 1.2;
   letter-spacing: 0.5px;
   text-align: left;
   margin: 0.5em 0;
@@ -321,7 +330,7 @@ body {
   font-family: "Poppins";
   font-size: 0.94rem;
   font-weight: 300;
-  line-height: 16.8px;
+  line-height: 1.5;
   letter-spacing: 0.5px;
   text-align: left;
   margin-top: 10px;
@@ -349,18 +358,18 @@ body {
 
 #Colaboradores h1 {
   font-family: "Krona One";
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 400;
-  line-height: 28.8px;
+  line-height: 1.2;
   color: var(--third-color);
   margin-bottom: 1.4em;
 }
 
 #Colaboradores p {
   font-family: "Poppins";
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 300;
-  line-height: 28.8px;
+  line-height: 1.6;
   letter-spacing: 0.5px;
   text-align: center;
   width: 45%;
@@ -377,18 +386,18 @@ body {
 
 #Sponsor h1 {
   font-family: "Krona One";
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 400;
-  line-height: 28.8px;
+  line-height: 1.2;
   color: var(--third-color);
   margin-bottom: 1.4em;
 }
 
 #Sponsor p {
   font-family: "Poppins";
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 300;
-  line-height: 28.8px;
+  line-height: 1.6;
   letter-spacing: 0.5px;
   text-align: center;
   width: 70%;
@@ -447,7 +456,7 @@ body {
 
 .sponsorships p {
   font-family: "Poppins";
-  font-size: 17px;
+  font-size: 1.0625rem;
 }
 
 .sponsor {
@@ -463,7 +472,7 @@ body {
 
 .sponsor p {
   font-family: "Krona One";
-  font-size: 12px;
+  font-size: 0.875rem;
   margin-left: 1em;
 }
 
@@ -503,7 +512,7 @@ body {
   text-decoration: none;
   color: #000;
   font-family: "Krona One", sans-serif;
-  font-size: 14px;
+  font-size: 0.875rem;
   transition: background-color 0.3s ease;
 }
 
@@ -542,7 +551,7 @@ body {
 
 .sponsor-name {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 .linkedin-icon {
@@ -553,7 +562,7 @@ body {
 .sponsor-role {
   margin: 0;
   color: #737373;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 footer {
@@ -580,7 +589,7 @@ footer .made span {
   color: #575757;
   margin-top: 0.5em;
   width: 9em;
-  font-size: 12px;
+  font-size: 0.875rem;
 }
 
 footer .hearts > img {
@@ -929,7 +938,7 @@ footer .hearts > img {
 
 #menuMobile h6 {
   font-family: "Krona One", sans-serif;
-  font-size: 13px;
+  font-size: 0.875rem;
   color: var(--third-color);
   line-height: 1.4;
   letter-spacing: 0.5px;
@@ -948,7 +957,7 @@ footer .hearts > img {
 #menuMobile a span {
   display: block;
   font-family: "Krona One", sans-serif;
-  font-size: 13px;
+  font-size: 0.875rem;
   color: var(--third-color);
   padding: 14px 16px;
   margin: 0;
@@ -1000,7 +1009,7 @@ footer .hearts > img {
 
 .section-githubModal a span {
   font-family: "Krona One", sans-serif;
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #22292a;
   line-height: 1;
@@ -1211,7 +1220,7 @@ h1 {
   padding: 0.6em 1em;
   border-radius: 9999px;
   font-weight: bold;
-  font-size: 0.65rem;
+  font-size: 0.875rem;
   text-decoration: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
@@ -1237,7 +1246,7 @@ h1 {
 @media (max-width: 380px) {
   .card-button {
     width: 145px;
-    font-size: 0.6rem;
+    font-size: 0.875rem;
     padding: 0.55em 0.8em;
   }
 }
@@ -1310,7 +1319,7 @@ body.dark .menu-desplegable span {
 .language-selector {
   position: relative;
   font-family: "Krona One", sans-serif;
-  font-size: 12px;
+  font-size: 0.875rem;
 }
 
 .language-selector-display {
@@ -1321,10 +1330,10 @@ body.dark .menu-desplegable span {
   border: 1.5px solid #ddd;
   border-radius: 15px;
   background-color: #e6e9ea;
-  min-width: 125px;
+  min-width: 138px;
   width: auto;
   height: 36px;
-  line-height: 14.4px;
+  line-height: 1;
   letter-spacing: 0.5px;
   color: rgb(32, 32, 32);
   justify-content: center;
@@ -1412,7 +1421,7 @@ body.dark .menu-desplegable span {
 }
 
 .language-option span {
-  font-size: 12px;
+  font-size: 0.875rem;
   color: rgb(0, 0, 0);
 }
 
@@ -1420,7 +1429,7 @@ body.dark .menu-desplegable span {
 .language-selector-mobile {
   position: relative;
   font-family: "Krona One", sans-serif;
-  font-size: 12px;
+  font-size: 0.875rem;
   margin: 8px 11px;
 }
 
@@ -1435,7 +1444,7 @@ body.dark .menu-desplegable span {
   min-width: 132px;
   width: auto;
   height: 40px;
-  line-height: 14.4px;
+  line-height: 1;
   letter-spacing: 0.5px;
   color: white;
   justify-content: center;
@@ -1524,7 +1533,7 @@ body.dark .menu-desplegable span {
 }
 
 .language-option-mobile span {
-  font-size: 12px;
+  font-size: 0.875rem;
   color: white;
   font-weight: 600;
 }

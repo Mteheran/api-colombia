@@ -171,6 +171,17 @@
                     <option value="oscuro" arial="oscuro">Oscuro</option>
                   </select>
                 </a>
+                
+                <div class="language-selector-mobile">
+                  <img id="selectedFlagMobile" src="/assets/es.png" alt="Idioma actual" />
+                  <span id="languageTextMobile">ES</span>
+                  <img class="arrow-icon-mobile" src="/assets/down.png" alt="Desplegar selector" />
+                  <select id="languageSelectorMobile" aria-label="Seleccionar idioma">
+                    <option value="es" data-flag="/assets/es.png">ES</option>
+                    <option value="en" data-flag="/assets/en.png">EN</option>
+                    <option value="pt" data-flag="/assets/pr.png">PT</option>
+                  </select>
+                </div>
               </div>
             </div>
           </section>
@@ -394,7 +405,7 @@
             </div>
             <div class="api">
               <code class="resultado">
-                <p>Cargando...</p>
+                <p data-i18n-key="loading">Cargando...</p>
               </code>
             </div>
           </div>
@@ -445,14 +456,14 @@
       </section>
 
       <section id="Sponsor">
-        <h1>Patrocinadores</h1>
+        <h1 data-i18n-key="sponsors">Patrocinadores</h1>
         <p class="text-responsive">
-          Gracias al apoyo de nuestros patrocinadores, API-Colombia se mantiene
-          activa y gratuita, con más de <strong>2 millones</strong> de
+          <span data-i18n-key="sponsorsDescription1">Gracias al apoyo de nuestros patrocinadores, API-Colombia se mantiene
+          activa y gratuita, con más de</span> <strong>2 millones</strong> <span data-i18n-key="sponsorsDescription2">de
           solicitudes
-          mensuales.
+          mensuales.</span>
         </p>
-        <p class="text-responsive">
+        <p class="text-responsive" data-i18n-key="sponsorsDescription3">
           Creemos en la colaboración abierta. Si deseas apoyar este proyecto,
           puedes convertirte en patrocinador también.
         </p>

@@ -3,6 +3,11 @@ const languageSelector = document.getElementById('languageSelector');
 const selectedFlag = document.getElementById('selectedFlag');
 const languageText = document.getElementById('languageText');
 
+// Selector móvil
+const languageSelectorMobile = document.getElementById('languageSelectorMobile');
+const selectedFlagMobile = document.getElementById('selectedFlagMobile');
+const languageTextMobile = document.getElementById('languageTextMobile');
+
 async function fetchTranslations() {
   try {
     const response = await fetch('/js/translations.json');
@@ -36,6 +41,9 @@ function setInitialLanguage() {
   document.documentElement.setAttribute('lang', defaultLang);
   
   languageSelector.value = defaultLang;
+  if (languageSelectorMobile) {
+    languageSelectorMobile.value = defaultLang;
+  }
   translatePage(defaultLang);
   updateFlagAndText(defaultLang);
 }
@@ -49,12 +57,29 @@ function translatePage(lang) {
   });
 }
 
+function getTranslation(key) {
+  const currentLang = document.documentElement.getAttribute('lang') || 'es';
+  return translations[currentLang] && translations[currentLang][key] 
+    ? translations[currentLang][key] 
+    : key;
+}
+
+// Hacer la función disponible globalmente
+window.getTranslation = getTranslation;
+
 function updateFlagAndText(lang) {
   const selectedOption = languageSelector.options[languageSelector.selectedIndex];
   const newFlagSrc = selectedOption.getAttribute('data-flag');
   
+  // Actualizar selector desktop
   selectedFlag.src = newFlagSrc;
   languageText.textContent = lang.toUpperCase();
+  
+  // Actualizar selector móvil
+  if (languageSelectorMobile && selectedFlagMobile && languageTextMobile) {
+    selectedFlagMobile.src = newFlagSrc;
+    languageTextMobile.textContent = lang.toUpperCase();
+  }
 }
 
 function detectBrowser() {
@@ -106,13 +131,36 @@ function getBrowserInfo() {
     return info;
 }
 
-languageSelector.addEventListener('change', (event) => {
-  const newLang = event.target.value;
+// Función para cambiar idioma (usada por ambos selectores)
+function changeLanguage(newLang) {
   document.documentElement.setAttribute('lang', newLang);
   localStorage.setItem('language', newLang);
+  
+  // Sincronizar ambos selectores
+  languageSelector.value = newLang;
+  if (languageSelectorMobile) {
+    languageSelectorMobile.value = newLang;
+  }
+  
   translatePage(newLang);
   updateFlagAndText(newLang);
+  
+  // Disparar evento personalizado para notificar a otros módulos
+  const languageChangeEvent = new CustomEvent('languageChanged', { detail: { language: newLang } });
+  window.dispatchEvent(languageChangeEvent);
+}
+
+// Listener para selector desktop
+languageSelector.addEventListener('change', (event) => {
+  changeLanguage(event.target.value);
 });
+
+// Listener para selector móvil
+if (languageSelectorMobile) {
+  languageSelectorMobile.addEventListener('change', (event) => {
+    changeLanguage(event.target.value);
+  });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   getBrowserInfo();

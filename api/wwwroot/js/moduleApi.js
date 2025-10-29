@@ -115,7 +115,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     const responseData = await fetchData(apiUrl);
     resultadoDiv.innerText = JSON.stringify(responseData, null, 2);
   } catch (error) {
-    resultadoDiv.innerHTML = "<p>No se encontraron datos. Vuelva a intentarlo</p>";
+    const errorMsg = window.getTranslation ? window.getTranslation('noDataFound') : 'No se encontraron datos. Vuelva a intentarlo';
+    resultadoDiv.innerHTML = `<p>${errorMsg}</p>`;
   }
 });
 
@@ -149,7 +150,8 @@ btnSolicitar.addEventListener("click", async function () {
     }
 
     try {
-        resultadoDiv.innerText = "Cargando datos...";
+        const loadingMsg = window.getTranslation ? window.getTranslation('loadingData') : 'Cargando datos...';
+        resultadoDiv.innerText = loadingMsg;
         await new Promise(resolve => setTimeout(resolve, 1000));
         const responseData = await fetchData(apiUrl);
 
@@ -170,7 +172,8 @@ btnSolicitar.addEventListener("click", async function () {
         // Aqui capturo y manejo los errores de la solicitud a la API
 
         // Muestro un mensaje de error en el div resultado cuando no se consuma correctamente
-        resultadoDiv.innerText = "Error al obtener los datos";
+        const errorMsg = window.getTranslation ? window.getTranslation('errorLoadingData') : 'Error al obtener los datos';
+        resultadoDiv.innerText = errorMsg;
     }
 });
 
@@ -189,7 +192,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     resultadoDiv.innerText = JSON.stringify(responseData, null, 2);
   } catch (error) {
     console.error("Error al obtener los datos:", error);
-    resultadoDiv.innerHTML =
-      "<p>No se encontraron datos. Vuelva a intentarlo</p>";
+    const errorMsg = window.getTranslation ? window.getTranslation('noDataFound') : 'No se encontraron datos. Vuelva a intentarlo';
+    resultadoDiv.innerHTML = `<p>${errorMsg}</p>`;
   }
+});
+
+// Listener para cambios de idioma
+window.addEventListener('languageChanged', (event) => {
+  // Los mensajes se actualizarán automáticamente cuando se ejecuten las funciones
+  // ya que usan window.getTranslation() que obtiene el idioma actual
+  console.log('Idioma cambiado a:', event.detail.language);
 });

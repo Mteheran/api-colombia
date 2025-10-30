@@ -59,9 +59,6 @@ builder.Services.Configure<JsonOptions>(static options =>
 
 var app = builder.Build();
 
-// Security best practice: redirect HTTP to HTTPS when available
-app.UseHttpsRedirection();
-
 InfoRoutes.RegisterInfoAPI(app);
 CountryRoutes.RegisterCountryAPI(app);
 RegionRoutes.RegisterRegionAPI(app);

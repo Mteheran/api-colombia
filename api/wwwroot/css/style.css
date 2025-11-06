@@ -742,7 +742,7 @@ footer .hearts > img {
 
   .cards {
     margin-top: 22px;
-    gap: 1.5em;
+    gap: 4.5em;
 
     grid-template-columns: auto;
   }

@@ -436,7 +436,7 @@ body {
 .creator-card {
   background-color: white;
   border-radius: 1.5rem;
-  padding: 2em;
+  padding: 4em;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -1093,7 +1093,7 @@ footer .hearts > img {
   }
 
   .creator-card {
-    padding: 1.5em;
+    padding: 2.5em;
   }
 
   .creator-photo {

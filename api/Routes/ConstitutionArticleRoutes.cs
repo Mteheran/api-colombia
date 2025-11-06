@@ -42,16 +42,16 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var city = await db.ConstitutionArticles
+                var article = await db.ConstitutionArticles
                                     .SingleOrDefaultAsync(p => p.Id == id);
-                if (city is null)
+                if (article is null)
                 {
                     return Results.NotFound();
                 }
 
-                return Results.Ok(city);
+                return Results.Ok(article);
             })
-            .Produces<City?>(200)
+            .Produces<ConstitutionArticle?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: ConstitutionArticleMetadataMessages.MESSAGE_CONSTITUTION_ARTICLE_BYID_SUMMARY,
                  description: ConstitutionArticleMetadataMessages.MESSAGE_CONSTITUTION_ARTICLE_BYID_DESCRIPTION

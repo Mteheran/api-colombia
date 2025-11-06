@@ -293,7 +293,7 @@ body {
 .cards {
   display: grid;
   grid-auto-rows: 210px;
-  gap: 2em;
+  gap: 4em;
   padding: 1.5em;
   font-size: 0.875rem;
   color: #22292a;
@@ -1224,8 +1224,8 @@ h1 {
   text-decoration: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
-  margin: 0.5em 0;
-  width: 165px;
+  margin: 1.9em 0;
+  width: 200px;
   max-width: 100%;
   white-space: nowrap;
 }

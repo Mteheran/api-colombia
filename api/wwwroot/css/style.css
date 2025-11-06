@@ -91,11 +91,6 @@ body {
   white-space: nowrap;
 }
 
-.menu-desplegable a span {
-  font-size: 0.875rem;
-  line-height: 1.125rem;
-}
-
 .menu-desplegable > li > span {
   flex-wrap: wrap;
   color: #565656;
@@ -139,11 +134,20 @@ body {
   height: 44px;
 }
 
+.menu-desplegable a:focus {
+  outline: 2px solid #003087;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.menu-desplegable a:focus-visible {
+  outline: 2px solid #003087;
+  outline-offset: 4px;
+}
+
 .menu-desplegable li:hover {
   height: 20px;
-
   cursor: pointer;
-
   padding-bottom: 8px;
   border-bottom: 2px solid #595b5c;
   border-radius: 4px;
@@ -293,7 +297,7 @@ body {
 .cards {
   display: grid;
   grid-auto-rows: 210px;
-  gap: 2em;
+  gap: 4em;
   padding: 1.5em;
   font-size: 0.875rem;
   color: #22292a;
@@ -952,10 +956,6 @@ footer .hearts > img {
 #menuMobile a {
   text-decoration: none;
   display: block;
-}
-
-#menuMobile a span {
-  display: block;
   font-family: "Krona One", sans-serif;
   font-size: 0.875rem;
   color: var(--third-color);
@@ -963,10 +963,17 @@ footer .hearts > img {
   margin: 0;
   border-radius: 8px;
   transition: background-color 0.2s ease;
+  outline: none;
+}
+
+#menuMobile a:focus-visible {
+  outline: 2px solid #003087;
+  outline-offset: -2px;
 }
 
 #menuMobile h6:hover,
-#menuMobile a span:hover {
+#menuMobile a:hover,
+#menuMobile a:focus {
   cursor: pointer;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -1122,16 +1129,22 @@ h1 {
   color: white;
 }
 
-.dark #menuMobile a span {
+.dark #menuMobile a {
   color: rgb(255, 255, 255);
 }
 
-.dark #menuMobile .section-githubModal  a span {
-  color: rgb(0, 0, 0);
+.dark #menuMobile .section-githubModal a {
+  color: rgb(255, 255, 255);
+}
+
+.dark #menuMobile a:focus-visible {
+  outline: 2px solid #ffbd07;
+  outline-offset: -2px;
 }
 
 .dark #menuMobile h6:hover,
-.dark #menuMobile a span:hover {
+.dark #menuMobile a:hover,
+.dark #menuMobile a:focus {
   background-color: #3a3a3a;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -1139,10 +1152,6 @@ h1 {
 .dark .section-githubModal {
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.dark .section-githubModal a span {
-  color: white;
 }
 
 .dark .botonModo {
@@ -1224,8 +1233,8 @@ h1 {
   text-decoration: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
-  margin: 0.5em 0;
-  width: 165px;
+  margin: 1.9em 0;
+  width: 200px;
   max-width: 100%;
   white-space: nowrap;
 }
@@ -1265,6 +1274,11 @@ body.dark #blue {
 
 body.dark .menu-desplegable span {
   color: #ffffff;
+}
+
+.dark .menu-desplegable a:focus-visible {
+  outline: 2px solid #ffbd07;
+  outline-offset: 4px;
 }
 
 .dark .caja {
@@ -1398,6 +1412,7 @@ body.dark .menu-desplegable span {
   cursor: pointer;
   transition: background-color 0.2s ease;
   color: white;
+  outline: none;
 }
 
 .language-option:first-child {
@@ -1408,8 +1423,14 @@ body.dark .menu-desplegable span {
   padding-bottom: 12px;
 }
 
-.language-option:hover {
+.language-option:hover,
+.language-option:focus {
   background-color: #858585;
+}
+
+.language-option:focus-visible {
+  outline: 2px solid #003087;
+  outline-offset: -2px;
 }
 
 .language-option img {
@@ -1510,6 +1531,7 @@ body.dark .menu-desplegable span {
   cursor: pointer;
   transition: background-color 0.2s ease;
   color: white;
+  outline: none;
 }
 
 .language-option-mobile:first-child {
@@ -1520,8 +1542,14 @@ body.dark .menu-desplegable span {
   padding-bottom: 14px;
 }
 
-.language-option-mobile:hover {
+.language-option-mobile:hover,
+.language-option-mobile:focus {
   background-color: #858585;
+}
+
+.language-option-mobile:focus-visible {
+  outline: 2px solid #ffbd07;
+  outline-offset: -2px;
 }
 
 .language-option-mobile img {

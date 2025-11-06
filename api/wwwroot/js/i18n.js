@@ -74,13 +74,20 @@ function updateFlagAndText(lang) {
   };
   
   const languageNames = {
-    'es': 'Español',
-    'en': 'English',
-    'pt': 'Português'
+    'es': { es: 'Español', en: 'Spanish', pt: 'Espanhol' },
+    'en': { es: 'Inglés', en: 'English', pt: 'Inglês' },
+    'pt': { es: 'Portugués', en: 'Portuguese', pt: 'Português' }
+  };
+  
+  const ariaLabels = {
+    'es': 'Seleccionar idioma: ',
+    'en': 'Select language: ',
+    'pt': 'Selecionar idioma: '
   };
   
   const newFlagSrc = flagMap[lang];
-  const languageName = languageNames[lang];
+  const languageNameInCurrentLang = languageNames[lang][lang];
+  const ariaLabelPrefix = ariaLabels[lang];
   
   // Actualizar selector desktop
   if (selectedFlag && languageText) {
@@ -89,7 +96,7 @@ function updateFlagAndText(lang) {
   }
   
   if (languageSelectorDisplay) {
-    languageSelectorDisplay.setAttribute('aria-label', `Idioma actual: ${languageName}. Haz clic para cambiar`);
+    languageSelectorDisplay.setAttribute('aria-label', `${ariaLabelPrefix}${languageNameInCurrentLang}`);
   }
   
   // Actualizar selector móvil
@@ -99,8 +106,27 @@ function updateFlagAndText(lang) {
   }
   
   if (languageSelectorDisplayMobile) {
-    languageSelectorDisplayMobile.setAttribute('aria-label', `Idioma actual: ${languageName}. Haz clic para cambiar`);
+    languageSelectorDisplayMobile.setAttribute('aria-label', `${ariaLabelPrefix}${languageNameInCurrentLang}`);
   }
+  
+  // Actualizar aria-selected en las opciones
+  updateAriaSelectedStates(lang);
+}
+
+function updateAriaSelectedStates(selectedLang) {
+  // Actualizar desktop
+  const desktopOptions = document.querySelectorAll('.language-option');
+  desktopOptions.forEach(option => {
+    const optionLang = option.getAttribute('data-lang');
+    option.setAttribute('aria-selected', optionLang === selectedLang ? 'true' : 'false');
+  });
+  
+  // Actualizar móvil
+  const mobileOptions = document.querySelectorAll('.language-option-mobile');
+  mobileOptions.forEach(option => {
+    const optionLang = option.getAttribute('data-lang');
+    option.setAttribute('aria-selected', optionLang === selectedLang ? 'true' : 'false');
+  });
 }
 
 function detectBrowser() {

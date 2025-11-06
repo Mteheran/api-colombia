@@ -742,7 +742,7 @@ footer .hearts > img {
 
   .cards {
     margin-top: 22px;
-    gap: 1.5em;
+    gap: 4.5em;
 
     grid-template-columns: auto;
   }
@@ -1254,7 +1254,7 @@ h1 {
 
 @media (max-width: 380px) {
   .card-button {
-    width: 145px;
+    width: 225px;
     font-size: 0.875rem;
     padding: 0.55em 0.8em;
   }

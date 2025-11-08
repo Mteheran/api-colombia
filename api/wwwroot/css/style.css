@@ -1359,6 +1359,18 @@ h1 {
   color: black;
 }
 
+.dark .menuicon img {
+  filter: invert(1);
+}
+
+.dark #githubIcon {
+  filter: invert(1);
+}
+
+.dark #githubIcon2 {
+  filter: invert(1);
+}
+
 .dark .encabezadoModal {
   background-color: #22292a;
   color: white;
@@ -1399,8 +1411,12 @@ h1 {
 }
 
 .dark .section-githubModal {
-  background-color: #ffffff;
+  background-color: #565656;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark .section-githubModal a span {
+  color: rgb(255, 255, 255);
 }
 
 .dark .botonModo {

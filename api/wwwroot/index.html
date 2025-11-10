@@ -47,6 +47,9 @@
 
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/accessibility.css" />
+    
+    <!-- WebGazer.js CDN -->
+    <script src="https://webgazer.cs.brown.edu/webgazer.js"></script>
   </head>
 
   <script async
@@ -618,6 +621,274 @@
       <script src="js/scriptantiguo.js"></script>
       <script src="js/scriptHome.js"></script>
       <script src="/js/i18n.js"></script>
+      
+      <!-- Botón de control WebGazer -->
+      <button id="webgazerToggle" aria-label="Activar seguimiento de mirada" style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 10000;
+        padding: 12px 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(102, 126, 234, 0.6)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <span>Activar Eye Tracking</span>
+      </button>
+      
+      <!-- WebGazer.js Inicialización -->
+      <script>
+        (function() {
+          let isWebGazerActive = false;
+          let gazePointer = null;
+          const toggleButton = document.getElementById('webgazerToggle');
+          
+          // Variables para el lector de pantalla
+          let currentGazeElement = null;
+          let gazeStartTime = null;
+          let lastSpokenElement = null;
+          const GAZE_THRESHOLD = 300; // 0.3 segundos mirando para activar lectura (casi instantáneo)
+          
+          // Crear el punto de seguimiento de mirada
+          function createGazePointer() {
+            gazePointer = document.createElement('div');
+            gazePointer.id = 'gazePointer';
+            gazePointer.style.position = 'fixed';
+            gazePointer.style.width = '20px';
+            gazePointer.style.height = '20px';
+            gazePointer.style.borderRadius = '50%';
+            gazePointer.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+            gazePointer.style.border = '3px solid rgba(255, 255, 255, 0.9)';
+            gazePointer.style.boxShadow = '0 0 10px rgba(255, 0, 0, 0.8)';
+            gazePointer.style.pointerEvents = 'none';
+            gazePointer.style.zIndex = '9999';
+            gazePointer.style.transform = 'translate(-50%, -50%)';
+            gazePointer.style.transition = 'all 0.1s ease-out';
+            gazePointer.style.display = 'none';
+            document.body.appendChild(gazePointer);
+          }
+          
+          // Obtener texto legible de un elemento
+          function getReadableText(element) {
+            if (!element) return '';
+            
+            // Prioridad: aria-label, alt, title, textContent
+            let text = element.getAttribute('aria-label') ||
+                       element.getAttribute('alt') ||
+                       element.getAttribute('title') ||
+                       element.getAttribute('data-i18n-key') ||
+                       element.textContent?.trim() || '';
+            
+            // Limpiar el texto
+            text = text.replace(/\s+/g, ' ').trim();
+            
+            // Limitar longitud para no leer textos muy largos
+            if (text.length > 200) {
+              text = text.substring(0, 200) + '...';
+            }
+            
+            return text;
+          }
+          
+          // Lector de pantalla usando Web Speech API
+          function speakText(text) {
+            if (!text || text === '') return;
+            
+            // Cancelar cualquier lectura en curso de forma inmediata
+            if (window.speechSynthesis.speaking) {
+              window.speechSynthesis.cancel();
+            }
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'es-ES'; // Español
+            utterance.rate = 1.2; // Más rápido para evitar bloqueos
+            utterance.pitch = 1.0;
+            utterance.volume = 0.9;
+            
+            // Cambiar color del punto mientras habla
+            utterance.onstart = function() {
+              if (gazePointer) {
+                gazePointer.style.backgroundColor = 'rgba(0, 255, 0, 0.7)';
+                gazePointer.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.8)';
+              }
+            };
+            
+            utterance.onend = function() {
+              if (gazePointer) {
+                gazePointer.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+                gazePointer.style.boxShadow = '0 0 10px rgba(255, 0, 0, 0.8)';
+              }
+            };
+            
+            utterance.onerror = function() {
+              if (gazePointer) {
+                gazePointer.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+                gazePointer.style.boxShadow = '0 0 10px rgba(255, 0, 0, 0.8)';
+              }
+            };
+            
+            // Usar setTimeout para evitar bloqueos
+            setTimeout(() => {
+              window.speechSynthesis.speak(utterance);
+            }, 0);
+            
+            console.log('Leyendo:', text);
+          }
+          
+          // Inicializar WebGazer
+          function startWebGazer() {
+            if (!gazePointer) {
+              createGazePointer();
+            }
+            
+            webgazer.setGazeListener(function(data, elapsedTime) {
+              if (data == null) {
+                if (gazePointer) gazePointer.style.display = 'none';
+                currentGazeElement = null;
+                gazeStartTime = null;
+                return;
+              }
+              
+              // Mostrar y actualizar posición del punto de seguimiento
+              if (gazePointer) {
+                gazePointer.style.display = 'block';
+                gazePointer.style.left = data.x + 'px';
+                gazePointer.style.top = data.y + 'px';
+              }
+              
+              // Detectar elemento bajo la mirada
+              const element = document.elementFromPoint(data.x, data.y);
+              
+              if (element && element !== gazePointer) {
+                // Si es el mismo elemento
+                if (element === currentGazeElement) {
+                  const gazeDuration = Date.now() - gazeStartTime;
+                  
+                  // Si ha mirado suficiente tiempo y no es el último elemento leído
+                  if (gazeDuration >= GAZE_THRESHOLD && element !== lastSpokenElement) {
+                    const text = getReadableText(element);
+                    if (text) {
+                      speakText(text);
+                      lastSpokenElement = element;
+                      
+                      // Efecto visual en el elemento
+                      const originalOutline = element.style.outline;
+                      element.style.outline = '3px solid rgba(0, 255, 0, 0.6)';
+                      setTimeout(() => {
+                        element.style.outline = originalOutline;
+                      }, 1000);
+                      
+                      // Permitir releer después de 3 segundos
+                      setTimeout(() => {
+                        if (lastSpokenElement === element) {
+                          lastSpokenElement = null;
+                        }
+                      }, 3000);
+                    }
+                  }
+                } else {
+                  // Nuevo elemento bajo la mirada
+                  currentGazeElement = element;
+                  gazeStartTime = Date.now();
+                }
+              } else {
+                // Fuera de elementos, resetear
+                currentGazeElement = null;
+                gazeStartTime = null;
+              }
+            }).begin();
+            
+            // Configuración de WebGazer
+            webgazer.showVideoPreview(true)       // Mostrar la cámara
+                    .showPredictionPoints(true)   // Mostrar puntos de predicción
+                    .showFaceOverlay(true)        // Mostrar recuadro de seguimiento facial
+                    .showFaceFeedbackBox(true)    // Mostrar recuadro de retroalimentación
+                    .applyKalmanFilter(true);     // Aplicar filtro Kalman para suavizar
+            
+            console.log('WebGazer.js activado con lector de pantalla');
+          }
+          
+          // Detener WebGazer
+          function stopWebGazer() {
+            webgazer.pause();
+            
+            // Detener lector de pantalla
+            window.speechSynthesis.cancel();
+            
+            // Reset variables de seguimiento
+            currentGazeElement = null;
+            gazeStartTime = null;
+            lastSpokenElement = null;
+            
+            if (gazePointer) {
+              gazePointer.style.display = 'none';
+            }
+            
+            // Ocultar el video preview
+            const video = document.getElementById('webgazerVideoFeed');
+            if (video) {
+              video.style.display = 'none';
+            }
+            const canvas = document.getElementById('webgazerFaceOverlay');
+            if (canvas) {
+              canvas.style.display = 'none';
+            }
+            const faceCanvas = document.getElementById('webgazerFaceFeedbackBox');
+            if (faceCanvas) {
+              faceCanvas.style.display = 'none';
+            }
+            console.log('WebGazer.js y lector de pantalla desactivados');
+          }
+          
+          // Toggle WebGazer
+          function toggleWebGazer() {
+            isWebGazerActive = !isWebGazerActive;
+            
+            if (isWebGazerActive) {
+              startWebGazer();
+              toggleButton.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+                <span>Desactivar Eye Tracking</span>
+              `;
+              toggleButton.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+              toggleButton.setAttribute('aria-label', 'Desactivar seguimiento de mirada');
+            } else {
+              stopWebGazer();
+              toggleButton.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <span>Activar Eye Tracking</span>
+              `;
+              toggleButton.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+              toggleButton.setAttribute('aria-label', 'Activar seguimiento de mirada');
+            }
+          }
+          
+          // Event listener para el botón
+          toggleButton.addEventListener('click', toggleWebGazer);
+          
+          console.log('WebGazer.js listo. Haz clic en el botón para activar.');
+        })();
+      </script>
     </div>
   </body>
 

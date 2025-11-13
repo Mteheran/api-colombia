@@ -2,14 +2,12 @@ using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
 
-public class NativeCommunityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
-{
-    private readonly HttpClient _client;
+namespace api.Tests.ApiRoutesTests;
 
-    public NativeCommunityApiIntegrationTests(CustomWebApplicationFactory factory)
-    {
-        _client = factory.CreateClient();
-    }
+public class NativeCommunityApiIntegrationTests(CustomWebApplicationFactory factory)
+    : IClassFixture<CustomWebApplicationFactory>
+{
+    private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
     public async Task GetNativeCommunities_ReturnsOkWithExpectedData()

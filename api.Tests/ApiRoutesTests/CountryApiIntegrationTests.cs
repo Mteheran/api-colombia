@@ -1,14 +1,12 @@
-using api.Models;
 using System.Net.Http.Json;
+using api.Models;
 
-public class CountryApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
+namespace api.Tests.ApiRoutesTests;
+
+public class CountryApiIntegrationTests(CustomWebApplicationFactory factory)
+    : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client;
-
-    public CountryApiIntegrationTests(CustomWebApplicationFactory factory)
-    {
-        _client = factory.CreateClient();  
-    }
+    private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
     public async Task GetCountry_ReturnsAllCountryData()

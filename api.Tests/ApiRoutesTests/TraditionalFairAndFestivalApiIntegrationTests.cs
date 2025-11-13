@@ -2,14 +2,12 @@ using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
 
-public class TraditionalFairAndFestivalApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
-{
-    private readonly HttpClient _client;
+namespace api.Tests.ApiRoutesTests;
 
-    public TraditionalFairAndFestivalApiIntegrationTests(CustomWebApplicationFactory factory)
-    {
-        _client = factory.CreateClient();
-    }
+public class TraditionalFairAndFestivalApiIntegrationTests(CustomWebApplicationFactory factory)
+    : IClassFixture<CustomWebApplicationFactory>
+{
+    private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
     public async Task GetTraditionalFairAndFestivals_ReturnsOkWithExpectedData()
@@ -18,7 +16,7 @@ public class TraditionalFairAndFestivalApiIntegrationTests : IClassFixture<Custo
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<List<TraditionalFairAndFestival>>(); 
+        var result = await response.Content.ReadFromJsonAsync<List<TraditionalFairAndFestival>>(); 
 
         Assert.NotNull(result);
         Assert.NotEmpty(result);
@@ -32,7 +30,7 @@ public class TraditionalFairAndFestivalApiIntegrationTests : IClassFixture<Custo
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<TraditionalFairAndFestival>(); 
+        var result = await response.Content.ReadFromJsonAsync<TraditionalFairAndFestival>(); 
 
         Assert.NotNull(result);
         Assert.Equal(id, result.Id);
@@ -57,7 +55,7 @@ public class TraditionalFairAndFestivalApiIntegrationTests : IClassFixture<Custo
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<List<TraditionalFairAndFestival>>(); 
+        var result = await response.Content.ReadFromJsonAsync<List<TraditionalFairAndFestival>>(); 
 
         Assert.NotNull(result);
         Assert.NotEmpty(result);
@@ -73,7 +71,7 @@ public class TraditionalFairAndFestivalApiIntegrationTests : IClassFixture<Custo
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<List<TraditionalFairAndFestival>>(); 
+        var result = await response.Content.ReadFromJsonAsync<List<TraditionalFairAndFestival>>(); 
 
         Assert.NotNull(result);
         Assert.NotEmpty(result);
@@ -88,7 +86,7 @@ public class TraditionalFairAndFestivalApiIntegrationTests : IClassFixture<Custo
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<List<TraditionalFairAndFestival>>(); 
+        var result = await response.Content.ReadFromJsonAsync<List<TraditionalFairAndFestival>>(); 
 
         Assert.NotNull(result);
         Assert.NotEmpty(result);

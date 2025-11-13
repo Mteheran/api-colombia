@@ -2,14 +2,11 @@ using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
 
+namespace api.Tests.ApiRoutesTests;
+
 public class ConstitutionArticleApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>, IDisposable
 {
-    private readonly HttpClient _client;
-
-    public ConstitutionArticleApiIntegrationTests()
-    {
-       _client = new CustomWebApplicationFactory().CreateClient(); 
-    }
+    private readonly HttpClient _client = new CustomWebApplicationFactory().CreateClient();
 
     public void Dispose()
     {

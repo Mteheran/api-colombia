@@ -3,14 +3,12 @@ using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
 
-public class IndigenousReservationApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
-{
-    private readonly HttpClient _client;
+namespace api.Tests.ApiRoutesTests;
 
-    public IndigenousReservationApiIntegrationTests(CustomWebApplicationFactory factory)
-    {
-        _client = factory.CreateClient();  
-    }
+public class IndigenousReservationApiIntegrationTests(CustomWebApplicationFactory factory)
+    : IClassFixture<CustomWebApplicationFactory>
+{
+    private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
     public async Task GetIndigenousReservations_ReturnsOkWithExpectedData()

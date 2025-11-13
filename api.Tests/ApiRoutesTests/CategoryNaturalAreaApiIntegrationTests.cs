@@ -1,14 +1,11 @@
 using System.Net.Http.Json;
 using api.Models;
 
+namespace api.Tests.ApiRoutesTests;
+
 public class CategoryNaturalAreaApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
 {
-    private readonly HttpClient _client;
-
-    public CategoryNaturalAreaApiIntegrationTests()
-    {
-       _client = new CustomWebApplicationFactory().CreateClient(); 
-    }
+    private readonly HttpClient _client = new CustomWebApplicationFactory().CreateClient();
 
     public void Dispose()
     {

@@ -2,14 +2,12 @@ using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
 
-public class InvasiveSpecieApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
-{
-    private readonly HttpClient _client;
+namespace api.Tests.ApiRoutesTests;
 
-    public InvasiveSpecieApiIntegrationTests(CustomWebApplicationFactory factory)
-    {
-        _client = factory.CreateClient();  
-    }
+public class InvasiveSpecieApiIntegrationTests(CustomWebApplicationFactory factory)
+    : IClassFixture<CustomWebApplicationFactory>
+{
+    private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
     public async Task GetInvasiveSpecies_ReturnsOkWithExpectedData()

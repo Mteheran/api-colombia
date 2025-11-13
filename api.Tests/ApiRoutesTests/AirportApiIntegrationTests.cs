@@ -1,6 +1,8 @@
-using api.Models;
 using System.Net.Http.Json;
+using api.Models;
 using api.Utils;
+
+namespace api.Tests.ApiRoutesTests;
 
 public class AirportApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {

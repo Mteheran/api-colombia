@@ -1,15 +1,13 @@
+using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
-using System.Net.Http.Json;
 
-public class TouristAttractionApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
+namespace api.Tests.ApiRoutesTests;
+
+public class TouristAttractionApiIntegrationTests(CustomWebApplicationFactory factory)
+    : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client;
-
-    public TouristAttractionApiIntegrationTests(CustomWebApplicationFactory factory)
-    {
-        _client = factory.CreateClient();
-    }
+    private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
     public async Task GetTouristAttractions_ReturnsOkWithExpectedData()
@@ -18,7 +16,7 @@ public class TouristAttractionApiIntegrationTests : IClassFixture<CustomWebAppli
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<List<TouristAttraction>>();
+        var result = await response.Content.ReadFromJsonAsync<List<TouristAttraction>>();
 
         Assert.NotNull(result);
     }
@@ -31,7 +29,7 @@ public class TouristAttractionApiIntegrationTests : IClassFixture<CustomWebAppli
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<TouristAttraction>(); 
+        var result = await response.Content.ReadFromJsonAsync<TouristAttraction>(); 
 
         Assert.NotNull(result);
         Assert.Equal(attractionId, result.Id);
@@ -56,7 +54,7 @@ public class TouristAttractionApiIntegrationTests : IClassFixture<CustomWebAppli
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<List<TouristAttraction>>(); 
+        var result = await response.Content.ReadFromJsonAsync<List<TouristAttraction>>(); 
 
         Assert.NotNull(result);
         Assert.Single(result);
@@ -71,7 +69,7 @@ public class TouristAttractionApiIntegrationTests : IClassFixture<CustomWebAppli
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<List<TouristAttraction>>(); 
+        var result = await response.Content.ReadFromJsonAsync<List<TouristAttraction>>(); 
 
         Assert.NotNull(result);
         Assert.NotEmpty(result);
@@ -89,7 +87,7 @@ public class TouristAttractionApiIntegrationTests : IClassFixture<CustomWebAppli
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<PaginationResponseModel<TouristAttraction>>(); 
+        var result = await response.Content.ReadFromJsonAsync<PaginationResponseModel<TouristAttraction>>(); 
 
         Assert.NotNull(result);
         Assert.Equal(page, result.Page);

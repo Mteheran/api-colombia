@@ -2,18 +2,30 @@ using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
 
+namespace api.Tests.ApiRoutesTests;
+
 public class DepartmentApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
 {
-    private readonly HttpClient _client;
-
-    public DepartmentApiIntegrationTests()
-    {
-       _client = new CustomWebApplicationFactory().CreateClient(); 
-    }
+    private readonly HttpClient _client = new CustomWebApplicationFactory().CreateClient();
 
     public void Dispose()
     {
         _client.Dispose();
+    }
+
+    // BadRequest scenarios
+    [Fact]
+    public async Task GetDepartments_InvalidSortBy_ReturnsBadRequest()
+    {
+        var response = await _client.GetAsync("/api/v1/Department?sortBy=Invalid&sortDirection=asc");
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetDepartments_InvalidSortDirection_ReturnsBadRequest()
+    {
+        var response = await _client.GetAsync("/api/v1/Department?sortBy=Name&sortDirection=invalid");
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
     }
 
     [Fact]
@@ -50,6 +62,27 @@ public class DepartmentApiIntegrationTests : IClassFixture<CustomWebApplicationF
         var response = await _client.GetAsync($"/api/v1/Department/{departmentId}");
         
         Assert.False(response.IsSuccessStatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetCitiesByDepartment_IdZero_ReturnsBadRequest()
+    {
+        var response = await _client.GetAsync($"/api/v1/Department/0/cities");
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetNaturalAreasByDepartment_IdZero_ReturnsBadRequest()
+    {
+        var response = await _client.GetAsync($"/api/v1/Department/0/naturalareas");
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetTouristicAttractionsByDepartment_IdZero_ReturnsBadRequest()
+    {
+        var response = await _client.GetAsync($"/api/v1/Department/0/touristicattractions");
         Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
     }
 
@@ -153,7 +186,7 @@ public class DepartmentApiIntegrationTests : IClassFixture<CustomWebApplicationF
 
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<List<Department>>(); 
+        var result = await response.Content.ReadFromJsonAsync<List<Department>>(); 
         
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);  

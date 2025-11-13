@@ -2,6 +2,8 @@ using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
 
+namespace api.Tests.ApiRoutesTests;
+
 public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
 {
     private readonly HttpClient _client;

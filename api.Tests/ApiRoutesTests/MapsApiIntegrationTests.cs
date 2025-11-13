@@ -1,14 +1,11 @@
-using api.Models;
 using System.Net.Http.Json;
+using api.Models;
 
-public class MapsApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
+namespace api.Tests.ApiRoutesTests;
+
+public class MapsApiIntegrationTests(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client;
-
-    public MapsApiIntegrationTests(CustomWebApplicationFactory factory)
-    {
-        _client = factory.CreateClient();  
-    }
+    private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
     public async Task GetMaps_ReturnsOkWithExpectedData()
@@ -20,7 +17,7 @@ public class MapsApiIntegrationTests : IClassFixture<CustomWebApplicationFactory
  
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<List<Map>>(); 
+        var result = await response.Content.ReadFromJsonAsync<List<Map>>(); 
 
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);

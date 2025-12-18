@@ -71,7 +71,7 @@
         <nav class="navegador" aria-label="Navegación principal">
           <ul class="menu-desplegable">
             <li>
-              <a href="https://api-colombia.com/swagger/index.html"
+              <a href="https://docs.api-colombia.com/"
                 target="_blank" rel="noopener noreferrer"
                 data-i18n-key="documentation">
                 Documentación
@@ -150,8 +150,10 @@
           Un proyecto Open-source que ofrece acceso a datos <br />
           sobre su diversidad, todo a tu alcance.
         </p>
-        <button data-i18n-key="documentation"
-          class="botonDocumentacion" type="button">Documentación</button>
+        <div class="botones-documentacion">
+          <button id="btnSwagger" class="botonDocumentacion" type="button">Swagger</button>
+          <button id="btnVitePress" class="botonDocumentacion" type="button">VitePress</button>
+        </div>
         <div class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
           <section class="contenidoModal">
             <div class="encabezadoModal">
@@ -164,6 +166,11 @@
             <div class="cuerpoModal">
               <nav id="menuMobile" aria-label="Navegación móvil">
                 <a href="https://api-colombia.com/swagger/index.html"
+                  target="_blank" rel="noopener noreferrer"
+                  data-i18n-key="swagger">
+                  Swagger
+                </a>
+                <a href="https://docs.api-colombia.com/"
                   target="_blank" rel="noopener noreferrer"
                   data-i18n-key="documentation">
                   Documentación
@@ -613,6 +620,25 @@
           </div>
         </div>
       </footer>
+
+      <!-- Botón flotante DeepGitHub - Ask AI -->
+      <a href="https://www.deepgithub.com/Mteheran/api-colombia" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         class="floating-ai-button"
+         aria-label="Pregunta a la IA sobre API-Colombia en DeepGitHub"
+         title="Pregunta a la IA sobre API-Colombia">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 8V4H8"/>
+          <rect width="16" height="12" x="4" y="8" rx="2"/>
+          <path d="M2 14h2"/>
+          <path d="M20 14h2"/>
+          <path d="M15 13v2"/>
+          <path d="M9 13v2"/>
+        </svg>
+        <span class="floating-ai-text" data-i18n-key="askAI">Ask AI</span>
+      </a>
+
       <script src="js/moduleApi.js"></script>
       <script src="js/modal.js"></script>
       <script src="js/scriptantiguo.js"></script>

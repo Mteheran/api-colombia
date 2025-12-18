@@ -47,7 +47,8 @@
     "sponsors": "Patrocinadores",
     "sponsorsDescription1": "Gracias al apoyo de nuestros patrocinadores, API-Colombia se mantiene activa y gratuita, con más de",
     "sponsorsDescription2": "solicitudes mensuales.",
-    "sponsorsDescription3": "Creemos en la colaboración abierta. Si deseas apoyar este proyecto, puedes convertirte en patrocinador también."
+    "sponsorsDescription3": "Creemos en la colaboración abierta. Si deseas apoyar este proyecto, puedes convertirte en patrocinador también.",
+    "askAI": "Pregunta a la IA"
   },
   "en": {
     "title": "Explore Colombia with API-Colombia",
@@ -97,7 +98,8 @@
     "sponsors": "Sponsors",
     "sponsorsDescription1": "Thanks to the support of our sponsors, API-Colombia remains active and free, with over",
     "sponsorsDescription2": "monthly requests.",
-    "sponsorsDescription3": "We believe in open collaboration. If you want to support this project, you can become a sponsor too."
+    "sponsorsDescription3": "We believe in open collaboration. If you want to support this project, you can become a sponsor too.",
+    "askAI": "Ask AI"
   },
   "pt": {
     "title": "Explore a Colômbia com API-Colombia",
@@ -147,6 +149,7 @@
     "sponsors": "Patrocinadores",
     "sponsorsDescription1": "Graças ao apoio de nossos patrocinadores, a API-Colombia permanece ativa e gratuita, com mais de",
     "sponsorsDescription2": "solicitações mensais.",
-    "sponsorsDescription3": "Acreditamos na colaboração aberta. Se você deseja apoiar este projeto, pode se tornar um patrocinador também."
+    "sponsorsDescription3": "Acreditamos na colaboração aberta. Se você deseja apoiar este projeto, pode se tornar um patrocinador também.",
+    "askAI": "Pergunte à IA"
   }
 }

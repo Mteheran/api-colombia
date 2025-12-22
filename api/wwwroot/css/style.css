@@ -203,21 +203,43 @@ body {
   font-weight: light;
 }
 
-.botonDocumentacion {
+.botones-documentacion {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
   margin-top: 16px;
+}
+
+.botonDocumentacion {
   border-style: none;
   background-color: #ffcd00;
   font-size: 1.0625rem;
   font-family: "Krona One", sans-serif;
   text-align: center;
-  width: 266px;
+  min-width: 180px;
+  padding: 0 2rem;
   height: 54px;
   color: #22292a;
   border-radius: 50px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
 }
 
 .botonDocumentacion:hover {
   cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.botonDocumentacion:focus {
+  outline: 2px solid #003087;
+  outline-offset: 2px;
+}
+
+.botonDocumentacion:focus-visible {
+  outline: 2px solid #003087;
+  outline-offset: 2px;
 }
 
 #mariposaGrande {
@@ -1868,4 +1890,78 @@ body.dark .menu-desplegable span {
   font-size: 0.875rem;
   color: white;
   font-weight: 600;
+}
+
+/* Botón flotante DeepGitHub - Ask AI */
+.floating-ai-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffcd00;
+  color: #000000;
+  padding: 14px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: "Krona One", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(240, 240, 151, 0.051);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+
+.floating-ai-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 30px rgb(232, 191, 10);
+}
+
+.floating-ai-button:focus {
+  outline: 3px solid #ffcd00;
+  outline-offset: 2px;
+}
+
+.floating-ai-button:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.floating-ai-button svg {
+  flex-shrink: 0;
+}
+
+.floating-ai-text {
+  white-space: nowrap;
+}
+
+/* Animación de pulso sutil */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(0, 48, 135, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 30px rgba(0, 48, 135, 0.7);
+  }
+}
+
+.floating-ai-button {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.floating-ai-button:hover {
+  animation: none;
+}
+
+/* Responsive: solo icono en móvil */
+@media screen and (max-width: 480px) {
+  .floating-ai-button {
+    padding: 14px;
+    border-radius: 50%;
+  }
+  
+  .floating-ai-text {
+    display: none;
+  }
 }

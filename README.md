@@ -9,6 +9,8 @@
 ## Introduction
 API Colombia is a public RESTful API that enables users to access a wide range of public information about the country of Colombia.
 
+📚 **[VitePress](https://docs.api-colombia.com/)** | **[Swagger](https://api-colombia.com/swagger/index.html)**  | 🤖 **[Ask AI about API-Colombia](https://www.deepgithub.com/Mteheran/api-colombia)** 
+
 
 Read this document in [Español](/README_es.md)
 
@@ -62,7 +64,9 @@ Note: Run all the commands above inside the `docs/` directory.
 ## Usage
 The public page [api-colombia.com](https://api-colombia.com/) has useful information about the API and a brief description of the available endpoints and the same allows access to the endpoints described below.
 
+* Full documentation site: [docs.api-colombia.com](https://docs.api-colombia.com/)
 * Swagger documentation can be found at the following [URL](https://api-colombia.com/swagger/index.html)
+* 🤖 Ask AI about API-Colombia: [DeepGitHub](https://www.deepgithub.com/Mteheran/api-colombia)
 
 ## Projects, Demos, POCs and Samples
 
@@ -72,6 +76,8 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 | https://github.com/lightbluetitan/colombiapi | https://github.com/lightbluetitan/colombiapi | ColombiaAPI for R, an R package that consumes the data exposed by api-colombia |
 | https://github.com/JuanPabloDiaz/turismo | https://turismo.colombia.jpdiaz.dev | Interactive tourism map of Colombia showcasing tourist destinations across the country |
 | https://github.com/JuanPabloDiaz/colombia | https://colombia.jpdiaz.dev | A web app that offers an interactive and comprehensive exploration of Colombia's geography, culture, biodiversity, and institutions through maps, multimedia, and detailed data from api-colombia.com |
+| https://github.com/duvan-gallego/mcp-api-colombia | - | MCP (Model Context Protocol) server for API Colombia, enabling AI assistants to access Colombia data |
+| https://github.com/crexative/colombia-mcp-server | - | Colombia MCP Server - Another MCP implementation for integrating API Colombia with AI tools |
 
 ## API Endpoints
 | HTTP Verbs | Endpoints                             | Action                                                               |

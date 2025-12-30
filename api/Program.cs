@@ -1,7 +1,6 @@
 using System.Text.Json.Serialization;
 using api;
 using api.Routes;
-using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http.Json;
 using api.Utils;
 using System.Net;

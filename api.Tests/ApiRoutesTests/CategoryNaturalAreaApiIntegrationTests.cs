@@ -3,13 +3,14 @@ using api.Models;
 
 namespace api.Tests.ApiRoutesTests;
 
-public class CategoryNaturalAreaApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
+public class CategoryNaturalAreaApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client = new CustomWebApplicationFactory().CreateClient();
+    private readonly HttpClient _client;
 
-    public void Dispose()
+    public CategoryNaturalAreaApiIntegrationTests(CustomWebApplicationFactory factory)
     {
-        _client.Dispose();
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
     }
 
     [Fact]

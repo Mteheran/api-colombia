@@ -1,16 +1,13 @@
 namespace api.Tests.ApiRoutesTests;
 
-public class RegionApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
+public class RegionApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
-    public RegionApiIntegrationTests(CustomWebApplicationFactory factory) {
-        _client = new CustomWebApplicationFactory().CreateClient(); 
-    }
-
-    public void Dispose()
+    public RegionApiIntegrationTests(CustomWebApplicationFactory factory)
     {
-        _client.Dispose();
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
     }
 
     [Fact]

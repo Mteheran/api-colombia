@@ -1,17 +1,13 @@
 namespace api.Tests.ApiRoutesTests;
 
-public class NaturalAreaApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
+public class NaturalAreaApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
     public NaturalAreaApiIntegrationTests(CustomWebApplicationFactory factory)
     {
-        _client = new CustomWebApplicationFactory().CreateClient(); 
-    }
-
-    public void Dispose()
-    {
-        _client.Dispose();
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
     }
 
     [Fact]

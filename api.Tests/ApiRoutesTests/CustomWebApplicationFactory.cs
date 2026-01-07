@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace api.Tests.ApiRoutesTests;
 
@@ -12,38 +13,28 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private readonly string _databaseName = $"TestDatabase_{Guid.NewGuid()}";
 
     // Generate a unique database name for each instance
-
-
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     { 
         builder.ConfigureServices(services =>
         {  
-            var descriptor = services.SingleOrDefault(
-                d => d.ServiceType == typeof(DbContextOptions<DBContext>));
-            if (descriptor != null)
-            {
-                services.Remove(descriptor);
-            }
-  
+            // 1. Remove the production DbContext registration
+            services.RemoveAll(typeof(DbContextOptions<DBContext>));
+
+            // 2. Create a NEW internal service provider for EF Core
+            // This is the key to preventing the provider conflict
+            var efInternalServiceProvider = new ServiceCollection()
+                .AddEntityFrameworkInMemoryDatabase()
+                .BuildServiceProvider();
+
+            // 3. Register the DbContext using the isolated provider
             services.AddDbContext<DBContext>(options =>
             {
                 options.UseInMemoryDatabase(_databaseName);
+                options.UseInternalServiceProvider(efInternalServiceProvider);
             });
-  
-            var serviceProvider = services.BuildServiceProvider();
-            using var scope = serviceProvider.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<DBContext>();
-            dbContext.Database.EnsureDeleted();   
-            dbContext.Database.EnsureCreated();   
-
-            var fixture = new Fixture();
- 
-            fixture.Behaviors.Add(new OmitOnRecursionBehavior());
-            fixture.Customize<DateOnly>(composer => composer.FromFactory(() => DateOnly.FromDateTime(DateTime.Now)));
-            SeedDatabase(dbContext);
         });
     }
-
+    
     private void SeedDatabase(DBContext dbContext)
     {
         
@@ -549,6 +540,11 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             var dbContext = scope.ServiceProvider.GetRequiredService<DBContext>();
             dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
+            var fixture = new Fixture();
+ 
+            fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+            fixture.Customize<DateOnly>(composer => composer.FromFactory(() => DateOnly.FromDateTime(DateTime.Now)));
+
             SeedDatabase(dbContext);
         }
     }

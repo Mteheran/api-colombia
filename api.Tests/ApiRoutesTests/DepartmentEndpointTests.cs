@@ -4,13 +4,14 @@ using api.Utils;
 
 namespace api.Tests.ApiRoutesTests;
 
-public class DepartmentApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
+public class DepartmentApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client = new CustomWebApplicationFactory().CreateClient();
+    private readonly HttpClient _client;
 
-    public void Dispose()
+    public DepartmentApiIntegrationTests(CustomWebApplicationFactory factory)
     {
-        _client.Dispose();
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
     }
 
     // BadRequest scenarios

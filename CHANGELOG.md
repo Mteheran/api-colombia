@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.0.6] - 2026-01-06
+
+### Changed
+
+- Project migration to .NET 10.
+- Updated Entity Framework Core and other dependencies to version 10.
+- Updated Swashbuckle.AspNetCore to version 10.1.0.
+
 ## [1.0.5] - 2024-12-18
 
 ### Changed
@@ -53,6 +61,10 @@ and this project adheres to [Semantic Versioning].
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[unreleased]: https://github.com/Author/Repository/compare/v0.0.2...HEAD
-[0.0.2]: https://github.com/Author/Repository/compare/v0.0.1...v0.0.2
-[0.0.1]: https://github.com/Author/Repository/releases/tag/v0.0.1
+[unreleased]: https://github.com/Author/Repository/compare/v1.0.6...HEAD
+[1.0.6]: https://github.com/Author/Repository/compare/v1.0.5...v1.0.6
+[1.0.5]: https://github.com/Author/Repository/compare/v1.0.4...v1.0.5
+[1.0.4]: https://github.com/Author/Repository/compare/v1.0.3...v1.0.4
+[1.0.3]: https://github.com/Author/Repository/compare/v1.0.2...v1.0.3
+[1.0.2]: https://github.com/Author/Repository/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/Author/Repository/releases/tag/v1.0.1

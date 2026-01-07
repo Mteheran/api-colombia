@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.0.7] - 2026-01-07
+
+### Added
+
+- Optional `includeSunday` query parameter to holiday endpoints to include Sunday holidays (Palm Sunday and Easter Sunday) in the response.
+
 ## [1.0.6] - 2026-01-06
 
 ### Changed
@@ -61,7 +67,8 @@ and this project adheres to [Semantic Versioning].
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[unreleased]: https://github.com/Author/Repository/compare/v1.0.6...HEAD
+[unreleased]: https://github.com/Author/Repository/compare/v1.0.7...HEAD
+[1.0.7]: https://github.com/Author/Repository/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/Author/Repository/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/Author/Repository/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/Author/Repository/compare/v1.0.3...v1.0.4

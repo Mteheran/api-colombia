@@ -1,5 +1,6 @@
 using api.Models;
 using api.Utils;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using HolidayEndpointMetadataMessages = api.Utils.Messages.EndpointMetadata.HolidayEndpoint;
 
@@ -12,14 +13,14 @@ namespace api.Routes
         {
             const string API_HOLIDAY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.HOLIDAY_ROUTE}";
 
-            app.MapGet($"{API_HOLIDAY_ROUTE_COMPLETE}/year/{{year}}", async (int year, DBContext db) =>
+            app.MapGet($"{API_HOLIDAY_ROUTE_COMPLETE}/year/{{year}}", async (int year,[FromQuery] bool? includeSunday, DBContext db) =>
             { 
                  if (year < DateTime.MinValue.Year || year > DateTime.MaxValue.Year)
                 {
                     return Results.BadRequest(Messages.EndpointMetadata.HolidayEndpoint.BadRequestInvalidYear);
                 }
 
-                List<Holiday> holidays = ColombiaHolidays.GetHolidaysByYear(year);
+                List<Holiday> holidays = ColombiaHolidays.GetHolidaysByYear(year, includeSunday ?? false);
                 return Results.Ok(holidays);
             })
             .Produces<List<Holiday>?>(200)
@@ -29,19 +30,19 @@ namespace api.Routes
             ));
 
  
-            app.MapGet($"{API_HOLIDAY_ROUTE_COMPLETE}/year/{{year}}/month/{{month}}", async (int year, int month, DBContext db) =>
+            app.MapGet($"{API_HOLIDAY_ROUTE_COMPLETE}/year/{{year}}/month/{{month}}", async (int year, int month,[FromQuery] bool? includeSunday, DBContext db) =>
             { 
-                 if (year < DateTime.MinValue.Year || year > DateTime.MaxValue.Year)
+                if (year < DateTime.MinValue.Year || year > DateTime.MaxValue.Year)
                 {
                     return Results.BadRequest(Messages.EndpointMetadata.HolidayEndpoint.BadRequestInvalidYear);
                 }
 
-                 if ((month < 1 || month > 12))
+                if (month is < 1 or > 12)
                 {
                     return Results.BadRequest(Messages.EndpointMetadata.HolidayEndpoint.BadRequestInvalidMonth);
                 }
  
-                List<Holiday> holidays = ColombiaHolidays.GetHolidaysByYear(year);
+                List<Holiday> holidays = ColombiaHolidays.GetHolidaysByYear(year, includeSunday ?? false);
                  
                 var filteredHolidays = holidays
                     .Where(h => h.Date.Month == month)  
@@ -61,7 +62,7 @@ namespace api.Routes
 
 public static class ColombiaHolidays
 {
- public static List<Holiday> GetHolidaysByYear(int year)
+ public static List<Holiday> GetHolidaysByYear(int year, bool includeSundays = false)
 {
     HashSet<DateTime> holidayDates = new HashSet<DateTime>();
     List<Holiday> holidays = new List<Holiday>();
@@ -90,10 +91,14 @@ public static class ColombiaHolidays
     DateTime holyThursday = easterSunday.AddDays(-3);
     DateTime holyFriday = easterSunday.AddDays(-2);
 
-    holidays.Add(new Holiday(sundaypalms, Messages.EndpointMetadata.Holidays.SUNDAY_PALMS_DESCRIPTION));
-    holidays.Add(new Holiday(holyThursday, Messages.EndpointMetadata.Holidays.HOLY_THURSDAY_DESCRIPTION)); 
+    if(includeSundays) 
+        holidays.Add(new Holiday(sundaypalms, Messages.EndpointMetadata.Holidays.SUNDAY_PALMS_DESCRIPTION));
+    
+    holidays.Add(new Holiday(holyThursday, Messages.EndpointMetadata.Holidays.HOLY_THURSDAY_DESCRIPTION));
     holidays.Add(new Holiday(holyFriday, Messages.EndpointMetadata.Holidays.HOLY_FRIDAY_DESCRIPTION));
-    holidays.Add(new Holiday(easterSunday, Messages.EndpointMetadata.Holidays.RESURRECTION_DESCRIPTION));
+    
+    if(includeSundays)
+        holidays.Add(new Holiday(easterSunday, Messages.EndpointMetadata.Holidays.RESURRECTION_DESCRIPTION));
 
     holidays.Add(new Holiday(new DateTime(year, month: may, day: 1), Messages.EndpointMetadata.Holidays.LABOR_DAY_DESCRIPTION));
    

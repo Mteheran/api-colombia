@@ -4,9 +4,15 @@ using api.Models;
 
 namespace api.Tests.ApiRoutesTests;
 
-public class HolidayApiIntegrationTests(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
+public class HolidayApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client = factory.CreateClient();
+    private readonly HttpClient _client;
+
+    public HolidayApiIntegrationTests(CustomWebApplicationFactory factory)
+    {
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
+    }
 
     [Theory]
     [InlineData(2025)]

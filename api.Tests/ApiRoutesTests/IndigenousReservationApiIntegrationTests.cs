@@ -5,10 +5,15 @@ using api.Utils;
 
 namespace api.Tests.ApiRoutesTests;
 
-public class IndigenousReservationApiIntegrationTests(CustomWebApplicationFactory factory)
-    : IClassFixture<CustomWebApplicationFactory>
+public class IndigenousReservationApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client = factory.CreateClient();
+    private readonly HttpClient _client;
+
+    public IndigenousReservationApiIntegrationTests(CustomWebApplicationFactory factory)
+    {
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
+    }
 
     [Fact]
     public async Task GetIndigenousReservations_ReturnsOkWithExpectedData()

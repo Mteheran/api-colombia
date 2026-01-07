@@ -4,18 +4,14 @@ using api.Utils;
 
 namespace api.Tests.ApiRoutesTests;
 
-public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
+public class CityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
     public CityApiIntegrationTests(CustomWebApplicationFactory factory)
     {
-       _client = new CustomWebApplicationFactory().CreateClient(); 
-    }
-
-    public void Dispose()
-    {
-        _client.Dispose();
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
     }
 
     [Fact]

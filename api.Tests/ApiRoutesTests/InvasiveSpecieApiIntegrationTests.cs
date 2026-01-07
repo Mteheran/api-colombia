@@ -4,10 +4,15 @@ using api.Utils;
 
 namespace api.Tests.ApiRoutesTests;
 
-public class InvasiveSpecieApiIntegrationTests(CustomWebApplicationFactory factory)
-    : IClassFixture<CustomWebApplicationFactory>
+public class InvasiveSpecieApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client = factory.CreateClient();
+    private readonly HttpClient _client;
+
+    public InvasiveSpecieApiIntegrationTests(CustomWebApplicationFactory factory)
+    {
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
+    }
 
     [Fact]
     public async Task GetInvasiveSpecies_ReturnsOkWithExpectedData()

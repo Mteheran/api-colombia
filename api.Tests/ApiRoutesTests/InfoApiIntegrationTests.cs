@@ -2,9 +2,15 @@ using System.Net;
 
 namespace api.Tests.ApiRoutesTests;
 
-public class InfoApiIntegrationTests(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
+public class InfoApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client = factory.CreateClient();
+    private readonly HttpClient _client;
+
+    public InfoApiIntegrationTests(CustomWebApplicationFactory factory)
+    {
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
+    }
 
 #if DEBUG
     [Fact]

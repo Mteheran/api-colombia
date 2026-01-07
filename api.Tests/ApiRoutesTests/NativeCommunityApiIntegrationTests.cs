@@ -4,10 +4,15 @@ using api.Utils;
 
 namespace api.Tests.ApiRoutesTests;
 
-public class NativeCommunityApiIntegrationTests(CustomWebApplicationFactory factory)
-    : IClassFixture<CustomWebApplicationFactory>
+public class NativeCommunityApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client = factory.CreateClient();
+    private readonly HttpClient _client;
+
+    public NativeCommunityApiIntegrationTests(CustomWebApplicationFactory factory)
+    {
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
+    }
 
     [Fact]
     public async Task GetNativeCommunities_ReturnsOkWithExpectedData()

@@ -4,10 +4,15 @@ using api.Utils;
 
 namespace api.Tests.ApiRoutesTests;
 
-public class TouristAttractionApiIntegrationTests(CustomWebApplicationFactory factory)
-    : IClassFixture<CustomWebApplicationFactory>
+public class TouristAttractionApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client = factory.CreateClient();
+    private readonly HttpClient _client;
+
+    public TouristAttractionApiIntegrationTests(CustomWebApplicationFactory factory)
+    {
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
+    }
 
     [Fact]
     public async Task GetTouristAttractions_ReturnsOkWithExpectedData()

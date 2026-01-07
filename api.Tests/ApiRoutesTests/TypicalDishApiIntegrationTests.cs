@@ -4,10 +4,15 @@ using api.Utils;
 
 namespace api.Tests.ApiRoutesTests;
 
-public class TypicalDishApiIntegrationTests(CustomWebApplicationFactory factory)
-    : IClassFixture<CustomWebApplicationFactory>
+public class TypicalDishApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly HttpClient _client = factory.CreateClient();
+    private readonly HttpClient _client;
+
+    public TypicalDishApiIntegrationTests(CustomWebApplicationFactory factory)
+    {
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
+    }
 
     [Fact]
     public async Task GetTypicalDishes_ReturnsOkWithExpectedData()

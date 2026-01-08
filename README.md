@@ -21,8 +21,17 @@ Read this document in [Español](/README_es.md)
   - Cities.
   - Presidents.
   - Tourist attractions.
-  - Natural Areas
-  - Airports
+  - Natural Areas and Categories.
+  - Airports.
+  - Holidays.
+  - Radio stations.
+  - Typical dishes.
+  - Traditional fairs and festivals.
+  - Indigenous reservations.
+  - Native communities.
+  - Invasive species.
+  - Constitution articles.
+  - Maps.
 * Swagger documentation 
 * Does not require authentication.
 
@@ -33,7 +42,7 @@ Read this document in [Español](/README_es.md)
 ## Installation Guide
 * Clone this repository [here](https://github.com/Mteheran/api-colombia).
 * The develop branch is the most stable branch at any given time, please make sure you're working from it.
-* [.NET CORE SDK ](https://dotnet.microsoft.com/en-us/download) must be installed in the machine.
+* [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download) must be installed in the machine.
 * Update the connection string to your preferred database in the "appsettings.json" file.
 * Run the `dotnet build` command to generate the build of the project.
 
@@ -61,6 +70,39 @@ Useful to simulate a production-like server locally.
 
 Note: Run all the commands above inside the `docs/` directory.
 
+## Testing
+
+The project includes comprehensive integration tests using xUnit and an in-memory database. The tests verify that all API endpoints work correctly.
+
+### Running Tests
+
+To run all tests:
+```bash
+dotnet test
+```
+
+To run tests with coverage:
+```bash
+dotnet test /p:CollectCoverage=true
+```
+
+### Test Structure
+
+The integration tests are located in the `api.Tests` project and use:
+- **xUnit** as the testing framework
+- **CustomWebApplicationFactory** to create a test server with an in-memory database
+- **Microsoft.AspNetCore.Mvc.Testing** for HTTP client testing
+- **AutoFixture** for test data generation
+
+Each endpoint has corresponding integration tests that verify:
+- Successful responses with correct data
+- Pagination functionality
+- Sorting capabilities
+- Search functionality
+- Error handling (404, 400, etc.)
+
+The test database is seeded with sample data for each entity type, ensuring consistent test results.
+
 ## Usage
 The public page [api-colombia.com](https://api-colombia.com/) has useful information about the API and a brief description of the available endpoints and the same allows access to the endpoints described below.
 
@@ -80,6 +122,8 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 | https://github.com/crexative/colombia-mcp-server | - | Colombia MCP Server - Another MCP implementation for integrating API Colombia with AI tools |
 
 ## API Endpoints
+
+### Cities
 | HTTP Verbs | Endpoints                             | Action                                                               |
 | ---------- | ------------------------------------- | -------------------------------------------------------------------- |
 | GET        | /api/{version}/city                   | Get the list of all cities                                           |
@@ -87,24 +131,146 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 | GET        | /api/{version}/city/name/{name}       | Get the information of a city by it is name                          |
 | GET        | /api/{version}/city/search/{keyword}  | Get the information of a city searching by keyword                   |
 | GET        | /api/{version}/city/pagedList         | Get the list of all cities paginated                                 |
+
+### Country
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
 | GET        | /api/{version}/country/Colombia       | Get the information of Colombia                                      |
+
+### Departments
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
 | GET        | /api/{version}/Department             | Get the list of all departments in Colombia                          |
 | GET        | /api/{version}/Department/{id}        | Get the information of a department by it is id                      |
 | GET        | /api/{version}/Department/name/{name} | Get the information of a department by it is name                    |
 | GET        | /api/{version}/Department/search/{keyword} | Get the information of a department searching by keyword        |
 | GET        | /api/{version}/Department/pagedList   | Get the list of all department paginated                             |
+
+### Regions
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
 | GET        | /api/{version}/Region                 | Get the list of all regions in Colombia                              |
+
+### Presidents
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
 | GET        | /api/{version}/President              | Get the list of all presidents in Colombia                           |
 | GET        | /api/{version}/President/{id}         | Get the information of a president by it is id                       |
 | GET        | /api/{version}/President/name/{name}  | Get the information of a president by it is name                     |
-| GET        | /api/{version}/President/year/{name}  | Get the information of a president that ruled during a specific year |
+| GET        | /api/{version}/President/year/{year}  | Get the information of a president that ruled during a specific year |
 | GET        | /api/{version}/President/search/{keyword}      | Get the information of a president searching by keyword                        |
 | GET        | /api/{version}/President/pagedList    | Get the list of all presidents paginated                             |
+
+### Tourist Attractions
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
 | GET        | /api/{version}/TouristicAttraction             | Get the list of all touristic attractions in Colombia                          |
 | GET        | /api/{version}/TouristicAttraction/{id}        | Get the information of a touristic attraction by it is id                      |
 | GET        | /api/{version}/TouristicAttraction/name/{name} | Get the information of a touristic attaction by it is name                     |
 | GET        | /api/{version}/TouristicAttraction/search/{keyword} | Get the information of a touristic attaction searching by keyword         |
 | GET        | /api/{version}/TouristicAttraction/pagedList   | Get the list of all touristic attractions paginated                            |
+
+### Natural Areas
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/NaturalArea             | Get the list of all natural areas in Colombia                          |
+| GET        | /api/{version}/NaturalArea/{id}        | Get the information of a natural area by it is id                      |
+| GET        | /api/{version}/NaturalArea/name/{name} | Get the information of a natural area by it is name                     |
+| GET        | /api/{version}/NaturalArea/search/{keyword} | Get the information of a natural area searching by keyword         |
+| GET        | /api/{version}/NaturalArea/pagedList   | Get the list of all natural areas paginated                            |
+
+### Category Natural Areas
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/CategoryNaturalArea             | Get the list of all category natural areas                          |
+| GET        | /api/{version}/CategoryNaturalArea/{id}        | Get the information of a category natural area by it is id                      |
+| GET        | /api/{version}/CategoryNaturalArea/{id}/NaturalAreas | Get the information of a category natural area with its natural areas by id                     |
+
+### Airports
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/Airport             | Get the list of all airports in Colombia                          |
+| GET        | /api/{version}/Airport/{id}        | Get the information of an airport by it is id                      |
+| GET        | /api/{version}/Airport/name/{name} | Get the information of an airport by it is name                     |
+| GET        | /api/{version}/Airport/search/{keyword} | Get the information of an airport searching by keyword         |
+| GET        | /api/{version}/Airport/pagedList   | Get the list of all airports paginated                            |
+
+### Holidays
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/Holiday/year/{year}             | Get the list of all holidays for a specific year, optional parameter includeSunday                          |
+| GET        | /api/{version}/Holiday/year/{year}/month/{month}        | Get the list of all holidays for a specific year and month, optional parameter includeSunday                        |
+
+### Radio Stations
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/Radio             | Get the list of all radio stations in Colombia                          |
+| GET        | /api/{version}/Radio/{id}        | Get the information of a radio station by it is id                      |
+| GET        | /api/{version}/Radio/name/{name} | Get the information of a radio station by it is name                     |
+| GET        | /api/{version}/Radio/search/{keyword} | Get the information of a radio station searching by keyword         |
+| GET        | /api/{version}/Radio/pagedList   | Get the list of all radio stations paginated                            |
+
+### Typical Dishes
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/TypicalDish             | Get the list of all typical dishes in Colombia                          |
+| GET        | /api/{version}/TypicalDish/{id}        | Get the information of a typical dish by it is id                      |
+| GET        | /api/{version}/TypicalDish/{id}/department | Get the list of typical dishes by department id                     |
+| GET        | /api/{version}/TypicalDish/name/{name} | Get the information of a typical dish by it is name                     |
+| GET        | /api/{version}/TypicalDish/search/{keyword} | Get the information of a typical dish searching by keyword         |
+| GET        | /api/{version}/TypicalDish/pagedList   | Get the list of all typical dishes paginated                            |
+
+### Traditional Fairs and Festivals
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/TraditionalFairAndFestival             | Get the list of all traditional fairs and festivals in Colombia                          |
+| GET        | /api/{version}/TraditionalFairAndFestival/{id}        | Get the information of a traditional fair and festival by it is id                      |
+| GET        | /api/{version}/TraditionalFairAndFestival/{id}/city | Get the list of traditional fairs and festivals by city id                     |
+| GET        | /api/{version}/TraditionalFairAndFestival/name/{name} | Get the information of a traditional fair and festival by it is name                     |
+| GET        | /api/{version}/TraditionalFairAndFestival/search/{keyword} | Get the information of a traditional fair and festival searching by keyword         |
+| GET        | /api/{version}/TraditionalFairAndFestival/pagedList   | Get the list of all traditional fairs and festivals paginated                            |
+
+### Indigenous Reservations
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/IndigenousReservation             | Get the list of all indigenous reservations in Colombia                          |
+| GET        | /api/{version}/IndigenousReservation/{id}        | Get the information of an indigenous reservation by it is id                      |
+| GET        | /api/{version}/IndigenousReservation/name/{name} | Get the information of an indigenous reservation by it is name                     |
+| GET        | /api/{version}/IndigenousReservation/search/{keyword} | Get the information of an indigenous reservation searching by keyword         |
+| GET        | /api/{version}/IndigenousReservation/pagedList   | Get the list of all indigenous reservations paginated                            |
+
+### Native Communities
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/NativeCommunity             | Get the list of all native communities in Colombia                          |
+| GET        | /api/{version}/NativeCommunity/{id}        | Get the information of a native community by it is id                      |
+| GET        | /api/{version}/NativeCommunity/name/{name} | Get the information of a native community by it is name                     |
+| GET        | /api/{version}/NativeCommunity/search/{keyword} | Get the information of a native community searching by keyword         |
+| GET        | /api/{version}/NativeCommunity/pagedList   | Get the list of all native communities paginated                            |
+
+### Invasive Species
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/InvasiveSpecie             | Get the list of all invasive species in Colombia                          |
+| GET        | /api/{version}/InvasiveSpecie/{id}        | Get the information of an invasive specie by it is id                      |
+| GET        | /api/{version}/InvasiveSpecie/name/{name} | Get the information of an invasive specie by it is name                     |
+| GET        | /api/{version}/InvasiveSpecie/search/{keyword} | Get the information of an invasive specie searching by keyword         |
+| GET        | /api/{version}/InvasiveSpecie/pagedList   | Get the list of all invasive species paginated                            |
+
+### Constitution Articles
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/ConstitutionArticle             | Get the list of all constitution articles                          |
+| GET        | /api/{version}/ConstitutionArticle/{id}        | Get the information of a constitution article by it is id                      |
+| GET        | /api/{version}/ConstitutionArticle/search/{keyword} | Get the information of a constitution article searching by keyword         |
+| GET        | /api/{version}/ConstitutionArticle/pagedList   | Get the list of all constitution articles paginated                            |
+| GET        | /api/{version}/ConstitutionArticle/byChapterNumber/{chapternumber}   | Get the list of constitution articles by chapter number                            |
+
+### Maps
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/Map             | Get the list of all maps                          |
+| GET        | /api/{version}/Map/{id}        | Get the information of a map by it is id                      |
 
 ## Response Example 
 * Content type: "application/json". Responses are JSON Objects. 
@@ -134,9 +300,9 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 }
 ```
 ## Technologies Used
-* [.NET Core 8.*](https://dotnet.microsoft.com/en-us/) is a free, cross-platform, open source developer platform for building many kinds of applications. .NET is built on a high-performance runtime that is used in production by many high-scale apps.
+* [.NET 10](https://dotnet.microsoft.com/en-us/) is a free, cross-platform, open source developer platform for building many kinds of applications. .NET is built on a high-performance runtime that is used in production by many high-scale apps.
 * [PostgreSQL](https://www.postgresql.org/) is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.
-* [Microsoft Azure](https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-azure/) The Azure cloud platform is more than 200 products and cloud services designed to help you bring new solutions to life—to solve today’s challenges and create the future. Build, run, and manage applications across multiple clouds, on-premises, and at the edge, with the tools and frameworks of your choice.
+* [Microsoft Azure](https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-azure/) The Azure cloud platform is more than 200 products and cloud services designed to help you bring new solutions to life—to solve today's challenges and create the future. Build, run, and manage applications across multiple clouds, on-premises, and at the edge, with the tools and frameworks of your choice.
 
 ## Contributors ✨
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->

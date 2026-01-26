@@ -27,6 +27,7 @@ Read this document in [Español](/README_es.md)
   - Radio stations.
   - Typical dishes.
   - Traditional fairs and festivals.
+  - Intangible heritage.
   - Indigenous reservations.
   - Native communities.
   - Invasive species.
@@ -229,6 +230,16 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 | GET        | /api/{version}/TraditionalFairAndFestival/name/{name} | Get the information of a traditional fair and festival by it is name                     |
 | GET        | /api/{version}/TraditionalFairAndFestival/search/{keyword} | Get the information of a traditional fair and festival searching by keyword         |
 | GET        | /api/{version}/TraditionalFairAndFestival/pagedList   | Get the list of all traditional fairs and festivals paginated                            |
+
+### Intangible Heritage
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/IntangibleHeritage             | Get the list of all intangible heritages in Colombia                          |
+| GET        | /api/{version}/IntangibleHeritage/{id}        | Get the information of an intangible heritage by it is id                      |
+| GET        | /api/{version}/IntangibleHeritage/{id}/department | Get the list of intangible heritages by department id                     |
+| GET        | /api/{version}/IntangibleHeritage/name/{name} | Get the information of an intangible heritage by it is name                     |
+| GET        | /api/{version}/IntangibleHeritage/search/{keyword} | Get the information of an intangible heritage searching by keyword         |
+| GET        | /api/{version}/IntangibleHeritage/pagedList   | Get the list of all intangible heritages paginated                            |
 
 ### Indigenous Reservations
 | HTTP Verbs | Endpoints                             | Action                                                               |

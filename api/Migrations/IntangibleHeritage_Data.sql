@@ -1,0 +1,33 @@
+-- INSERT scripts for IntangibleHeritage table
+-- Generated from: api-colombia data - Patrimonio cultural e inmaterial.csv
+
+INSERT INTO "IntangibleHeritage" ("Id", "Name", "DepartmentId", "Scope", "InclusionYear") VALUES
+(1, 'Espacio Cultural del Palenque de San Basilio, localizado en las faldas de los Montes de María, municipio de Mahates, departamento de Bolívar', 6, 'Lenguas y tradición oral; Organización social; Medicina tradicional', 2009),
+(2, 'Sistema Normativo Wayuu aplicado por el Putchipüi''üi (Palabrero)', 19, 'Lenguas y tradición oral; Organización social; Producción tradicional', 2009),
+(3, 'Músicas de marimba y cantos tradicionales del Pacífico sur de Colombia', NULL, 'Lenguas y tradición oral; Artes populares; Actos festivos y lúdicos', 2010),
+(4, 'He Yaia Keti Oka, el conocimiento tradicional (Jaguares de Yuruparí) para el manejo de los grupos indígenas del río Pirá Paraná', 32, 'Patrimonio cultural inmaterial asociado a los espacios culturales', 2010),
+(5, 'Carnaval de Negros y Blancos de Pasto - Nariño', 22, 'Artes populares; Actos festivos y lúdicos', 2010),
+(6, 'Las Procesiones de Semana Santa de Popayán, Cauca', 11, 'Eventos religiosos tradicionales de carácter colectivo', 2009),
+(7, 'Cuadrillas de San Martín, que se desarrollan en el municipio de San Martin, Meta', 21, 'Técnicas y tradiciones asociadas a la fabricación de objetos artesanales; Actos festivos y lúdicos; Eventos religiosos tradicionales de carácter colectivo', 2011),
+(8, 'Carnaval de Riosucio (Caldas)', 8, 'Artes populares; Actos festivos y lúdicos', 2011),
+(9, 'Fiestas de San Francisco de Asís, o San Pacho, en Quibdó (Chocó)', 13, 'Actos festivos y lúdicos; Eventos religiosos tradicionales de carácter colectivo', 2011),
+(10, 'Encuentro Nacional de Bandas Musicales de Paipa', 7, 'Artes populares; Actos festivos y lúdicos', 2013),
+(11, 'El proceso de formar y vivir como nükak baka (gente verdadera)', 17, 'Lenguas y tradición oral; Organización social; Conocimiento tradicional sobre la naturaleza y el universo; Medicina tradicional; Producción tradicional; Técnicas y tradiciones asociadas a la fabricación de objetos artesanales; Artes populares; Actos festivos y lúdicos; Eventos religiosos tradicionales de carácter colectivo; Conocimientos y técnicas tradicionales asociadas al hábitat; Cultura culinaria; Patrimonio cultural inmaterial asociado a los espacios culturales', 2013),
+(12, 'La tradición de celebrar a los ahijados con macetas de alfeñique en la ciudad de Santiago de Cali', 31, 'Organización social; Técnicas y tradiciones asociadas a la fabricación de objetos artesanales; Artes populares; Actos festivos y lúdicos; Cultura culinaria; Patrimonio cultural inmaterial asociado a los espacios culturales', 2013),
+(13, 'Bëtscnaté o Día Grande de la tradición camëntsá', 24, 'Lenguas y tradición oral; Organización social; Conocimiento tradicional sobre la naturaleza y el universo; Medicina tradicional; Producción tradicional; Técnicas y tradiciones asociadas a la fabricación de objetos artesanales; Artes populares; Eventos religiosos tradicionales de carácter colectivo', 2013),
+(14, 'Cuadros vivos de Galeras, Sucre', 29, 'Artes populares; Actos festivos y lúdicos', 2013),
+(15, 'Cantos de Trabajo de Llano', NULL, 'Lenguas y tradición oral; Conocimiento tradicional sobre la naturaleza y el universo; Medicina tradicional; Producción tradicional; Técnicas y tradiciones asociadas a la fabricación de objetos artesanales; Artes populares; Eventos religiosos de carácter colectivo', 2014),
+(16, 'La música vallenata tradicional del Caribe colombiano', NULL, 'Lenguas y tradición oral; Conocimiento tradicional sobre la naturaleza y el universo; Técnicas y tradiciones asociadas a la fabricación de objetos artesanales; Artes populares; Actos festivos y lúdicos; Eventos religiosos tradicionales de carácter colectivo', 2014),
+(17, 'Gualíes, alabaos y levantamientos de tumba, ritos mortuorios de las comunidades afro del municipio del Medio San Juan', 13, 'Lenguas y tradición oral; Conocimiento tradicional sobre la naturaleza y el universo; Técnicas y tradiciones asociadas a la fabricación de objetos artesanales; Artes populares; Actos festivos y lúdicos; Eventos religiosos tradicionales de carácter colectivo', 2014),
+(18, 'Manifestación cultural silletera del territorio de Santa Elena, de los municipios de Medellín, Guarne, Envigado y Rionegro', 2, 'Conocimientos tradicionales sobre la naturaleza y el universo; Arte popular; Actos festivos y lúdicos; Patrimonio cultural inmaterial asociado a los espacios culturales', 2015),
+(19, 'El Carnaval de Barranquilla', 4, 'Actos festivos y lúdicos', 2015),
+(20, 'Saberes asociados a la partería afro del Pacífico colombiano', NULL, 'Organización social; Medicina tradicional; Conocimiento tradicional sobre la naturaleza y el universo', 2017),
+(21, 'Sistema de conocimiento ancestral de los pueblos arhuaco, kankuamo, kogui y wiwa de la Sierra Nevada de Santa Marta', NULL, 'Lenguas y tradición oral; Organización social; Conocimiento tradicional sobre la naturaleza y el universo; Patrimonio cultural inmaterial asociado a los espacios culturales', 2017),
+(22, 'Conocimientos y técnicas tradicionales asociadas con el barniz de Pasto mopa-mopa', NULL, 'Conocimientos tradicionales sobre la naturaleza y el universo; Técnicas y tradiciones asociadas a la fabricación de objetos artesanales', 2019),
+(23, 'Tradición y creación en la celebración popular de la Semana Santa de Ciénaga de Oro, Córdoba', 14, 'Eventos religiosos tradicionales de carácter colectivo; Medicina tradicional; Artes; Cultura culinaria; Técnicas y tradiciones asociadas a la fabricación de objetos artesanales; Patrimonio Cultural Inmaterial asociado a los espacios culturales', 2020),
+(24, 'Saberes y tradiciones asociados a la Manifestación del Viche/Biche del Pacífico colombiano', 13, 'Conocimiento tradicional sobre la naturaleza y el universo, Medicina tradicional, Producción tradicional, Actos festivos y lúdicos, Eventos religiosos tradicionales de carácter colectivo, Cultura culinaria, Vida Cotidiana', NULL),
+(25, 'Trenzado en caña flecha, prácticas y conocimientos ancestrales artesanales de la identidad Zenú', 14, 'Técnicas y Tradiciones asociadas a la fabricación de objetos artesanales, Producción Tradicional.', NULL),
+(26, 'Complejo Musical Dancístico de la Salsa Caleña', 31, 'Actos Festivos y Lúdicos; Artes; Sistemas normativos y formas de organización social; Patrimonio Cultural Inmaterial asociado a espacios culturales', NULL);
+
+-- Reset sequence to continue from the last ID
+SELECT setval(pg_get_serial_sequence('"IntangibleHeritage"', 'Id'), (SELECT MAX("Id") FROM "IntangibleHeritage"));

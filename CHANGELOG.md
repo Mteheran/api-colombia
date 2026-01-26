@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.0.8] - 2026-01-25
+
+### Added
+
+- New IntangibleHeritage model and endpoints to manage Colombia's intangible cultural heritage information.
+- IntangibleHeritage table with fields: Id, Name, DepartmentId, Scope, and InclusionYear.
+- Complete REST API endpoints for IntangibleHeritage including list, get by id, get by department, get by name, search, and paginated list.
+
 ## [1.0.7] - 2026-01-07
 
 ### Added
@@ -67,7 +75,8 @@ and this project adheres to [Semantic Versioning].
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[unreleased]: https://github.com/Author/Repository/compare/v1.0.7...HEAD
+[unreleased]: https://github.com/Author/Repository/compare/v1.0.8...HEAD
+[1.0.8]: https://github.com/Author/Repository/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/Author/Repository/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/Author/Repository/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/Author/Repository/compare/v1.0.4...v1.0.5

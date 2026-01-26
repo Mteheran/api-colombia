@@ -23,6 +23,7 @@ public class DBContext : DbContext
     public DbSet<ConstitutionArticle> ConstitutionArticles { get; set; }
     public DbSet<Radio> Radios { get; set; }
     public DbSet<Holiday> Holidays {get; set; }
+    public DbSet<IntangibleHeritage> IntangibleHeritages {get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {
@@ -49,6 +50,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new HolidayConfig());
         builder.ApplyConfiguration(new TypicalDishConfig());
         builder.ApplyConfiguration(new TraditionalFairAndFestivalConfig());
+        builder.ApplyConfiguration(new IntangibleHeritageConfig());
 
         base.OnModelCreating(builder);
     }

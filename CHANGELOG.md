@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.0.9] - 2026-01-26
+
+### Added
+
+- New HeritageCity model and endpoints for Colombia's heritage cities.
+- HeritageCity table with fields: Id, Name, Description, CityId, DepartmentId, and Image.
+- Complete REST API endpoints for HeritageCity including list, get by id, get by name, search, and paginated list.
+- SQL seed script for HeritageCity data.
+
 ## [1.0.8] - 2026-01-25
 
 ### Added
@@ -75,7 +84,8 @@ and this project adheres to [Semantic Versioning].
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[unreleased]: https://github.com/Author/Repository/compare/v1.0.8...HEAD
+[unreleased]: https://github.com/Author/Repository/compare/v1.0.9...HEAD
+[1.0.9]: https://github.com/Author/Repository/compare/v1.0.8...v1.0.9
 [1.0.8]: https://github.com/Author/Repository/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/Author/Repository/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/Author/Repository/compare/v1.0.5...v1.0.6

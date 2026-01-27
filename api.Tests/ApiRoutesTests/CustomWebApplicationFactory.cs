@@ -530,6 +530,78 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             });
         }
 
+        if(!dbContext.IntangibleHeritages.Any())
+        {
+            dbContext.Add(new IntangibleHeritage
+            {
+                Id = 1,
+                Name = "Carnaval de Barranquilla",
+                DepartmentId = deparment1.Id,
+                Department = deparment1,
+                Scope = "Nacional",
+                InclusionYear = 2003,
+            });
+
+            dbContext.Add(new IntangibleHeritage
+            {
+                Id = 2,
+                Name = "Fiesta de las Flores",
+                DepartmentId = deparment1.Id,
+                Department = deparment1,
+                Scope = "Regional",
+                InclusionYear = 2010,
+            });
+
+            dbContext.Add(new IntangibleHeritage
+            {
+                Id = 3,
+                Name = "Semana Santa",
+                DepartmentId = deparment2.Id,
+                Department = deparment2,
+                Scope = "Nacional",
+                InclusionYear = 2012,
+            });
+        }
+
+        if (!dbContext.HeritageCities.Any())
+        {
+            dbContext.Add(new HeritageCity
+            {
+                Id = 1,
+                Name = "Cartagena",
+                Description = "Historic walled city with colonial architecture.",
+                CityId = city1.Id,
+                City = city1,
+                DepartmentId = deparment1.Id,
+                Department = deparment1,
+                Image = "https://example.com/cartagena.jpg",
+            });
+
+            dbContext.Add(new HeritageCity
+            {
+                Id = 2,
+                Name = "Popayan",
+                Description = "Colonial city known for its white architecture.",
+                CityId = city1.Id,
+                City = city1,
+                DepartmentId = deparment1.Id,
+                Department = deparment1,
+                Image = "https://example.com/popayan.jpg",
+            });
+
+            dbContext.Add(new HeritageCity
+            {
+                Id = 3,
+                Name = "Santa Cruz de Mompox",
+                Description = "River town with preserved colonial heritage.",
+                CityId = city1.Id,
+                City = city1,
+                DepartmentId = deparment1.Id,
+                Department = deparment1,
+                Image = "https://example.com/mompox.jpg",
+            });
+        }
+
         dbContext.SaveChanges();
     }
 

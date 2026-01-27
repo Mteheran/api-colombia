@@ -291,6 +291,20 @@
                 public const string MESSAGE_INTANGIBLE_HERITAGE_PAGEDLIST_SUMMARY = "List of intangible heritages using pagination";
                 public const string MESSAGE_INTANGIBLE_HERITAGE_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of intangible heritages using pagination including page, pagesize, total records and data, example api/v1/intangibleheritage/pagedList?page=1&pagesize=10";
             }
+
+            public struct HeritageCityEndpoint
+            {
+                public const string MESSAGE_HERITAGE_CITY_LIST_SUMMARY = "List of heritage cities in Colombia";
+                public const string MESSAGE_HERITAGE_CITY_LIST_DESCRIPTION = "This endpoint returns the heritage cities in Colombia including general info like name, description, city, department, and image.";
+                public const string MESSAGE_HERITAGE_CITY_BYID_SUMMARY = "Heritage city information by Id";
+                public const string MESSAGE_HERITAGE_CITY_BYID_DESCRIPTION = "This endpoint returns the heritage city information with the provided id";
+                public const string MESSAGE_HERITAGE_CITY_BYNAME_SUMMARY = "Heritage city information by name";
+                public const string MESSAGE_HERITAGE_CITY_BYNAME_DESCRIPTION = "This endpoint returns the heritage city information with the provided name";
+                public const string MESSAGE_HERITAGE_CITY_SEARCH_SUMMARY = "Search heritage cities by keyword";
+                public const string MESSAGE_HERITAGE_CITY_SEARCH_DESCRIPTION = "This endpoint returns a list of heritage cities any of the following fields(Name, Description, Image) match the provided keyword";
+                public const string MESSAGE_HERITAGE_CITY_PAGEDLIST_SUMMARY = "List of heritage cities using pagination";
+                public const string MESSAGE_HERITAGE_CITY_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of heritage cities using pagination including page, pagesize, total records and data, example api/v1/heritagecity/pagedList?page=1&pagesize=10";
+            }
         }
     }
 }

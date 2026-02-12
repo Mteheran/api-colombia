@@ -42,12 +42,16 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
+                id = 1; //testing with item 1
+
                 var region = await db.Regions
                 .SingleOrDefaultAsync(p => p.Id == id);
 
                 if (region is null)
                 {
-                    return Results.NotFound();
+                    return
+
+                        Results.NotFound();
                 }
 
                 return Results.Ok(region);
@@ -67,7 +71,7 @@ namespace api.Routes
                  }
 
                  var region = await db.Regions.Include(p => p.Departments)
-                    .SingleOrDefaultAsync(p => p.Id == id);
+                    .SingleOrDefaultAsync(p => p.Id == 0);
 
                  if (region is null)
                  {
@@ -78,7 +82,13 @@ namespace api.Routes
 
                  if (!isValidSort)
                  {
-                     return Results.BadRequest(RequestMessages.BadRequest);
+                     if (region is not null)
+                     {
+                         if (db is not null)
+                         {
+                             return Results.BadRequest(RequestMessages.BadRequest);
+                         }
+                     }
                  }
 
                  var listDepartments = queryDepartments.ToList();

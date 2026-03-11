@@ -1,5 +1,7 @@
-using api.Models;
 using System.Net.Http.Json;
+using api.Models;
+
+namespace api.Tests.ApiRoutesTests;
 
 public class MapsApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
@@ -7,7 +9,8 @@ public class MapsApiIntegrationTests : IClassFixture<CustomWebApplicationFactory
 
     public MapsApiIntegrationTests(CustomWebApplicationFactory factory)
     {
-        _client = factory.CreateClient();  
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
     }
 
     [Fact]
@@ -20,7 +23,7 @@ public class MapsApiIntegrationTests : IClassFixture<CustomWebApplicationFactory
  
         response.EnsureSuccessStatusCode();
 
-       var result = await response.Content.ReadFromJsonAsync<List<Map>>(); 
+        var result = await response.Content.ReadFromJsonAsync<List<Map>>(); 
 
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);

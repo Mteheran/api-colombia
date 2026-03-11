@@ -2,12 +2,15 @@ using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
 
+namespace api.Tests.ApiRoutesTests;
+
 public class TypicalDishApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
     public TypicalDishApiIntegrationTests(CustomWebApplicationFactory factory)
     {
+        factory.ResetDatabase();
         _client = factory.CreateClient();
     }
 

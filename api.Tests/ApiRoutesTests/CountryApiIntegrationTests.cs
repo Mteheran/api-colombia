@@ -1,5 +1,7 @@
-using api.Models;
 using System.Net.Http.Json;
+using api.Models;
+
+namespace api.Tests.ApiRoutesTests;
 
 public class CountryApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
@@ -7,7 +9,8 @@ public class CountryApiIntegrationTests : IClassFixture<CustomWebApplicationFact
 
     public CountryApiIntegrationTests(CustomWebApplicationFactory factory)
     {
-        _client = factory.CreateClient();  
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
     }
 
     [Fact]

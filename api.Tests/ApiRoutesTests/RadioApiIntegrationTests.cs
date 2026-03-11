@@ -2,12 +2,15 @@ using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
 
+namespace api.Tests.ApiRoutesTests;
+
 public class RadioApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
     public RadioApiIntegrationTests(CustomWebApplicationFactory factory)
     {
+        factory.ResetDatabase();
         _client = factory.CreateClient();
     }
 

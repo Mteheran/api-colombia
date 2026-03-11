@@ -7,14 +7,20 @@ const modale= document.getElementsByClassName("contenidoModal");
 const imagencambia = document.getElementById("Logo-API");
 const selectTheme = document.getElementById("select-theme");
 const mododod = document.getElementById("modoWeb2")
-const botonDocumentacion = document.getElementsByClassName("botonDocumentacion");
+const btnSwagger = document.getElementById("btnSwagger");
+const btnVitePress = document.getElementById("btnVitePress");
 
-Array.from(botonDocumentacion).forEach(element => {
-    element.addEventListener("click", () => {
-        window.open("https://api-colombia.com/swagger/index.html",'_blank');
-        
-    
-})});
+if (btnSwagger) {
+    btnSwagger.addEventListener("click", () => {
+        window.open("https://api-colombia.com/swagger/index.html", '_blank');
+    });
+}
+
+if (btnVitePress) {
+    btnVitePress.addEventListener("click", () => {
+        window.open("https://docs.api-colombia.com/", '_blank');
+    });
+}
 
 
 toggleModal(botonMenu,modal);

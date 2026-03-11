@@ -30,7 +30,7 @@ namespace api.Routes
                 var listNaturalAreas = await queryNaturalAreas.ToListAsync();
                 return Results.Ok(listNaturalAreas);
             })
-            .Produces<List<Map>>(200)
+            .Produces<List<NaturalArea>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: NaturalAreaEndpoint.MESSAGE_LIST_SUMMARY,
                 description: NaturalAreaEndpoint.MESSAGE_LIST_DESCRIPTION
@@ -66,13 +66,8 @@ namespace api.Routes
                 var naturalAreas = await db.NaturalAreas
                                                     .Include(p => p.CategoryNaturalArea).IgnoreAutoIncludes()
                                                     .Include(p => p.Department).IgnoreAutoIncludes()
-                                                    .Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper()))
+                                                    .Where(x => (x.Name ?? string.Empty).ToUpper().Contains(name.Trim().ToUpper()))
                                                     .ToListAsync();
-
-                if (naturalAreas is null)
-                {
-                    return Results.NotFound();
-                }
 
                 return Results.Ok(naturalAreas);
             })
@@ -87,11 +82,6 @@ namespace api.Routes
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var naturalAreas = db.NaturalAreas.ToList();
                 var naturalAreasFiltered = Functions.FilterObjectListPropertiesByKeyword<NaturalArea>(naturalAreas, wellFormedKeyword);
-                if (!naturalAreasFiltered.Any())
-                {
-                    return Results.NotFound();
-                }
-
                 return Results.Ok(naturalAreasFiltered);
             })
             .Produces<List<NaturalArea>?>(200)

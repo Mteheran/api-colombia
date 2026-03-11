@@ -58,13 +58,11 @@ namespace api.Routes
 
             app.MapGet($"{API_CITY_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
-                var city = db.Cities.Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
-                if (city is null)
-                {
-                    return Results.NotFound();
-                }
-
-                return Results.Ok(city);
+                var search = name.Trim().ToUpperInvariant();
+                var cities = db.Cities
+                    .Where(x => (x.Name ?? string.Empty).ToUpperInvariant().Contains(search))
+                    .ToList();
+                return Results.Ok(cities);
             })
             .Produces<List<City>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
@@ -77,12 +75,6 @@ namespace api.Routes
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbCities = db.Cities.ToList();
                 var cities = Functions.FilterObjectListPropertiesByKeyword<City>(dbCities, wellFormedKeyword);
-
-                if (!cities.Any())
-                {
-                    return Results.NotFound();
-                }
-
                 return Results.Ok(cities);
             })
             .Produces<List<City>>(200)
@@ -116,11 +108,6 @@ namespace api.Routes
                     .Skip((pagination.Page - 1) * pagination.PageSize)
                     .Take(pagination.PageSize)
                     .ToListAsync();
-
-                if (!pagedCities.Any())
-                {
-                    return Results.NotFound();
-                }
 
                 var paginationResponse = new PaginationResponseModel<City>
                 {

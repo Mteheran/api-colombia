@@ -9,9 +9,9 @@ using static api.Utils.Functions;
 
 namespace api.Routes
 {
-    public static class TuristicAttactionRoutes
+    public static class TouristAttractionRoutes
     {
-        public static void RegisterTuristicAttactionAPI(WebApplication app)
+        public static void RegisterTouristAttractionAPI(WebApplication app)
         {
             const string API_TOURISTIC_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.TOURISTIC_ROUTE}";
 
@@ -60,14 +60,13 @@ namespace api.Routes
 
             app.MapGet($"{API_TOURISTIC_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
-                //this no make sense require change the Equals validation for startWith that way will create a list
-                var turisticAtt = db.TouristAttractions.Where(x => x.Name!.ToUpper().Equals(name.ToUpper())).ToList();
-                if (turisticAtt is null)
-                {
-                    return Results.NotFound();
-                }
+                var search = name.Trim().ToUpperInvariant();
+                var touristAttractions = db.TouristAttractions
+                    .Include(p => p.City)
+                    .Where(x => (x.Name ?? string.Empty).ToUpperInvariant().Contains(search))
+                    .ToList();
 
-                return Results.Ok(turisticAtt);
+                return Results.Ok(touristAttractions);
             })
             .Produces<List<TouristAttraction>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
@@ -79,11 +78,6 @@ namespace api.Routes
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbTouristAttractions = db.TouristAttractions.ToList();
                 var touristAttractions = Functions.FilterObjectListPropertiesByKeyword<TouristAttraction>(dbTouristAttractions, wellFormedKeyword);
-                if (!touristAttractions.Any())
-                {
-                    return Results.NotFound();
-                }
-
                 return Results.Ok(touristAttractions);
             })
             .Produces<List<TouristAttraction>?>(200)

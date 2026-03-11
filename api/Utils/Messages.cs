@@ -275,6 +275,36 @@
                 public const string MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of traditional fair and festival using pagination including page, pagesize, total records and data, example api/v1/typicaldishes/pagedList?page=1&pagesize=10";
 
             }
+
+            public struct IntangibleHeritageEndpoint
+            {
+                public const string MESSAGE_INTANGIBLE_HERITAGE_LIST_SUMMARY = "List of intangible heritages in Colombia";
+                public const string MESSAGE_INTANGIBLE_HERITAGE_LIST_DESCRIPTION = "This endpoint returns the intangible heritages in colombia including a general info like name, scope, inclusion year...";
+                public const string MESSAGE_INTANGIBLE_HERITAGE_BYID_SUMMARY = "Intangible heritage information by Id";
+                public const string MESSAGE_INTANGIBLE_HERITAGE_BYID_DESCRIPTION = "This endpoint returns the intangible heritage in colombia including a general info like name, scope, inclusion year with the provided id";
+                public const string MESSAGE_INTANGIBLE_HERITAGE_DEPARTMENT_SUMMARY = "List of intangible heritages by departmentId";
+                public const string MESSAGE_INTANGIBLE_HERITAGE_DEPARTMENT_DESCRIPTION = "This endpoint returns a list of intangible heritages filtered by departmentid";
+                public const string MESSAGE_INTANGIBLE_HERITAGE_BYNAME_SUMMARY = "Intangible heritage information by name";
+                public const string MESSAGE_INTANGIBLE_HERITAGE_BYNAME_DESCRIPTION = "This endpoint returns the information for the intangible heritage with the provided name";
+                public const string MESSAGE_INTANGIBLE_HERITAGE_SEARCH_SUMMARY = "Search intangible heritage by keyword";
+                public const string MESSAGE_INTANGIBLE_HERITAGE_SEARCH_DESCRIPTION = "This endpoint returns a list of intangible heritage any of the following fields(Name, Scope) match the provided keyword";
+                public const string MESSAGE_INTANGIBLE_HERITAGE_PAGEDLIST_SUMMARY = "List of intangible heritages using pagination";
+                public const string MESSAGE_INTANGIBLE_HERITAGE_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of intangible heritages using pagination including page, pagesize, total records and data, example api/v1/intangibleheritage/pagedList?page=1&pagesize=10";
+            }
+
+            public struct HeritageCityEndpoint
+            {
+                public const string MESSAGE_HERITAGE_CITY_LIST_SUMMARY = "List of heritage cities in Colombia";
+                public const string MESSAGE_HERITAGE_CITY_LIST_DESCRIPTION = "This endpoint returns the heritage cities in Colombia including general info like name, description, city, department, and image.";
+                public const string MESSAGE_HERITAGE_CITY_BYID_SUMMARY = "Heritage city information by Id";
+                public const string MESSAGE_HERITAGE_CITY_BYID_DESCRIPTION = "This endpoint returns the heritage city information with the provided id";
+                public const string MESSAGE_HERITAGE_CITY_BYNAME_SUMMARY = "Heritage city information by name";
+                public const string MESSAGE_HERITAGE_CITY_BYNAME_DESCRIPTION = "This endpoint returns the heritage city information with the provided name";
+                public const string MESSAGE_HERITAGE_CITY_SEARCH_SUMMARY = "Search heritage cities by keyword";
+                public const string MESSAGE_HERITAGE_CITY_SEARCH_DESCRIPTION = "This endpoint returns a list of heritage cities any of the following fields(Name, Description, Image) match the provided keyword";
+                public const string MESSAGE_HERITAGE_CITY_PAGEDLIST_SUMMARY = "List of heritage cities using pagination";
+                public const string MESSAGE_HERITAGE_CITY_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of heritage cities using pagination including page, pagesize, total records and data, example api/v1/heritagecity/pagedList?page=1&pagesize=10";
+            }
         }
     }
 }

@@ -1,14 +1,13 @@
-public class RegionApiIntegrationTests : IClassFixture<CustomWebApplicationFactory> , IDisposable
+namespace api.Tests.ApiRoutesTests;
+
+public class RegionApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
-    public RegionApiIntegrationTests(CustomWebApplicationFactory factory) {
-       _client = new CustomWebApplicationFactory().CreateClient(); 
-    }
-
-    public void Dispose()
+    public RegionApiIntegrationTests(CustomWebApplicationFactory factory)
     {
-        _client.Dispose();
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
     }
 
     [Fact]
@@ -22,6 +21,20 @@ public class RegionApiIntegrationTests : IClassFixture<CustomWebApplicationFacto
 
         Assert.NotNull(result);
         Assert.False(string.IsNullOrEmpty(result));
+    }
+
+    [Fact]
+    public async Task GetRegions_InvalidSortBy_ReturnsBadRequest()
+    {
+        var response = await _client.GetAsync("/api/v1/Region?sortBy=Invalid&sortDirection=asc");
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetRegions_InvalidSortDirection_ReturnsBadRequest()
+    {
+        var response = await _client.GetAsync("/api/v1/Region?sortBy=Name&sortDirection=invalid");
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
     }
 
     [Fact]
@@ -60,6 +73,20 @@ public class RegionApiIntegrationTests : IClassFixture<CustomWebApplicationFacto
 
         Assert.NotNull(result);
         Assert.Contains("departments", result);
+    }
+
+    [Fact]
+    public async Task GetRegionDepartments_InvalidSortBy_ReturnsBadRequest()
+    {
+        var response = await _client.GetAsync("/api/v1/Region/1/departments?sortBy=Invalid&sortDirection=asc");
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetRegionDepartments_InvalidSortDirection_ReturnsBadRequest()
+    {
+        var response = await _client.GetAsync("/api/v1/Region/1/departments?sortBy=Name&sortDirection=invalid");
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
     }
 
     [Fact]

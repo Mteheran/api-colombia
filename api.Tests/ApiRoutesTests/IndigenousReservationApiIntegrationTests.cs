@@ -3,13 +3,16 @@ using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
 
+namespace api.Tests.ApiRoutesTests;
+
 public class IndigenousReservationApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
     public IndigenousReservationApiIntegrationTests(CustomWebApplicationFactory factory)
     {
-        _client = factory.CreateClient();  
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
     }
 
     [Fact]

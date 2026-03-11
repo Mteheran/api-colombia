@@ -2,6 +2,15 @@ const toggleModal = (button, modal) => {
     button.addEventListener("click", () => {
         modal.classList.toggle("show");
         modal.classList.toggle("hidden");
+        
+        // Actualizar atributos ARIA
+        const isHidden = modal.classList.contains("hidden");
+        modal.setAttribute("aria-hidden", isHidden);
+        
+        // Si el botón tiene aria-expanded, actualizarlo
+        if (button.hasAttribute("aria-expanded")) {
+            button.setAttribute("aria-expanded", !isHidden);
+        }
     });
 };
 
@@ -14,11 +23,11 @@ const toggleColor = (button,body,imagen) =>{
 
         if (!dark) {
             button.src = "assets/icons/moon-icon.svg"; 
-            imagen.src = "assets/logo-dark.svg"
+            imagen.src = "/assets/logo-dark.svg"
             
         } else {
             button.src = "assets/icons/sun-icon.svg";
-            imagen.src = "assets/logo-light.svg"
+            imagen.src = "/assets/logo-light.svg"
         }
         
     });
@@ -34,12 +43,12 @@ const toggleColor2 = (button,body,imagen,cuerpo,imagen2) =>{
 
         if (!dark) { 
             imagen.src = "assets/icons/moon-icon.svg"
-            imagen2.src= "assets/logo-dark.svg"
+            imagen2.src= "/assets/logo-dark.svg"
             parrafo.classList.add("parrafoApi");
             
         } else {
             imagen.src = "assets/icons/sun-icon.svg"
-            imagen2.src = "assets/logo-light.svg"
+            imagen2.src = "/assets/logo-light.svg"
             parrafo.classList.remove("parrafoApi");
         }
         

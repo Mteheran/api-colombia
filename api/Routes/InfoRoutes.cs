@@ -8,7 +8,7 @@ namespace api.Routes
         {
             // endpoint to create the DB in debug mode
 #if DEBUG
-            app.MapGet("/dbcreation", ([FromServices] DBContext dbContext) =>
+            app.MapGet("/db-creation", ([FromServices] DBContext dbContext) =>
             {
                 dbContext.Database.EnsureCreated();
                 return Results.Ok();

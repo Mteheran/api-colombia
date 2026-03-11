@@ -47,17 +47,18 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var city = await db.Airports
+                var airport = await db.Airports
                 .Include(p => p.Department)
-                .Include(p => p.City).SingleOrDefaultAsync(p => p.Id == id);
-                if (city is null)
+                .Include(p => p.City)
+                .SingleOrDefaultAsync(p => p.Id == id);
+                if (airport is null)
                 {
                     return Results.NotFound();
                 }
 
-                return Results.Ok(city);
+                return Results.Ok(airport);
             })
-            .Produces<City?>(200)
+            .Produces<Airport?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: AirportMetadataMessages.MESSAGE_AIRPORT_BYID_SUMMARY,
                  description: AirportMetadataMessages.MESSAGE_AIRPORT_BYID_DESCRIPTION
@@ -65,17 +66,15 @@ namespace api.Routes
 
             app.MapGet($"{API_AIRPORT_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
             {
-                var city = db.Airports
+                var search = name.Trim().ToUpperInvariant();
+                var airports = db.Airports
                 .Include(p => p.Department)
-                .Include(p => p.City).Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
-                if (city is null)
-                {
-                    return Results.NotFound();
-                }
+                .Include(p => p.City)
+                .Where(x => (x.Name ?? string.Empty).ToUpperInvariant().Contains(search)).ToList();
 
-                return Results.Ok(city);
+                return Results.Ok(airports);
             })
-            .Produces<List<City>?>(200)
+            .Produces<List<Airport>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: AirportMetadataMessages.MESSAGE_AIRPORT_BYNAME_SUMMARY,
                 description: AirportMetadataMessages.MESSAGE_AIRPORT_BYNAME_DESCRIPTION
@@ -87,14 +86,8 @@ namespace api.Routes
                 var dbAirports = db.Airports
                 .Include(p => p.Department)
                 .Include(p => p.City).ToList();
-                var Airports = Functions.FilterObjectListPropertiesByKeyword<Airport>(dbAirports, wellFormedKeyword);
-
-                if (!Airports.Any())
-                {
-                    return Results.NotFound();
-                }
-
-                return Results.Ok(Airports);
+                var airports = Functions.FilterObjectListPropertiesByKeyword<Airport>(dbAirports, wellFormedKeyword);
+                return Results.Ok(airports);
             })
             .Produces<List<Airport>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
@@ -129,9 +122,6 @@ namespace api.Routes
                     .Skip((pagination.Page - 1) * pagination.PageSize)
                     .Take(pagination.PageSize)
                     .ToListAsync();
-
-                if (!pagedAirports.Any())
-                    return Results.NotFound();
 
                 var paginationResponse = new PaginationResponseModel<Airport>
                 {

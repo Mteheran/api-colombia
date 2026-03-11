@@ -91,11 +91,11 @@ namespace api.Routes
                      }
                  }
 
-                 var listDeparments = region.Departments = queryDepartments.ToList();
+                 var listDepartments = queryDepartments.ToList();
 
-                 return Results.Ok(listDeparments);
+                 return Results.Ok(listDepartments);
              })
-            .Produces<Region?>(200)
+            .Produces<List<Department>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                summary: RegionEndpoint.MESSAGE_BYID_DEPARMENTS_SUMMARY,
                description: RegionEndpoint.MESSAGE_BYID_DEPARMENTS_DESCRIPTION));

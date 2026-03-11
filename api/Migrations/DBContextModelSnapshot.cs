@@ -17,7 +17,7 @@ namespace api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "10.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -173,7 +173,7 @@ namespace api.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("character varying(5)");
 
-                    b.Property<string[]>("Borders")
+                    b.PrimitiveCollection<string[]>("Borders")
                         .IsRequired()
                         .HasColumnType("text[]");
 
@@ -192,7 +192,7 @@ namespace api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string[]>("Flags")
+                    b.PrimitiveCollection<string[]>("Flags")
                         .IsRequired()
                         .HasColumnType("text[]");
 
@@ -203,7 +203,7 @@ namespace api.Migrations
                     b.Property<string>("InternetDomain")
                         .HasColumnType("text");
 
-                    b.Property<string[]>("Languages")
+                    b.PrimitiveCollection<string[]>("Languages")
                         .IsRequired()
                         .HasColumnType("text[]");
 
@@ -298,6 +298,44 @@ namespace api.Migrations
                     b.ToTable("Department", (string)null);
                 });
 
+            modelBuilder.Entity("api.Models.HeritageCity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("HeritageCity", (string)null);
+                });
+
             modelBuilder.Entity("api.Models.Holiday", b =>
                 {
                     b.Property<DateTime>("Date")
@@ -361,6 +399,36 @@ namespace api.Migrations
                     b.ToTable("IndigenousReservation", (string)null);
                 });
 
+            modelBuilder.Entity("api.Models.IntangibleHeritage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("InclusionYear")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Scope")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("IntangibleHeritage", (string)null);
+                });
+
             modelBuilder.Entity("api.Models.InvasiveSpecie", b =>
                 {
                     b.Property<int>("Id")
@@ -417,7 +485,7 @@ namespace api.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)");
 
-                    b.Property<string[]>("UrlImages")
+                    b.PrimitiveCollection<string[]>("UrlImages")
                         .IsRequired()
                         .HasColumnType("text[]");
 
@@ -442,7 +510,7 @@ namespace api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string[]>("Images")
+                    b.PrimitiveCollection<string[]>("Images")
                         .HasColumnType("text[]");
 
                     b.Property<string>("Languages")
@@ -572,7 +640,7 @@ namespace api.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
-                    b.Property<string[]>("Streamers")
+                    b.PrimitiveCollection<string[]>("Streamers")
                         .HasColumnType("text[]");
 
                     b.Property<string>("Url")
@@ -620,7 +688,7 @@ namespace api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string[]>("Images")
+                    b.PrimitiveCollection<string[]>("Images")
                         .HasColumnType("text[]");
 
                     b.Property<string>("Latitude")
@@ -682,8 +750,7 @@ namespace api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("DepartmentId")
-                        .IsRequired()
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
@@ -768,6 +835,25 @@ namespace api.Migrations
                     b.Navigation("Region");
                 });
 
+            modelBuilder.Entity("api.Models.HeritageCity", b =>
+                {
+                    b.HasOne("api.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("api.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("api.Models.IndigenousReservation", b =>
                 {
                     b.HasOne("api.Models.City", "City")
@@ -787,6 +873,16 @@ namespace api.Migrations
                     b.Navigation("Department");
 
                     b.Navigation("NativeCommunity");
+                });
+
+            modelBuilder.Entity("api.Models.IntangibleHeritage", b =>
+                {
+                    b.HasOne("api.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("api.Models.Map", b =>

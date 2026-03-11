@@ -2,13 +2,16 @@ using System.Net.Http.Json;
 using api.Models;
 using api.Utils;
 
+namespace api.Tests.ApiRoutesTests;
+
 public class PresidentApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
     public PresidentApiIntegrationTests(CustomWebApplicationFactory factory)
     {
-        _client = factory.CreateClient();  
+        factory.ResetDatabase();
+        _client = factory.CreateClient();
     }
 
     [Fact]
@@ -18,7 +21,7 @@ public class PresidentApiIntegrationTests : IClassFixture<CustomWebApplicationFa
 
         response.EnsureSuccessStatusCode();
 
-         var result = await response.Content.ReadFromJsonAsync<List<President>>();
+        var result = await response.Content.ReadFromJsonAsync<List<President>>();
 
         Assert.NotNull(result);
         Assert.Equal(3, result.Count);

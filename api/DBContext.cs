@@ -1,6 +1,5 @@
 using api.Data.Configs;
 using api.Models;
-using api.Routes;
 using Microsoft.EntityFrameworkCore;
 
 namespace api;
@@ -24,6 +23,8 @@ public class DBContext : DbContext
     public DbSet<ConstitutionArticle> ConstitutionArticles { get; set; }
     public DbSet<Radio> Radios { get; set; }
     public DbSet<Holiday> Holidays {get; set; }
+    public DbSet<IntangibleHeritage> IntangibleHeritages {get; set; }
+    public DbSet<HeritageCity> HeritageCities { get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {
@@ -50,6 +51,8 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new HolidayConfig());
         builder.ApplyConfiguration(new TypicalDishConfig());
         builder.ApplyConfiguration(new TraditionalFairAndFestivalConfig());
+        builder.ApplyConfiguration(new IntangibleHeritageConfig());
+        builder.ApplyConfiguration(new HeritageCityConfig());
 
         base.OnModelCreating(builder);
     }

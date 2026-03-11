@@ -77,11 +77,6 @@ namespace api.Routes
                     return Results.BadRequest(RequestMessages.BadRequest);
                 }
 
-                if (!queryCitiesByDepartment.Any())
-                {
-                    return Results.NotFound();
-                }
- 
                 var cities = await queryCitiesByDepartment.ToListAsync();
                 return Results.Ok(cities);
             })

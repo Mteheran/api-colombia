@@ -1,10 +1,11 @@
 using System.Text.Json.Serialization;
 using api;
 using api.Routes;
-using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http.Json;
 using api.Utils;
 using System.Net;
+using api.Const;
+using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +13,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(static options =>
 {
     options.EnableAnnotations();
-    options.SwaggerDoc("v1", new OpenApiInfo
+    options.SwaggerDoc("v1", new OpenApiInfo()
     {
-        Version = Version.CurrentVersion,
+        Version = VersionInfo.CurrentVersion,
         Title = "API Colombia",
         Description = "Open and free API that contains general information about Colombia",
         TermsOfService = new Uri("https://github.com/Mteheran/api-colombia"),
@@ -34,7 +35,7 @@ builder.Services.AddOutputCache(static options =>
 
 builder.Services.AddCors(static options =>
 {
-    options.AddPolicy(name: "corsApiColombia",
+    options.AddPolicy(name: Util.CorsPolicyName,
                       static policy  =>
                       {
                           policy.WithMethods("GET");
@@ -42,11 +43,13 @@ builder.Services.AddCors(static options =>
                       });
 });
 
-
 builder.Configuration.AddEnvironmentVariables();
 
-builder.Services.AddNpgsql<DBContext>(
-    builder.Configuration.GetConnectionString("DefaultConnection"));
+// Prefer environment variable override if provided
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                        ?? builder.Configuration["DATABASE_CONNECTION"];
+
+builder.Services.AddNpgsql<DBContext>(connectionString);
 
 builder.Services.Configure<JsonOptions>(static options =>
 {
@@ -62,7 +65,7 @@ RegionRoutes.RegisterRegionAPI(app);
 DepartmentRoutes.RegisterDepartmentAPI(app);
 CityRoutes.RegisterCityAPI(app);
 PresidentRoutes.RegisterPresidentApi(app);
-TuristicAttactionRoutes.RegisterTuristicAttactionAPI(app);
+TouristAttractionRoutes.RegisterTouristAttractionAPI(app);
 CategoryNaturalAreaRoutes.RegisterCategoryNaturalAreaAPI(app);
 NaturalAreaRoutes.RegisterNaturalAreaAPI(app);
 MapsRoutes.RegisterCountryAPI(app);
@@ -75,6 +78,8 @@ RadioRoutes.RegisterRadioRoutesAPI(app);
 HolidayRoutes.RegisterHolidayAPI(app);
 TypicalDishRoutes.RegisterTypicalDishAPI(app);
 TraditionalFairAndFestivalRoutes.RegisterTraditionalFairAndFestivalAPI(app);
+IntangibleHeritageRoutes.RegisterIntangibleHeritageAPI(app);
+HeritageCityRoutes.RegisterHeritageCityAPI(app);
 
 app.UseStatusCodePages(static context => {
     var request = context.HttpContext.Request;
@@ -92,7 +97,7 @@ app.UseStatusCodePages(static context => {
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
-app.UseCors("corsApiColombia");
+app.UseCors(Util.CorsPolicyName);
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseOutputCache();

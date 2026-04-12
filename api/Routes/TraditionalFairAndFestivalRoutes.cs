@@ -13,10 +13,11 @@ namespace api.Routes
     { 
         public static void RegisterTraditionalFairAndFestivalAPI(WebApplication app)
         {
-
              const string API_TRADICTIONAL_FAIR_AND_FESTIVAL_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.TRADITIONAL_FAIR_AND_FESTIVAL_ROUTE}";
+             const string API_TRADICTIONAL_FAIR_AND_FESTIVAL_TAG = "TraditionalFairAndFestival";
+             IEndpointRouteBuilder group = app.MapGroup(API_TRADICTIONAL_FAIR_AND_FESTIVAL_ROUTE_COMPLETE).WithTags(API_TRADICTIONAL_FAIR_AND_FESTIVAL_TAG);
 
-             app.MapGet(API_TRADICTIONAL_FAIR_AND_FESTIVAL_ROUTE_COMPLETE, async (DBContext db,
+             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -37,7 +38,7 @@ namespace api.Routes
                 description: TraditionalFairAndFestivalEndpoint.MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_LIST_DESCRIPTION
             ));
 
-              app.MapGet($"{API_TRADICTIONAL_FAIR_AND_FESTIVAL_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+              group.MapGet("/{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {
@@ -62,7 +63,7 @@ namespace api.Routes
                 ));
 
 
-               app.MapGet($"{API_TRADICTIONAL_FAIR_AND_FESTIVAL_ROUTE_COMPLETE}/{{id}}/city", async (int id, DBContext db,
+               group.MapGet("/{id}/city", async (int id, DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -93,7 +94,7 @@ namespace api.Routes
                  description: TraditionalFairAndFestivalEndpoint.MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_BYCITY_DESCRIPTION
                  ));
 
-            app.MapGet($"{API_TRADICTIONAL_FAIR_AND_FESTIVAL_ROUTE_COMPLETE}/name/{{name}}", async (string name, DBContext db) =>
+            group.MapGet("/name/{name}", async (string name, DBContext db) =>
             {
                 var traditionalFairAndFestival = await db.TraditionalFairAndFestival.Include(p => p.City).Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToListAsync();
 
@@ -110,7 +111,7 @@ namespace api.Routes
                 description: TraditionalFairAndFestivalEndpoint.MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_BYNAME_DESCRIPTION
                 ));
 
-             app.MapGet($"{API_TRADICTIONAL_FAIR_AND_FESTIVAL_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
+             group.MapGet("/search/{keyword}", (string keyword, DBContext db) =>
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbTraditionalFairAndFestival= db.TraditionalFairAndFestival.Include(p => p.City).ToList();
@@ -128,7 +129,7 @@ namespace api.Routes
                 description: TraditionalFairAndFestivalEndpoint.MESSAGE_TRADITIONAL_FAIR_AND_FESTIVAL_SEARCH_DESCRIPTION
                 ));
 
-             app.MapGet($"{API_TRADICTIONAL_FAIR_AND_FESTIVAL_ROUTE_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
+             group.MapGet("/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)
                 {

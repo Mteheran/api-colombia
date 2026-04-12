@@ -14,8 +14,10 @@ namespace api.Routes
         public static void RegisterRegionAPI(WebApplication app)
         {
             const string API_REGION_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.REGION}";
+            const string API_REGION_TAG = "Region";
+            IEndpointRouteBuilder group = app.MapGroup(API_REGION_ROUTE_COMPLETE).WithTags(API_REGION_TAG);
 
-            app.MapGet($"{API_REGION_ROUTE_COMPLETE}/", async (DBContext db,
+            group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -35,7 +37,7 @@ namespace api.Routes
                 summary: RegionEndpoint.MESSAGE_REGION_LIST_SUMMARY,
                 description: RegionEndpoint.MESSAGE_REGION_LIST_DESCRIPTION));
 
-            app.MapGet($"{API_REGION_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            group.MapGet("/{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {
@@ -57,7 +59,7 @@ namespace api.Routes
               summary: RegionEndpoint.MESSAGE_REGION_BYID_SUMMARY,
               description: RegionEndpoint.MESSAGE_REGION_BYID_DESCRIPTION));
 
-            app.MapGet($"{API_REGION_ROUTE_COMPLETE}/{{id}}/departments", async (int id, DBContext db,
+            group.MapGet("/{id}/departments", async (int id, DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
              {

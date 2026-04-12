@@ -14,8 +14,14 @@ namespace api.Routes
         public static void RegisterCategoryNaturalAreaAPI(WebApplication app)
         {
             const string API_CATEGORY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CATEGORY_NATURAL_AREA}";
+            const string API_CATEGORY_TAG = "CategoryNaturalArea";
 
-            app.MapGet($"{API_CATEGORY_ROUTE_COMPLETE}/", async (DBContext db,
+            // Group and tags usage
+            IEndpointRouteBuilder group = app
+                .MapGroup(API_CATEGORY_ROUTE_COMPLETE)
+                .WithTags(API_CATEGORY_TAG);
+            
+            group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -36,7 +42,7 @@ namespace api.Routes
                 description: CategoryNaturalAreaEndpoint.MESSAGE_LIST_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_CATEGORY_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            group.MapGet("{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {
@@ -57,7 +63,7 @@ namespace api.Routes
               summary: CategoryNaturalAreaEndpoint.MESSAGE_BYID_SUMMARY,
               description: CategoryNaturalAreaEndpoint.MESSAGE_BYID_DESCRIPTION));
 
-            app.MapGet($"{API_CATEGORY_ROUTE_COMPLETE}/{{id}}/NaturalAreas", async (int id, DBContext db) =>
+            group.MapGet("{id}/NaturalAreas", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {

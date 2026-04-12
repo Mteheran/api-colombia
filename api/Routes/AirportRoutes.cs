@@ -15,7 +15,14 @@ namespace api.Routes
         public static void RegisterAirportAPI(WebApplication app)
         {
             const string API_AIRPORT_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.AIRPORT}";
-            app.MapGet(API_AIRPORT_COMPLETE, async (DBContext db,
+            const string API_AIRPORT_TAG = "Airport";
+
+            // Group and tags usage
+            IEndpointRouteBuilder group = app
+                .MapGroup(API_AIRPORT_COMPLETE)
+                .WithTags(API_AIRPORT_TAG);
+            
+            group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
               {
@@ -40,7 +47,7 @@ namespace api.Routes
                     description: AirportMetadataMessages.MESSAGE_AIRPORT_LIST_DESCRIPTION
                     ));
 
-            app.MapGet($"{API_AIRPORT_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            group.MapGet("{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {
@@ -64,7 +71,7 @@ namespace api.Routes
                  description: AirportMetadataMessages.MESSAGE_AIRPORT_BYID_DESCRIPTION
                  ));
 
-            app.MapGet($"{API_AIRPORT_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
+            group.MapGet("name/{name}", (string name, DBContext db) =>
             {
                 var search = name.Trim().ToUpperInvariant();
                 var airports = db.Airports
@@ -80,7 +87,7 @@ namespace api.Routes
                 description: AirportMetadataMessages.MESSAGE_AIRPORT_BYNAME_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_AIRPORT_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
+            group.MapGet("search/{keyword}", (string keyword, DBContext db) =>
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbAirports = db.Airports
@@ -95,7 +102,7 @@ namespace api.Routes
                  description: AirportMetadataMessages.MESSAGE_AIRPORT_SEARCH_DESCRIPTION
                  ));
 
-            app.MapGet($"{API_AIRPORT_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
+            group.MapGet("pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
 
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)

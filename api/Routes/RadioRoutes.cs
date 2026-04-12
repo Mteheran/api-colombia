@@ -14,7 +14,10 @@ namespace api.Routes
         public static void RegisterRadioRoutesAPI(WebApplication app)
         {
             const string API_RADIO_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.RADIO}";
-            app.MapGet(API_RADIO_COMPLETE, (DBContext db,
+            const string API_RADIO_TAG = "Radio";
+            IEndpointRouteBuilder group = app.MapGroup(API_RADIO_COMPLETE).WithTags(API_RADIO_TAG);
+
+            group.MapGet(string.Empty, (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -38,7 +41,7 @@ namespace api.Routes
                  description: RadioMetadataMessages.MESSAGE_RADIO_LIST_DESCRIPTION
                  ));
 
-            app.MapGet($"{API_RADIO_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            group.MapGet("/{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {
@@ -60,7 +63,7 @@ namespace api.Routes
                  description: RadioMetadataMessages.MESSAGE_RADIO_BYID_DESCRIPTION
                  ));
 
-            app.MapGet($"{API_RADIO_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
+            group.MapGet("/name/{name}", (string name, DBContext db) =>
             {
                 var city = db.Radios
                 .Include(p => p.City).Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
@@ -77,7 +80,7 @@ namespace api.Routes
                 description: RadioMetadataMessages.MESSAGE_RADIO_BYNAME_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_RADIO_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
+            group.MapGet("/search/{keyword}", (string keyword, DBContext db) =>
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbRadios = db.Radios
@@ -98,7 +101,7 @@ namespace api.Routes
                  ));
 
 
-            app.MapGet($"{API_RADIO_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
+            group.MapGet("/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)
                 {

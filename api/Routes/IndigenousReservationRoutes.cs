@@ -14,7 +14,10 @@ namespace api.Routes
         public static void RegisterIndigenousReservationAPI(WebApplication app)
         {
             const string API_INDIGENOUS_RESERVATION_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.INDIGENOUS_RESERVATION_ROUTE}";
-            app.MapGet(API_INDIGENOUS_RESERVATION_COMPLETE, (DBContext db,
+            const string API_INDIGENOUS_RESERVATION_TAG = "IndigenousReservation";
+            IEndpointRouteBuilder group = app.MapGroup(API_INDIGENOUS_RESERVATION_COMPLETE).WithTags(API_INDIGENOUS_RESERVATION_TAG);
+
+            group.MapGet(string.Empty, (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -40,7 +43,7 @@ namespace api.Routes
                  description: IndigenousReservationEndpointMetadataMessages.MESSAGE_INDIGENOUS_RESERVATION_LIST_DESCRIPTION
                  ));
 
-            app.MapGet($"{API_INDIGENOUS_RESERVATION_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            group.MapGet("/{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {
@@ -65,7 +68,7 @@ namespace api.Routes
                  description: IndigenousReservationEndpointMetadataMessages.MESSAGE_INDIGENOUS_RESERVATION_BYID_DESCRIPTION
                  ));
 
-            app.MapGet($"{API_INDIGENOUS_RESERVATION_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
+            group.MapGet("/name/{name}", (string name, DBContext db) =>
             {
                 var city = db.IndigenousReservations
                 .Include(p=> p.Department)
@@ -84,7 +87,7 @@ namespace api.Routes
                 description: IndigenousReservationEndpointMetadataMessages.MESSAGE_INDIGENOUS_RESERVATION_BYNAME_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_INDIGENOUS_RESERVATION_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
+            group.MapGet("/search/{keyword}", (string keyword, DBContext db) =>
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbIndigenousReservations = db.IndigenousReservations
@@ -107,7 +110,7 @@ namespace api.Routes
                  ));
 
 
-            app.MapGet($"{API_INDIGENOUS_RESERVATION_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
+            group.MapGet("/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)
                 {

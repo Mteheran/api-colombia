@@ -12,8 +12,10 @@ namespace api.Routes
         public static void RegisterHolidayAPI(WebApplication app)
         {
             const string API_HOLIDAY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.HOLIDAY_ROUTE}";
+            const string API_HOLIDAY_TAG = "Holiday";
+            IEndpointRouteBuilder group = app.MapGroup(API_HOLIDAY_ROUTE_COMPLETE).WithTags(API_HOLIDAY_TAG);
 
-            app.MapGet($"{API_HOLIDAY_ROUTE_COMPLETE}/year/{{year}}", async (int year,[FromQuery] bool? includeSunday, DBContext db) =>
+            group.MapGet("/year/{year}", async (int year,[FromQuery] bool? includeSunday, DBContext db) =>
             { 
                  if (year < DateTime.MinValue.Year || year > DateTime.MaxValue.Year)
                 {
@@ -30,7 +32,7 @@ namespace api.Routes
             ));
 
  
-            app.MapGet($"{API_HOLIDAY_ROUTE_COMPLETE}/year/{{year}}/month/{{month}}", async (int year, int month,[FromQuery] bool? includeSunday, DBContext db) =>
+            group.MapGet("/year/{year}/month/{month}", async (int year, int month,[FromQuery] bool? includeSunday, DBContext db) =>
             { 
                 if (year < DateTime.MinValue.Year || year > DateTime.MaxValue.Year)
                 {

@@ -14,7 +14,14 @@ namespace api.Routes
         public static void RegisterCityAPI(WebApplication app)
         {
             const string API_CITY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CITY_ROUTE}";
-            app.MapGet(API_CITY_ROUTE_COMPLETE, async (DBContext db,
+            const string API_CITY_TAG = "City";
+
+            // Group and tags usage
+            IEndpointRouteBuilder group = app
+                .MapGroup(API_CITY_ROUTE_COMPLETE)
+                .WithTags(API_CITY_TAG);
+            
+            group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -35,7 +42,7 @@ namespace api.Routes
                  description: CityEndpointMetadataMessages.MESSAGE_CITY_LIST_DESCRIPTION
                  ));
 
-            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            group.MapGet("{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {
@@ -56,7 +63,7 @@ namespace api.Routes
                  description: CityEndpointMetadataMessages.MESSAGE_CITY_BYID_DESCRIPTION
                  ));
 
-            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
+            group.MapGet("name/{name}", (string name, DBContext db) =>
             {
                 var search = name.Trim().ToUpperInvariant();
                 var cities = db.Cities
@@ -70,7 +77,7 @@ namespace api.Routes
                 description: CityEndpointMetadataMessages.MESSAGE_CITY_BYNAME_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
+            group.MapGet("search/{keyword}", (string keyword, DBContext db) =>
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbCities = db.Cities.ToList();
@@ -84,7 +91,7 @@ namespace api.Routes
                  ));
 
 
-            app.MapGet($"{API_CITY_ROUTE_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
+            group.MapGet("pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)
                 {

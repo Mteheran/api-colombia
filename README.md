@@ -35,6 +35,8 @@ Read this document in [Español](/README_es.md)
   - Maps.
 * Swagger documentation 
 * Does not require authentication.
+* Multistage Docker build for the API service in `api/Dockerfile`
+* Multistage Docker build for the docs site in `docs/Dockerfile`
 
 ## Versions
 
@@ -70,6 +72,28 @@ Preview built site:
 Useful to simulate a production-like server locally.
 
 Note: Run all the commands above inside the `docs/` directory.
+
+## Build and Run Containers
+
+### API container
+Build the API Docker image from the `api` folder:
+```bash
+docker build -t apicolombia-api ./api
+```
+Run the API container:
+```bash
+docker run -p 80:80 apicolombia-api
+```
+
+### Docs container
+Build the docs Docker image from the `docs` folder:
+```bash
+docker build -t apicolombia-docs ./docs
+```
+Run the docs container:
+```bash
+docker run -p 80:80 apicolombia-docs
+```
 
 ## Testing
 

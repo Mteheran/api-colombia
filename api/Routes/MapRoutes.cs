@@ -14,8 +14,10 @@ namespace api.Routes
         public static void RegisterCountryAPI(WebApplication app)
         {
             const string API_MAP_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.MAP_ROUTE}";
+            const string API_MAP_TAG = "Map";
+            IEndpointRouteBuilder group = app.MapGroup(API_MAP_ROUTE_COMPLETE).WithTags(API_MAP_TAG);
 
-            app.MapGet($"{API_MAP_ROUTE_COMPLETE}/",async (DBContext db,
+            group.MapGet(string.Empty,async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -36,7 +38,7 @@ namespace api.Routes
                 description: CountryEndpointMetadataMessages.MESSAGE_LIST_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_MAP_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            group.MapGet("/{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {

@@ -14,8 +14,10 @@ namespace api.Routes
         public static void RegisterIntangibleHeritageAPI(WebApplication app)
         {
             const string API_INTANGIBLE_HERITAGE_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.INTANGIBLE_HERITAGE_ROUTE}";
+            const string API_INTANGIBLE_HERITAGE_TAG = "IntangibleHeritage";
+            IEndpointRouteBuilder group = app.MapGroup(API_INTANGIBLE_HERITAGE_ROUTE_COMPLETE).WithTags(API_INTANGIBLE_HERITAGE_TAG);
 
-            app.MapGet(API_INTANGIBLE_HERITAGE_ROUTE_COMPLETE, async (DBContext db,
+            group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -36,7 +38,7 @@ namespace api.Routes
                 description: IntangibleHeritageEndpoint.MESSAGE_INTANGIBLE_HERITAGE_LIST_DESCRIPTION
             ));
 
-            app.MapGet($"{API_INTANGIBLE_HERITAGE_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            group.MapGet("/{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {
@@ -60,7 +62,7 @@ namespace api.Routes
                 description: IntangibleHeritageEndpoint.MESSAGE_INTANGIBLE_HERITAGE_BYID_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_INTANGIBLE_HERITAGE_ROUTE_COMPLETE}/{{id}}/department", async (int id, DBContext db,
+            group.MapGet("/{id}/department", async (int id, DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -91,7 +93,7 @@ namespace api.Routes
                 description: IntangibleHeritageEndpoint.MESSAGE_INTANGIBLE_HERITAGE_DEPARTMENT_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_INTANGIBLE_HERITAGE_ROUTE_COMPLETE}/name/{{name}}", async (string name, DBContext db) =>
+            group.MapGet("/name/{name}", async (string name, DBContext db) =>
             {
                 var intangibleHeritages = await db.IntangibleHeritages.Include(p => p.Department).Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToListAsync();
 
@@ -108,7 +110,7 @@ namespace api.Routes
                 description: IntangibleHeritageEndpoint.MESSAGE_INTANGIBLE_HERITAGE_BYNAME_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_INTANGIBLE_HERITAGE_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
+            group.MapGet("/search/{keyword}", (string keyword, DBContext db) =>
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbIntangibleHeritages = db.IntangibleHeritages.Include(p => p.Department).ToList();
@@ -126,7 +128,7 @@ namespace api.Routes
                 description: IntangibleHeritageEndpoint.MESSAGE_INTANGIBLE_HERITAGE_SEARCH_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_INTANGIBLE_HERITAGE_ROUTE_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
+            group.MapGet("/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)
                 {

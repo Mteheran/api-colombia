@@ -14,7 +14,10 @@ namespace api.Routes
         public static void RegisterConstitutionArticleAPI(WebApplication app)
         {
             const string API_CONSTITUTION_ARTICLE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CONSTITUTION_ARTICLE}";
-            app.MapGet(API_CONSTITUTION_ARTICLE_COMPLETE, (DBContext db,
+            const string API_CONSTITUTION_ARTICLE_TAG = "ConstitutionArticle";
+            IEndpointRouteBuilder group = app.MapGroup(API_CONSTITUTION_ARTICLE_COMPLETE).WithTags(API_CONSTITUTION_ARTICLE_TAG);
+
+            group.MapGet(string.Empty, (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -35,7 +38,7 @@ namespace api.Routes
                  description: ConstitutionArticleMetadataMessages.MESSAGE_CONSTITUTION_ARTICLE_LIST_DESCRIPTION
                  ));
 
-            app.MapGet($"{API_CONSTITUTION_ARTICLE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            group.MapGet("/{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {
@@ -58,7 +61,7 @@ namespace api.Routes
                  ));
 
 
-            app.MapGet($"{API_CONSTITUTION_ARTICLE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
+            group.MapGet("/search/{keyword}", (string keyword, DBContext db) =>
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbConstitutionArticles = db.ConstitutionArticles.ToList();
@@ -78,7 +81,7 @@ namespace api.Routes
                  ));
 
 
-            app.MapGet($"{API_CONSTITUTION_ARTICLE_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
+            group.MapGet("/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)
                     {
@@ -125,7 +128,7 @@ namespace api.Routes
                 description: ConstitutionArticleMetadataMessages.MESSAGE_CONSTITUTION_ARTICLE_PAGEDLIST_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_CONSTITUTION_ARTICLE_COMPLETE}/byChapterNumber/{{chapternumber}}", (int chapternumber, DBContext db) =>
+            group.MapGet("/byChapterNumber/{chapternumber}", (int chapternumber, DBContext db) =>
             {
                 var dbConstitutionArticles = db.ConstitutionArticles.Where(p=> p.ChapterNumber == chapternumber).ToList();
              

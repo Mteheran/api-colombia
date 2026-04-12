@@ -14,8 +14,10 @@ namespace api.Routes
         public static void RegisterPresidentApi(WebApplication app)
         {
             const string API_PRESIDENT_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.PRESIDENT_ROUTE}";
+            const string API_PRESIDENT_TAG = "President";
+            IEndpointRouteBuilder group = app.MapGroup(API_PRESIDENT_ROUTE_COMPLETE).WithTags(API_PRESIDENT_TAG);
 
-           app.MapGet(API_PRESIDENT_ROUTE_COMPLETE, async (DBContext db,
+           group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -36,7 +38,7 @@ namespace api.Routes
                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_LIST_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            group.MapGet("/{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {
@@ -60,7 +62,7 @@ namespace api.Routes
                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYID_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/name/{{name}}", (string name, DBContext db) =>
+            group.MapGet("/name/{name}", (string name, DBContext db) =>
             {
                 var president = db.Presidents.Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToList();
 
@@ -77,7 +79,7 @@ namespace api.Routes
                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYNAME_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/year/{{year}}", async (int year, DBContext db) =>
+            group.MapGet("/year/{year}", async (int year, DBContext db) =>
             {
                 
                 var presidents = db.Presidents
@@ -99,7 +101,7 @@ namespace api.Routes
                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYYEAR_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
+            group.MapGet("/search/{keyword}", (string keyword, DBContext db) =>
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbPresidents = db.Presidents.ToList();
@@ -117,7 +119,7 @@ namespace api.Routes
                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_SEARCH_DESCRIPTION
             ));
 
-            app.MapGet($"{API_PRESIDENT_ROUTE_COMPLETE}/pagedList",
+            group.MapGet("/pagedList",
             async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                  if (pagination.Page <= 0 || pagination.PageSize <= 0)

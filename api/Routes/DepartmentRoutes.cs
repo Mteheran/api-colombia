@@ -14,8 +14,10 @@ namespace api.Routes
         public static void RegisterDepartmentAPI(WebApplication app)
         {
             const string API_DEPARTMENT_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.DEPARTMENT_ROUTE}";
+            const string API_DEPARTMENT_TAG = "Department";
+            IEndpointRouteBuilder group = app.MapGroup(API_DEPARTMENT_ROUTE_COMPLETE).WithTags(API_DEPARTMENT_TAG);
 
-            app.MapGet(API_DEPARTMENT_ROUTE_COMPLETE, async (DBContext db,
+            group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -36,7 +38,7 @@ namespace api.Routes
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_LIST_DESCRIPTION
             ));
 
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}", async (int id, DBContext db) =>
+            group.MapGet("/{id}", async (int id, DBContext db) =>
             {
                 if (id <= 0)
                 {
@@ -60,7 +62,7 @@ namespace api.Routes
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_BYID_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/cities", async (int id, DBContext db,
+            group.MapGet("/{id}/cities", async (int id, DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -86,7 +88,7 @@ namespace api.Routes
                  description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_CITIES_DESCRIPTION
                  ));
 
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/naturalareas", async (int id, DBContext db, 
+            group.MapGet("/{id}/naturalareas", async (int id, DBContext db, 
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
@@ -122,7 +124,7 @@ namespace api.Routes
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_NATURALAREAS_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/{{id}}/touristicattractions", async (int id, DBContext db, 
+            group.MapGet("/{id}/touristicattractions", async (int id, DBContext db, 
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
           {
@@ -161,7 +163,7 @@ namespace api.Routes
                   ));
 
 
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/name/{{name}}", async (string name, DBContext db) =>
+            group.MapGet("/name/{name}", async (string name, DBContext db) =>
             {
                 var departments = await db.Departments.Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToListAsync();
 
@@ -178,7 +180,7 @@ namespace api.Routes
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_BYNAME_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/search/{{keyword}}", (string keyword, DBContext db) =>
+            group.MapGet("/search/{keyword}", (string keyword, DBContext db) =>
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbDepartments = db.Departments.ToList();
@@ -196,7 +198,7 @@ namespace api.Routes
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_SEARCH_DESCRIPTION
                 ));
 
-            app.MapGet($"{API_DEPARTMENT_ROUTE_COMPLETE}/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
+            group.MapGet("/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)
                 {

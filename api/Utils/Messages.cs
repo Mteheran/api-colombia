@@ -305,6 +305,20 @@
                 public const string MESSAGE_HERITAGE_CITY_PAGEDLIST_SUMMARY = "List of heritage cities using pagination";
                 public const string MESSAGE_HERITAGE_CITY_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of heritage cities using pagination including page, pagesize, total records and data, example api/v1/heritagecity/pagedList?page=1&pagesize=10";
             }
+
+            public struct PostalCodeEndpoint
+            {
+                public const string MESSAGE_POSTAL_CODE_LIST_SUMMARY = "List of postal codes in Colombia";
+                public const string MESSAGE_POSTAL_CODE_LIST_DESCRIPTION = "This endpoint returns postal codes in Colombia including zone, limits, type, city, and included areas.";
+                public const string MESSAGE_POSTAL_CODE_BYID_SUMMARY = "Postal code information by Id";
+                public const string MESSAGE_POSTAL_CODE_BYID_DESCRIPTION = "This endpoint returns the postal code information with the provided id";
+                public const string MESSAGE_POSTAL_CODE_BYCODE_SUMMARY = "Postal code information by code";
+                public const string MESSAGE_POSTAL_CODE_BYCODE_DESCRIPTION = "This endpoint returns a list of postal codes with the provided code";
+                public const string MESSAGE_POSTAL_CODE_SEARCH_SUMMARY = "Search postal codes by keyword";
+                public const string MESSAGE_POSTAL_CODE_SEARCH_DESCRIPTION = "This endpoint returns a list of postal codes where fields like code, zone, type, and limits match the provided keyword";
+                public const string MESSAGE_POSTAL_CODE_PAGEDLIST_SUMMARY = "List of postal codes using pagination";
+                public const string MESSAGE_POSTAL_CODE_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of postal codes using pagination including page, pagesize, total records and data, example api/v1/postalcode/pagedList?page=1&pagesize=10";
+            }
         }
     }
 }

@@ -301,6 +301,15 @@ The public page [api-colombia.com](https://api-colombia.com/) has useful informa
 | GET        | /api/{version}/ConstitutionArticle/pagedList   | Get the list of all constitution articles paginated                            |
 | GET        | /api/{version}/ConstitutionArticle/byChapterNumber/{chapternumber}   | Get the list of constitution articles by chapter number                            |
 
+### Postal Codes
+| HTTP Verbs | Endpoints                             | Action                                                               |
+| ---------- | ------------------------------------- | -------------------------------------------------------------------- |
+| GET        | /api/{version}/PostalCode             | Get the list of all postal codes in Colombia                         |
+| GET        | /api/{version}/PostalCode/{id}        | Get the information of a postal code by it is id                     |
+| GET        | /api/{version}/PostalCode/code/{code} | Get the list of postal codes by code                                 |
+| GET        | /api/{version}/PostalCode/search/{keyword} | Get the information of a postal code searching by keyword       |
+| GET        | /api/{version}/PostalCode/pagedList   | Get the list of all postal codes paginated                           |
+
 ### Maps
 | HTTP Verbs | Endpoints                             | Action                                                               |
 | ---------- | ------------------------------------- | -------------------------------------------------------------------- |

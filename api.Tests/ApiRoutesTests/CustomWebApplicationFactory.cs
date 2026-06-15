@@ -602,6 +602,60 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             });
         }
 
+        if (!dbContext.PostalCodes.Any())
+        {
+            dbContext.Add(new PostalCode
+            {
+                Id = 1,
+                NoId = 101,
+                CityId = city1.Id,
+                City = city1,
+                PostalZone = "Urban Zone 1",
+                Code = "110111",
+                NorthLimit = "Street 100",
+                SouthLimit = "Street 80",
+                EastLimit = "Avenue 9",
+                WestLimit = "Avenue 30",
+                Type = "Urban",
+                NeighborhoodsContainedInPostalCode = "Chapinero, El Nogal",
+                RuralAreasContainedInPostalCode = "",
+            });
+
+            dbContext.Add(new PostalCode
+            {
+                Id = 2,
+                NoId = 102,
+                CityId = city1.Id,
+                City = city1,
+                PostalZone = "Urban Zone 2",
+                Code = "110112",
+                NorthLimit = "Street 79",
+                SouthLimit = "Street 60",
+                EastLimit = "Avenue 7",
+                WestLimit = "Avenue 24",
+                Type = "Urban",
+                NeighborhoodsContainedInPostalCode = "Teusaquillo, Galerias",
+                RuralAreasContainedInPostalCode = "",
+            });
+
+            dbContext.Add(new PostalCode
+            {
+                Id = 3,
+                NoId = 103,
+                CityId = city2.Id,
+                City = city2,
+                PostalZone = "Rural Zone 1",
+                Code = "050001",
+                NorthLimit = "Rural North",
+                SouthLimit = "Rural South",
+                EastLimit = "Rural East",
+                WestLimit = "Rural West",
+                Type = "Rural",
+                NeighborhoodsContainedInPostalCode = "",
+                RuralAreasContainedInPostalCode = "San Cristobal, Altavista",
+            });
+        }
+
         dbContext.SaveChanges();
     }
 

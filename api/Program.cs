@@ -80,6 +80,7 @@ TypicalDishRoutes.RegisterTypicalDishAPI(app);
 TraditionalFairAndFestivalRoutes.RegisterTraditionalFairAndFestivalAPI(app);
 IntangibleHeritageRoutes.RegisterIntangibleHeritageAPI(app);
 HeritageCityRoutes.RegisterHeritageCityAPI(app);
+PostalCodeRoutes.RegisterPostalCodeAPI(app);
 
 app.UseStatusCodePages(static context => {
     var request = context.HttpContext.Request;

@@ -103,4 +103,28 @@ public class PostalCodeApiIntegrationTests : IClassFixture<CustomWebApplicationF
         Assert.Equal(pageSize, result.Data.Count);
         Assert.Equal(3, result.TotalRecords);
     }
+
+    [Fact]
+    public async Task GetPostalCodeByCity_ReturnsOkWithExpectedData()
+    {
+        int cityId = 1;
+        var response = await _client.GetAsync($"/api/v1/PostalCode/city/{cityId}");
+
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadFromJsonAsync<List<PostalCode>>();
+
+        Assert.NotNull(result);
+        Assert.NotEmpty(result);
+        Assert.All(result, p => Assert.Equal(cityId, p.CityId));
+    }
+
+    [Fact]
+    public async Task GetPostalCodeByCity_ReturnsNotFound()
+    {
+        int cityId = 999;
+        var response = await _client.GetAsync($"/api/v1/PostalCode/city/{cityId}");
+
+        Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
+    }
 }

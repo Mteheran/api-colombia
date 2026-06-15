@@ -318,6 +318,8 @@
                 public const string MESSAGE_POSTAL_CODE_SEARCH_DESCRIPTION = "This endpoint returns a list of postal codes where fields like code, zone, type, and limits match the provided keyword";
                 public const string MESSAGE_POSTAL_CODE_PAGEDLIST_SUMMARY = "List of postal codes using pagination";
                 public const string MESSAGE_POSTAL_CODE_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of postal codes using pagination including page, pagesize, total records and data, example api/v1/postalcode/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_POSTAL_CODE_BYCITY_SUMMARY = "Postal code information by city id";
+                public const string MESSAGE_POSTAL_CODE_BYCITY_DESCRIPTION = "This endpoint returns a list of postal codes with the provided city id";
             }
 
             public struct UrbanCenterEndpoint

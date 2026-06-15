@@ -656,6 +656,45 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             });
         }
 
+        if (!dbContext.UrbanCenters.Any())
+        {
+            dbContext.Add(new UrbanCenter
+            {
+                Id = 1,
+                CityId = city1.Id,
+                City = city1,
+                Code = "001",
+                Name = "Centro Urbano 1",
+                Type = "Municipal Head",
+                Longitude = -74.0,
+                Latitude = 4.0
+            });
+
+            dbContext.Add(new UrbanCenter
+            {
+                Id = 2,
+                CityId = city1.Id,
+                City = city1,
+                Code = "002",
+                Name = "Centro Poblado 1",
+                Type = "Populated Center",
+                Longitude = -74.1,
+                Latitude = 4.1
+            });
+
+            dbContext.Add(new UrbanCenter
+            {
+                Id = 3,
+                CityId = city2.Id,
+                City = city2,
+                Code = "003",
+                Name = "Centro Urbano 2",
+                Type = "Municipal Head",
+                Longitude = -75.0,
+                Latitude = 6.0
+            });
+        }
+
         dbContext.SaveChanges();
     }
 

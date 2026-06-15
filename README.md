@@ -33,6 +33,7 @@ Read this document in [Español](/README_es.md)
   - Invasive species.
   - Constitution articles.
   - Maps.
+  - Urban Centers (Municipal Heads and Populated Centers).
 * Swagger documentation 
 * Does not require authentication.
 * Multistage Docker build for the API service in `api/Dockerfile`

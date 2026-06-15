@@ -318,6 +318,24 @@
                 public const string MESSAGE_POSTAL_CODE_SEARCH_DESCRIPTION = "This endpoint returns a list of postal codes where fields like code, zone, type, and limits match the provided keyword";
                 public const string MESSAGE_POSTAL_CODE_PAGEDLIST_SUMMARY = "List of postal codes using pagination";
                 public const string MESSAGE_POSTAL_CODE_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of postal codes using pagination including page, pagesize, total records and data, example api/v1/postalcode/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_POSTAL_CODE_BYCITY_SUMMARY = "Postal code information by city id";
+                public const string MESSAGE_POSTAL_CODE_BYCITY_DESCRIPTION = "This endpoint returns a list of postal codes with the provided city id";
+            }
+
+            public struct UrbanCenterEndpoint
+            {
+                public const string MESSAGE_URBAN_CENTER_LIST_SUMMARY = "List of urban centers in Colombia";
+                public const string MESSAGE_URBAN_CENTER_LIST_DESCRIPTION = "This endpoint returns urban centers in Colombia including code, name, type, and coordinates.";
+                public const string MESSAGE_URBAN_CENTER_BYID_SUMMARY = "Urban center information by Id";
+                public const string MESSAGE_URBAN_CENTER_BYID_DESCRIPTION = "This endpoint returns the urban center information with the provided id";
+                public const string MESSAGE_URBAN_CENTER_BYCODE_SUMMARY = "Urban center information by code";
+                public const string MESSAGE_URBAN_CENTER_BYCODE_DESCRIPTION = "This endpoint returns a list of urban centers with the provided code";
+                public const string MESSAGE_URBAN_CENTER_BYCITY_SUMMARY = "Urban center information by city id";
+                public const string MESSAGE_URBAN_CENTER_BYCITY_DESCRIPTION = "This endpoint returns a list of urban centers with the provided city id";
+                public const string MESSAGE_URBAN_CENTER_SEARCH_SUMMARY = "Search urban centers by keyword";
+                public const string MESSAGE_URBAN_CENTER_SEARCH_DESCRIPTION = "This endpoint returns a list of urban centers where fields like code, name, and type match the provided keyword";
+                public const string MESSAGE_URBAN_CENTER_PAGEDLIST_SUMMARY = "List of urban centers using pagination";
+                public const string MESSAGE_URBAN_CENTER_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of urban centers using pagination including page, pagesize, total records and data, example api/v1/urbancenter/pagedList?page=1&pagesize=10";
             }
         }
     }

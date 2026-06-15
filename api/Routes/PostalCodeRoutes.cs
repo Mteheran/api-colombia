@@ -101,6 +101,26 @@ namespace api.Routes
                 description: PostalCodeMetadataMessages.MESSAGE_POSTAL_CODE_SEARCH_DESCRIPTION
             ));
 
+            group.MapGet("/city/{cityId}", (int cityId, DBContext db) =>
+            {
+                var postalCodes = db.PostalCodes
+                    .Include(p => p.City)
+                    .Where(x => x.CityId == cityId)
+                    .ToList();
+
+                if (!postalCodes.Any())
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(postalCodes);
+            })
+            .Produces<List<PostalCode>?>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: PostalCodeMetadataMessages.MESSAGE_POSTAL_CODE_BYCITY_SUMMARY,
+                description: PostalCodeMetadataMessages.MESSAGE_POSTAL_CODE_BYCITY_DESCRIPTION
+            ));
+
             group.MapGet("/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)

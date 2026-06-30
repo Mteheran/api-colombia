@@ -116,6 +116,15 @@ public static class ColombiaHolidays
     DateTime saintPeterPaulDay = GetNextMondayAfterSpecifiyDate(year, baseMonth: june, baseDay: 29);
     holidays.Add(new Holiday(saintPeterPaulDay, Messages.EndpointMetadata.Holidays.SAINT_PETER_PAUL_DESCRIPTION)); 
  
+    // From 2026 onward (Ley 2578 de 2026) July 9th becomes a national holiday.
+    // When it falls on a weekday it is moved to the Monday of the following week;
+    // when it falls on Saturday or Sunday the day itself is kept.
+    if (year >= 2026)
+    {
+        DateTime chiquinquiraDay = GetChiquinquiraHoliday(year);
+        holidays.Add(new Holiday(chiquinquiraDay, Messages.EndpointMetadata.Holidays.CHIQUINQUIRA_DESCRIPTION));
+    }
+
     holidays.Add(new Holiday(new DateTime(year, month: july, day: 20), Messages.EndpointMetadata.Holidays.INDEPENDENCE_DESCRIPTION));
  
     holidays.Add(new Holiday(new DateTime(year, month: august, day: 07), Messages.EndpointMetadata.Holidays.BOYACA_BATTLE_DESCRIPTION));
@@ -160,6 +169,26 @@ public static class ColombiaHolidays
         
         return baseDate.AddDays((8 - (int)baseDate.DayOfWeek) % 7);  
      }
+
+    private static DateTime GetChiquinquiraHoliday(int year)
+    {
+        DateTime selectedDay = new DateTime(year, (int)Months.July, 9);
+
+        // On Saturday or Sunday the holiday stays on the original date.
+        if (selectedDay.DayOfWeek == DayOfWeek.Saturday || selectedDay.DayOfWeek == DayOfWeek.Sunday)
+        {
+            return selectedDay;
+        }
+
+        // On a weekday it moves to the Monday of the following week.
+        int daysUntilNextMonday = ((int)DayOfWeek.Monday - (int)selectedDay.DayOfWeek + 7) % 7;
+        if (daysUntilNextMonday == 0)
+        {
+            daysUntilNextMonday = 7;
+        }
+
+        return selectedDay.AddDays(daysUntilNextMonday);
+    }
 
     private static DateTime GetCorpusChristi(DateTime date)
     {  

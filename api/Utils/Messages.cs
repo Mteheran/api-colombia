@@ -241,6 +241,7 @@
                  public const string CARTAGENA_INDEPENDENCE_DESCRIPTION = "Independencia de Cartagena";
                  public const string INMACULATE_CONCEPTION_DESCRIPTION = "Inmaculada Concepción";
                  public const string CHRISTMAS_DESCRIPTION = "Navidad";
+                 public const string CHIQUINQUIRA_DESCRIPTION = "Día de Nuestra Señora del Rosario de Chiquinquirá";
             }
 
             public struct TypicalDishEndpoint 

@@ -62,16 +62,24 @@ namespace api.Routes
                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYID_DESCRIPTION
                 ));
 
-            group.MapGet("/name/{name}", (string name, DBContext db) =>
+            group.MapGet("/name/{name}", async (string name, DBContext db) =>
             {
-                var president = db.Presidents.Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToList();
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    return Results.BadRequest();
+                }
 
-                if (president is null)
+                var wellFormedName = name.Trim().ToUpper();
+                var presidents = await db.Presidents
+                                            .Where(x => x.Name!.ToUpper().Equals(wellFormedName))
+                                            .ToListAsync();
+
+                if (!presidents.Any())
                 {
                     return Results.NotFound();
                 }
 
-                return Results.Ok(president);
+                return Results.Ok(presidents);
             })
             .Produces<President?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
@@ -81,14 +89,18 @@ namespace api.Routes
 
             group.MapGet("/year/{year}", async (int year, DBContext db) =>
             {
-                
-                var presidents = db.Presidents
+                if (year <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var presidents = await db.Presidents
                                         .Include(p => p.City)
                                         .Where(p => (p.StartPeriodDate.Year <= year
                                                         && p.EndPeriodDate.HasValue && p.EndPeriodDate.Value.Year >= year)
                                                         || (p.EndPeriodDate == null && p.StartPeriodDate.Year <= year && year <= DateTime.Now.Year))
-                                        .ToList();
-                if (presidents is null)
+                                        .ToListAsync();
+                if (!presidents.Any())
                 {
                     return Results.NotFound();
                 }
@@ -101,10 +113,15 @@ namespace api.Routes
                 description: PresidentEndpointMetadataMessages.MESSAGE_PRESIDENT_BYYEAR_DESCRIPTION
                 ));
 
-            group.MapGet("/search/{keyword}", (string keyword, DBContext db) =>
+            group.MapGet("/search/{keyword}", async (string keyword, DBContext db) =>
             {
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    return Results.BadRequest();
+                }
+
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
-                var dbPresidents = db.Presidents.ToList();
+                var dbPresidents = await db.Presidents.ToListAsync();
                 var presidents = Functions.FilterObjectListPropertiesByKeyword<President>(dbPresidents, wellFormedKeyword);
                 if (!presidents.Any())
                 {

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.Json;
 using api.Utils;
 using System.Net;
 using api.Const;
+using api.Mcp;
 using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,6 +58,9 @@ builder.Services.Configure<JsonOptions>(static options =>
     options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
 });
 
+// Live-data MCP server hosted alongside the REST API (see api/Mcp).
+builder.AddApiColombiaMcp();
+
 var app = builder.Build();
 
 InfoRoutes.RegisterInfoAPI(app);
@@ -103,6 +107,14 @@ app.UseCors(Util.CorsPolicyName);
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseOutputCache();
+
+// Streamable HTTP MCP endpoint at /api/v1/mcp.
+app.MapApiColombiaMcp();
+
+// Browser-based MCP tester (wwwroot/mcp-inspector.html) served at /mcp.
+app.MapGet("/mcp", (IWebHostEnvironment env) =>
+    Results.File(Path.Combine(env.WebRootPath, "mcp-inspector.html"), "text/html"))
+   .ExcludeFromDescription();
 
 app.Run();
 

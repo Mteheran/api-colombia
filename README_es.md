@@ -22,8 +22,20 @@ API Colombia es una API pública RESTful que permite a los usuarios obtener una 
   - Artículos de la constitución.
   - Mapas.
 * Documentación Swagger.
+* Servidor MCP (Model Context Protocol) para agentes de IA — ver [Servidor MCP](#servidor-mcp) abajo.
 * No requiere autenticación.
 * Pruebas de integración con base de datos en memoria.
+
+## Servidor MCP
+
+La API también expone un servidor **Model Context Protocol** integrado, para que los agentes de IA puedan consumir los mismos datos públicos de Colombia sin aprender la superficie REST manualmente.
+
+* **Endpoint:** `https://api-colombia.com/api/v1/mcp` (Streamable HTTP, sin estado, sin autenticación, solo lectura).
+* **Herramientas:** descubrimiento (`list_colombia_resources`, `get_api_reference`), herramientas de datos genéricas (`list_items`, `get_item_by_id`, `get_items_by_name`, `search_items`, `list_items_paged`, `get_country_info`) que cubren todos los recursos, y herramientas relacionales (por ejemplo `get_cities_by_department`).
+* **Recursos:** un catálogo navegable en `colombia://catalog` y entradas por tabla.
+* **Inspector en el navegador:** un probador web autocontenido servido en [`/mcp`](https://api-colombia.com/mcp) (localmente `https://localhost:7274/mcp`) — lista y ejecuta herramientas, explora recursos y envía JSON-RPC sin instalar nada.
+
+Consulta la guía completa en [docs/mcp.md](/docs/mcp.md).
 
 ## Versions
 [Changelog - Versions](/CHANGELOG.md)

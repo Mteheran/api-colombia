@@ -35,9 +35,21 @@ Read this document in [Español](/README_es.md)
   - Maps.
   - Urban Centers (Municipal Heads and Populated Centers).
 * Swagger documentation 
+* MCP (Model Context Protocol) server for AI agents — see [MCP Server](#mcp-server) below.
 * Does not require authentication.
 * Multistage Docker build for the API service in `api/Dockerfile`
 * Multistage Docker build for the docs site in `docs/Dockerfile`
+
+## MCP Server
+
+The API also exposes a built-in **Model Context Protocol** server, so AI agents can consume the same public Colombia data without learning the REST surface by hand.
+
+* **Endpoint:** `https://api-colombia.com/api/v1/mcp` (Streamable HTTP, stateless, no auth, read-only).
+* **Tools:** discovery (`list_colombia_resources`, `get_api_reference`), generic data tools (`list_items`, `get_item_by_id`, `get_items_by_name`, `search_items`, `list_items_paged`, `get_country_info`) that cover every resource, and relational tools (e.g. `get_cities_by_department`).
+* **Resources:** a browsable catalog at `colombia://catalog` and per-table entries.
+* **Browser inspector:** a self-contained web tester is served at [`/mcp`](https://api-colombia.com/mcp) (locally `https://localhost:7274/mcp`) — list and call tools, browse resources, and send raw JSON-RPC, no install required.
+
+See the full guide in [docs/mcp.md](/docs/mcp.md).
 
 ## Versions
 

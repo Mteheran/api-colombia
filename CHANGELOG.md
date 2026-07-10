@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.1.0] - 2026-07-09
+
+### Added
+
+- **MCP (Model Context Protocol) server** hosted alongside the REST API at `POST /api/v1/mcp` (Streamable HTTP, stateless). Lets AI agents consume the same public Colombia data through MCP tools without learning the REST surface.
+    - Guidance tools: `list_colombia_resources`, `get_api_reference` — advertise the catalog and usage conventions (sorting, pagination, keyword search).
+    - Generic data tools: `get_country_info`, `list_items`, `get_item_by_id`, `get_items_by_name`, `search_items`, `list_items_paged` — dispatch through a single `ResourceCatalog` covering all ~22 API resources.
+    - Relational tools: `get_cities_by_department`, `get_natural_areas_by_department`, `get_touristic_attractions_by_department`.
+    - Reuses the existing `Functions.ApplySorting` and `Functions.FilterObjectListPropertiesByKeyword` helpers so MCP responses match REST semantics.
+    - Purely additive: no existing routes, models, or migrations changed.
+
+[1.1.0]: https://github.com/Mteheran/api-colombia/releases/tag/v1.1.0
+
 ## [1.0.9] - 2026-01-26
 
 ### Added

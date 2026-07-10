@@ -14,12 +14,17 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'API Reference', link: '/' },
+      { text: 'MCP Server', link: '/mcp' },
       { text: 'GitHub', link: 'https://github.com/Mteheran/api-colombia' }
     ],
     sidebar: [
       {
         text: 'Introduction',
         link: '/',
+      },
+      {
+        text: 'MCP Server',
+        link: '/mcp',
       },
       ...sidebar.generateSidebarGroups(),
     ],

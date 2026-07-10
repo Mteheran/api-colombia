@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_RADIO_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.RADIO}";
             const string API_RADIO_TAG = "Radio";
-            IEndpointRouteBuilder group = app.MapGroup(API_RADIO_COMPLETE).WithTags(API_RADIO_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_RADIO_COMPLETE).WithTags(API_RADIO_TAG).CacheOutput();
 
             group.MapGet(string.Empty, (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

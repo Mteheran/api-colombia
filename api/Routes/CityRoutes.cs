@@ -19,7 +19,8 @@ namespace api.Routes
             // Group and tags usage
             IEndpointRouteBuilder group = app
                 .MapGroup(API_CITY_ROUTE_COMPLETE)
-                .WithTags(API_CITY_TAG);
+                .WithTags(API_CITY_TAG)
+                .CacheOutput();
             
             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

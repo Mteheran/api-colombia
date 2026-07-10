@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Colombia — Metrics Dashboard</title>
+  <link rel="icon" href="assets/logo-dark.svg" type="image/svg+xml" />
+  <style>
+    :root {
+      --bg: #0e1116; --panel: #161b22; --panel2: #1c232d; --border: #2a323d;
+      --text: #e6edf3; --muted: #8b949e; --accent: #f9c74f; --accent2: #43aa8b;
+      --danger: #f26d6d; --blue: #58a6ff;
+      --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+    }
+    header {
+      padding: 18px 24px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      background: linear-gradient(90deg, #1a1f27, #12161c);
+    }
+    header h1 { font-size: 18px; margin: 0; font-weight: 650; }
+    header .flag { font-size: 22px; }
+    header .sub { color: var(--muted); font-size: 13px; }
+    .toolbar { margin-left: auto; display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); }
+    .toolbar button {
+      background: var(--panel2); border: 1px solid var(--border); color: var(--text);
+      padding: 7px 12px; border-radius: 7px; font-size: 13px; cursor: pointer;
+    }
+    .toolbar button:hover { border-color: var(--accent2); }
+    .toolbar label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+    main { padding: 16px 24px 40px; max-width: 1200px; margin: 0 auto; }
+
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 20px; }
+    .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+    .stat .label { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+    .stat .value { font-size: 26px; font-weight: 680; margin-top: 6px; font-variant-numeric: tabular-nums; }
+    .stat .value.accent { color: var(--accent); }
+    .stat .value.green { color: var(--accent2); }
+    .stat .sub { font-size: 12px; color: var(--muted); margin-top: 4px; font-family: var(--mono); word-break: break-all; }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .card > h2 {
+      margin: 0; padding: 12px 16px; font-size: 13px; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--muted); border-bottom: 1px solid var(--border);
+    }
+    .card .body { padding: 16px; overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    th { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+    tbody tr:last-child td { border-bottom: none; }
+    td.path { font-family: var(--mono); max-width: 340px; overflow: hidden; text-overflow: ellipsis; }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); }
+    .pill { display: inline-block; padding: 1px 8px; border-radius: 20px; font-size: 12px; font-family: var(--mono); }
+    .s2 { background: rgba(67,170,139,.18); color: var(--accent2); }
+    .s3 { background: rgba(88,166,255,.18); color: var(--blue); }
+    .s4 { background: rgba(249,199,79,.18); color: var(--accent); }
+    .s5 { background: rgba(242,109,109,.18); color: var(--danger); }
+    .method { font-family: var(--mono); color: var(--muted); }
+
+    /* inline SVG bar chart */
+    .chart { width: 100%; }
+    .bar { fill: var(--accent2); transition: fill .15s; }
+    .bar:hover { fill: var(--accent); }
+    .bar-label { fill: var(--muted); font-size: 10px; font-family: var(--mono); }
+    .bar-value { fill: var(--text); font-size: 10px; font-family: var(--mono); }
+
+    .empty { color: var(--muted); font-size: 13px; padding: 8px 2px; }
+    #banner { display: none; margin: 0 24px 16px; padding: 10px 14px; border-radius: 8px;
+      background: rgba(242,109,109,.12); border: 1px solid var(--danger); color: var(--danger); font-size: 13px; }
+    footer { text-align: center; color: var(--muted); font-size: 12px; padding: 20px; }
+    footer a { color: var(--accent2); }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="flag">🇨🇴</span>
+    <div>
+      <h1>API Colombia — Metrics Dashboard</h1>
+      <div class="sub">Public usage analytics · reads <code>/api/v1/metrics</code></div>
+    </div>
+    <div class="toolbar">
+      <span id="updated">—</span>
+      <label><input type="checkbox" id="auto" checked /> Auto-refresh (60s)</label>
+      <button id="refresh">Refresh</button>
+    </div>
+  </header>
+
+  <div id="banner"></div>
+
+  <main>
+    <section class="stats" id="stats"></section>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Requests per month</h2>
+        <div class="body"><div id="chart"></div></div>
+      </div>
+      <div class="card">
+        <h2>Monthly usage</h2>
+        <div class="body"><div id="monthly"></div></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h2>Recent requests</h2>
+      <div class="body"><div id="recent"></div></div>
+    </div>
+  </main>
+
+  <footer>
+    API Colombia · <a href="/">home</a> · <a href="/swagger">Swagger</a> · <a href="/api/v1/metrics">raw JSON</a>
+  </footer>
+
+  <script>
+    const MONTHS = ["", "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+    function fmtNum(n) { return (n ?? 0).toLocaleString("en-US"); }
+    function fmtBytes(b) {
+      b = b ?? 0;
+      if (b < 1024) return b + " B";
+      const u = ["KB","MB","GB","TB"]; let i = -1;
+      do { b /= 1024; i++; } while (b >= 1024 && i < u.length - 1);
+      return b.toFixed(b >= 10 || i === 0 ? 0 : 1) + " " + u[i];
+    }
+    function fmtTime(iso) {
+      const d = new Date(iso);
+      return isNaN(d) ? iso : d.toLocaleTimeString("en-US", { hour12: false }) +
+        " · " + d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    }
+    function statusClass(s) { return "pill s" + Math.floor((s || 0) / 100); }
+    function esc(s) { return (s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c])); }
+
+    function renderStats(d) {
+      const el = document.getElementById("stats");
+      const monthTotalReq = (d.monthlyUsage || []).reduce((a, m) => a + m.requestCount, 0);
+      const thisMonth = (d.monthlyUsage || [])[0];
+      const cards = [
+        { label: "Requests · current hour", value: fmtNum(d.currentHourRequestCount), cls: "accent" },
+        { label: "Egress · current hour", value: fmtBytes(d.currentHourResponseBytes), cls: "green" },
+        { label: "Largest response", value: fmtBytes(d.largestResponseBytes), cls: "", sub: d.largestResponsePath || "—" },
+        { label: "Requests · this month", value: thisMonth ? fmtNum(thisMonth.requestCount) : "0", cls: "accent" },
+        { label: "Egress · this month", value: thisMonth ? fmtBytes(thisMonth.totalResponseBytes) : "0 B", cls: "green" },
+      ];
+      el.innerHTML = cards.map(c => `
+        <div class="stat">
+          <div class="label">${c.label}</div>
+          <div class="value ${c.cls}">${c.value}</div>
+          ${c.sub ? `<div class="sub">${esc(c.sub)}</div>` : ""}
+        </div>`).join("");
+    }
+
+    function renderChart(months) {
+      const el = document.getElementById("chart");
+      if (!months || months.length === 0) { el.innerHTML = '<div class="empty">No monthly data yet.</div>'; return; }
+      const data = months.slice().reverse().slice(-12); // oldest→newest, last 12
+      const max = Math.max(...data.map(m => m.requestCount), 1);
+      const W = 100 / data.length, H = 160, pad = 22;
+      const bars = data.map((m, i) => {
+        const h = (m.requestCount / max) * (H - pad - 18);
+        const x = i * W, y = H - pad - h;
+        return `
+          <rect class="bar" x="${(x + W * 0.15).toFixed(2)}" y="${y.toFixed(2)}"
+                width="${(W * 0.7).toFixed(2)}" height="${Math.max(h,0).toFixed(2)}" rx="1.5">
+            <title>${MONTHS[m.month]} ${m.year}: ${fmtNum(m.requestCount)} requests</title>
+          </rect>
+          <text class="bar-value" x="${(x + W / 2).toFixed(2)}" y="${(y - 3).toFixed(2)}" text-anchor="middle">${shortNum(m.requestCount)}</text>
+          <text class="bar-label" x="${(x + W / 2).toFixed(2)}" y="${H - pad + 12}" text-anchor="middle">${MONTHS[m.month]}</text>`;
+      }).join("");
+      el.innerHTML = `<svg class="chart" viewBox="0 0 100 ${H}" preserveAspectRatio="none" style="height:190px">${bars}</svg>`;
+    }
+    function shortNum(n) {
+      if (n >= 1e6) return (n / 1e6).toFixed(1) + "M";
+      if (n >= 1e3) return (n / 1e3).toFixed(1) + "k";
+      return String(n);
+    }
+
+    function renderMonthly(months) {
+      const el = document.getElementById("monthly");
+      if (!months || months.length === 0) { el.innerHTML = '<div class="empty">No monthly data yet.</div>'; return; }
+      el.innerHTML = `<table><thead><tr><th>Month</th><th style="text-align:right">Requests</th><th style="text-align:right">Egress</th></tr></thead><tbody>${
+        months.map(m => `<tr><td>${MONTHS[m.month]} ${m.year}</td><td class="num">${fmtNum(m.requestCount)}</td><td class="num">${fmtBytes(m.totalResponseBytes)}</td></tr>`).join("")
+      }</tbody></table>`;
+    }
+
+    function renderRecent(recent) {
+      const el = document.getElementById("recent");
+      if (!recent || recent.length === 0) { el.innerHTML = '<div class="empty">No requests recorded yet.</div>'; return; }
+      el.innerHTML = `<table><thead><tr><th>Time (UTC)</th><th>Method</th><th>Path</th><th>Status</th><th style="text-align:right">Size</th></tr></thead><tbody>${
+        recent.map(r => `<tr>
+          <td>${fmtTime(r.timestampUtc)}</td>
+          <td class="method">${esc(r.method)}</td>
+          <td class="path" title="${esc(r.path)}">${esc(r.path)}</td>
+          <td><span class="${statusClass(r.statusCode)}">${r.statusCode}</span></td>
+          <td class="num">${fmtBytes(r.responseBytes)}</td>
+        </tr>`).join("")
+      }</tbody></table>`;
+    }
+
+    async function load() {
+      const banner = document.getElementById("banner");
+      try {
+        const res = await fetch("/api/v1/metrics", { headers: { "Accept": "application/json" } });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const d = await res.json();
+        banner.style.display = "none";
+        renderStats(d);
+        renderChart(d.monthlyUsage);
+        renderMonthly(d.monthlyUsage);
+        renderRecent(d.recentRequests);
+        document.getElementById("updated").textContent =
+          "Updated " + new Date().toLocaleTimeString("en-US", { hour12: false });
+      } catch (e) {
+        banner.style.display = "block";
+        banner.textContent = "Could not load metrics: " + e.message + ". Retrying on next refresh.";
+      }
+    }
+
+    let timer = null;
+    function setAuto(on) {
+      if (timer) { clearInterval(timer); timer = null; }
+      if (on) timer = setInterval(load, 60000);
+    }
+    document.getElementById("refresh").addEventListener("click", load);
+    document.getElementById("auto").addEventListener("change", e => setAuto(e.target.checked));
+
+    load();
+    setAuto(true);
+  </script>
+</body>
+</html>

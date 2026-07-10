@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_REGION_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.REGION}";
             const string API_REGION_TAG = "Region";
-            IEndpointRouteBuilder group = app.MapGroup(API_REGION_ROUTE_COMPLETE).WithTags(API_REGION_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_REGION_ROUTE_COMPLETE).WithTags(API_REGION_TAG).CacheOutput();
 
             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

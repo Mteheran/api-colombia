@@ -19,7 +19,7 @@ namespace api.Routes
             // Group and tags usage
             IEndpointRouteBuilder group = app
                 .MapGroup(API_CATEGORY_ROUTE_COMPLETE)
-                .WithTags(API_CATEGORY_TAG);
+                .WithTags(API_CATEGORY_TAG).CacheOutput();
             
             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

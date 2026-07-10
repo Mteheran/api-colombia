@@ -15,7 +15,7 @@ namespace api.Routes
         {
              const string API_TRADICTIONAL_FAIR_AND_FESTIVAL_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.TRADITIONAL_FAIR_AND_FESTIVAL_ROUTE}";
              const string API_TRADICTIONAL_FAIR_AND_FESTIVAL_TAG = "TraditionalFairAndFestival";
-             IEndpointRouteBuilder group = app.MapGroup(API_TRADICTIONAL_FAIR_AND_FESTIVAL_ROUTE_COMPLETE).WithTags(API_TRADICTIONAL_FAIR_AND_FESTIVAL_TAG);
+             IEndpointRouteBuilder group = app.MapGroup(API_TRADICTIONAL_FAIR_AND_FESTIVAL_ROUTE_COMPLETE).WithTags(API_TRADICTIONAL_FAIR_AND_FESTIVAL_TAG).CacheOutput();
 
              group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

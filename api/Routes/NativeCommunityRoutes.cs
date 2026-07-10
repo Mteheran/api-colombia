@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_NATIVE_COMMUNITY_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.NATIVE_COMMUNITY_ROUTE}";
             const string API_NATIVE_COMMUNITY_TAG = "NativeCommunity";
-            IEndpointRouteBuilder group = app.MapGroup(API_NATIVE_COMMUNITY_COMPLETE).WithTags(API_NATIVE_COMMUNITY_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_NATIVE_COMMUNITY_COMPLETE).WithTags(API_NATIVE_COMMUNITY_TAG).CacheOutput();
 
             group.MapGet(string.Empty, (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

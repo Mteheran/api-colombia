@@ -20,6 +20,12 @@
                 public const string MESSAGE_COUNTRY_DESCRIPTION = "This endpoint returns the information about Colombia like TimeZone, Languages, Currency, etc...";
             }
 
+            public struct MetricsEndpoint
+            {
+                public const string MESSAGE_METRICS_SUMMARY = "Public API usage metrics";
+                public const string MESSAGE_METRICS_DESCRIPTION = "This endpoint returns lightweight public analytics about API traffic: the most recent requests, the largest responses by size, the current-hour request count, and per-month totals (requests and estimated egress) aggregated from hourly rollups.";
+            }
+
             public struct DepartmentEndpoint
             {
                 public const string MESSAGE_DEPARTMENT_LIST_SUMMARY = "List of departments in Colombia";

@@ -3,9 +3,13 @@ using api;
 using api.Routes;
 using Microsoft.AspNetCore.Http.Json;
 using api.Utils;
+using api.Utils.Metrics;
 using System.Net;
+using System.IO.Compression;
 using api.Const;
 using api.Mcp;
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,10 +32,29 @@ builder.Services.AddSwaggerGen(static options =>
     });
 });
 
+// Response compression (Brotli + Gzip). This is the single biggest lever for
+// outbound "data out": JSON API responses and text assets are shrunk ~70-90%.
+builder.Services.AddResponseCompression(static options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<BrotliCompressionProvider>();
+    options.Providers.Add<GzipCompressionProvider>();
+    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
+    {
+        "application/json",
+        "image/svg+xml",
+    });
+});
+builder.Services.Configure<BrotliCompressionProviderOptions>(static o => o.Level = CompressionLevel.Optimal);
+builder.Services.Configure<GzipCompressionProviderOptions>(static o => o.Level = CompressionLevel.Optimal);
+
 builder.Services.AddOutputCache(static options =>
 {
-    options.AddBasePolicy(static builder => 
-        builder.Expire(TimeSpan.FromDays(7)));
+    options.AddBasePolicy(static builder =>
+        builder.Expire(TimeSpan.FromDays(7))
+               // Vary the cache by every query string value so ?sortBy=, ?page=,
+               // ?pageSize= etc. produce distinct cache entries.
+               .SetVaryByQuery("*"));
 });
 
 builder.Services.AddCors(static options =>
@@ -61,9 +84,15 @@ builder.Services.Configure<JsonOptions>(static options =>
 // Live-data MCP server hosted alongside the REST API (see api/Mcp).
 builder.AddApiColombiaMcp();
 
+// Lightweight public request analytics: in-memory collector on the hot path,
+// with a background service flushing hourly rollups to Postgres.
+builder.Services.AddSingleton<RequestMetricsCollector>();
+builder.Services.AddHostedService<RequestMetricsFlusher>();
+
 var app = builder.Build();
 
 InfoRoutes.RegisterInfoAPI(app);
+MetricsRoutes.RegisterMetricsAPI(app);
 CountryRoutes.RegisterCountryAPI(app);
 RegionRoutes.RegisterRegionAPI(app);
 DepartmentRoutes.RegisterDepartmentAPI(app);
@@ -87,6 +116,14 @@ HeritageCityRoutes.RegisterHeritageCityAPI(app);
 PostalCodeRoutes.RegisterPostalCodeAPI(app);
 UrbanCenterRoutes.RegisterUrbanCenterAPI(app);
 
+// Record request analytics as the outermost middleware so its counting stream
+// wraps the compressed output and measures the actual bytes leaving the server.
+// Purely in-memory, O(1) per request.
+app.UseMiddleware<RequestMetricsMiddleware>();
+
+// Compress everything downstream (static files + JSON API responses).
+app.UseResponseCompression();
+
 app.UseStatusCodePages(static context => {
     var request = context.HttpContext.Request;
     var response = context.HttpContext.Response;
@@ -102,7 +139,16 @@ app.UseStatusCodePages(static context => {
 });
 
 app.UseDefaultFiles();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = static ctx =>
+    {
+        // Far-future caching for static assets (images/fonts/css/js). The
+        // static-file middleware still emits ETag/Last-Modified, so browsers
+        // get 304s once max-age expires.
+        ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public, max-age=604800"; // 7 days
+    }
+});
 app.UseCors(Util.CorsPolicyName);
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -114,6 +160,12 @@ app.MapApiColombiaMcp();
 // Browser-based MCP tester (wwwroot/mcp-inspector.html) served at /mcp.
 app.MapGet("/mcp", (IWebHostEnvironment env) =>
     Results.File(Path.Combine(env.WebRootPath, "mcp-inspector.html"), "text/html"))
+   .ExcludeFromDescription();
+
+// Public metrics dashboard (wwwroot/metrics.html) served at /metrics; it reads
+// the JSON API at /api/v1/metrics.
+app.MapGet("/metrics", (IWebHostEnvironment env) =>
+    Results.File(Path.Combine(env.WebRootPath, "metrics.html"), "text/html"))
    .ExcludeFromDescription();
 
 app.Run();

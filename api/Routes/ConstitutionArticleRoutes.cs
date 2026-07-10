@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_CONSTITUTION_ARTICLE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.CONSTITUTION_ARTICLE}";
             const string API_CONSTITUTION_ARTICLE_TAG = "ConstitutionArticle";
-            IEndpointRouteBuilder group = app.MapGroup(API_CONSTITUTION_ARTICLE_COMPLETE).WithTags(API_CONSTITUTION_ARTICLE_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_CONSTITUTION_ARTICLE_COMPLETE).WithTags(API_CONSTITUTION_ARTICLE_TAG).CacheOutput();
 
             group.MapGet(string.Empty, (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

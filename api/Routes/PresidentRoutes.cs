@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_PRESIDENT_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.PRESIDENT_ROUTE}";
             const string API_PRESIDENT_TAG = "President";
-            IEndpointRouteBuilder group = app.MapGroup(API_PRESIDENT_ROUTE_COMPLETE).WithTags(API_PRESIDENT_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_PRESIDENT_ROUTE_COMPLETE).WithTags(API_PRESIDENT_TAG).CacheOutput();
 
            group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

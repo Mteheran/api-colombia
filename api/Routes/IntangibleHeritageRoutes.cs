@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_INTANGIBLE_HERITAGE_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.INTANGIBLE_HERITAGE_ROUTE}";
             const string API_INTANGIBLE_HERITAGE_TAG = "IntangibleHeritage";
-            IEndpointRouteBuilder group = app.MapGroup(API_INTANGIBLE_HERITAGE_ROUTE_COMPLETE).WithTags(API_INTANGIBLE_HERITAGE_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_INTANGIBLE_HERITAGE_ROUTE_COMPLETE).WithTags(API_INTANGIBLE_HERITAGE_TAG).CacheOutput();
 
             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

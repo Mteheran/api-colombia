@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Colombia — MCP Inspector</title>
+  <style>
+    :root {
+      --bg: #0e1116; --panel: #161b22; --panel2: #1c232d; --border: #2a323d;
+      --text: #e6edf3; --muted: #8b949e; --accent: #f9c74f; --accent2: #43aa8b;
+      --danger: #f26d6d; --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+    }
+    header {
+      padding: 18px 24px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      background: linear-gradient(90deg, #1a1f27, #12161c);
+    }
+    header h1 { font-size: 18px; margin: 0; font-weight: 650; }
+    header .flag { font-size: 22px; }
+    header .sub { color: var(--muted); font-size: 13px; }
+    .conn { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .conn input {
+      background: var(--panel2); border: 1px solid var(--border); color: var(--text);
+      padding: 7px 10px; border-radius: 7px; width: 320px; font-family: var(--mono); font-size: 12px;
+    }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); display: inline-block; }
+    .dot.ok { background: var(--accent2); box-shadow: 0 0 8px var(--accent2); }
+    .dot.err { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
+    main { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px 24px; }
+    @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .card > h2 {
+      margin: 0; padding: 12px 16px; font-size: 13px; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--muted); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card .body { padding: 14px 16px; }
+    button {
+      background: var(--panel2); border: 1px solid var(--border); color: var(--text);
+      padding: 7px 12px; border-radius: 7px; cursor: pointer; font-size: 13px; transition: .12s;
+    }
+    button:hover { border-color: var(--accent); }
+    button.primary { background: var(--accent); color: #1a1200; border-color: var(--accent); font-weight: 600; }
+    button.primary:hover { filter: brightness(1.08); }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .item {
+      border: 1px solid var(--border); border-radius: 9px; margin-bottom: 8px; background: var(--panel2);
+    }
+    .item > .head {
+      padding: 10px 12px; cursor: pointer; display: flex; align-items: center; gap: 8px;
+    }
+    .item .name { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+    .item .desc { color: var(--muted); font-size: 12px; margin-left: auto; text-align: right; max-width: 55%; }
+    .item .form { padding: 0 12px 12px; display: none; border-top: 1px solid var(--border); }
+    .item.open .form { display: block; }
+    .field { margin: 10px 0; }
+    .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; font-family: var(--mono); }
+    .field label .req { color: var(--accent); }
+    .field input, .field textarea, .conn input, .field select {
+      width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text);
+      padding: 7px 9px; border-radius: 6px; font-family: var(--mono); font-size: 12px;
+    }
+    pre {
+      background: #0a0d12; border: 1px solid var(--border); border-radius: 8px; padding: 12px;
+      overflow: auto; font-family: var(--mono); font-size: 12px; margin: 8px 0 0; max-height: 480px;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .muted { color: var(--muted); }
+    textarea { min-height: 90px; resize: vertical; }
+    .tag { font-size: 11px; padding: 1px 7px; border-radius: 20px; border: 1px solid var(--border); color: var(--muted); }
+    .split { display: flex; gap: 16px; align-items: flex-start; }
+    .full { grid-column: 1 / -1; }
+    a { color: var(--accent2); }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="flag">🇨🇴</span>
+    <div>
+      <h1>API Colombia — MCP Inspector</h1>
+      <div class="sub">A minimal in-browser tester for the Model Context Protocol server</div>
+    </div>
+    <div class="conn">
+      <span id="dot" class="dot" title="connection status"></span>
+      <input id="endpoint" value="/api/v1/mcp" spellcheck="false" />
+      <button id="btnConnect" class="primary">Connect</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>🛠️ Tools <span id="toolCount" class="tag">—</span></h2>
+      <div class="body">
+        <div class="row">
+          <button onclick="loadTools()">List tools</button>
+        </div>
+        <div id="tools"><p class="muted">Click “Connect”, then “List tools”.</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>📚 Resources <span id="resCount" class="tag">—</span></h2>
+      <div class="body">
+        <div class="row">
+          <button onclick="loadResources()">List resources</button>
+        </div>
+        <div id="resources"><p class="muted">Resources and resource templates appear here.</p></div>
+      </div>
+    </section>
+
+    <section class="card full">
+      <h2>⚡ Raw JSON-RPC</h2>
+      <div class="body">
+        <div class="split" style="flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 260px;">
+            <div class="field">
+              <label>method</label>
+              <input id="rawMethod" value="tools/list" spellcheck="false" />
+            </div>
+            <div class="field">
+              <label>params (JSON)</label>
+              <textarea id="rawParams" spellcheck="false">{}</textarea>
+            </div>
+            <button class="primary" onclick="sendRaw()">Send</button>
+            <span class="muted" style="font-size:12px; margin-left:8px;">
+              try: initialize · tools/list · resources/list · resources/templates/list
+            </span>
+          </div>
+          <div style="flex: 1; min-width: 260px;">
+            <label class="muted" style="font-size:12px;">response</label>
+            <pre id="rawOut">—</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const endpointEl = $('endpoint');
+    let nextId = 1;
+
+    function setStatus(state) {
+      const dot = $('dot');
+      dot.className = 'dot' + (state === 'ok' ? ' ok' : state === 'err' ? ' err' : '');
+    }
+
+    // Parse a Streamable-HTTP response that may be JSON or an SSE frame ("event: ...\ndata: {...}").
+    function parseBody(text) {
+      const t = text.trim();
+      if (!t) throw new Error('Empty response');
+      if (t[0] === '{' || t[0] === '[') return JSON.parse(t);
+      const data = t.split(/\r?\n/).filter(l => l.startsWith('data:')).map(l => l.slice(5).trim()).join('\n');
+      if (!data) throw new Error('Could not parse response:\n' + t.slice(0, 400));
+      return JSON.parse(data);
+    }
+
+    async function rpc(method, params) {
+      const res = await fetch(endpointEl.value, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json, text/event-stream' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: nextId++, method, params: params || {} })
+      });
+      const msg = parseBody(await res.text());
+      if (msg.error) {
+        const e = new Error(msg.error.message || 'RPC error');
+        e.data = msg.error;
+        throw e;
+      }
+      return msg.result;
+    }
+
+    async function connect() {
+      try {
+        const r = await rpc('initialize', {
+          protocolVersion: '2025-06-18',
+          capabilities: {},
+          clientInfo: { name: 'browser-inspector', version: '1.0' }
+        });
+        setStatus('ok');
+        $('rawOut').textContent = JSON.stringify(r, null, 2);
+        await loadTools();
+        await loadResources();
+      } catch (e) {
+        setStatus('err');
+        $('rawOut').textContent = 'Connect failed: ' + e.message + '\n\n' + (e.data ? JSON.stringify(e.data, null, 2) : '');
+      }
+    }
+
+    function inputFor(name, schema, required) {
+      const wrap = document.createElement('div');
+      wrap.className = 'field';
+      const type = (schema && schema.type) || 'string';
+      const label = document.createElement('label');
+      label.innerHTML = name + ' <span class="muted">(' + type + ')</span>' + (required ? ' <span class="req">*</span>' : '');
+      const inp = document.createElement('input');
+      inp.dataset.arg = name;
+      inp.dataset.type = type;
+      inp.placeholder = (schema && schema.description) ? schema.description : '';
+      if (type === 'integer' || type === 'number') inp.type = 'number';
+      wrap.append(label, inp);
+      return wrap;
+    }
+
+    function collectArgs(formEl) {
+      const args = {};
+      formEl.querySelectorAll('input[data-arg]').forEach(inp => {
+        let v = inp.value;
+        if (v === '') return;
+        if (inp.dataset.type === 'integer') v = parseInt(v, 10);
+        else if (inp.dataset.type === 'number') v = parseFloat(v);
+        else if (inp.dataset.type === 'boolean') v = /^(true|1|yes)$/i.test(v);
+        args[inp.dataset.arg] = v;
+      });
+      return args;
+    }
+
+    async function loadTools() {
+      const box = $('tools');
+      try {
+        const r = await rpc('tools/list', {});
+        setStatus('ok');
+        const tools = r.tools || [];
+        $('toolCount').textContent = tools.length;
+        box.innerHTML = '';
+        tools.forEach(tool => {
+          const item = document.createElement('div'); item.className = 'item';
+          const head = document.createElement('div'); head.className = 'head';
+          head.innerHTML = '<span class="name">' + tool.name + '</span><span class="desc">' + (tool.description || '') + '</span>';
+          const form = document.createElement('div'); form.className = 'form';
+          const props = (tool.inputSchema && tool.inputSchema.properties) || {};
+          const req = (tool.inputSchema && tool.inputSchema.required) || [];
+          Object.keys(props).forEach(p => form.append(inputFor(p, props[p], req.includes(p))));
+          const btn = document.createElement('button'); btn.className = 'primary'; btn.textContent = 'Call';
+          const out = document.createElement('pre'); out.textContent = '—';
+          btn.onclick = async () => {
+            out.textContent = '…';
+            try {
+              const res = await rpc('tools/call', { name: tool.name, arguments: collectArgs(form) });
+              const text = (res.content || []).filter(c => c.type === 'text').map(c => c.text).join('\n');
+              out.textContent = res.isError ? '⚠️ ' + (text || JSON.stringify(res, null, 2)) : (text || JSON.stringify(res, null, 2));
+            } catch (e) { out.textContent = '❌ ' + e.message; }
+          };
+          form.append(btn, out);
+          head.onclick = () => item.classList.toggle('open');
+          item.append(head, form);
+          box.append(item);
+        });
+        if (!tools.length) box.innerHTML = '<p class="muted">No tools advertised.</p>';
+      } catch (e) {
+        setStatus('err');
+        box.innerHTML = '<p class="muted">Failed: ' + e.message + '</p>';
+      }
+    }
+
+    async function readResource(uri, out) {
+      out.textContent = '…';
+      try {
+        const res = await rpc('resources/read', { uri });
+        const text = (res.contents || []).map(c => c.text != null ? c.text : JSON.stringify(c)).join('\n');
+        out.textContent = text || JSON.stringify(res, null, 2);
+      } catch (e) { out.textContent = '❌ ' + e.message; }
+    }
+
+    async function loadResources() {
+      const box = $('resources');
+      try {
+        const [list, tpl] = await Promise.all([
+          rpc('resources/list', {}).catch(() => ({ resources: [] })),
+          rpc('resources/templates/list', {}).catch(() => ({ resourceTemplates: [] }))
+        ]);
+        setStatus('ok');
+        const resources = list.resources || [];
+        const templates = tpl.resourceTemplates || [];
+        $('resCount').textContent = resources.length + templates.length;
+        box.innerHTML = '';
+
+        resources.forEach(r => {
+          const item = document.createElement('div'); item.className = 'item';
+          const head = document.createElement('div'); head.className = 'head';
+          head.innerHTML = '<span class="name">' + r.uri + '</span><span class="desc">' + (r.name || '') + '</span>';
+          const form = document.createElement('div'); form.className = 'form';
+          const btn = document.createElement('button'); btn.className = 'primary'; btn.textContent = 'Read';
+          const out = document.createElement('pre'); out.textContent = '—';
+          btn.onclick = () => readResource(r.uri, out);
+          form.append(btn, out);
+          head.onclick = () => item.classList.toggle('open');
+          item.append(head, form); box.append(item);
+        });
+
+        templates.forEach(t => {
+          const item = document.createElement('div'); item.className = 'item';
+          const head = document.createElement('div'); head.className = 'head';
+          head.innerHTML = '<span class="name">' + t.uriTemplate + '</span><span class="desc tag">template</span>';
+          const form = document.createElement('div'); form.className = 'form';
+          const field = document.createElement('div'); field.className = 'field';
+          const label = document.createElement('label'); label.textContent = 'concrete uri';
+          const inp = document.createElement('input');
+          inp.value = t.uriTemplate.replace(/\{[^}]+\}/g, '');
+          field.append(label, inp);
+          const btn = document.createElement('button'); btn.className = 'primary'; btn.textContent = 'Read';
+          const out = document.createElement('pre'); out.textContent = '—';
+          btn.onclick = () => readResource(inp.value.trim(), out);
+          form.append(field, btn, out);
+          head.onclick = () => item.classList.toggle('open');
+          item.append(head, form); box.append(item);
+        });
+
+        if (!resources.length && !templates.length) box.innerHTML = '<p class="muted">No resources advertised.</p>';
+      } catch (e) {
+        setStatus('err');
+        box.innerHTML = '<p class="muted">Failed: ' + e.message + '</p>';
+      }
+    }
+
+    async function sendRaw() {
+      const out = $('rawOut'); out.textContent = '…';
+      let params;
+      try { params = JSON.parse($('rawParams').value || '{}'); }
+      catch (e) { out.textContent = 'Invalid params JSON: ' + e.message; return; }
+      try {
+        const r = await rpc($('rawMethod').value.trim(), params);
+        setStatus('ok');
+        out.textContent = JSON.stringify(r, null, 2);
+      } catch (e) {
+        setStatus('err');
+        out.textContent = '❌ ' + e.message + (e.data ? '\n\n' + JSON.stringify(e.data, null, 2) : '');
+      }
+    }
+
+    $('btnConnect').onclick = connect;
+    // Auto-connect on load for convenience.
+    connect();
+  </script>
+</body>
+</html>

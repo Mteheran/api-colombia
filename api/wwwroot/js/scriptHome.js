@@ -9,6 +9,7 @@ const selectTheme = document.getElementById("select-theme");
 const mododod = document.getElementById("modoWeb2")
 const btnSwagger = document.getElementById("btnSwagger");
 const btnVitePress = document.getElementById("btnVitePress");
+const btnMcp = document.getElementById("btnMcp");
 
 if (btnSwagger) {
     btnSwagger.addEventListener("click", () => {
@@ -19,6 +20,14 @@ if (btnSwagger) {
 if (btnVitePress) {
     btnVitePress.addEventListener("click", () => {
         window.open("https://docs.api-colombia.com/", '_blank');
+    });
+}
+
+if (btnMcp) {
+    // Relative URL so it targets the current origin (localhost during development,
+    // api-colombia.com in production). Serves wwwroot/mcp-inspector.html via the /mcp route.
+    btnMcp.addEventListener("click", () => {
+        window.open("/mcp", '_blank');
     });
 }
 

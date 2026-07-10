@@ -20,7 +20,7 @@ namespace api.Routes
             // Group and tags usage
             IEndpointRouteBuilder group = app
                 .MapGroup(API_AIRPORT_COMPLETE)
-                .WithTags(API_AIRPORT_TAG);
+                .WithTags(API_AIRPORT_TAG).CacheOutput();
             
             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

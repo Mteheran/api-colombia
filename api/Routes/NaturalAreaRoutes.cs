@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_NATURALAREA_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.NATURAL_AREA}";
             const string API_NATURALAREA_TAG = "NaturalArea";
-            IEndpointRouteBuilder group = app.MapGroup(API_NATURALAREA_ROUTE_COMPLETE).WithTags(API_NATURALAREA_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_NATURALAREA_ROUTE_COMPLETE).WithTags(API_NATURALAREA_TAG).CacheOutput();
 
             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

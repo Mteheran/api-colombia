@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_HERITAGE_CITY_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.HERITAGE_CITY_ROUTE}";
             const string API_HERITAGE_CITY_TAG = "HeritageCity";
-            IEndpointRouteBuilder group = app.MapGroup(API_HERITAGE_CITY_COMPLETE).WithTags(API_HERITAGE_CITY_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_HERITAGE_CITY_COMPLETE).WithTags(API_HERITAGE_CITY_TAG).CacheOutput();
 
             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

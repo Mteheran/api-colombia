@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_INVASIVE_SPECIE_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.INVASIVE_SPECIE_ROUTE}";
             const string API_INVASIVE_SPECIE_TAG = "InvasiveSpecie";
-            IEndpointRouteBuilder group = app.MapGroup(API_INVASIVE_SPECIE_ROUTE_COMPLETE).WithTags(API_INVASIVE_SPECIE_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_INVASIVE_SPECIE_ROUTE_COMPLETE).WithTags(API_INVASIVE_SPECIE_TAG).CacheOutput();
 
             group.MapGet(string.Empty, (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

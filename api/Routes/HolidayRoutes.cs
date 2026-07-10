@@ -13,7 +13,7 @@ namespace api.Routes
         {
             const string API_HOLIDAY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.HOLIDAY_ROUTE}";
             const string API_HOLIDAY_TAG = "Holiday";
-            IEndpointRouteBuilder group = app.MapGroup(API_HOLIDAY_ROUTE_COMPLETE).WithTags(API_HOLIDAY_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_HOLIDAY_ROUTE_COMPLETE).WithTags(API_HOLIDAY_TAG).CacheOutput();
 
             group.MapGet("/year/{year}", async (int year,[FromQuery] bool? includeSunday, DBContext db) =>
             { 

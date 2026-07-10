@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_INDIGENOUS_RESERVATION_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.INDIGENOUS_RESERVATION_ROUTE}";
             const string API_INDIGENOUS_RESERVATION_TAG = "IndigenousReservation";
-            IEndpointRouteBuilder group = app.MapGroup(API_INDIGENOUS_RESERVATION_COMPLETE).WithTags(API_INDIGENOUS_RESERVATION_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_INDIGENOUS_RESERVATION_COMPLETE).WithTags(API_INDIGENOUS_RESERVATION_TAG).CacheOutput();
 
             group.MapGet(string.Empty, (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

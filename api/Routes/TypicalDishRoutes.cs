@@ -15,7 +15,7 @@ namespace api.Routes
         {
              const string API_TYPICAL_DISH_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.TYPICAL_DISH_ROUTE}";
              const string API_TYPICAL_DISH_TAG = "TypicalDish";
-             IEndpointRouteBuilder group = app.MapGroup(API_TYPICAL_DISH_ROUTE_COMPLETE).WithTags(API_TYPICAL_DISH_TAG);
+             IEndpointRouteBuilder group = app.MapGroup(API_TYPICAL_DISH_ROUTE_COMPLETE).WithTags(API_TYPICAL_DISH_TAG).CacheOutput();
 
              group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

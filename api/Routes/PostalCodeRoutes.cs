@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_POSTAL_CODE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.POSTAL_CODE_ROUTE}";
             const string API_POSTAL_CODE_TAG = "PostalCode";
-            IEndpointRouteBuilder group = app.MapGroup(API_POSTAL_CODE_COMPLETE).WithTags(API_POSTAL_CODE_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_POSTAL_CODE_COMPLETE).WithTags(API_POSTAL_CODE_TAG).CacheOutput();
 
             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

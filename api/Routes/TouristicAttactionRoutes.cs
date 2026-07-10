@@ -15,7 +15,7 @@ namespace api.Routes
         {
             const string API_TOURISTIC_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.TOURISTIC_ROUTE}";
             const string API_TOURISTIC_TAG = "TouristicAttraction";
-            IEndpointRouteBuilder group = app.MapGroup(API_TOURISTIC_ROUTE_COMPLETE).WithTags(API_TOURISTIC_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_TOURISTIC_ROUTE_COMPLETE).WithTags(API_TOURISTIC_TAG).CacheOutput();
 
             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

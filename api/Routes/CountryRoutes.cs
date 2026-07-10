@@ -10,7 +10,7 @@ namespace api.Routes
         {
             const string API_COUNTRY_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.COUNTRY_ROUTE}";
             const string API_COUNTRY_TAG = "Country";
-            IEndpointRouteBuilder group = app.MapGroup(API_COUNTRY_ROUTE_COMPLETE).WithTags(API_COUNTRY_TAG);
+            IEndpointRouteBuilder group = app.MapGroup(API_COUNTRY_ROUTE_COMPLETE).WithTags(API_COUNTRY_TAG).CacheOutput();
 
             group.MapGet($"/{Util.COLOMBIA}", (DBContext db) =>
             {

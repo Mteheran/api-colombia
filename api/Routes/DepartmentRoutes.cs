@@ -15,7 +15,10 @@ namespace api.Routes
         {
             const string API_DEPARTMENT_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.DEPARTMENT_ROUTE}";
             const string API_DEPARTMENT_TAG = "Department";
-            IEndpointRouteBuilder group = app.MapGroup(API_DEPARTMENT_ROUTE_COMPLETE).WithTags(API_DEPARTMENT_TAG).CacheOutput();
+            IEndpointRouteBuilder group = app.MapGroup(API_DEPARTMENT_ROUTE_COMPLETE)
+                .WithTags(API_DEPARTMENT_TAG)
+                .CacheOutput()
+                .RequireRateLimiting(Util.PublicRateLimitPolicy);
 
             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

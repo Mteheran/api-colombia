@@ -1,4 +1,6 @@
+using System.Globalization;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 using api;
 using api.Routes;
 using Microsoft.AspNetCore.Http.Json;
@@ -8,6 +10,7 @@ using System.Net;
 using System.IO.Compression;
 using api.Const;
 using api.Mcp;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi;
@@ -55,6 +58,50 @@ builder.Services.AddOutputCache(static options =>
                // Vary the cache by every query string value so ?sortBy=, ?page=,
                // ?pageSize= etc. produce distinct cache entries.
                .SetVaryByQuery("*"));
+});
+
+// Shared per-IP rate limiting for the public resource groups that opt in via
+// Util.PublicRateLimitPolicy (Holiday, City, Department, ...). Responses are
+// cached aggressively, so a client that respects the cache never approaches the
+// limit; only per-second bursts are cut. All opted-in groups share one per-IP budget.
+builder.Services.AddRateLimiter(static options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.AddPolicy(Util.PublicRateLimitPolicy, static httpContext =>
+    {
+        // Partition by client IP. If the API runs behind a reverse proxy
+        // (Azure App Service, Cloudflare) consider partitioning by the first
+        // X-Forwarded-For value instead, since RemoteIpAddress may be the proxy.
+        var partitionKey = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+        return RateLimitPartition.GetSlidingWindowLimiter(partitionKey, static _ =>
+            new SlidingWindowRateLimiterOptions
+            {
+                PermitLimit = 60,
+                Window = TimeSpan.FromMinutes(1),
+                SegmentsPerWindow = 6,   // 10-second segments → gradual expiry
+                QueueLimit = 0,
+                AutoReplenishment = true
+            });
+    });
+
+    options.OnRejected = static async (context, ct) =>
+    {
+        // Always advertise Retry-After. The sliding window limiter doesn't attach
+        // RetryAfter metadata, so fall back to the segment length (Window /
+        // SegmentsPerWindow = 10s) — the point at which the oldest segment frees a permit.
+        var retrySeconds = context.Lease.TryGetMetadata(MetadataName.RetryAfter, out var retryAfter)
+            ? (int)retryAfter.TotalSeconds
+            : 10;
+
+        context.HttpContext.Response.Headers.RetryAfter =
+            retrySeconds.ToString(CultureInfo.InvariantCulture);
+
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        await context.HttpContext.Response.WriteAsJsonAsync(
+            new { message = "Rate limit exceeded. Please retry later." }, ct);
+    };
 });
 
 builder.Services.AddCors(static options =>
@@ -150,6 +197,9 @@ app.UseStaticFiles(new StaticFileOptions
     }
 });
 app.UseCors(Util.CorsPolicyName);
+// Placed before UseOutputCache so every request (including cache hits) counts
+// against the limit — bursts consume egress bandwidth even when served from cache.
+app.UseRateLimiter();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseOutputCache();

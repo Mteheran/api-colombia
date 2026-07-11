@@ -5,6 +5,10 @@
         // Shared names and routes
         public const string CorsPolicyName = "corsApiColombia";
 
+        // Shared per-IP rate limiting policy. Applied to several public resource
+        // groups (Holiday, City, Department, ...); they share a single per-IP budget.
+        public const string PublicRateLimitPolicy = "publicRateLimit";
+
         public const string CITY_ROUTE = "City";
         public const string COUNTRY_ROUTE = "Country";
         public const string DEPARTMENT_ROUTE = "Department";

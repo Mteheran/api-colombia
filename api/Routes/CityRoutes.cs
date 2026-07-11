@@ -20,7 +20,8 @@ namespace api.Routes
             IEndpointRouteBuilder group = app
                 .MapGroup(API_CITY_ROUTE_COMPLETE)
                 .WithTags(API_CITY_TAG)
-                .CacheOutput();
+                .CacheOutput()
+                .RequireRateLimiting(Util.PublicRateLimitPolicy);
             
             group.MapGet(string.Empty, async (DBContext db,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,

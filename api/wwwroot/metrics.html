@@ -73,6 +73,11 @@
     .bar-value { fill: var(--text); font-size: 10px; font-family: var(--mono); }
 
     .empty { color: var(--muted); font-size: 13px; padding: 8px 2px; }
+    .note { margin-bottom: 20px; padding: 12px 16px; border-radius: 10px;
+      background: rgba(88,166,255,.10); border: 1px solid var(--blue); color: var(--text); font-size: 13px; }
+    .note strong { color: var(--blue); }
+    .note code { font-family: var(--mono); background: rgba(255,255,255,.06); padding: 1px 5px; border-radius: 5px; }
+    .note a { color: var(--accent2); }
     #banner { display: none; margin: 0 24px 16px; padding: 10px 14px; border-radius: 8px;
       background: rgba(242,109,109,.12); border: 1px solid var(--danger); color: var(--danger); font-size: 13px; }
     footer { text-align: center; color: var(--muted); font-size: 12px; padding: 20px; }
@@ -96,6 +101,14 @@
   <div id="banner"></div>
 
   <main>
+    <div class="note">
+      <strong>⚡ Rate limiting:</strong> to keep the service stable under high demand, the busiest
+      endpoints (<code>Holiday</code>, <code>City</code>, <code>Department</code>) are limited to
+      <strong>60 requests per minute per IP</strong>. Exceeding it returns <code>429</code> with a
+      <code>Retry-After</code> header. Since this data changes rarely, please cache responses on your side.
+      <a href="https://docs.api-colombia.com/rate-limiting" target="_blank" rel="noopener">Learn more →</a>
+    </div>
+
     <section class="stats" id="stats"></section>
 
     <div class="grid">

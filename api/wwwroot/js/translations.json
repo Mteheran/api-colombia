@@ -1,7 +1,7 @@
 {
   "es": {
     "title": "Explora Colombia con API-Colombia",
-    "explore": "Explora", 
+    "explore": "Explora",
     "with": "con",
     "subtitle": "Un proyecto Open-source que ofrece acceso a datos sobre su diversidad, todo a tu alcance.",
     "menu": "Menú",
@@ -51,11 +51,13 @@
     "sponsorsDescription1": "Gracias al apoyo de nuestros patrocinadores, API-Colombia se mantiene activa y gratuita, con más de",
     "sponsorsDescription2": "solicitudes mensuales.",
     "sponsorsDescription3": "Creemos en la colaboración abierta. Si deseas apoyar este proyecto, puedes convertirte en patrocinador también.",
-    "askAI": "Pregunta a la IA"
+    "askAI": "Pregunta a la IA",
+    "rateLimitNote": "⚡ Para mantener el servicio estable ante la alta demanda, algunos endpoints tienen un límite de 60 solicitudes por minuto por IP. Como estos datos cambian poco, te recomendamos guardarlos en caché en tu aplicación.",
+    "rateLimitLink": "Más información"
   },
   "en": {
     "title": "Explore Colombia with API-Colombia",
-    "explore": "Explore", 
+    "explore": "Explore",
     "with": "with",
     "subtitle": "An open-source project that provides access to data about its diversity, all at your fingertips.",
     "menu": "Menu",
@@ -105,11 +107,13 @@
     "sponsorsDescription1": "Thanks to the support of our sponsors, API-Colombia remains active and free, with over",
     "sponsorsDescription2": "monthly requests.",
     "sponsorsDescription3": "We believe in open collaboration. If you want to support this project, you can become a sponsor too.",
-    "askAI": "Ask AI"
+    "askAI": "Ask AI",
+    "rateLimitNote": "⚡ To keep the service stable under high demand, some endpoints are limited to 60 requests per minute per IP. Since this data rarely changes, we recommend caching it in your application.",
+    "rateLimitLink": "Learn more"
   },
   "pt": {
     "title": "Explore a Colômbia com API-Colombia",
-    "explore": "Explore", 
+    "explore": "Explore",
     "with": "com",
     "subtitle": "Um projeto open-source que oferece acesso a dados sobre sua diversidade, tudo ao seu alcance.",
     "menu": "Menu",
@@ -159,6 +163,8 @@
     "sponsorsDescription1": "Graças ao apoio de nossos patrocinadores, a API-Colombia permanece ativa e gratuita, com mais de",
     "sponsorsDescription2": "solicitações mensais.",
     "sponsorsDescription3": "Acreditamos na colaboração aberta. Se você deseja apoiar este projeto, pode se tornar um patrocinador também.",
-    "askAI": "Pergunte à IA"
+    "askAI": "Pergunte à IA",
+    "rateLimitNote": "⚡ Para manter o serviço estável sob alta demanda, alguns endpoints têm um limite de 60 solicitações por minuto por IP. Como esses dados mudam pouco, recomendamos armazená-los em cache no seu aplicativo.",
+    "rateLimitLink": "Saiba mais"
   }
 }

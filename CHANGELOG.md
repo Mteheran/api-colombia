@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.2.0] - 2026-07-11
+
+### Added
+
+- **Per-IP rate limiting** on the highest-traffic public endpoints (**Holiday, City, Department**) to keep the service stable under heavy demand (2M+ requests/month). A shared sliding-window policy allows **60 requests per minute per IP**; requests over the limit receive **HTTP 429 Too Many Requests** with a `Retry-After` header.
+    - The three groups share a single per-IP budget through one named policy (`Util.PublicRateLimitPolicy`).
+    - `UseRateLimiter` runs before the output cache, so bursts are throttled even when a response could be served from cache — protecting outbound (egress) bandwidth.
+    - Consumer tip: most of this data changes rarely, so **cache responses on the client side** (or honor the API's 7-day cache) instead of requesting them on every call.
+    - Integration tests cover both the Holiday limit and the shared budget across the three resources.
+
+[1.2.0]: https://github.com/Mteheran/api-colombia/releases/tag/v1.2.0
+
 ## [1.1.0] - 2026-07-09
 
 ### Added

@@ -14,6 +14,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'API Reference', link: '/' },
+      { text: 'Rate Limiting', link: '/rate-limiting' },
       { text: 'MCP Server', link: '/mcp' },
       { text: 'GitHub', link: 'https://github.com/Mteheran/api-colombia' }
     ],
@@ -21,6 +22,10 @@ export default defineConfig({
       {
         text: 'Introduction',
         link: '/',
+      },
+      {
+        text: 'Rate Limiting',
+        link: '/rate-limiting',
       },
       {
         text: 'MCP Server',

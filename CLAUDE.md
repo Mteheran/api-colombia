@@ -30,7 +30,7 @@ api-colombia/
 │   ├── Migrations/       # EF Core migrations + seed .sql data files
 │   ├── Utils/            # shared helpers (routing consts, sorting, search, pagination)
 │   ├── Const/Version.cs  # API version string shown in Swagger
-│   └── wwwroot/          # static landing page
+│   └── wwwroot/          # static front-end: landing page, metrics & MCP dashboards, i18n
 ├── api.Tests/            # integration + unit tests
 └── docs/                 # VitePress documentation site (Node.js)
 ```
@@ -58,6 +58,43 @@ api-colombia/
 - `Messages.EndpointMetadata` — **all Swagger summary/description strings live here** as `const`s, referenced via `SwaggerOperationAttribute`. Add new endpoint docs here, not inline.
 
 **Data access.** `DBContext` uses `QueryTrackingBehavior.NoTracking` (read-only workload). Use `.Include(...)` for navigation properties when the endpoint should return related data. Entity mapping lives in `Data/Configs/<Entity>Config.cs` (applied in `DBContext.OnModelCreating`).
+
+## Front-end (`wwwroot/`)
+
+Plain static HTML/CSS/JS (no build step) served by ASP.NET Core static files. Key pages:
+
+- `index.html` — public landing page. Served at `/` via `UseDefaultFiles()`.
+- `metrics.html` — public metrics dashboard. Routed at `/metrics` (explicit `MapGet` in `Program.cs`), reads `/api/v1/metrics`.
+- `mcp-inspector.html` — browser MCP tester. Routed at `/mcp` (explicit `MapGet` in `Program.cs`).
+
+**Theming (light/dark).** All three pages support a light and a dark theme built on the same **Colombia-flag palette**; light is the default and a `dark` class on `<body>` switches to dark.
+
+- **Landing page (`index.html`).** Ships `<body class="light">`; the theme toggle (`js/modal.js` `toggleColor`/`toggleColor2`) toggles the `dark` class. Theme rules live in `css/style.css` under `.dark ...` selectors. This page does **not** persist the choice.
+- **Dashboards (`metrics.html`, `mcp-inspector.html`).** Self-contained pages that mirror the landing page with **CSS custom properties**: the light palette is declared on `:root` (the default) and overridden under `body.dark`. Each has a 🌙/☀️ toggle button in its header whose script: (1) reads the saved choice from `localStorage` — key `metrics-theme` / `mcp-theme` respectively — falling back to the OS `prefers-color-scheme`; (2) toggles `body.dark`; (3) persists the new choice. `body` has a `transition` on `background-color`/`color` for a smooth switch.
+
+**Shared dashboard palette** (CSS variables — light value / dark value). Reuse these exact tokens for any new dashboard-style page so the three pages stay visually consistent:
+
+| Variable        | Light (`:root`) | Dark (`body.dark`) | Role |
+|-----------------|-----------------|--------------------|------|
+| `--bg`          | `#fdfdfd`       | `#22292a`          | page background |
+| `--panel`       | `#ffffff`       | `#2b3335`          | card background |
+| `--panel2`      | `#f1f3f4`       | `#323c3e`          | inset / input background |
+| `--border`      | `#e6e9ea`       | `#3c4749`          | borders / dividers |
+| `--text`        | `#22292a`       | `#fdfdfd`          | primary text |
+| `--muted`       | `#565656`       | `#a7b0b1`          | secondary / labels |
+| `--accent`      | `#b07d00`       | `#ffcd00`          | brand yellow (values, links, primary btn); darkened in light for contrast |
+| `--accent2`     | `#2f7d63`       | `#43aa8b`          | green (success / links) |
+| `--danger`      | `#c8102e`       | `#f26d6d`          | flag red (errors) |
+| `--blue`        | `#003087`       | `#58a6ff`          | flag blue (info) — metrics only |
+| `--header-grad` | `linear-gradient(90deg,#ffffff,#f1f3f4)` | `linear-gradient(90deg,#262e2f,#1e2526)` | header background |
+
+Metrics-only helpers: `--code-bg` (`rgba(0,0,0,.05)` / `rgba(255,255,255,.08)`). MCP-only helpers: `--pre-bg` (`#f6f8fa` / `#1b2122`) for code blocks and `--on-accent` (`#22292a` / `#1a1200`) for text on the accent-colored primary button. The reference light/dark backgrounds and text (`#fdfdfd`/`#22292a`) and flag accents (yellow `#ffcd00`/`#ffbd07`, blue `#003087`, red `#c8102e`) match `index.html`.
+
+**Internationalization (i18n).** The landing page supports **Spanish (`es`, default), English (`en`), and Portuguese (`pt`)**.
+- All translatable UI strings live in `js/translations.json`, keyed as `{ "<lang>": { "<key>": "<text>" } }`. **Every key must exist in all three language blocks.**
+- In markup, tag an element with `data-i18n-key="<key>"`; `js/i18n.js` replaces its `textContent` with the string for the active language on load and on language change.
+- Language is chosen from `localStorage` (`language`) → browser language → `es` fallback, and switched via the header/mobile language selectors.
+- **When adding or changing any user-facing text on the landing page, add the `data-i18n-key` and provide translations for `es`, `en`, and `pt`** — don't hardcode a single language. (The dashboards `metrics.html`/`mcp-inspector.html` are English-only and not wired to the i18n system — only their theming is shared with the landing page.)
 
 ## Build / run / test
 

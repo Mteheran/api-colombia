@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.3.0] - 2026-07-20
+
+### Added
+
+- **Light & dark theme for the dashboards.** The metrics dashboard (`/metrics`) and the MCP Inspector (`/mcp`) now support both a light and a dark theme, matching the landing page's Colombia-flag palette. A 🌙/☀️ toggle in each header switches theme, remembers your choice (`localStorage`), and honors your operating-system preference on first visit.
+- **"Metrics" navigation link** on the landing page (desktop and mobile menus), opening the metrics dashboard. Translated for Spanish, English, and Portuguese.
+- **Copy-URL button** on the MCP Inspector: a one-click icon (with tooltip) that copies the full MCP server URL (e.g. `https://api-colombia.com/api/v1/mcp`) to the clipboard for pasting into an MCP client.
+
+### Changed
+
+- The metrics and MCP dashboards now default to a light theme (previously dark-only), consistent with the landing page.
+
+[1.3.0]: https://github.com/Mteheran/api-colombia/releases/tag/v1.3.0
+
 ## [1.2.0] - 2026-07-11
 
 ### Added

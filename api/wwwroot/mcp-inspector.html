@@ -6,20 +6,33 @@
   <title>API Colombia — MCP Inspector</title>
   <style>
     :root {
-      --bg: #0e1116; --panel: #161b22; --panel2: #1c232d; --border: #2a323d;
-      --text: #e6edf3; --muted: #8b949e; --accent: #f9c74f; --accent2: #43aa8b;
-      --danger: #f26d6d; --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      /* Light theme (default) — mirrors index.html's Colombia-flag palette */
+      --bg: #fdfdfd; --panel: #ffffff; --panel2: #f1f3f4; --border: #e6e9ea;
+      --text: #22292a; --muted: #565656; --accent: #b07d00; --accent2: #2f7d63;
+      --danger: #c8102e;
+      --header-grad: linear-gradient(90deg, #ffffff, #f1f3f4);
+      --pre-bg: #f6f8fa; --on-accent: #22292a;
+      --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+    body.dark {
+      /* Dark theme — mirrors index.html's .dark palette */
+      --bg: #22292a; --panel: #2b3335; --panel2: #323c3e; --border: #3c4749;
+      --text: #fdfdfd; --muted: #a7b0b1; --accent: #ffcd00; --accent2: #43aa8b;
+      --danger: #f26d6d;
+      --header-grad: linear-gradient(90deg, #262e2f, #1e2526);
+      --pre-bg: #1b2122; --on-accent: #1a1200;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0; background: var(--bg); color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       line-height: 1.5;
+      transition: background-color .25s ease, color .25s ease;
     }
     header {
       padding: 18px 24px; border-bottom: 1px solid var(--border);
       display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-      background: linear-gradient(90deg, #1a1f27, #12161c);
+      background: var(--header-grad);
     }
     header h1 { font-size: 18px; margin: 0; font-weight: 650; }
     header .flag { font-size: 22px; }
@@ -46,8 +59,21 @@
       padding: 7px 12px; border-radius: 7px; cursor: pointer; font-size: 13px; transition: .12s;
     }
     button:hover { border-color: var(--accent); }
-    button.primary { background: var(--accent); color: #1a1200; border-color: var(--accent); font-weight: 600; }
+    button.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 600; }
     button.primary:hover { filter: brightness(1.08); }
+    button.icon-btn { display: inline-flex; align-items: center; justify-content: center; padding: 7px; }
+    button.icon-btn svg { width: 15px; height: 15px; display: block; }
+    button.icon-btn.ok { border-color: var(--accent2); color: var(--accent2); }
+
+    /* Custom tooltip driven by data-tip (shown on hover/focus). */
+    [data-tip] { position: relative; }
+    [data-tip]::after {
+      content: attr(data-tip); position: absolute; top: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%); background: var(--text); color: var(--bg);
+      padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 500;
+      white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .12s; z-index: 20;
+    }
+    [data-tip]:hover::after, [data-tip]:focus-visible::after { opacity: 1; }
     .row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
     .item {
       border: 1px solid var(--border); border-radius: 9px; margin-bottom: 8px; background: var(--panel2);
@@ -67,7 +93,7 @@
       padding: 7px 9px; border-radius: 6px; font-family: var(--mono); font-size: 12px;
     }
     pre {
-      background: #0a0d12; border: 1px solid var(--border); border-radius: 8px; padding: 12px;
+      background: var(--pre-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px;
       overflow: auto; font-family: var(--mono); font-size: 12px; margin: 8px 0 0; max-height: 480px;
       white-space: pre-wrap; word-break: break-word;
     }
@@ -89,7 +115,14 @@
     <div class="conn">
       <span id="dot" class="dot" title="connection status"></span>
       <input id="endpoint" value="/api/v1/mcp" spellcheck="false" />
+      <button id="btnCopy" type="button" class="icon-btn" aria-label="Copy MCP URL" data-tip="Copy MCP URL">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+      </button>
       <button id="btnConnect" class="primary">Connect</button>
+      <button id="themeToggle" type="button" aria-label="Toggle color theme" title="Toggle light / dark theme">🌙</button>
     </div>
   </header>
 
@@ -142,6 +175,27 @@
   </main>
 
   <script>
+    // --- Theme (light default, dark toggle) — mirrors index.html behaviour ---
+    (function () {
+      const KEY = "mcp-theme";
+      const toggle = document.getElementById("themeToggle");
+      const stored = localStorage.getItem(KEY);
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const startDark = stored ? stored === "dark" : prefersDark;
+
+      function apply(dark) {
+        document.body.classList.toggle("dark", dark);
+        toggle.textContent = dark ? "☀️" : "🌙";
+        toggle.setAttribute("aria-pressed", String(dark));
+      }
+      apply(startDark);
+      toggle.addEventListener("click", () => {
+        const dark = !document.body.classList.contains("dark");
+        localStorage.setItem(KEY, dark ? "dark" : "light");
+        apply(dark);
+      });
+    })();
+
     const $ = (id) => document.getElementById(id);
     const endpointEl = $('endpoint');
     let nextId = 1;
@@ -334,6 +388,47 @@
       }
     }
 
+    // Resolve the endpoint (may be relative like "/api/v1/mcp") to an absolute URL to share.
+    function mcpUrl() {
+      try { return new URL(endpointEl.value, window.location.origin).href; }
+      catch { return endpointEl.value; }
+    }
+
+    // Fallback copy for when the async Clipboard API is unavailable or rejects
+    // (non-secure http contexts, missing focus/gesture, permission denied).
+    function execCopy(text) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.append(ta); ta.focus(); ta.select();
+        const ok = document.execCommand('copy');
+        ta.remove();
+        return ok;
+      } catch { return false; }
+    }
+
+    const CHECK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>';
+
+    async function copyUrl() {
+      const btn = $('btnCopy');
+      const url = mcpUrl();
+      copyUrl._icon = copyUrl._icon || btn.innerHTML;   // capture the copy icon once
+      const tip = btn.getAttribute('data-tip');
+      let ok = false;
+      if (navigator.clipboard && window.isSecureContext) {
+        try { await navigator.clipboard.writeText(url); ok = true; }
+        catch { ok = execCopy(url); }
+      } else {
+        ok = execCopy(url);
+      }
+      if (ok) { btn.innerHTML = CHECK_ICON; btn.classList.add('ok'); btn.setAttribute('data-tip', 'Copied!'); }
+      else { btn.setAttribute('data-tip', 'Copy failed'); }
+      setTimeout(() => {
+        btn.innerHTML = copyUrl._icon; btn.classList.remove('ok'); btn.setAttribute('data-tip', tip);
+      }, 1500);
+    }
+
+    $('btnCopy').onclick = copyUrl;
     $('btnConnect').onclick = connect;
     // Auto-connect on load for convenience.
     connect();

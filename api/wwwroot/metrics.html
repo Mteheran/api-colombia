@@ -7,21 +7,33 @@
   <link rel="icon" href="assets/logo-dark.svg" type="image/svg+xml" />
   <style>
     :root {
-      --bg: #0e1116; --panel: #161b22; --panel2: #1c232d; --border: #2a323d;
-      --text: #e6edf3; --muted: #8b949e; --accent: #f9c74f; --accent2: #43aa8b;
-      --danger: #f26d6d; --blue: #58a6ff;
+      /* Light theme (default) — mirrors index.html's Colombia-flag palette */
+      --bg: #fdfdfd; --panel: #ffffff; --panel2: #f1f3f4; --border: #e6e9ea;
+      --text: #22292a; --muted: #565656; --accent: #b07d00; --accent2: #2f7d63;
+      --danger: #c8102e; --blue: #003087;
+      --header-grad: linear-gradient(90deg, #ffffff, #f1f3f4);
+      --code-bg: rgba(0, 0, 0, .05);
       --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+    body.dark {
+      /* Dark theme — mirrors index.html's .dark palette */
+      --bg: #22292a; --panel: #2b3335; --panel2: #323c3e; --border: #3c4749;
+      --text: #fdfdfd; --muted: #a7b0b1; --accent: #ffcd00; --accent2: #43aa8b;
+      --danger: #f26d6d; --blue: #58a6ff;
+      --header-grad: linear-gradient(90deg, #262e2f, #1e2526);
+      --code-bg: rgba(255, 255, 255, .08);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0; background: var(--bg); color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       line-height: 1.5;
+      transition: background-color .25s ease, color .25s ease;
     }
     header {
       padding: 18px 24px; border-bottom: 1px solid var(--border);
       display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-      background: linear-gradient(90deg, #1a1f27, #12161c);
+      background: var(--header-grad);
     }
     header h1 { font-size: 18px; margin: 0; font-weight: 650; }
     header .flag { font-size: 22px; }
@@ -76,7 +88,7 @@
     .note { margin-bottom: 20px; padding: 12px 16px; border-radius: 10px;
       background: rgba(88,166,255,.10); border: 1px solid var(--blue); color: var(--text); font-size: 13px; }
     .note strong { color: var(--blue); }
-    .note code { font-family: var(--mono); background: rgba(255,255,255,.06); padding: 1px 5px; border-radius: 5px; }
+    .note code { font-family: var(--mono); background: var(--code-bg); padding: 1px 5px; border-radius: 5px; }
     .note a { color: var(--accent2); }
     #banner { display: none; margin: 0 24px 16px; padding: 10px 14px; border-radius: 8px;
       background: rgba(242,109,109,.12); border: 1px solid var(--danger); color: var(--danger); font-size: 13px; }
@@ -95,6 +107,7 @@
       <span id="updated">—</span>
       <label><input type="checkbox" id="auto" checked /> Auto-refresh (60s)</label>
       <button id="refresh">Refresh</button>
+      <button id="themeToggle" type="button" aria-label="Toggle color theme" title="Toggle light / dark theme">🌙</button>
     </div>
   </header>
 
@@ -133,6 +146,27 @@
   </footer>
 
   <script>
+    // --- Theme (light default, dark toggle) — mirrors index.html behaviour ---
+    (function () {
+      const KEY = "metrics-theme";
+      const toggle = document.getElementById("themeToggle");
+      const stored = localStorage.getItem(KEY);
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const startDark = stored ? stored === "dark" : prefersDark;
+
+      function apply(dark) {
+        document.body.classList.toggle("dark", dark);
+        toggle.textContent = dark ? "☀️" : "🌙";
+        toggle.setAttribute("aria-pressed", String(dark));
+      }
+      apply(startDark);
+      toggle.addEventListener("click", () => {
+        const dark = !document.body.classList.contains("dark");
+        localStorage.setItem(KEY, dark ? "dark" : "light");
+        apply(dark);
+      });
+    })();
+
     const MONTHS = ["", "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
     function fmtNum(n) { return (n ?? 0).toLocaleString("en-US"); }

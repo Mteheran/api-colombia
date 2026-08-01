@@ -7,8 +7,14 @@ on:
   push:
     branches:
       - main
+    paths:
+      # Only build & deploy to Azure when the API app itself changes
+      # (including its served static front-end under api/wwwroot).
+      # Docs-only, README or CHANGELOG changes should not trigger a deploy.
+      - 'api/**'
+      - '.github/workflows/main_apicolombia.yml'
   workflow_dispatch:
-  
+
 jobs:
   build:
     name: Build and Test

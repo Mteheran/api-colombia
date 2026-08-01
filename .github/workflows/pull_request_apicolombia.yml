@@ -4,8 +4,14 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      # Only build & test when the API or its tests change.
+      # Docs-only, README or CHANGELOG changes should not trigger this workflow.
+      - 'api/**'
+      - 'api.Tests/**'
+      - '.github/workflows/pull_request_apicolombia.yml'
   workflow_dispatch:
-  
+
 jobs:
   build:
     name: Build and Test

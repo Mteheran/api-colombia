@@ -3,6 +3,12 @@
 ## Introducción
 API Colombia es una API pública RESTful que permite a los usuarios obtener una variedad de información pública sobre Colombia.
 
+## Tutoriales en Video
+
+Aprende a usar API-Colombia con videos detallados que te explican la API paso a paso:
+
+▶️ **[Mira la lista de reproducción de API-Colombia en YouTube](https://www.youtube.com/playlist?list=PLZ6CLn2Fl3yY)**
+
 ## Características de soporte del proyecto
 * Minimal API's endpoints para obtener información sobre:
   - Información general sobre el país.

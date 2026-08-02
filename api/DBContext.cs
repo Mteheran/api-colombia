@@ -28,6 +28,7 @@ public class DBContext : DbContext
     public DbSet<PostalCode> PostalCodes { get; set; }
     public DbSet<UrbanCenter> UrbanCenters { get; set; }
     public DbSet<RequestMetricRollup> RequestMetricRollups { get; set; }
+    public DbSet<HigherEducationInstitution> HigherEducationInstitutions { get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {
@@ -59,6 +60,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new PostalCodeConfig());
         builder.ApplyConfiguration(new UrbanCenterConfig());
         builder.ApplyConfiguration(new RequestMetricRollupConfig());
+        builder.ApplyConfiguration(new HigherEducationInstitutionConfig());
 
         base.OnModelCreating(builder);
     }

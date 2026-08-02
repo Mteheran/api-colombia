@@ -695,6 +695,54 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             });
         }
 
+        if (!dbContext.HigherEducationInstitutions.Any())
+        {
+            dbContext.Add(new HigherEducationInstitution
+            {
+                Id = 1,
+                Code = "1101",
+                Name = "Universidad de Antioquia",
+                LegalNature = "Departamental",
+                AcademicCharacter = "Universidad",
+                CityId = city1.Id,
+                City = city1,
+                Address = "Calle 67 No. 53-108",
+                Phone = "6042198332",
+                IsHighQualityAccredited = true,
+                Website = "www.udea.edu.co",
+            });
+
+            dbContext.Add(new HigherEducationInstitution
+            {
+                Id = 2,
+                Code = "1201",
+                Name = "Institución Universitaria Pascual Bravo",
+                LegalNature = "Municipal",
+                AcademicCharacter = "Institución Universitaria/Escuela Tecnológica",
+                CityId = city1.Id,
+                City = city1,
+                Address = "Calle 73 No. 73A-226",
+                Phone = "6044480520",
+                IsHighQualityAccredited = false,
+                Website = "www.pascualbravo.edu.co",
+            });
+
+            dbContext.Add(new HigherEducationInstitution
+            {
+                Id = 3,
+                Code = "1801",
+                Name = "Universidad del Valle",
+                LegalNature = "Departamental",
+                AcademicCharacter = "Universidad",
+                CityId = city2.Id,
+                City = city2,
+                Address = "Ciudad Universitaria Meléndez Calle 13 No. 100-00",
+                Phone = "6023212100",
+                IsHighQualityAccredited = true,
+                Website = "www.univalle.edu.co",
+            });
+        }
+
         dbContext.SaveChanges();
     }
 

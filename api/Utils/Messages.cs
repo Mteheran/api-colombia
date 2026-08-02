@@ -344,6 +344,22 @@
                 public const string MESSAGE_URBAN_CENTER_PAGEDLIST_SUMMARY = "List of urban centers using pagination";
                 public const string MESSAGE_URBAN_CENTER_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of urban centers using pagination including page, pagesize, total records and data, example api/v1/urbancenter/pagedList?page=1&pagesize=10";
             }
+
+            public struct HigherEducationInstitutionEndpoint
+            {
+                public const string MESSAGE_HEI_LIST_SUMMARY = "List of higher education institutions in Colombia";
+                public const string MESSAGE_HEI_LIST_DESCRIPTION = "This endpoint returns higher education institutions (IES) in Colombia including code, name, legal nature, academic character, city, address, phone, high quality accreditation and website.";
+                public const string MESSAGE_HEI_BYID_SUMMARY = "Higher education institution information by Id";
+                public const string MESSAGE_HEI_BYID_DESCRIPTION = "This endpoint returns the higher education institution information with the provided id";
+                public const string MESSAGE_HEI_BYNAME_SUMMARY = "Higher education institution information by name";
+                public const string MESSAGE_HEI_BYNAME_DESCRIPTION = "This endpoint returns a list of higher education institutions with the provided name";
+                public const string MESSAGE_HEI_SEARCH_SUMMARY = "Search higher education institutions by keyword";
+                public const string MESSAGE_HEI_SEARCH_DESCRIPTION = "This endpoint returns a list of higher education institutions where fields like code, name, legal nature and academic character match the provided keyword";
+                public const string MESSAGE_HEI_PAGEDLIST_SUMMARY = "List of higher education institutions using pagination";
+                public const string MESSAGE_HEI_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of higher education institutions using pagination including page, pagesize, total records and data, example api/v1/highereducationinstitution/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_HEI_BYCITY_SUMMARY = "Higher education institutions by city id";
+                public const string MESSAGE_HEI_BYCITY_DESCRIPTION = "This endpoint returns a list of higher education institutions located in the city with the provided id";
+            }
         }
     }
 }

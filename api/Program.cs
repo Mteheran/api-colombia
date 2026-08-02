@@ -162,6 +162,7 @@ IntangibleHeritageRoutes.RegisterIntangibleHeritageAPI(app);
 HeritageCityRoutes.RegisterHeritageCityAPI(app);
 PostalCodeRoutes.RegisterPostalCodeAPI(app);
 UrbanCenterRoutes.RegisterUrbanCenterAPI(app);
+HigherEducationInstitutionRoutes.RegisterHigherEducationInstitutionAPI(app);
 
 // Record request analytics as the outermost middleware so its counting stream
 // wraps the compressed output and measures the actual bytes leaving the server.

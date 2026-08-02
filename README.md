@@ -40,6 +40,7 @@ Learn how to use API-Colombia with detailed videos that walk you through the API
   - Constitution articles.
   - Maps.
   - Urban Centers (Municipal Heads and Populated Centers).
+  - Higher Education Institutions (IES).
 * Swagger documentation 
 * MCP (Model Context Protocol) server for AI agents — see [MCP Server](#mcp-server) below.
 * Does not require authentication.

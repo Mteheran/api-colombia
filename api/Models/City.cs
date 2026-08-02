@@ -16,6 +16,7 @@
         public virtual ICollection<Airport> Airports { get; set; }
         public virtual ICollection<Radio> Radios { get; set; }
         public virtual ICollection<UrbanCenter> UrbanCenters { get; set; }
+        public virtual ICollection<HigherEducationInstitution> HigherEducationInstitutions { get; set; }
 
     }
 }

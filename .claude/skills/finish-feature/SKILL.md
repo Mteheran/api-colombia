@@ -61,6 +61,7 @@ If the change affects public behavior, update the relevant docs. Skip for intern
 - **Swagger metadata**: endpoint summaries/descriptions live in `api/Utils/Messages.cs` under `EndpointMetadata` — update there, not inline.
 - **README.md and README_es.md**: update **both** (English + Spanish) if the change alters something documented there (feature list, usage, limits). Keep them in sync.
 - **Landing / dashboard** (`api/wwwroot/index.html`, `metrics.html`): update if the change is worth surfacing to visitors. `index.html` uses i18n — add keys to `api/wwwroot/js/translations.json` for **es/en/pt**, not hardcoded text.
+- **Interactive demo dropdown** (`api/wwwroot/index.html`): when you add a **new resource/endpoint**, add a matching `<option>` to the `<select id="selectData">` so the "Try the API" demo can call it. The `value` must equal the route segment (e.g. `HigherEducationInstitution`) because `js/moduleApi.js` builds the URL as `.../api/v1/<value>`. Endpoints needing special handling (like `Holiday/year/{year}` or `Country/Colombia`) also need a branch in `moduleApi.js`.
 
 ## 6. Wrap up
 

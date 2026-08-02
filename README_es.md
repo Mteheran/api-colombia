@@ -27,6 +27,8 @@ Aprende a usar API-Colombia con videos detallados que te explican la API paso a 
   - Especies invasoras.
   - Artículos de la constitución.
   - Mapas.
+  - Centros urbanos (cabeceras municipales y centros poblados).
+  - Instituciones de Educación Superior (IES).
 * Documentación Swagger.
 * Servidor MCP (Model Context Protocol) para agentes de IA — ver [Servidor MCP](#servidor-mcp) abajo.
 * No requiere autenticación.

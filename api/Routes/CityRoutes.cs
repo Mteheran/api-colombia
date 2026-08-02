@@ -133,6 +133,32 @@ namespace api.Routes
                summary: CityEndpointMetadataMessages.MESSAGE_CITY_PAGEDLIST_SUMMARY,
                 description: CityEndpointMetadataMessages.MESSAGE_CITY_PAGEDLIST_DESCRIPTION
                 ));
+
+            group.MapGet("{id}/highereducationinstitutions", async (int id, DBContext db,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
+            {
+                if (id <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var queryInstitutions = db.HigherEducationInstitutions.Where(p => p.CityId == id).AsQueryable();
+                (queryInstitutions, var isValidSort) = ApplySorting(queryInstitutions, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var institutions = await queryInstitutions.ToListAsync();
+                return Results.Ok(institutions);
+            })
+            .Produces<List<HigherEducationInstitution>?>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: HigherEducationInstitutionEndpoint.MESSAGE_HEI_BYCITY_SUMMARY,
+                description: HigherEducationInstitutionEndpoint.MESSAGE_HEI_BYCITY_DESCRIPTION
+                ));
         }
     }
 }

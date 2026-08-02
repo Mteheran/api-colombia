@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.4.0] - 2026-08-01
+
+### Added
+
+- **Higher Education Institutions (IES).** New `HigherEducationInstitution` resource exposing Colombia's official higher-education institutions from SNIES (Ministerio de Educación, via datos.gov.co). Each record includes code, name, legal nature, academic character, address, phone, high-quality accreditation flag, website and its related city. Endpoints: `GET /api/v1/HigherEducationInstitution` (list, sortable), `/{id}`, `/name/{name}`, `/search/{keyword}` and `/pagedList`. City ids were validated against the API's own City data before loading.
+- **Higher education institutions by city.** New sub-resource `GET /api/v1/City/{id}/highereducationinstitutions` returns the institutions located in a given city.
+
+[1.4.0]: https://github.com/Mteheran/api-colombia/releases/tag/v1.4.0
+
 ## [1.3.0] - 2026-07-20
 
 ### Added

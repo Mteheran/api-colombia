@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.5.0] - 2026-08-01
+
+### Added
+
+- **Metrics dashboard now speaks your language.** The public metrics dashboard (`/metrics`) is now available in **Spanish, English and Portuguese**. It auto-detects your browser language on first visit, a header selector lets you switch on the fly, and your choice is remembered (`localStorage`). Numbers, dates and month names are formatted for the chosen locale.
+
+### Fixed
+
+- **"Requests per month" chart on the metrics dashboard.** The bar chart was distorted (stretched labels and bars) because the SVG scaled its width and height independently. It now uses a uniform coordinate space with a baseline axis, readable value/month labels, and a year label shown only when the year changes.
+- **Higher Education Institutions in the landing-page demo.** The interactive "Try the API" selector on the landing page now includes the `HigherEducationInstitution` resource added in 1.4.0.
+
+[1.5.0]: https://github.com/Mteheran/api-colombia/releases/tag/v1.5.0
+
 ## [1.4.0] - 2026-08-01
 
 ### Added

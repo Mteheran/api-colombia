@@ -44,6 +44,11 @@
       padding: 7px 12px; border-radius: 7px; font-size: 13px; cursor: pointer;
     }
     .toolbar button:hover { border-color: var(--accent2); }
+    .toolbar select {
+      background: var(--panel2); border: 1px solid var(--border); color: var(--text);
+      padding: 7px 10px; border-radius: 7px; font-size: 13px; cursor: pointer;
+    }
+    .toolbar select:hover { border-color: var(--accent2); }
     .toolbar label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
     main { padding: 16px 24px 40px; max-width: 1200px; margin: 0 auto; }
 
@@ -78,11 +83,13 @@
     .method { font-family: var(--mono); color: var(--muted); }
 
     /* inline SVG bar chart */
-    .chart { width: 100%; }
+    .chart { display: block; width: 100%; height: auto; overflow: visible; }
     .bar { fill: var(--accent2); transition: fill .15s; }
     .bar:hover { fill: var(--accent); }
-    .bar-label { fill: var(--muted); font-size: 10px; font-family: var(--mono); }
-    .bar-value { fill: var(--text); font-size: 10px; font-family: var(--mono); }
+    .chart-axis { stroke: var(--border); stroke-width: 1; }
+    .bar-label { fill: var(--muted); font-size: 15px; font-family: var(--mono); }
+    .bar-year { fill: var(--muted); font-size: 12px; font-family: var(--mono); opacity: .8; }
+    .bar-value { fill: var(--text); font-size: 14px; font-family: var(--mono); }
 
     .empty { color: var(--muted); font-size: 13px; padding: 8px 2px; }
     .note { margin-bottom: 20px; padding: 12px 16px; border-radius: 10px;
@@ -100,13 +107,18 @@
   <header>
     <span class="flag">🇨🇴</span>
     <div>
-      <h1>API Colombia — Metrics Dashboard</h1>
-      <div class="sub">Public usage analytics · reads <code>/api/v1/metrics</code></div>
+      <h1 id="appTitle">API Colombia — Metrics Dashboard</h1>
+      <div class="sub" id="appSub">Public usage analytics · reads <code>/api/v1/metrics</code></div>
     </div>
     <div class="toolbar">
       <span id="updated">—</span>
-      <label><input type="checkbox" id="auto" checked /> Auto-refresh (60s)</label>
+      <label><input type="checkbox" id="auto" checked /> <span id="autoLabel">Auto-refresh (60s)</span></label>
       <button id="refresh">Refresh</button>
+      <select id="lang" aria-label="Language">
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+        <option value="pt">PT</option>
+      </select>
       <button id="themeToggle" type="button" aria-label="Toggle color theme" title="Toggle light / dark theme">🌙</button>
     </div>
   </header>
@@ -114,7 +126,7 @@
   <div id="banner"></div>
 
   <main>
-    <div class="note">
+    <div class="note" id="rateNote">
       <strong>⚡ Rate limiting:</strong> to keep the service stable under high demand, the busiest
       endpoints (<code>Holiday</code>, <code>City</code>, <code>Department</code>) are limited to
       <strong>60 requests per minute per IP</strong>. Exceeding it returns <code>429</code> with a
@@ -126,22 +138,22 @@
 
     <div class="grid">
       <div class="card">
-        <h2>Requests per month</h2>
+        <h2 id="hdrChart">Requests per month</h2>
         <div class="body"><div id="chart"></div></div>
       </div>
       <div class="card">
-        <h2>Monthly usage</h2>
+        <h2 id="hdrMonthly">Monthly usage</h2>
         <div class="body"><div id="monthly"></div></div>
       </div>
     </div>
 
     <div class="card" style="margin-top:16px;">
-      <h2>Recent requests</h2>
+      <h2 id="hdrRecent">Recent requests</h2>
       <div class="body"><div id="recent"></div></div>
     </div>
   </main>
 
-  <footer>
+  <footer id="appFooter">
     API Colombia · <a href="/">home</a> · <a href="/swagger">Swagger</a> · <a href="/api/v1/metrics">raw JSON</a>
   </footer>
 
@@ -167,9 +179,136 @@
       });
     })();
 
-    const MONTHS = ["", "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    // --- Internationalization (en / es / pt) ---
+    const I18N = {
+      en: {
+        locale: "en-US",
+        months: ["", "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+        docTitle: "API Colombia — Metrics Dashboard",
+        title: "API Colombia — Metrics Dashboard",
+        sub: 'Public usage analytics · reads <code>/api/v1/metrics</code>',
+        note: '<strong>⚡ Rate limiting:</strong> to keep the service stable under high demand, the busiest ' +
+              'endpoints (<code>Holiday</code>, <code>City</code>, <code>Department</code>) are limited to ' +
+              '<strong>60 requests per minute per IP</strong>. Exceeding it returns <code>429</code> with a ' +
+              '<code>Retry-After</code> header. Since this data changes rarely, please cache responses on your side. ' +
+              '<a href="https://docs.api-colombia.com/rate-limiting" target="_blank" rel="noopener">Learn more →</a>',
+        autoRefresh: "Auto-refresh (60s)",
+        refresh: "Refresh",
+        themeTitle: "Toggle light / dark theme",
+        updated: "Updated",
+        hdrChart: "Requests per month",
+        hdrMonthly: "Monthly usage",
+        hdrRecent: "Recent requests",
+        footer: 'API Colombia · <a href="/">home</a> · <a href="/swagger">Swagger</a> · <a href="/api/v1/metrics">raw JSON</a>',
+        statHourReq: "Requests · current hour",
+        statHourEgress: "Egress · current hour",
+        statLargest: "Largest response",
+        statMonthReq: "Requests · this month",
+        statMonthEgress: "Egress · this month",
+        thMonth: "Month", thRequests: "Requests", thEgress: "Egress",
+        thTime: "Time (UTC)", thMethod: "Method", thPath: "Path", thStatus: "Status", thSize: "Size",
+        emptyMonthly: "No monthly data yet.",
+        emptyRecent: "No requests recorded yet.",
+        loadError: "Could not load metrics: ",
+        loadErrorTail: ". Retrying on next refresh.",
+        reqUnit: "requests"
+      },
+      es: {
+        locale: "es-CO",
+        months: ["", "Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
+        docTitle: "API Colombia — Panel de métricas",
+        title: "API Colombia — Panel de métricas",
+        sub: 'Analítica de uso público · lee <code>/api/v1/metrics</code>',
+        note: '<strong>⚡ Límite de solicitudes:</strong> para mantener el servicio estable ante la alta demanda, los ' +
+              'endpoints más usados (<code>Holiday</code>, <code>City</code>, <code>Department</code>) están limitados a ' +
+              '<strong>60 solicitudes por minuto por IP</strong>. Al excederlo se devuelve <code>429</code> con una ' +
+              'cabecera <code>Retry-After</code>. Como estos datos cambian poco, por favor cachea las respuestas de tu lado. ' +
+              '<a href="https://docs.api-colombia.com/rate-limiting" target="_blank" rel="noopener">Más información →</a>',
+        autoRefresh: "Auto-actualizar (60s)",
+        refresh: "Actualizar",
+        themeTitle: "Cambiar tema claro / oscuro",
+        updated: "Actualizado",
+        hdrChart: "Solicitudes por mes",
+        hdrMonthly: "Uso mensual",
+        hdrRecent: "Solicitudes recientes",
+        footer: 'API Colombia · <a href="/">inicio</a> · <a href="/swagger">Swagger</a> · <a href="/api/v1/metrics">JSON</a>',
+        statHourReq: "Solicitudes · hora actual",
+        statHourEgress: "Tráfico saliente · hora actual",
+        statLargest: "Respuesta más grande",
+        statMonthReq: "Solicitudes · este mes",
+        statMonthEgress: "Tráfico saliente · este mes",
+        thMonth: "Mes", thRequests: "Solicitudes", thEgress: "Tráfico",
+        thTime: "Hora (UTC)", thMethod: "Método", thPath: "Ruta", thStatus: "Estado", thSize: "Tamaño",
+        emptyMonthly: "Aún no hay datos mensuales.",
+        emptyRecent: "Aún no se han registrado solicitudes.",
+        loadError: "No se pudieron cargar las métricas: ",
+        loadErrorTail: ". Se reintentará en la próxima actualización.",
+        reqUnit: "solicitudes"
+      },
+      pt: {
+        locale: "pt-BR",
+        months: ["", "Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
+        docTitle: "API Colombia — Painel de métricas",
+        title: "API Colombia — Painel de métricas",
+        sub: 'Análise de uso público · lê <code>/api/v1/metrics</code>',
+        note: '<strong>⚡ Limite de requisições:</strong> para manter o serviço estável sob alta demanda, os ' +
+              'endpoints mais usados (<code>Holiday</code>, <code>City</code>, <code>Department</code>) são limitados a ' +
+              '<strong>60 requisições por minuto por IP</strong>. Ao exceder, retorna <code>429</code> com o ' +
+              'cabeçalho <code>Retry-After</code>. Como esses dados mudam raramente, por favor faça cache das respostas do seu lado. ' +
+              '<a href="https://docs.api-colombia.com/rate-limiting" target="_blank" rel="noopener">Saiba mais →</a>',
+        autoRefresh: "Atualizar automaticamente (60s)",
+        refresh: "Atualizar",
+        themeTitle: "Alternar tema claro / escuro",
+        updated: "Atualizado",
+        hdrChart: "Requisições por mês",
+        hdrMonthly: "Uso mensal",
+        hdrRecent: "Requisições recentes",
+        footer: 'API Colombia · <a href="/">início</a> · <a href="/swagger">Swagger</a> · <a href="/api/v1/metrics">JSON</a>',
+        statHourReq: "Requisições · hora atual",
+        statHourEgress: "Tráfego de saída · hora atual",
+        statLargest: "Maior resposta",
+        statMonthReq: "Requisições · este mês",
+        statMonthEgress: "Tráfego de saída · este mês",
+        thMonth: "Mês", thRequests: "Requisições", thEgress: "Tráfego",
+        thTime: "Hora (UTC)", thMethod: "Método", thPath: "Caminho", thStatus: "Status", thSize: "Tamanho",
+        emptyMonthly: "Ainda não há dados mensais.",
+        emptyRecent: "Ainda não há requisições registradas.",
+        loadError: "Não foi possível carregar as métricas: ",
+        loadErrorTail: ". Tentará novamente na próxima atualização.",
+        reqUnit: "requisições"
+      }
+    };
 
-    function fmtNum(n) { return (n ?? 0).toLocaleString("en-US"); }
+    const LANG_KEY = "metrics-lang";
+    function detectLang() {
+      const stored = localStorage.getItem(LANG_KEY);
+      if (stored && I18N[stored]) return stored;
+      const nav = (navigator.language || "en").slice(0, 2).toLowerCase();
+      return I18N[nav] ? nav : "en";
+    }
+    let currentLang = detectLang();
+    function t() { return I18N[currentLang]; }
+    let lastData = null;   // cache last payload so language switches re-render instantly
+
+    function applyI18n() {
+      const L = t();
+      document.documentElement.lang = currentLang;
+      document.title = L.docTitle;
+      document.getElementById("appTitle").textContent = L.title;
+      document.getElementById("appSub").innerHTML = L.sub;
+      document.getElementById("rateNote").innerHTML = L.note;
+      document.getElementById("autoLabel").textContent = L.autoRefresh;
+      document.getElementById("refresh").textContent = L.refresh;
+      document.getElementById("appFooter").innerHTML = L.footer;
+      document.getElementById("hdrChart").textContent = L.hdrChart;
+      document.getElementById("hdrMonthly").textContent = L.hdrMonthly;
+      document.getElementById("hdrRecent").textContent = L.hdrRecent;
+      document.getElementById("themeToggle").title = L.themeTitle;
+      document.getElementById("lang").value = currentLang;
+      if (lastData) renderAll(lastData);
+    }
+
+    function fmtNum(n) { return (n ?? 0).toLocaleString(t().locale); }
     function fmtBytes(b) {
       b = b ?? 0;
       if (b < 1024) return b + " B";
@@ -178,23 +317,24 @@
       return b.toFixed(b >= 10 || i === 0 ? 0 : 1) + " " + u[i];
     }
     function fmtTime(iso) {
+      const loc = t().locale;
       const d = new Date(iso);
-      return isNaN(d) ? iso : d.toLocaleTimeString("en-US", { hour12: false }) +
-        " · " + d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      return isNaN(d) ? iso : d.toLocaleTimeString(loc, { hour12: false }) +
+        " · " + d.toLocaleDateString(loc, { month: "short", day: "numeric" });
     }
     function statusClass(s) { return "pill s" + Math.floor((s || 0) / 100); }
     function esc(s) { return (s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c])); }
 
     function renderStats(d) {
       const el = document.getElementById("stats");
-      const monthTotalReq = (d.monthlyUsage || []).reduce((a, m) => a + m.requestCount, 0);
+      const L = t();
       const thisMonth = (d.monthlyUsage || [])[0];
       const cards = [
-        { label: "Requests · current hour", value: fmtNum(d.currentHourRequestCount), cls: "accent" },
-        { label: "Egress · current hour", value: fmtBytes(d.currentHourResponseBytes), cls: "green" },
-        { label: "Largest response", value: fmtBytes(d.largestResponseBytes), cls: "", sub: d.largestResponsePath || "—" },
-        { label: "Requests · this month", value: thisMonth ? fmtNum(thisMonth.requestCount) : "0", cls: "accent" },
-        { label: "Egress · this month", value: thisMonth ? fmtBytes(thisMonth.totalResponseBytes) : "0 B", cls: "green" },
+        { label: L.statHourReq, value: fmtNum(d.currentHourRequestCount), cls: "accent" },
+        { label: L.statHourEgress, value: fmtBytes(d.currentHourResponseBytes), cls: "green" },
+        { label: L.statLargest, value: fmtBytes(d.largestResponseBytes), cls: "", sub: d.largestResponsePath || "—" },
+        { label: L.statMonthReq, value: thisMonth ? fmtNum(thisMonth.requestCount) : "0", cls: "accent" },
+        { label: L.statMonthEgress, value: thisMonth ? fmtBytes(thisMonth.totalResponseBytes) : "0 B", cls: "green" },
       ];
       el.innerHTML = cards.map(c => `
         <div class="stat">
@@ -206,22 +346,40 @@
 
     function renderChart(months) {
       const el = document.getElementById("chart");
-      if (!months || months.length === 0) { el.innerHTML = '<div class="empty">No monthly data yet.</div>'; return; }
+      const L = t();
+      if (!months || months.length === 0) { el.innerHTML = `<div class="empty">${L.emptyMonthly}</div>`; return; }
       const data = months.slice().reverse().slice(-12); // oldest→newest, last 12
       const max = Math.max(...data.map(m => m.requestCount), 1);
-      const W = 100 / data.length, H = 160, pad = 22;
-      const bars = data.map((m, i) => {
-        const h = (m.requestCount / max) * (H - pad - 18);
-        const x = i * W, y = H - pad - h;
-        return `
-          <rect class="bar" x="${(x + W * 0.15).toFixed(2)}" y="${y.toFixed(2)}"
-                width="${(W * 0.7).toFixed(2)}" height="${Math.max(h,0).toFixed(2)}" rx="1.5">
-            <title>${MONTHS[m.month]} ${m.year}: ${fmtNum(m.requestCount)} requests</title>
+
+      // Uniform coordinate space (viewBox scales without distortion — default preserveAspectRatio).
+      const slot = 60;               // horizontal units per bar
+      const W = data.length * slot;
+      const H = 240;
+      const padTop = 30;             // room for value labels above bars
+      const padBottom = 46;          // room for month + year labels below baseline
+      const plotH = H - padTop - padBottom;
+      const baseY = H - padBottom;
+
+      let bars = "";
+      let prevYear = null;
+      for (let i = 0; i < data.length; i++) {
+        const m = data[i];
+        const h = (m.requestCount / max) * plotH;
+        const bw = slot * 0.56;
+        const cx = i * slot + slot / 2;
+        const x = cx - bw / 2;
+        const y = baseY - h;
+        const showYear = m.year !== prevYear; prevYear = m.year;
+        bars += `
+          <rect class="bar" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(h,0).toFixed(1)}" rx="4">
+            <title>${L.months[m.month]} ${m.year}: ${fmtNum(m.requestCount)} ${L.reqUnit}</title>
           </rect>
-          <text class="bar-value" x="${(x + W / 2).toFixed(2)}" y="${(y - 3).toFixed(2)}" text-anchor="middle">${shortNum(m.requestCount)}</text>
-          <text class="bar-label" x="${(x + W / 2).toFixed(2)}" y="${H - pad + 12}" text-anchor="middle">${MONTHS[m.month]}</text>`;
-      }).join("");
-      el.innerHTML = `<svg class="chart" viewBox="0 0 100 ${H}" preserveAspectRatio="none" style="height:190px">${bars}</svg>`;
+          <text class="bar-value" x="${cx.toFixed(1)}" y="${(y - 8).toFixed(1)}" text-anchor="middle">${shortNum(m.requestCount)}</text>
+          <text class="bar-label" x="${cx.toFixed(1)}" y="${baseY + 18}" text-anchor="middle">${L.months[m.month]}</text>
+          ${showYear ? `<text class="bar-year" x="${cx.toFixed(1)}" y="${baseY + 34}" text-anchor="middle">${m.year}</text>` : ""}`;
+      }
+      const axis = `<line class="chart-axis" x1="0" y1="${baseY}" x2="${W}" y2="${baseY}"/>`;
+      el.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${L.hdrChart}">${axis}${bars}</svg>`;
     }
     function shortNum(n) {
       if (n >= 1e6) return (n / 1e6).toFixed(1) + "M";
@@ -231,16 +389,18 @@
 
     function renderMonthly(months) {
       const el = document.getElementById("monthly");
-      if (!months || months.length === 0) { el.innerHTML = '<div class="empty">No monthly data yet.</div>'; return; }
-      el.innerHTML = `<table><thead><tr><th>Month</th><th style="text-align:right">Requests</th><th style="text-align:right">Egress</th></tr></thead><tbody>${
-        months.map(m => `<tr><td>${MONTHS[m.month]} ${m.year}</td><td class="num">${fmtNum(m.requestCount)}</td><td class="num">${fmtBytes(m.totalResponseBytes)}</td></tr>`).join("")
+      const L = t();
+      if (!months || months.length === 0) { el.innerHTML = `<div class="empty">${L.emptyMonthly}</div>`; return; }
+      el.innerHTML = `<table><thead><tr><th>${L.thMonth}</th><th style="text-align:right">${L.thRequests}</th><th style="text-align:right">${L.thEgress}</th></tr></thead><tbody>${
+        months.map(m => `<tr><td>${L.months[m.month]} ${m.year}</td><td class="num">${fmtNum(m.requestCount)}</td><td class="num">${fmtBytes(m.totalResponseBytes)}</td></tr>`).join("")
       }</tbody></table>`;
     }
 
     function renderRecent(recent) {
       const el = document.getElementById("recent");
-      if (!recent || recent.length === 0) { el.innerHTML = '<div class="empty">No requests recorded yet.</div>'; return; }
-      el.innerHTML = `<table><thead><tr><th>Time (UTC)</th><th>Method</th><th>Path</th><th>Status</th><th style="text-align:right">Size</th></tr></thead><tbody>${
+      const L = t();
+      if (!recent || recent.length === 0) { el.innerHTML = `<div class="empty">${L.emptyRecent}</div>`; return; }
+      el.innerHTML = `<table><thead><tr><th>${L.thTime}</th><th>${L.thMethod}</th><th>${L.thPath}</th><th>${L.thStatus}</th><th style="text-align:right">${L.thSize}</th></tr></thead><tbody>${
         recent.map(r => `<tr>
           <td>${fmtTime(r.timestampUtc)}</td>
           <td class="method">${esc(r.method)}</td>
@@ -251,22 +411,27 @@
       }</tbody></table>`;
     }
 
+    function renderAll(d) {
+      renderStats(d);
+      renderChart(d.monthlyUsage);
+      renderMonthly(d.monthlyUsage);
+      renderRecent(d.recentRequests);
+    }
+
     async function load() {
       const banner = document.getElementById("banner");
       try {
         const res = await fetch("/api/v1/metrics", { headers: { "Accept": "application/json" } });
         if (!res.ok) throw new Error("HTTP " + res.status);
         const d = await res.json();
+        lastData = d;
         banner.style.display = "none";
-        renderStats(d);
-        renderChart(d.monthlyUsage);
-        renderMonthly(d.monthlyUsage);
-        renderRecent(d.recentRequests);
+        renderAll(d);
         document.getElementById("updated").textContent =
-          "Updated " + new Date().toLocaleTimeString("en-US", { hour12: false });
+          t().updated + " " + new Date().toLocaleTimeString(t().locale, { hour12: false });
       } catch (e) {
         banner.style.display = "block";
-        banner.textContent = "Could not load metrics: " + e.message + ". Retrying on next refresh.";
+        banner.textContent = t().loadError + e.message + t().loadErrorTail;
       }
     }
 
@@ -277,7 +442,13 @@
     }
     document.getElementById("refresh").addEventListener("click", load);
     document.getElementById("auto").addEventListener("change", e => setAuto(e.target.checked));
+    document.getElementById("lang").addEventListener("change", e => {
+      currentLang = I18N[e.target.value] ? e.target.value : "en";
+      localStorage.setItem(LANG_KEY, currentLang);
+      applyI18n();
+    });
 
+    applyI18n();   // set language (auto from browser / saved choice) before first load
     load();
     setAuto(true);
   </script>

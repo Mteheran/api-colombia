@@ -64,21 +64,26 @@ builder.Services.AddOutputCache(static options =>
 // Util.PublicRateLimitPolicy (Holiday, City, Department, ...). Responses are
 // cached aggressively, so a client that respects the cache never approaches the
 // limit; only per-second bursts are cut. All opted-in groups share one per-IP budget.
-builder.Services.AddRateLimiter(static options =>
+// The permit limit is configurable (RateLimiting:PermitLimit) so the test host can
+// raise it out of the way for content tests and drop it to a handful for the tests
+// that assert the limiter itself. Production keeps the 60/minute default.
+var rateLimitPermits = builder.Configuration.GetValue<int?>("RateLimiting:PermitLimit") ?? 60;
+
+builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
-    options.AddPolicy(Util.PublicRateLimitPolicy, static httpContext =>
+    options.AddPolicy(Util.PublicRateLimitPolicy, httpContext =>
     {
         // Partition by client IP. If the API runs behind a reverse proxy
         // (Azure App Service, Cloudflare) consider partitioning by the first
         // X-Forwarded-For value instead, since RemoteIpAddress may be the proxy.
         var partitionKey = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
-        return RateLimitPartition.GetSlidingWindowLimiter(partitionKey, static _ =>
+        return RateLimitPartition.GetSlidingWindowLimiter(partitionKey, _ =>
             new SlidingWindowRateLimiterOptions
             {
-                PermitLimit = 60,
+                PermitLimit = rateLimitPermits,
                 Window = TimeSpan.FromMinutes(1),
                 SegmentsPerWindow = 6,   // 10-second segments → gradual expiry
                 QueueLimit = 0,

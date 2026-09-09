@@ -356,3 +356,6 @@ api/appsettings.Development.json
 # VitePress
 docs/.vitepress/cache
 docs/.vitepress/dist
+
+# Test coverage output
+api.Tests/TestResults/

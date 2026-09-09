@@ -1,4 +1,4 @@
-﻿using api.Models;
+using api.Models;
 using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
@@ -94,8 +94,19 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var InvasiveSpecies = db.InvasiveSpecies.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
-                if (!await InvasiveSpecies?.AnyAsync())
+                var sortBy = pagination.SortBy ?? string.Empty;
+                var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty;
+                var queryInvasiveSpecies = db.InvasiveSpecies.AsQueryable();
+
+                (queryInvasiveSpecies, var isValidSort) = ApplySorting(queryInvasiveSpecies, sortBy, sortDirectionStr);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var InvasiveSpecies = queryInvasiveSpecies.Skip((pagination.Page - 1) * pagination.PageSize).Take(pagination.PageSize);
+                if (!await InvasiveSpecies.AnyAsync())
                 {
                     return Results.NotFound();
                 }
@@ -104,13 +115,13 @@ namespace api.Routes
                 {
                     Page = pagination.Page,
                     PageSize = pagination.PageSize,
-                    TotalRecords = await db.InvasiveSpecies.CountAsync(),
+                    TotalRecords = await queryInvasiveSpecies.CountAsync(),
                     Data = await InvasiveSpecies.ToListAsync()
                 };
 
                 return Results.Ok(paginationResponse);
             })
-            .Produces<PaginationResponseModel<City>>(200)
+            .Produces<PaginationResponseModel<InvasiveSpecie>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                summary: InvasiveSpecieEndpointMetadataMessages.MESSAGE_INVASIVE_SPECIE_PAGEDLIST_SUMMARY,
                 description: InvasiveSpecieEndpointMetadataMessages.MESSAGE_INVASIVE_SPECIE_PAGEDLIST_DESCRIPTION

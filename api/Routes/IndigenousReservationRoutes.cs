@@ -74,14 +74,10 @@ namespace api.Routes
                 .Include(p=> p.Department)
                 .Include(p=> p.City)
                 .Include(p=> p.NativeCommunity).Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
-                if (city is null)
-                {
-                    return Results.NotFound();
-                }
 
                 return Results.Ok(city);
             })
-            .Produces<List<City>?>(200)
+            .Produces<List<IndigenousReservation>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: IndigenousReservationEndpointMetadataMessages.MESSAGE_INDIGENOUS_RESERVATION_BYNAME_SUMMARY,
                 description: IndigenousReservationEndpointMetadataMessages.MESSAGE_INDIGENOUS_RESERVATION_BYNAME_DESCRIPTION

@@ -57,7 +57,7 @@ namespace api.Routes
 
                 return Results.Ok(city);
             })
-            .Produces<City?>(200)
+            .Produces<Radio?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: RadioMetadataMessages.MESSAGE_RADIO_BYID_SUMMARY,
                  description: RadioMetadataMessages.MESSAGE_RADIO_BYID_DESCRIPTION
@@ -67,14 +67,10 @@ namespace api.Routes
             {
                 var city = db.Radios
                 .Include(p => p.City).Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
-                if (city is null)
-                {
-                    return Results.NotFound();
-                }
 
                 return Results.Ok(city);
             })
-            .Produces<List<City>?>(200)
+            .Produces<List<Radio>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: RadioMetadataMessages.MESSAGE_RADIO_BYNAME_SUMMARY,
                 description: RadioMetadataMessages.MESSAGE_RADIO_BYNAME_DESCRIPTION

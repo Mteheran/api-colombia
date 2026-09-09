@@ -11,7 +11,7 @@ namespace api.Routes
 {
     public static class MapsRoutes
     {
-        public static void RegisterCountryAPI(WebApplication app)
+        public static void RegisterMapsAPI(WebApplication app)
         {
             const string API_MAP_ROUTE_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.MAP_ROUTE}";
             const string API_MAP_TAG = "Map";

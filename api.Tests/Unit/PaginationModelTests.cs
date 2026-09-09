@@ -3,6 +3,17 @@ using Microsoft.AspNetCore.Http;
 
 namespace api.Tests.Unit;
 
+/// <summary>
+/// NOTE: <see cref="PaginationModel.BindAsync"/> is currently unreachable. Every pagedList route
+/// takes the model as <c>[AsParameters] PaginationModel</c>, and that attribute binds each public
+/// property individually rather than delegating to the type's BindAsync. The consequences are
+/// visible over HTTP and pinned by PaginationBindingTests: the query key is <c>?sortDirection=</c>
+/// (the property name), not the <c>?sortDir=</c> this binder declares, and a non-positive page is
+/// rejected with 400 rather than corrected to 1.
+///
+/// These tests therefore describe what the binder WOULD do if it were wired up. They are kept
+/// because the method is public API surface, but they are not evidence about the running service.
+/// </summary>
 public class PaginationModelTests
 {
     private static System.Reflection.ParameterInfo GetDummyParameterInfo()

@@ -98,11 +98,6 @@ namespace api.Routes
             {
                 var traditionalFairAndFestival = await db.TraditionalFairAndFestival.Include(p => p.City).Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToListAsync();
 
-                if (traditionalFairAndFestival is null)
-                {
-                    return Results.NotFound();
-                }
-
                 return Results.Ok(traditionalFairAndFestival);
             })
             .Produces<List<TraditionalFairAndFestival>?>(200)

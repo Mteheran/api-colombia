@@ -170,11 +170,6 @@ namespace api.Routes
             {
                 var departments = await db.Departments.Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToListAsync();
 
-                if (departments is null)
-                {
-                    return Results.NotFound();
-                }
-
                 return Results.Ok(departments);
             })
             .Produces<List<Department>?>(200)

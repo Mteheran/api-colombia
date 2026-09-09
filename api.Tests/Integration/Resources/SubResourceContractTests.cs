@@ -36,12 +36,10 @@ public class SubResourceContractTests(ApiColombiaFactory factory) : IntegrationT
         { "/api/v1/UrbanCenter/city/{0}", 1, 2 },
     };
 
-    /// <summary>Nested routes that guard the parent id — every one except PostalCode's.</summary>
+    /// <summary>Every nested route guards the parent id and answers 400 for a non-positive one.</summary>
     public static TheoryData<string> GuardedRoutes() =>
     [
-        .. NestedRoutes()
-            .Select(row => (string)row[0])
-            .Where(route => !route.StartsWith("/api/v1/PostalCode", StringComparison.Ordinal))
+        .. NestedRoutes().Select(row => (string)row[0])
     ];
 
     [Theory]
@@ -65,14 +63,14 @@ public class SubResourceContractTests(ApiColombiaFactory factory) : IntegrationT
         await _client.AssertBadRequestAsync(string.Format(template, -1));
 
     /// <summary>
-    /// PostalCode's `/city/{cityId}` is the one nested route with no `cityId <= 0` guard, so an
-    /// invalid id falls through to the empty-result branch and answers 404 instead of 400.
+    /// PostalCode's `/city/{cityId}` used to be the one nested route with no `cityId <= 0` guard,
+    /// so an invalid id fell through to the empty-result branch and answered 404 instead of 400.
     /// </summary>
     [Theory]
     [InlineData(0)]
     [InlineData(-1)]
-    public async Task PostalCodeByCity_HasNoIdGuard_AndFallsThroughToNotFound(int cityId) =>
-        await _client.AssertStatusAsync($"/api/v1/PostalCode/city/{cityId}", HttpStatusCode.NotFound);
+    public async Task PostalCodeByCity_GuardsTheCityId(int cityId) =>
+        await _client.AssertBadRequestAsync($"/api/v1/PostalCode/city/{cityId}");
 
     // ---------- CategoryNaturalArea returns the parent, not a list ----------
 

@@ -103,6 +103,11 @@ namespace api.Routes
 
             group.MapGet("/city/{cityId}", (int cityId, DBContext db) =>
             {
+                if (cityId <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
                 var postalCodes = db.PostalCodes
                     .Include(p => p.City)
                     .Where(x => x.CityId == cityId)

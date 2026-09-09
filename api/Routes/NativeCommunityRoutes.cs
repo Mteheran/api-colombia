@@ -53,7 +53,7 @@ namespace api.Routes
 
                 return Results.Ok(city);
             })
-            .Produces<City?>(200)
+            .Produces<NativeCommunity?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: NativeCommunityEndpointMetadataMessages.MESSAGE_NATIVE_COMMUNITY_BYID_SUMMARY,
                  description: NativeCommunityEndpointMetadataMessages.MESSAGE_NATIVE_COMMUNITY_BYID_DESCRIPTION
@@ -62,14 +62,10 @@ namespace api.Routes
             group.MapGet("/name/{name}", (string name, DBContext db) =>
             {
                 var city = db.NativeCommunities.Where(x => x.Name.ToUpper().Equals(name.Trim().ToUpper())).ToList();
-                if (city is null)
-                {
-                    return Results.NotFound();
-                }
 
                 return Results.Ok(city);
             })
-            .Produces<List<City>?>(200)
+            .Produces<List<NativeCommunity>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
                 summary: NativeCommunityEndpointMetadataMessages.MESSAGE_NATIVE_COMMUNITY_BYNAME_SUMMARY,
                 description: NativeCommunityEndpointMetadataMessages.MESSAGE_NATIVE_COMMUNITY_BYNAME_DESCRIPTION

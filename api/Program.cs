@@ -153,7 +153,7 @@ PresidentRoutes.RegisterPresidentApi(app);
 TouristAttractionRoutes.RegisterTouristAttractionAPI(app);
 CategoryNaturalAreaRoutes.RegisterCategoryNaturalAreaAPI(app);
 NaturalAreaRoutes.RegisterNaturalAreaAPI(app);
-MapsRoutes.RegisterCountryAPI(app);
+MapsRoutes.RegisterMapsAPI(app);
 InvasiveSpecieRoutes.RegisterInvasiveSpecieAPI(app);
 NativeCommunityRoutes.RegisterNativeCommunityAPI(app);
 IndigenousReservationRoutes.RegisterIndigenousReservationAPI(app);

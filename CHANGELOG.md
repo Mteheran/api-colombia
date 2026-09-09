@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.7.2] - 2026-09-09
+
+### Fixed
+
+- **`GET /api/v1/InvasiveSpecie/pagedList` ignored `sortBy` and `sortDirection`.** It was the only paginated route that never applied the sort: the parameters were accepted and the rows came back in insertion order, and an unknown `sortBy` was not rejected either. It now sorts and validates like every other `pagedList`, returning `400` for an unknown field or direction.
+
+- **`GET /api/v1/TraditionalFairAndFestival` ignored `sortBy` and `sortDirection`.** The handler validated the parameters and then discarded the sort with a hard `OrderBy(Id)`, so a request for a name-sorted list silently came back in id order.
+
+- **`GET /api/v1/PostalCode/city/{cityId}` accepted a non-positive id.** It was the one nested route without a `cityId <= 0` guard, so `0` or a negative id fell through to the empty-result branch and answered `404` where every comparable route answers `400`.
+
+- **Swagger declared the wrong response type for four endpoints.** `GET /api/v1/Radio/{id}`, `GET /api/v1/Radio/name/{name}`, `GET /api/v1/NativeCommunity/{id}`, `GET /api/v1/NativeCommunity/name/{name}` and `GET /api/v1/InvasiveSpecie/pagedList` were documented as returning `City`. Generated clients built from the OpenAPI document were wrong for these routes; the document now names the real types.
+
+### Removed
+
+- **`PaginationModel.BindAsync`, which never ran.** The `pagedList` routes bind the model with `[AsParameters]`, which maps each property from the query string by name and does not call a type's `BindAsync`. The binder therefore described a contract the API does not have: the `?sortDir=` key it declared is not a parameter — **the key that works is `?sortDirection=`**, matching the property name — and its correction of a non-positive `?page=` to `1` never happened, so each route's own guard answers `400` instead. No endpoint behaviour changed; the misleading code is simply gone. `?pagesize=` and `?pageSize=` remain interchangeable, since query keys are matched case-insensitively.
+
+### Changed
+
+- Internal only: the test project was restructured (one seeder per resource, a scenario matrix applied to all 25 resources, 290 → 783 tests) and code coverage measurement was repaired — the coverlet filter was `[api.*]*`, which matches no assembly, so every run had been reporting 0%.
+
+### Known issues
+
+- **Empty-result responses are inconsistent between resources.** `/search/{keyword}` with no match answers `404` on Department, President, Radio, NativeCommunity, IndigenousReservation, ConstitutionArticle and UrbanCenter, and `200` with an empty array on the other thirteen. `/pagedList` past the last page answers `404` on thirteen resources and `200` on seven. `/name/{name}` with no match answers `404` only on President, and `200` with an empty array on the other thirteen. Single-item routes (`/{id}`, `/code/{code}`) are consistent and correctly answer `404`. The current behaviour of every one of these endpoints is now pinned by tests; unifying them would be a breaking change and is deliberately left for a major release.
+
+[1.7.2]: https://github.com/Mteheran/api-colombia/releases/tag/v1.7.2
+
 ## [1.7.1] - 2026-09-03
 
 ### Fixed

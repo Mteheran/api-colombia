@@ -2,5 +2,5 @@ namespace api.Const;
 
 public static class VersionInfo
 {
-    public const string CurrentVersion = "1.7.1";
+    public const string CurrentVersion = "1.7.2";
 }

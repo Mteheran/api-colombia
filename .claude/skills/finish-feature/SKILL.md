@@ -21,15 +21,17 @@ Use this after implementing a new feature or an important change in **api-colomb
 
 Follow the repo conventions (see `CLAUDE.md` → "When adding or changing an endpoint", step 5). Tests live in `api.Tests/`.
 
-- Add or extend tests that exercise the new behavior end-to-end. Integration tests use `CustomWebApplicationFactory` (`api.Tests/ApiRoutesTests/`).
+- Add or extend tests that exercise the new behavior end-to-end. Integration tests live in `api.Tests/Integration/` and share one seeded host via `[Collection(SharedApiCollection.Name)]` + `IntegrationTestBase` (`api.Tests/Infrastructure/`).
 - Cover the happy path **and** the notable edge cases / failure modes of what you changed.
-- **Isolation gotcha:** each test class shares one `WebApplicationFactory` instance. If a test needs a lot of requests or its own app state (e.g. exhausting a rate limit), put it in its **own test class** so it gets its own factory instance and doesn't contaminate other tests. (See `ResourceRateLimitTests` / `HolidayRateLimitTests` for the pattern.)
+- For a new resource, add `api.Tests/TestData/<Resource>Seed.cs` with a `TotalRows` constant, wire it into `TestSeeder`, and add a row to `ResourceContractTests.Contracts` — that applies the whole scenario matrix (sort validation, id guards, pagination envelope, empty-result contract) for free.
+- **Isolation gotcha:** the shared host is right for read-only resource tests. If a test depends on its own app state — recorded metrics, rate-limit counters, an MCP session — give it `IClassFixture<IsolatedFactory>` (or `RateLimitedFactory`) instead, so the rest of the suite's traffic can't contaminate it. (See `MetricsApiIntegrationTests` / `ResourceRateLimitTests` for the pattern.)
 - Keep the API `GET`-only and read-only — never add write operations.
 
 ## 2. Run the tests
 
 - From the repo root or `api.Tests/`: `dotnet test`.
 - **All tests must pass.** If anything fails, fix it (or the code) and re-run before continuing. Report the final pass count.
+- For a change of any size, also check coverage: `dotnet test --settings ./coverlet.runsettings --collect:"XPlat Code Coverage"`. Watch the **branch** rate — line coverage stays high from happy paths alone, so the error branches are where regressions hide.
 
 ## 3. Bump the version
 

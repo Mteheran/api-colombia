@@ -93,4 +93,68 @@ public class HolidayApiIntegrationTests(ApiColombiaFactory factory) : Integratio
         var chiquinquira = Assert.Single(result!, h => h.Name == ChiquinquiraName);
         Assert.Equal(new DateTime(year, expectedMonth, expectedDay), chiquinquira.Date);
     }
+
+    // ---------- ?includeSunday ----------
+    // The flag adds Palm Sunday and Easter Sunday, which are otherwise omitted because they
+    // always fall on a Sunday and are not days off.
+
+    [Fact]
+    public async Task GetHolidays_ByYear_ExcludesSundays_ByDefault()
+    {
+        var holidays = await _client.GetJsonAsync<List<Holiday>>("/api/v1/Holiday/year/2026");
+
+        Assert.DoesNotContain(holidays, h => h.Date.DayOfWeek == DayOfWeek.Sunday);
+    }
+
+    [Fact]
+    public async Task GetHolidays_ByYear_WithIncludeSunday_AddsTheSundayHolidays()
+    {
+        var without = await _client.GetJsonAsync<List<Holiday>>("/api/v1/Holiday/year/2026");
+        var with = await _client.GetJsonAsync<List<Holiday>>("/api/v1/Holiday/year/2026?includeSunday=true");
+
+        Assert.True(with.Count > without.Count,
+            "includeSunday=true must return more holidays than the default.");
+        Assert.Contains(with, h => h.Date.DayOfWeek == DayOfWeek.Sunday);
+    }
+
+    [Fact]
+    public async Task GetHolidays_ByYear_WithIncludeSundayFalse_MatchesTheDefault()
+    {
+        var explicitFalse = await _client.GetJsonAsync<List<Holiday>>("/api/v1/Holiday/year/2026?includeSunday=false");
+        var byDefault = await _client.GetJsonAsync<List<Holiday>>("/api/v1/Holiday/year/2026");
+
+        Assert.Equal(byDefault.Count, explicitFalse.Count);
+    }
+
+    [Fact]
+    public async Task GetHolidays_ByYearAndMonth_HonoursIncludeSunday()
+    {
+        // Easter Sunday 2026 falls on 5 April.
+        var april = await _client.GetJsonAsync<List<Holiday>>("/api/v1/Holiday/year/2026/month/4?includeSunday=true");
+
+        Assert.Contains(april, h => h.Date.DayOfWeek == DayOfWeek.Sunday);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(13)]
+    [InlineData(-1)]
+    public async Task GetHolidays_ByYearAndMonth_WithMonthOutOfRange_ReturnsBadRequest(int month) =>
+        await _client.AssertBadRequestAsync($"/api/v1/Holiday/year/2026/month/{month}");
+
+    [Fact]
+    public async Task GetHolidays_ForEveryMonth_PartitionTheYear()
+    {
+        var wholeYear = await _client.GetJsonAsync<List<Holiday>>("/api/v1/Holiday/year/2026");
+
+        var summed = 0;
+        for (var month = 1; month <= 12; month++)
+        {
+            var forMonth = await _client.GetJsonAsync<List<Holiday>>($"/api/v1/Holiday/year/2026/month/{month}");
+            Assert.All(forMonth, h => Assert.Equal(month, h.Date.Month));
+            summed += forMonth.Count;
+        }
+
+        Assert.Equal(wholeYear.Count, summed);
+    }
 }

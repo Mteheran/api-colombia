@@ -113,6 +113,103 @@ public class McpServerIntegrationTests : IClassFixture<IsolatedFactory>, IAsyncL
         Assert.Contains("Rafael", GetPayload(result));
     }
 
+    [Fact]
+    public async Task GetApiReference_DescribesTheRestRoutes()
+    {
+        var result = await _client.CallToolAsync("get_api_reference");
+
+        Assert.NotEqual(true, result.IsError);
+        Assert.Contains("api/v1", GetPayload(result));
+    }
+
+    [Fact]
+    public async Task GetApiReference_CanBeScopedToOneResource()
+    {
+        var result = await _client.CallToolAsync(
+            "get_api_reference",
+            new Dictionary<string, object?> { ["resource"] = "volcano" });
+
+        Assert.NotEqual(true, result.IsError);
+        Assert.Contains("volcano", GetPayload(result), StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task SearchItems_FindsASeededRow()
+    {
+        var result = await _client.CallToolAsync(
+            "search_items",
+            new Dictionary<string, object?> { ["resource"] = "president", ["keyword"] = "Rafael" });
+
+        Assert.NotEqual(true, result.IsError);
+        Assert.Contains("Rafael", GetPayload(result));
+    }
+
+    [Fact]
+    public async Task SearchItems_WithoutMatches_ReturnsAnEmptyResult()
+    {
+        var result = await _client.CallToolAsync(
+            "search_items",
+            new Dictionary<string, object?> { ["resource"] = "president", ["keyword"] = "zzzzzzzzzzzz" });
+
+        Assert.NotEqual(true, result.IsError);
+        Assert.DoesNotContain("Rafael", GetPayload(result));
+    }
+
+    [Fact]
+    public async Task ListItemsPaged_ReturnsOneRowPerPage()
+    {
+        var result = await _client.CallToolAsync(
+            "list_items_paged",
+            new Dictionary<string, object?> { ["resource"] = "president", ["page"] = 1, ["pageSize"] = 1 });
+
+        Assert.NotEqual(true, result.IsError);
+        Assert.Contains("Rafael", GetPayload(result));
+    }
+
+    [Fact]
+    public async Task GetItemsByName_FindsASeededRow()
+    {
+        var result = await _client.CallToolAsync(
+            "get_items_by_name",
+            new Dictionary<string, object?> { ["resource"] = "city", ["name"] = "Medellín" });
+
+        Assert.NotEqual(true, result.IsError);
+        Assert.Contains("Medellín", GetPayload(result));
+    }
+
+    // ---------- Error paths ----------
+    // The MCP tools report failures as an { error } payload rather than an HTTP status,
+    // so an unknown resource key must come back described, not as a crash.
+
+    [Fact]
+    public async Task ListItems_WithUnknownResourceKey_ReportsAnError()
+    {
+        var result = await _client.CallToolAsync(
+            "list_items",
+            new Dictionary<string, object?> { ["resource"] = "notaresource" });
+
+        Assert.Contains("error", GetPayload(result), StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task GetItemById_WithUnknownId_ReportsAnError()
+    {
+        var result = await _client.CallToolAsync(
+            "get_item_by_id",
+            new Dictionary<string, object?> { ["resource"] = "city", ["id"] = 9999 });
+
+        Assert.Contains("error", GetPayload(result), StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task ReadResource_WithUnknownCatalogKey_DoesNotReturnAnEntry()
+    {
+        var result = await _client.ReadResourceAsync("colombia://catalog/notaresource");
+        var text = string.Concat(result.Contents.OfType<TextResourceContents>().Select(c => c.Text));
+
+        Assert.DoesNotContain("\"key\": \"notaresource\"", text);
+    }
+
     private static string GetPayload(CallToolResult result)
     {
         var text = string.Concat(result.Content.OfType<TextContentBlock>().Select(b => b.Text));

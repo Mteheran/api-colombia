@@ -72,6 +72,25 @@ api-colombia/
 - **Seed data is one file per resource** under `TestData/`, hanging off `CoreGraph` (region → two departments → two cities). Add rows through a seeder and a `TotalRows` constant — never rely on a navigation property to smuggle an entity into the database, which is the accident `SeedIntegrityTests` exists to catch.
 - **Coverage** is measured with `coverlet.runsettings` (which excludes the generated `Migrations/`). Branch coverage is the number that matters here: line coverage stays high just from happy paths, while the error branches are where the gaps hide.
 
+## Versioning and the published OpenAPI document
+
+Three things must agree, and tests enforce it:
+
+1. `api/Const/Version.cs` (`VersionInfo.CurrentVersion`) — shown in Swagger.
+2. The newest `## [x.y.z] - YYYY-MM-DD` heading in `CHANGELOG.md`.
+3. `info.version` in `docs/public/openapi.json` — the document VitePress renders as the public endpoint reference.
+
+`VersionConsistencyTests` checks (1) against (2) and validates the changelog's release links; `OpenApiDocumentTests` checks (3) and compares the whole checked-in document against the one the running app produces.
+
+**After changing any endpoint, its Swagger metadata, or the version, regenerate the document:**
+
+```bash
+# from api.Tests/
+UPDATE_OPENAPI=1 dotnet test --filter OpenApiDocumentTests
+```
+
+Then commit the regenerated `docs/public/openapi.json` alongside the change. Without this the public reference drifts — it had been stuck at 1.0.5 while the API was at 1.7.x, missing 44 endpoints across seven resources.
+
 ## Front-end (`wwwroot/`)
 
 Plain static HTML/CSS/JS (no build step) served by ASP.NET Core static files. Key pages:

@@ -45,6 +45,8 @@ Edit `api/Const/Version.cs` (`VersionInfo.CurrentVersion`), which is shown in Sw
 
 Internal-only refactors with no behavior change usually don't need a bump — if unsure, ask the user.
 
+**The version is enforced in three places.** `VersionConsistencyTests` fails unless `Version.cs` matches the newest CHANGELOG heading (step 4), and `OpenApiDocumentTests` fails unless `docs/public/openapi.json` matches both the version and the document the app produces. So after bumping, do step 4 and then regenerate the OpenAPI document (step 5).
+
 ## 4. Update the CHANGELOG
 
 Edit `CHANGELOG.md` (Keep a Changelog format):
@@ -59,7 +61,14 @@ Edit `CHANGELOG.md` (Keep a Changelog format):
 
 If the change affects public behavior, update the relevant docs. Skip for internal-only changes.
 
-- **VitePress docs** (`docs/`): most endpoint reference is generated from OpenAPI, but conceptual topics get their own page (e.g. `docs/mcp.md`, `docs/rate-limiting.md`) wired into `docs/.vitepress/config.ts` (nav + sidebar). Add or update a page when the concept isn't covered by the auto-generated reference.
+- **Published OpenAPI document** (`docs/public/openapi.json`): this is what VitePress renders as the endpoint reference, and it is checked in. Regenerate it whenever an endpoint, its Swagger metadata or the version changed, and commit it with the change:
+
+  ```bash
+  # from api.Tests/
+  UPDATE_OPENAPI=1 dotnet test --filter OpenApiDocumentTests
+  ```
+
+- **VitePress docs** (`docs/`): most endpoint reference comes from that OpenAPI document, but conceptual topics get their own page (e.g. `docs/mcp.md`, `docs/rate-limiting.md`) wired into `docs/.vitepress/config.ts` (nav + sidebar). Add or update a page when the concept isn't covered by the generated reference.
 - **Swagger metadata**: endpoint summaries/descriptions live in `api/Utils/Messages.cs` under `EndpointMetadata` — update there, not inline.
 - **README.md and README_es.md**: update **both** (English + Spanish) if the change alters something documented there (feature list, usage, limits). Keep them in sync.
 - **Landing / dashboard** (`api/wwwroot/index.html`, `metrics.html`): update if the change is worth surfacing to visitors. `index.html` uses i18n — add keys to `api/wwwroot/js/translations.json` for **es/en/pt**, not hardcoded text.

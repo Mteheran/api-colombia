@@ -27,7 +27,15 @@ and this project adheres to [Semantic Versioning].
 
 ### Changed
 
-- Internal only: the test project was restructured (one seeder per resource, a scenario matrix applied to all 25 resources, 290 → 783 tests) and code coverage measurement was repaired — the coverlet filter was `[api.*]*`, which matches no assembly, so every run had been reporting 0%.
+- Internal only: the test project was restructured (one seeder per resource, a scenario matrix applied to all 25 resources, 290 → 846 tests) and code coverage measurement was repaired — the coverlet filter was `[api.*]*`, which matches no assembly, so every run had been reporting 0%.
+
+- Internal only: the Swagger version, the newest changelog entry and `info.version` in the published OpenAPI document are now checked against each other by tests, so a release cannot ship with the three disagreeing.
+
+### Documentation
+
+- **The published API reference was seven minor versions out of date.** `docs/public/openapi.json` — the document that powers the endpoint reference on [docs.api-colombia.com](https://docs.api-colombia.com/) — was last regenerated at 1.0.5 and had never been refreshed since. It was missing **44 endpoints across seven resources**: `HeritageCity`, `HigherEducationInstitution`, `IntangibleHeritage`, `PostalCode`, `TelevisionChannel`, `UrbanCenter` and `Volcano` were absent entirely, along with the `City` sub-resource routes, `Department/{id}/volcanoes` and `/api/v1/metrics`. It now matches the API, and a test compares the checked-in document against the one the app produces so it cannot silently drift again.
+
+- **Fixed ten broken release links in this changelog.** Every `1.0.x` entry pointed at `github.com/Author/Repository`, the Keep a Changelog template's placeholder, instead of this repository.
 
 ### Known issues
 
@@ -209,13 +217,13 @@ and this project adheres to [Semantic Versioning].
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[unreleased]: https://github.com/Author/Repository/compare/v1.0.9...HEAD
-[1.0.9]: https://github.com/Author/Repository/compare/v1.0.8...v1.0.9
-[1.0.8]: https://github.com/Author/Repository/compare/v1.0.7...v1.0.8
-[1.0.7]: https://github.com/Author/Repository/compare/v1.0.6...v1.0.7
-[1.0.6]: https://github.com/Author/Repository/compare/v1.0.5...v1.0.6
-[1.0.5]: https://github.com/Author/Repository/compare/v1.0.4...v1.0.5
-[1.0.4]: https://github.com/Author/Repository/compare/v1.0.3...v1.0.4
-[1.0.3]: https://github.com/Author/Repository/compare/v1.0.2...v1.0.3
-[1.0.2]: https://github.com/Author/Repository/compare/v1.0.1...v1.0.2
-[1.0.1]: https://github.com/Author/Repository/releases/tag/v1.0.1
+[unreleased]: https://github.com/Mteheran/api-colombia/compare/v1.0.9...HEAD
+[1.0.9]: https://github.com/Mteheran/api-colombia/compare/v1.0.8...v1.0.9
+[1.0.8]: https://github.com/Mteheran/api-colombia/compare/v1.0.7...v1.0.8
+[1.0.7]: https://github.com/Mteheran/api-colombia/compare/v1.0.6...v1.0.7
+[1.0.6]: https://github.com/Mteheran/api-colombia/compare/v1.0.5...v1.0.6
+[1.0.5]: https://github.com/Mteheran/api-colombia/compare/v1.0.4...v1.0.5
+[1.0.4]: https://github.com/Mteheran/api-colombia/compare/v1.0.3...v1.0.4
+[1.0.3]: https://github.com/Mteheran/api-colombia/compare/v1.0.2...v1.0.3
+[1.0.2]: https://github.com/Mteheran/api-colombia/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/Mteheran/api-colombia/releases/tag/v1.0.1

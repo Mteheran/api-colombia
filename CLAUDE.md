@@ -15,7 +15,7 @@ Guidance for Claude Code when working in this repository.
 - **Entity Framework Core 10** with **PostgreSQL** (`Npgsql.EntityFrameworkCore.PostgreSQL`).
 - **Swashbuckle/Swagger** for OpenAPI docs (with annotations enabled).
 - **Output caching** enabled globally (7-day expiry base policy).
-- Tests: **xUnit** + `Microsoft.AspNetCore.Mvc.Testing` (integration tests via `WebApplicationFactory`) + `Microsoft.EntityFrameworkCore.InMemory` + AutoFixture + Moq.
+- Tests: **xUnit** + `Microsoft.AspNetCore.Mvc.Testing` (integration tests via `WebApplicationFactory`) + `Microsoft.EntityFrameworkCore.InMemory`.
 
 ## Solution layout
 
@@ -32,6 +32,10 @@ api-colombia/
 │   ├── Const/Version.cs  # API version string shown in Swagger
 │   └── wwwroot/          # static front-end: landing page, metrics & MCP dashboards, i18n
 ├── api.Tests/            # integration + unit tests
+│   ├── Infrastructure/   # test host, shared collection, HTTP assertion helpers
+│   ├── TestData/         # one seeder per resource + the shared CoreGraph
+│   ├── Integration/      # Resources/, Mcp/, Platform/
+│   └── Unit/             # helpers, converters, LINQ-translation tests
 └── docs/                 # VitePress documentation site (Node.js)
 ```
 
@@ -58,6 +62,34 @@ api-colombia/
 - `Messages.EndpointMetadata` — **all Swagger summary/description strings live here** as `const`s, referenced via `SwaggerOperationAttribute`. Add new endpoint docs here, not inline.
 
 **Data access.** `DBContext` uses `QueryTrackingBehavior.NoTracking` (read-only workload). Use `.Include(...)` for navigation properties when the endpoint should return related data. Entity mapping lives in `Data/Configs/<Entity>Config.cs` (applied in `DBContext.OnModelCreating`).
+
+## Testing
+
+- **One shared, seeded host.** The API is read-only, so `Infrastructure/ApiColombiaFactory` seeds an in-memory database once and every resource test shares it via `[Collection(SharedApiCollection.Name)]` + `IntegrationTestBase`. Nothing re-seeds between tests because nothing mutates data.
+- **When a test needs its own host state** — recorded metrics, rate-limit counters, MCP sessions — use `IClassFixture<IsolatedFactory>` (or `RateLimitedFactory`, which drops the limit to a handful of requests) instead of the shared collection.
+- **The rate limit is configurable.** `Program.cs` reads `RateLimiting:PermitLimit` (default 60), which is how the test host raises it out of the way and the rate-limit tests lower it.
+- **Test parallelization is disabled** at assembly level (`Infrastructure/AssemblyBehavior.cs`). The shared host made the suite fast enough to expose an intermittent MCP handshake failure when the MCP class ran alongside the rest of the suite; the comment there records what was ruled out.
+- **Seed data is one file per resource** under `TestData/`, hanging off `CoreGraph` (region → two departments → two cities). Add rows through a seeder and a `TotalRows` constant — never rely on a navigation property to smuggle an entity into the database, which is the accident `SeedIntegrityTests` exists to catch.
+- **Coverage** is measured with `coverlet.runsettings` (which excludes the generated `Migrations/`). Branch coverage is the number that matters here: line coverage stays high just from happy paths, while the error branches are where the gaps hide.
+
+## Versioning and the published OpenAPI document
+
+Three things must agree, and tests enforce it:
+
+1. `api/Const/Version.cs` (`VersionInfo.CurrentVersion`) — shown in Swagger.
+2. The newest `## [x.y.z] - YYYY-MM-DD` heading in `CHANGELOG.md`.
+3. `info.version` in `docs/public/openapi.json` — the document VitePress renders as the public endpoint reference.
+
+`VersionConsistencyTests` checks (1) against (2) and validates the changelog's release links; `OpenApiDocumentTests` checks (3) and compares the whole checked-in document against the one the running app produces.
+
+**After changing any endpoint, its Swagger metadata, or the version, regenerate the document:**
+
+```bash
+# from api.Tests/
+UPDATE_OPENAPI=1 dotnet test --filter OpenApiDocumentTests
+```
+
+Then commit the regenerated `docs/public/openapi.json` alongside the change. Without this the public reference drifts — it had been stuck at 1.0.5 while the API was at 1.7.x, missing 44 endpoints across seven resources.
 
 ## Front-end (`wwwroot/`)
 
@@ -115,6 +147,9 @@ dotnet run
 
 # Tests (from api.Tests/ or the repo)
 dotnet test
+
+# Tests with coverage (line + branch)
+dotnet test --settings ./coverlet.runsettings --collect:"XPlat Code Coverage"
 ```
 
 **Database.** Connection string in `api/appsettings.json` (`ConnectionStrings:DefaultConnection`), overridable via the `DATABASE_CONNECTION` environment variable. PostgreSQL. Migrations live in `api/Migrations/`; seed data is in `.sql` files there.
@@ -127,7 +162,7 @@ dotnet test
 2. Add the route in the resource's `Routes/*Routes.cs`, following the existing pattern (sorting via `ApplySorting`, `.Produces<T>(200)`, `.WithMetadata(new SwaggerOperationAttribute(...))`).
 3. Put summary/description text in `Utils/Messages.cs` under `EndpointMetadata`.
 4. Keep it `GET`-only and read-only.
-5. Add integration tests in `api.Tests/ApiRoutesTests/`.
+5. Add integration tests in `api.Tests/Integration/Resources/`, and a `TestData/<Resource>Seed.cs` with a `TotalRows` constant (`SeedIntegrityTests` asserts the database matches it). If the resource has the usual list/by-id/search/pagedList shape, add a row to `ResourceContractTests.Contracts` — that covers the whole scenario matrix — and keep the resource's own file for behaviour specific to it.
 
 ## Resources exposed (tags)
 

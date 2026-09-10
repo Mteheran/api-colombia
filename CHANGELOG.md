@@ -9,6 +9,40 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.7.2] - 2026-09-09
+
+### Fixed
+
+- **`GET /api/v1/InvasiveSpecie/pagedList` ignored `sortBy` and `sortDirection`.** It was the only paginated route that never applied the sort: the parameters were accepted and the rows came back in insertion order, and an unknown `sortBy` was not rejected either. It now sorts and validates like every other `pagedList`, returning `400` for an unknown field or direction.
+
+- **`GET /api/v1/TraditionalFairAndFestival` ignored `sortBy` and `sortDirection`.** The handler validated the parameters and then discarded the sort with a hard `OrderBy(Id)`, so a request for a name-sorted list silently came back in id order.
+
+- **`GET /api/v1/PostalCode/city/{cityId}` accepted a non-positive id.** It was the one nested route without a `cityId <= 0` guard, so `0` or a negative id fell through to the empty-result branch and answered `404` where every comparable route answers `400`.
+
+- **Swagger declared the wrong response type for four endpoints.** `GET /api/v1/Radio/{id}`, `GET /api/v1/Radio/name/{name}`, `GET /api/v1/NativeCommunity/{id}`, `GET /api/v1/NativeCommunity/name/{name}` and `GET /api/v1/InvasiveSpecie/pagedList` were documented as returning `City`. Generated clients built from the OpenAPI document were wrong for these routes; the document now names the real types.
+
+### Removed
+
+- **`PaginationModel.BindAsync`, which never ran.** The `pagedList` routes bind the model with `[AsParameters]`, which maps each property from the query string by name and does not call a type's `BindAsync`. The binder therefore described a contract the API does not have: the `?sortDir=` key it declared is not a parameter — **the key that works is `?sortDirection=`**, matching the property name — and its correction of a non-positive `?page=` to `1` never happened, so each route's own guard answers `400` instead. No endpoint behaviour changed; the misleading code is simply gone. `?pagesize=` and `?pageSize=` remain interchangeable, since query keys are matched case-insensitively.
+
+### Changed
+
+- Internal only: the test project was restructured (one seeder per resource, a scenario matrix applied to all 25 resources, 290 → 846 tests) and code coverage measurement was repaired — the coverlet filter was `[api.*]*`, which matches no assembly, so every run had been reporting 0%.
+
+- Internal only: the Swagger version, the newest changelog entry and `info.version` in the published OpenAPI document are now checked against each other by tests, so a release cannot ship with the three disagreeing.
+
+### Documentation
+
+- **The published API reference was seven minor versions out of date.** `docs/public/openapi.json` — the document that powers the endpoint reference on [docs.api-colombia.com](https://docs.api-colombia.com/) — was last regenerated at 1.0.5 and had never been refreshed since. It was missing **44 endpoints across seven resources**: `HeritageCity`, `HigherEducationInstitution`, `IntangibleHeritage`, `PostalCode`, `TelevisionChannel`, `UrbanCenter` and `Volcano` were absent entirely, along with the `City` sub-resource routes, `Department/{id}/volcanoes` and `/api/v1/metrics`. It now matches the API, and a test compares the checked-in document against the one the app produces so it cannot silently drift again.
+
+- **Fixed ten broken release links in this changelog.** Every `1.0.x` entry pointed at `github.com/Author/Repository`, the Keep a Changelog template's placeholder, instead of this repository.
+
+### Known issues
+
+- **Empty-result responses are inconsistent between resources.** `/search/{keyword}` with no match answers `404` on Department, President, Radio, NativeCommunity, IndigenousReservation, ConstitutionArticle and UrbanCenter, and `200` with an empty array on the other thirteen. `/pagedList` past the last page answers `404` on thirteen resources and `200` on seven. `/name/{name}` with no match answers `404` only on President, and `200` with an empty array on the other thirteen. Single-item routes (`/{id}`, `/code/{code}`) are consistent and correctly answer `404`. The current behaviour of every one of these endpoints is now pinned by tests; unifying them would be a breaking change and is deliberately left for a major release.
+
+[1.7.2]: https://github.com/Mteheran/api-colombia/releases/tag/v1.7.2
+
 ## [1.7.1] - 2026-09-03
 
 ### Fixed
@@ -183,13 +217,13 @@ and this project adheres to [Semantic Versioning].
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[unreleased]: https://github.com/Author/Repository/compare/v1.0.9...HEAD
-[1.0.9]: https://github.com/Author/Repository/compare/v1.0.8...v1.0.9
-[1.0.8]: https://github.com/Author/Repository/compare/v1.0.7...v1.0.8
-[1.0.7]: https://github.com/Author/Repository/compare/v1.0.6...v1.0.7
-[1.0.6]: https://github.com/Author/Repository/compare/v1.0.5...v1.0.6
-[1.0.5]: https://github.com/Author/Repository/compare/v1.0.4...v1.0.5
-[1.0.4]: https://github.com/Author/Repository/compare/v1.0.3...v1.0.4
-[1.0.3]: https://github.com/Author/Repository/compare/v1.0.2...v1.0.3
-[1.0.2]: https://github.com/Author/Repository/compare/v1.0.1...v1.0.2
-[1.0.1]: https://github.com/Author/Repository/releases/tag/v1.0.1
+[unreleased]: https://github.com/Mteheran/api-colombia/compare/v1.0.9...HEAD
+[1.0.9]: https://github.com/Mteheran/api-colombia/compare/v1.0.8...v1.0.9
+[1.0.8]: https://github.com/Mteheran/api-colombia/compare/v1.0.7...v1.0.8
+[1.0.7]: https://github.com/Mteheran/api-colombia/compare/v1.0.6...v1.0.7
+[1.0.6]: https://github.com/Mteheran/api-colombia/compare/v1.0.5...v1.0.6
+[1.0.5]: https://github.com/Mteheran/api-colombia/compare/v1.0.4...v1.0.5
+[1.0.4]: https://github.com/Mteheran/api-colombia/compare/v1.0.3...v1.0.4
+[1.0.3]: https://github.com/Mteheran/api-colombia/compare/v1.0.2...v1.0.3
+[1.0.2]: https://github.com/Mteheran/api-colombia/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/Mteheran/api-colombia/releases/tag/v1.0.1

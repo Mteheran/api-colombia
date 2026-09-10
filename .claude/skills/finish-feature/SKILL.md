@@ -21,15 +21,17 @@ Use this after implementing a new feature or an important change in **api-colomb
 
 Follow the repo conventions (see `CLAUDE.md` → "When adding or changing an endpoint", step 5). Tests live in `api.Tests/`.
 
-- Add or extend tests that exercise the new behavior end-to-end. Integration tests use `CustomWebApplicationFactory` (`api.Tests/ApiRoutesTests/`).
+- Add or extend tests that exercise the new behavior end-to-end. Integration tests live in `api.Tests/Integration/` and share one seeded host via `[Collection(SharedApiCollection.Name)]` + `IntegrationTestBase` (`api.Tests/Infrastructure/`).
 - Cover the happy path **and** the notable edge cases / failure modes of what you changed.
-- **Isolation gotcha:** each test class shares one `WebApplicationFactory` instance. If a test needs a lot of requests or its own app state (e.g. exhausting a rate limit), put it in its **own test class** so it gets its own factory instance and doesn't contaminate other tests. (See `ResourceRateLimitTests` / `HolidayRateLimitTests` for the pattern.)
+- For a new resource, add `api.Tests/TestData/<Resource>Seed.cs` with a `TotalRows` constant, wire it into `TestSeeder`, and add a row to `ResourceContractTests.Contracts` — that applies the whole scenario matrix (sort validation, id guards, pagination envelope, empty-result contract) for free.
+- **Isolation gotcha:** the shared host is right for read-only resource tests. If a test depends on its own app state — recorded metrics, rate-limit counters, an MCP session — give it `IClassFixture<IsolatedFactory>` (or `RateLimitedFactory`) instead, so the rest of the suite's traffic can't contaminate it. (See `MetricsApiIntegrationTests` / `ResourceRateLimitTests` for the pattern.)
 - Keep the API `GET`-only and read-only — never add write operations.
 
 ## 2. Run the tests
 
 - From the repo root or `api.Tests/`: `dotnet test`.
 - **All tests must pass.** If anything fails, fix it (or the code) and re-run before continuing. Report the final pass count.
+- For a change of any size, also check coverage: `dotnet test --settings ./coverlet.runsettings --collect:"XPlat Code Coverage"`. Watch the **branch** rate — line coverage stays high from happy paths alone, so the error branches are where regressions hide.
 
 ## 3. Bump the version
 
@@ -42,6 +44,8 @@ Edit `api/Const/Version.cs` (`VersionInfo.CurrentVersion`), which is shown in Sw
 | Breaking change to an existing endpoint/response | **major** | 1.2.0 → 2.0.0 |
 
 Internal-only refactors with no behavior change usually don't need a bump — if unsure, ask the user.
+
+**The version is enforced in three places.** `VersionConsistencyTests` fails unless `Version.cs` matches the newest CHANGELOG heading (step 4), and `OpenApiDocumentTests` fails unless `docs/public/openapi.json` matches both the version and the document the app produces. So after bumping, do step 4 and then regenerate the OpenAPI document (step 5).
 
 ## 4. Update the CHANGELOG
 
@@ -57,7 +61,14 @@ Edit `CHANGELOG.md` (Keep a Changelog format):
 
 If the change affects public behavior, update the relevant docs. Skip for internal-only changes.
 
-- **VitePress docs** (`docs/`): most endpoint reference is generated from OpenAPI, but conceptual topics get their own page (e.g. `docs/mcp.md`, `docs/rate-limiting.md`) wired into `docs/.vitepress/config.ts` (nav + sidebar). Add or update a page when the concept isn't covered by the auto-generated reference.
+- **Published OpenAPI document** (`docs/public/openapi.json`): this is what VitePress renders as the endpoint reference, and it is checked in. Regenerate it whenever an endpoint, its Swagger metadata or the version changed, and commit it with the change:
+
+  ```bash
+  # from api.Tests/
+  UPDATE_OPENAPI=1 dotnet test --filter OpenApiDocumentTests
+  ```
+
+- **VitePress docs** (`docs/`): most endpoint reference comes from that OpenAPI document, but conceptual topics get their own page (e.g. `docs/mcp.md`, `docs/rate-limiting.md`) wired into `docs/.vitepress/config.ts` (nav + sidebar). Add or update a page when the concept isn't covered by the generated reference.
 - **Swagger metadata**: endpoint summaries/descriptions live in `api/Utils/Messages.cs` under `EndpointMetadata` — update there, not inline.
 - **README.md and README_es.md**: update **both** (English + Spanish) if the change alters something documented there (feature list, usage, limits). Keep them in sync.
 - **Landing / dashboard** (`api/wwwroot/index.html`, `metrics.html`): update if the change is worth surfacing to visitors. `index.html` uses i18n — add keys to `api/wwwroot/js/translations.json` for **es/en/pt**, not hardcoded text.

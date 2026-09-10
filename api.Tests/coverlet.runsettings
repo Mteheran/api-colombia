@@ -5,8 +5,9 @@
       <DataCollector friendlyName="XPlat code coverage">
         <Configuration>
           <Format>cobertura,json</Format>
-          <Include>[api.*]*</Include>
+          <Include>[api]*</Include>
           <Exclude>[*.Tests]*,[xunit.*]*</Exclude>
+          <ExcludeByFile>**/Migrations/*.cs</ExcludeByFile>
           <SingleHit>false</SingleHit>
           <UseSourceLink>true</UseSourceLink>
           <outputDirectory>.\TestResults\</outputDirectory>

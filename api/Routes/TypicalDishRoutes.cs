@@ -97,11 +97,6 @@ namespace api.Routes
             {
                 var typicalDishes = await db.TypicalDishes.Include(p => p.Department).Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToListAsync();
 
-                if (typicalDishes is null)
-                {
-                    return Results.NotFound();
-                }
-
                 return Results.Ok(typicalDishes);
             })
             .Produces<List<TypicalDish>?>(200)

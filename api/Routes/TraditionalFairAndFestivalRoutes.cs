@@ -29,7 +29,7 @@ namespace api.Routes
                     return Results.BadRequest(RequestMessages.BadRequest);
                 }
  
-                var listTraditionalFairAndFestival = await queryTraditionalFairAndFestival.OrderBy(p=> p.Id).ToListAsync();
+                var listTraditionalFairAndFestival = await queryTraditionalFairAndFestival.ToListAsync();
                 return Results.Ok(listTraditionalFairAndFestival);
             })
             .Produces<List<TraditionalFairAndFestival>>(200)
@@ -97,11 +97,6 @@ namespace api.Routes
             group.MapGet("/name/{name}", async (string name, DBContext db) =>
             {
                 var traditionalFairAndFestival = await db.TraditionalFairAndFestival.Include(p => p.City).Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToListAsync();
-
-                if (traditionalFairAndFestival is null)
-                {
-                    return Results.NotFound();
-                }
 
                 return Results.Ok(traditionalFairAndFestival);
             })

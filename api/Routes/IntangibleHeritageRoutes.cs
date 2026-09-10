@@ -97,11 +97,6 @@ namespace api.Routes
             {
                 var intangibleHeritages = await db.IntangibleHeritages.Include(p => p.Department).Where(x => x.Name!.ToUpper().Equals(name.Trim().ToUpper())).ToListAsync();
 
-                if (intangibleHeritages is null)
-                {
-                    return Results.NotFound();
-                }
-
                 return Results.Ok(intangibleHeritages);
             })
             .Produces<List<IntangibleHeritage>?>(200)

@@ -1,40 +1,20 @@
-﻿using System;
-using System.Reflection;
-using api.Models;
-
-namespace api.Utils
+﻿namespace api.Utils
 {
+    /// <summary>
+    /// Pagination and sorting parameters for the pagedList routes.
+    ///
+    /// Bound with [AsParameters], which maps each property from the query string by name — so the
+    /// query keys are ?sortBy=, ?sortDirection=, ?page= and ?pageSize= (matched case-insensitively,
+    /// hence ?pagesize= works too). This type used to also declare a custom BindAsync reading a
+    /// ?sortDir= key and correcting a non-positive page to 1; [AsParameters] never calls BindAsync,
+    /// so none of that ran. It was removed rather than left to mislead. Each route validates the
+    /// page and page size itself.
+    /// </summary>
     public class PaginationModel
     {
         public string? SortBy { get; init; }
-        public string? SortDirection { get; init; } 
+        public string? SortDirection { get; init; }
         public int Page { get; init; }
         public int PageSize { get; set; }
-        public static ValueTask<PaginationModel?> BindAsync(HttpContext context, ParameterInfo parameter)
-    {
-        const string sortByKey = "sortBy";
-        const string sortDirectionKey = "sortDir";
-        const string currentPageKey = "page";
-        const string pagesizeKey = "pagesize";
-
-        var sortBy = context.Request.Query[sortByKey].ToString();
-        var sortDirectionString = context.Request.Query[sortDirectionKey].ToString();
-        
-        int.TryParse(context.Request.Query[currentPageKey], out var page);
-        page = page == 0 ? 1 : page;  
-
-        int.TryParse(context.Request.Query[pagesizeKey], out var pageSize);
- 
-        sortBy = string.IsNullOrEmpty(sortBy) ? null : sortBy;
-
-            var result = new PaginationModel
-            {
-                SortBy = sortBy,  
-                SortDirection = sortDirectionString, 
-                Page = page,
-                PageSize = pageSize
-            }; 
-        return ValueTask.FromResult<PaginationModel?>(result);
-        }
     }
 }

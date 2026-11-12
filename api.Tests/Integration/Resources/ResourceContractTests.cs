@@ -246,6 +246,57 @@ public class ResourceContractTests(ApiColombiaFactory factory) : IntegrationTest
 
     [Theory]
     [MemberData(nameof(Paged))]
+    public async Task PagedList_WithUnknownSortBy_ReturnsBadRequest(string route) =>
+        await _client.AssertBadRequestAsync($"{Url(route)}/pagedList?page=1&pagesize=10&sortBy=notAProperty&sortDirection=asc");
+
+    [Theory]
+    [MemberData(nameof(Paged))]
+    public async Task PagedList_WithUnknownSortDirection_ReturnsBadRequest(string route)
+    {
+        var contract = Contracts[route];
+
+        await _client.AssertBadRequestAsync(
+            $"{Url(route)}/pagedList?page=1&pagesize=10&sortBy={contract.SortBy}&sortDirection=sideways");
+    }
+
+    [Theory]
+    [MemberData(nameof(Paged))]
+    public async Task PagedList_WithNegativePage_ReturnsBadRequest(string route) =>
+        await _client.AssertBadRequestAsync($"{Url(route)}/pagedList?page=-1&pagesize=10");
+
+    /// <summary>The sort must apply BEFORE Skip/Take, so page 1 of a descending sort holds the largest values.</summary>
+    [Theory]
+    [MemberData(nameof(Paged))]
+    public async Task PagedList_SortedDescending_PagesThroughTheSortedSet(string route)
+    {
+        var contract = Contracts[route];
+        var sorted = $"sortBy={contract.SortBy}&sortDirection=desc";
+
+        var all = SortValues(await _client.GetJsonAsync<JsonElement>($"{Url(route)}?{sorted}"), contract.SortBy);
+        var firstPage = await _client.GetJsonAsync<JsonElement>($"{Url(route)}/pagedList?page=1&pagesize=1&{sorted}");
+
+        Assert.Equal(all[0], SortValues(firstPage.GetProperty("data"), contract.SortBy).Single());
+    }
+
+    /// <summary>The last page holds the remainder, not a full page, and totalRecords never changes.</summary>
+    [Theory]
+    [MemberData(nameof(Paged))]
+    public async Task PagedList_LastPage_HoldsTheRemainder(string route)
+    {
+        var contract = Contracts[route];
+        const int pageSize = 2;
+        var lastPage = (contract.TotalRows + pageSize - 1) / pageSize;
+        var expected = contract.TotalRows - (lastPage - 1) * pageSize;
+
+        var envelope = await _client.GetJsonAsync<JsonElement>($"{Url(route)}/pagedList?page={lastPage}&pagesize={pageSize}");
+
+        Assert.Equal(contract.TotalRows, envelope.GetProperty("totalRecords").GetInt32());
+        Assert.Equal(expected, envelope.GetProperty("data").GetArrayLength());
+        Assert.Equal(lastPage, envelope.GetProperty("pageCount").GetInt32());
+    }
+
+    [Theory]
+    [MemberData(nameof(Paged))]
     public async Task PagedList_RespectsPageSize(string route)
     {
         var envelope = await _client.GetJsonAsync<JsonElement>($"{Url(route)}/pagedList?page=1&pagesize=1");

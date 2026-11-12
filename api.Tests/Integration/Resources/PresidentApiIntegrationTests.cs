@@ -219,6 +219,13 @@ public class PresidentApiIntegrationTests(ApiColombiaFactory factory) : Integrat
         Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
     }
 
+    /// <summary>A URL-encoded blank segment reaches the handler and hits its whitespace guard.</summary>
+    [Theory]
+    [InlineData("/api/v1/President/name/%20")]
+    [InlineData("/api/v1/President/search/%20")]
+    public async Task GetPresident_WithABlankSegment_ReturnsBadRequest(string url) =>
+        await _client.AssertBadRequestAsync(url);
+
     [Fact]
     public async Task GetPagedPresidents_WithInvalidSorting_ReturnsBadRequest()
     {

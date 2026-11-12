@@ -78,6 +78,12 @@ public class ApiColombiaFactory : WebApplicationFactory<Program>
 public class IsolatedFactory : ApiColombiaFactory;
 
 /// <summary>
+/// A host that is never seeded: every table exists and is empty. Tests using it must not call
+/// <see cref="ApiColombiaFactory.EnsureSeeded"/>.
+/// </summary>
+public class EmptyDatabaseFactory : ApiColombiaFactory;
+
+/// <summary>
 /// Drops the limit low enough to prove the limiter in a handful of requests instead of the ~120
 /// the rate-limit tests used to fire.
 /// </summary>

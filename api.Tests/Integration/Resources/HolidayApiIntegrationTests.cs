@@ -142,6 +142,29 @@ public class HolidayApiIntegrationTests(ApiColombiaFactory factory) : Integratio
     public async Task GetHolidays_ByYearAndMonth_WithMonthOutOfRange_ReturnsBadRequest(int month) =>
         await _client.AssertBadRequestAsync($"/api/v1/Holiday/year/2026/month/{month}");
 
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    [InlineData(10000)]
+    public async Task GetHolidays_ByYearAndMonth_WithYearOutOfRange_ReturnsBadRequest(int year) =>
+        await _client.AssertBadRequestAsync($"/api/v1/Holiday/year/{year}/month/1");
+
+    [Theory]
+    [InlineData("abc")]
+    [InlineData("2026.5")]
+    public async Task GetHolidays_WithANonNumericYear_DoesNotMatchTheRoute(string year) =>
+        await _client.AssertBadRequestAsync($"/api/v1/Holiday/year/{year}");
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(9999)]
+    public async Task GetHolidays_AtTheYearBoundaries_ReturnsOk(int year)
+    {
+        var holidays = await _client.GetJsonAsync<List<Holiday>>($"/api/v1/Holiday/year/{year}");
+
+        Assert.All(holidays, h => Assert.Equal(year, h.Date.Year));
+    }
+
     [Fact]
     public async Task GetHolidays_ForEveryMonth_PartitionTheYear()
     {

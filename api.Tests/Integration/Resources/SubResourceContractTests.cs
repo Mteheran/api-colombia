@@ -42,6 +42,79 @@ public class SubResourceContractTests(ApiColombiaFactory factory) : IntegrationT
         .. NestedRoutes().Select(row => (string)row[0])
     ];
 
+    /// <summary>Nested routes that accept <c>?sortBy=&amp;sortDirection=</c>, with a property to sort on.</summary>
+    public static TheoryData<string, string> SortableRoutes() => new()
+    {
+        { "/api/v1/City/1/highereducationinstitutions", "Name" },
+        { "/api/v1/City/1/televisionchannels", "Name" },
+        { "/api/v1/City/1/volcanoes", "Name" },
+        { "/api/v1/Department/1/cities", "Name" },
+        { "/api/v1/Department/1/naturalareas", "Name" },
+        { "/api/v1/Department/1/touristicattractions", "Name" },
+        { "/api/v1/Department/1/volcanoes", "Name" },
+        { "/api/v1/TypicalDish/1/department", "Name" },
+        { "/api/v1/IntangibleHeritage/1/department", "Name" },
+        { "/api/v1/TraditionalFairAndFestival/1/city", "Name" },
+    };
+
+    /// <summary>
+    /// What each nested route answers for a parent id that is valid but owns nothing. Like the
+    /// top-level contracts, this records what the API does TODAY — it is not consistent: some
+    /// routes answer 404, others 200 with an empty array.
+    /// </summary>
+    public static TheoryData<string, HttpStatusCode> UnknownParentRoutes() => new()
+    {
+        { "/api/v1/City/9999/highereducationinstitutions", HttpStatusCode.OK },
+        { "/api/v1/City/9999/televisionchannels", HttpStatusCode.OK },
+        { "/api/v1/City/9999/volcanoes", HttpStatusCode.OK },
+        { "/api/v1/Department/9999/cities", HttpStatusCode.OK },
+        { "/api/v1/Department/9999/volcanoes", HttpStatusCode.OK },
+        { "/api/v1/Department/9999/naturalareas", HttpStatusCode.NotFound },
+        { "/api/v1/Department/9999/touristicattractions", HttpStatusCode.NotFound },
+        { "/api/v1/TypicalDish/9999/department", HttpStatusCode.NotFound },
+        { "/api/v1/IntangibleHeritage/9999/department", HttpStatusCode.NotFound },
+        { "/api/v1/TraditionalFairAndFestival/9999/city", HttpStatusCode.NotFound },
+        { "/api/v1/PostalCode/city/9999", HttpStatusCode.NotFound },
+        { "/api/v1/UrbanCenter/city/9999", HttpStatusCode.NotFound },
+    };
+
+    [Theory]
+    [MemberData(nameof(SortableRoutes))]
+    public async Task NestedRoute_WithUnknownSortBy_ReturnsBadRequest(string url, string _) =>
+        await _client.AssertBadRequestAsync($"{url}?sortBy=notAProperty&sortDirection=asc");
+
+    [Theory]
+    [MemberData(nameof(SortableRoutes))]
+    public async Task NestedRoute_WithUnknownSortDirection_ReturnsBadRequest(string url, string sortBy) =>
+        await _client.AssertBadRequestAsync($"{url}?sortBy={sortBy}&sortDirection=sideways");
+
+    [Theory]
+    [MemberData(nameof(SortableRoutes))]
+    public async Task NestedRoute_SortedDescending_ReturnsRowsInOrder(string url, string sortBy)
+    {
+        var rows = await _client.GetJsonAsync<JsonElement>($"{url}?sortBy={sortBy}&sortDirection=desc");
+
+        var property = char.ToLowerInvariant(sortBy[0]) + sortBy[1..];
+        var values = rows.EnumerateArray().Select(r => r.GetProperty(property).GetString() ?? string.Empty).ToList();
+
+        Assert.NotEmpty(values);
+        Assert.Equal(values.OrderByDescending(v => v, StringComparer.CurrentCulture).ToList(), values);
+    }
+
+    [Theory]
+    [MemberData(nameof(UnknownParentRoutes))]
+    public async Task NestedRoute_ForAParentWithNoRows_ReturnsTheDocumentedContract(string url, HttpStatusCode expected)
+    {
+        var response = await _client.GetAsync(url);
+
+        Assert.Equal(expected, response.StatusCode);
+        if (expected == HttpStatusCode.OK)
+        {
+            var rows = JsonDocument.Parse(await response.Content.ReadAsStringAsync()).RootElement;
+            Assert.Equal(0, rows.GetArrayLength());
+        }
+    }
+
     [Theory]
     [MemberData(nameof(NestedRoutes))]
     public async Task NestedRoute_ReturnsTheParentsRows(string template, int parentId, int expected)
@@ -109,6 +182,16 @@ public class SubResourceContractTests(ApiColombiaFactory factory) : IntegrationT
     [InlineData("sortBy=Name&sortDirection=sideways")]
     public async Task RegionDepartments_WithInvalidSort_ReturnsBadRequest(string query) =>
         await _client.AssertBadRequestAsync($"/api/v1/Region/1/departments?{query}");
+
+    // ---------- Id guards on the routes that return the parent ----------
+
+    [Theory]
+    [InlineData("/api/v1/Region/0/departments")]
+    [InlineData("/api/v1/Region/-1/departments")]
+    [InlineData("/api/v1/CategoryNaturalArea/0/NaturalAreas")]
+    [InlineData("/api/v1/CategoryNaturalArea/-1/NaturalAreas")]
+    public async Task ParentReturningRoute_WithNonPositiveId_ReturnsBadRequest(string url) =>
+        await _client.AssertBadRequestAsync(url);
 
     // ---------- Parents with no children ----------
 

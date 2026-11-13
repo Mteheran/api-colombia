@@ -96,5 +96,13 @@ public class ConstitutionArticleApiIntegrationTests(ApiColombiaFactory factory) 
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
         Assert.All(result, article => Assert.Equal(chapterNumber, article.ChapterNumber));
+        Assert.Equal(result.Select(a => a.Id).Order().ToList(), result.Select(a => a.Id).ToList());
     }
+
+    [Theory]
+    [InlineData(999)]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public async Task GetConstitutionArticlesByChapterNumber_WithNoArticles_ReturnsNotFound(int chapterNumber) =>
+        await _client.AssertNotFoundAsync($"/api/v1/ConstitutionArticle/byChapterNumber/{chapterNumber}");
 }

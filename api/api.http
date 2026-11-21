@@ -1,0 +1,565 @@
+# API Colombia — every public endpoint, ready to run.
+#
+# GENERATED from the OpenAPI document — do not edit by hand. Regenerate from api.Tests/ with:
+#     UPDATE_HTTP_FILE=1 dotnet test --filter HttpFileTests
+#
+# Pick an environment (local, local-http, production) in the editor's environment selector;
+# hosts live in http-client.env.json. Personal overrides go in http-client.env.json.user.
+#
+# Common options on list endpoints: ?sortBy=<property>&sortDirection=asc|desc
+# API version: 1.7.2
+
+@page = 1
+@pageSize = 10
+
+# ═════════════════════════════ Airport ═════════════════════════════
+
+### List of Airports in Colombia
+GET {{host}}/api/v1/Airport
+Accept: application/json
+
+### Airports information by Id
+GET {{host}}/api/v1/Airport/1
+Accept: application/json
+
+### Airports information by name
+GET {{host}}/api/v1/Airport/name/El%20Dorado
+Accept: application/json
+
+### Search Airports by keyword
+GET {{host}}/api/v1/Airport/search/Internacional
+Accept: application/json
+
+### List of Airports using pagination - api/v1/airport/pagedList?page=1&pagesize=10
+GET {{host}}/api/v1/Airport/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ CategoryNaturalArea ═════════════════════════════
+
+### List of category natural areas in Colombia
+GET {{host}}/api/v1/CategoryNaturalArea
+Accept: application/json
+
+### Category natural area information by Id
+GET {{host}}/api/v1/CategoryNaturalArea/1
+Accept: application/json
+
+### Category natural area information by Id
+GET {{host}}/api/v1/CategoryNaturalArea/1/NaturalAreas
+Accept: application/json
+
+# ═════════════════════════════ City ═════════════════════════════
+
+### List of cities in Colombia
+GET {{host}}/api/v1/City
+Accept: application/json
+
+### City information by Id
+GET {{host}}/api/v1/City/1
+Accept: application/json
+
+### City information by name
+GET {{host}}/api/v1/City/name/Medellín
+Accept: application/json
+
+### Search cities by keyword
+GET {{host}}/api/v1/City/search/Cartagena
+Accept: application/json
+
+### List of cities using pagination - api/v1/city/pagedList?page=1&pagesize=10
+GET {{host}}/api/v1/City/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+### Higher education institutions by city id
+GET {{host}}/api/v1/City/1/highereducationinstitutions
+Accept: application/json
+
+### Television channels by city id
+GET {{host}}/api/v1/City/167/televisionchannels
+Accept: application/json
+
+### Volcanoes by city id
+GET {{host}}/api/v1/City/1042/volcanoes
+Accept: application/json
+
+# ═════════════════════════════ ConstitutionArticle ═════════════════════════════
+
+### List of Constitution Articles in Colombia
+GET {{host}}/api/v1/ConstitutionArticle
+Accept: application/json
+
+### Constitution Articles information by Id
+GET {{host}}/api/v1/ConstitutionArticle/1
+Accept: application/json
+
+### Search Constitution Articles by keyword
+GET {{host}}/api/v1/ConstitutionArticle/search/libertad
+Accept: application/json
+
+### List of Constitution Articles using pagination - api/v1/ConstitutionArticles/pagedList?page=1&pagesize=10
+GET {{host}}/api/v1/ConstitutionArticle/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+### Search Constitution Articles by keyword
+GET {{host}}/api/v1/ConstitutionArticle/byChapterNumber/1
+Accept: application/json
+
+# ═════════════════════════════ Country ═════════════════════════════
+
+### General info about Colombia
+GET {{host}}/api/v1/Country/Colombia
+Accept: application/json
+
+# ═════════════════════════════ Department ═════════════════════════════
+
+### List of departments in Colombia
+GET {{host}}/api/v1/Department
+Accept: application/json
+
+### Department information by Id
+GET {{host}}/api/v1/Department/5
+Accept: application/json
+
+### List of cities by departmentId
+GET {{host}}/api/v1/Department/5/cities
+Accept: application/json
+
+### List of natural areas by departmentId
+GET {{host}}/api/v1/Department/5/naturalareas
+Accept: application/json
+
+### List of natural areas by departmentId
+GET {{host}}/api/v1/Department/5/touristicattractions
+Accept: application/json
+
+### Department information by name
+GET {{host}}/api/v1/Department/name/Antioquia
+Accept: application/json
+
+### Search departments by keyword
+GET {{host}}/api/v1/Department/search/Santander
+Accept: application/json
+
+### Volcanoes by department id
+GET {{host}}/api/v1/Department/30/volcanoes
+Accept: application/json
+
+### List of departments using pagination - api/v1/department/pagedList?page=1&pagesize=10
+GET {{host}}/api/v1/Department/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ HeritageCity ═════════════════════════════
+
+### List of heritage cities in Colombia
+GET {{host}}/api/v1/HeritageCity
+Accept: application/json
+
+### Heritage city information by Id
+GET {{host}}/api/v1/HeritageCity/1
+Accept: application/json
+
+### Heritage city information by name
+GET {{host}}/api/v1/HeritageCity/name/Barichara
+Accept: application/json
+
+### Search heritage cities by keyword
+GET {{host}}/api/v1/HeritageCity/search/Boyacá
+Accept: application/json
+
+### List of heritage cities using pagination
+GET {{host}}/api/v1/HeritageCity/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ HigherEducationInstitution ═════════════════════════════
+
+### List of higher education institutions in Colombia
+GET {{host}}/api/v1/HigherEducationInstitution
+Accept: application/json
+
+### Higher education institution information by Id
+GET {{host}}/api/v1/HigherEducationInstitution/1
+Accept: application/json
+
+### Higher education institution information by name
+GET {{host}}/api/v1/HigherEducationInstitution/name/Universidad%20Nacional
+Accept: application/json
+
+### Search higher education institutions by keyword
+GET {{host}}/api/v1/HigherEducationInstitution/search/Medellín
+Accept: application/json
+
+### List of higher education institutions using pagination
+GET {{host}}/api/v1/HigherEducationInstitution/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ Holiday ═════════════════════════════
+
+### List of holidays in Colombia by year
+GET {{host}}/api/v1/Holiday/year/2026?includeSunday=false
+Accept: application/json
+
+### List of holidays in Colombia by year and moth
+GET {{host}}/api/v1/Holiday/year/2026/month/12?includeSunday=false
+Accept: application/json
+
+# ═════════════════════════════ IndigenousReservation ═════════════════════════════
+
+### List of Indigenous reservations in Colombia
+GET {{host}}/api/v1/IndigenousReservation
+Accept: application/json
+
+### Indigenous reservations information by Id
+GET {{host}}/api/v1/IndigenousReservation/1
+Accept: application/json
+
+### Indigenous reservation information by name
+GET {{host}}/api/v1/IndigenousReservation/name/Pared%20Y%20Parecito
+Accept: application/json
+
+### Search Indigenous reservations by keyword
+GET {{host}}/api/v1/IndigenousReservation/search/Resolución
+Accept: application/json
+
+### List of Indigenous reservations using pagination - api/v1/IndigenousReservation/pagedList?page=1&pagesize=10
+GET {{host}}/api/v1/IndigenousReservation/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ IntangibleHeritage ═════════════════════════════
+
+### List of intangible heritages in Colombia
+GET {{host}}/api/v1/IntangibleHeritage
+Accept: application/json
+
+### Intangible heritage information by Id
+GET {{host}}/api/v1/IntangibleHeritage/1
+Accept: application/json
+
+### List of intangible heritages by departmentId
+GET {{host}}/api/v1/IntangibleHeritage/6/department
+Accept: application/json
+
+### Intangible heritage information by name
+GET {{host}}/api/v1/IntangibleHeritage/name/Músicas%20de%20marimba%20y%20cantos%20tradicionales%20del%20Pacífico%20sur%20de%20Colombia
+Accept: application/json
+
+### Search intangible heritage by keyword
+GET {{host}}/api/v1/IntangibleHeritage/search/Wayuu
+Accept: application/json
+
+### List of intangible heritages using pagination
+GET {{host}}/api/v1/IntangibleHeritage/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ InvasiveSpecie ═════════════════════════════
+
+### List of invasive species in Colombia
+GET {{host}}/api/v1/InvasiveSpecie
+Accept: application/json
+
+### Invasive specie information by Id
+GET {{host}}/api/v1/InvasiveSpecie/1
+Accept: application/json
+
+### Invasive specie information by name
+GET {{host}}/api/v1/InvasiveSpecie/name/Acacia
+Accept: application/json
+
+### Search  invasive species by keyword
+GET {{host}}/api/v1/InvasiveSpecie/search/Retamo
+Accept: application/json
+
+### List of  invasive species using pagination - api/v1/invasivespecie/pagedList?page=1&pagesize=10
+GET {{host}}/api/v1/InvasiveSpecie/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ Map ═════════════════════════════
+
+### List of Maps related to Colombia
+GET {{host}}/api/v1/Map
+Accept: application/json
+
+### Map information by Id
+GET {{host}}/api/v1/Map/1
+Accept: application/json
+
+# ═════════════════════════════ Metrics ═════════════════════════════
+
+### Public API usage metrics
+GET {{host}}/api/v1/metrics
+Accept: application/json
+
+# ═════════════════════════════ NativeCommunity ═════════════════════════════
+
+### List of native communities in Colombia
+GET {{host}}/api/v1/NativeCommunity
+Accept: application/json
+
+### Native communities information by Id
+GET {{host}}/api/v1/NativeCommunity/1
+Accept: application/json
+
+### Native community information by name
+GET {{host}}/api/v1/NativeCommunity/name/Achagua%20Piapoco
+Accept: application/json
+
+### Search native communities by keyword
+GET {{host}}/api/v1/NativeCommunity/search/Arhuaco
+Accept: application/json
+
+### List of native communities using pagination - api/v1/nativecommunity/pagedList?page=1&pagesize=10
+GET {{host}}/api/v1/NativeCommunity/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ NaturalArea ═════════════════════════════
+
+### List of natural areas in Colombia
+GET {{host}}/api/v1/NaturalArea
+Accept: application/json
+
+### Natural area information by Id
+GET {{host}}/api/v1/NaturalArea/1
+Accept: application/json
+
+### Natural place by name
+GET {{host}}/api/v1/NaturalArea/name/Tayrona
+Accept: application/json
+
+### Search natural places by keyword
+GET {{host}}/api/v1/NaturalArea/search/Cueva
+Accept: application/json
+
+### List of natural places using pagination - api/v1/naturalarea/pagedList?page=1&pagesize=10
+GET {{host}}/api/v1/NaturalArea/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ PostalCode ═════════════════════════════
+
+### List of postal codes in Colombia
+GET {{host}}/api/v1/PostalCode
+Accept: application/json
+
+### Postal code information by Id
+GET {{host}}/api/v1/PostalCode/1
+Accept: application/json
+
+### Postal code information by code
+GET {{host}}/api/v1/PostalCode/code/687519
+Accept: application/json
+
+### Search postal codes by keyword
+GET {{host}}/api/v1/PostalCode/search/Rural
+Accept: application/json
+
+### Postal code information by city id
+GET {{host}}/api/v1/PostalCode/city/972
+Accept: application/json
+
+### List of postal codes using pagination
+GET {{host}}/api/v1/PostalCode/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ President ═════════════════════════════
+
+### List of presidents in Colombia
+GET {{host}}/api/v1/President
+Accept: application/json
+
+### President information by Id
+GET {{host}}/api/v1/President/1
+Accept: application/json
+
+### President information by name
+GET {{host}}/api/v1/President/name/Rafael
+Accept: application/json
+
+### President of the provided year
+GET {{host}}/api/v1/President/year/1990
+Accept: application/json
+
+### Search presidents by keyword
+GET {{host}}/api/v1/President/search/Liberal
+Accept: application/json
+
+### List of presidents using pagination - api/v1/president/pagedList?page=1&pagesize=10
+GET {{host}}/api/v1/President/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ Radio ═════════════════════════════
+
+### List of Radios in Colombia
+GET {{host}}/api/v1/Radio
+Accept: application/json
+
+### Radios information by Id
+GET {{host}}/api/v1/Radio/1
+Accept: application/json
+
+### Radios information by name
+GET {{host}}/api/v1/Radio/name/Fantastica
+Accept: application/json
+
+### Search Radios by keyword
+GET {{host}}/api/v1/Radio/search/FM
+Accept: application/json
+
+### List of Radios using pagination - api/v1/radio/pagedList?page=1&pagesize=10
+GET {{host}}/api/v1/Radio/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ Region ═════════════════════════════
+
+### List of regions in Colombia
+GET {{host}}/api/v1/Region
+Accept: application/json
+
+### Region information by Id
+GET {{host}}/api/v1/Region/1
+Accept: application/json
+
+### Region information by Id including deparment's list
+GET {{host}}/api/v1/Region/1/departments
+Accept: application/json
+
+# ═════════════════════════════ TelevisionChannel ═════════════════════════════
+
+### List of television channels in Colombia
+GET {{host}}/api/v1/TelevisionChannel
+Accept: application/json
+
+### Television channel information by Id
+GET {{host}}/api/v1/TelevisionChannel/1
+Accept: application/json
+
+### Television channel information by name
+GET {{host}}/api/v1/TelevisionChannel/name/Teleantioquia
+Accept: application/json
+
+### Search television channels by keyword
+GET {{host}}/api/v1/TelevisionChannel/search/Canal
+Accept: application/json
+
+### List of television channels using pagination
+GET {{host}}/api/v1/TelevisionChannel/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ TouristicAttraction ═════════════════════════════
+
+### List of touristic attractions in Colombia
+GET {{host}}/api/v1/TouristicAttraction
+Accept: application/json
+
+### Touristic attraction by id
+GET {{host}}/api/v1/TouristicAttraction/1
+Accept: application/json
+
+### Touristic attraction by name
+GET {{host}}/api/v1/TouristicAttraction/name/Museo%20del%20oro
+Accept: application/json
+
+### Search touristic attractions by keyword
+GET {{host}}/api/v1/TouristicAttraction/search/Museo
+Accept: application/json
+
+### List of touristic attraction using pagination - api/v1/TouristicAttraction/pagedList?page=1&pagesize=10
+GET {{host}}/api/v1/TouristicAttraction/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ TraditionalFairAndFestival ═════════════════════════════
+
+### List of traditional fair and festival in Colombia
+GET {{host}}/api/v1/TraditionalFairAndFestival
+Accept: application/json
+
+### Traditional fair and festival information by Id
+GET {{host}}/api/v1/TraditionalFairAndFestival/1
+Accept: application/json
+
+### List of traditional fair and festival by City Id
+GET {{host}}/api/v1/TraditionalFairAndFestival/1/city
+Accept: application/json
+
+### Traditional fair and festival information by name
+GET {{host}}/api/v1/TraditionalFairAndFestival/name/Fiestas%20del%2020%20de%20enero
+Accept: application/json
+
+### Search traditional fair and festival by keyword
+GET {{host}}/api/v1/TraditionalFairAndFestival/search/Carnaval
+Accept: application/json
+
+### List of traditional fair and festival using pagination
+GET {{host}}/api/v1/TraditionalFairAndFestival/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ TypicalDish ═════════════════════════════
+
+### List of typical dishes in Colombia
+GET {{host}}/api/v1/TypicalDish
+Accept: application/json
+
+### Typical dishes information by Id
+GET {{host}}/api/v1/TypicalDish/1
+Accept: application/json
+
+### List of typical dishes by departmentId
+GET {{host}}/api/v1/TypicalDish/1/department
+Accept: application/json
+
+### Typical dishes information by name
+GET {{host}}/api/v1/TypicalDish/name/Bandeja%20Paisa
+Accept: application/json
+
+### Search typical dish by keyword
+GET {{host}}/api/v1/TypicalDish/search/Ajiaco
+Accept: application/json
+
+### List of typical dishes using pagination
+GET {{host}}/api/v1/TypicalDish/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ UrbanCenter ═════════════════════════════
+
+### List of urban centers in Colombia
+GET {{host}}/api/v1/UrbanCenter
+Accept: application/json
+
+### Urban center information by Id
+GET {{host}}/api/v1/UrbanCenter/1
+Accept: application/json
+
+### Urban center information by code
+GET {{host}}/api/v1/UrbanCenter/code/05001000
+Accept: application/json
+
+### Urban center information by city id
+GET {{host}}/api/v1/UrbanCenter/city/12
+Accept: application/json
+
+### Search urban centers by keyword
+GET {{host}}/api/v1/UrbanCenter/search/CM
+Accept: application/json
+
+### List of urban centers using pagination
+GET {{host}}/api/v1/UrbanCenter/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json
+
+# ═════════════════════════════ Volcano ═════════════════════════════
+
+### List of volcanoes in Colombia
+GET {{host}}/api/v1/Volcano
+Accept: application/json
+
+### Volcano information by Id
+GET {{host}}/api/v1/Volcano/1
+Accept: application/json
+
+### Volcano information by name
+GET {{host}}/api/v1/Volcano/name/Galeras
+Accept: application/json
+
+### Search volcanoes by keyword
+GET {{host}}/api/v1/Volcano/search/Nariño
+Accept: application/json
+
+### List of volcanoes using pagination
+GET {{host}}/api/v1/Volcano/pagedList?Page={{page}}&PageSize={{pageSize}}&SortBy=Id&SortDirection=asc
+Accept: application/json

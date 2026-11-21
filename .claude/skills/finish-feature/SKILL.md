@@ -23,7 +23,7 @@ Follow the repo conventions (see `CLAUDE.md` → "When adding or changing an end
 
 - Add or extend tests that exercise the new behavior end-to-end. Integration tests live in `api.Tests/Integration/` and share one seeded host via `[Collection(SharedApiCollection.Name)]` + `IntegrationTestBase` (`api.Tests/Infrastructure/`).
 - Cover the happy path **and** the notable edge cases / failure modes of what you changed.
-- For a new resource, add `api.Tests/TestData/<Resource>Seed.cs` with a `TotalRows` constant, wire it into `TestSeeder`, and add a row to `ResourceContractTests.Contracts` — that applies the whole scenario matrix (sort validation, id guards, pagination envelope, empty-result contract) for free.
+- For a new resource, add `api.Tests/TestData/<Resource>Seed.cs` with a `TotalRows` constant, wire it into `TestSeeder`, and add a row to `ResourceContractTests.Contracts` — that applies the whole scenario matrix (sort validation, id guards, pagination envelope, empty-result contract) for free. Also give it example values in `HttpFileGenerator` so `api/api.http` can include it (see step 5).
 - **Isolation gotcha:** the shared host is right for read-only resource tests. If a test depends on its own app state — recorded metrics, rate-limit counters, an MCP session — give it `IClassFixture<IsolatedFactory>` (or `RateLimitedFactory`) instead, so the rest of the suite's traffic can't contaminate it. (See `MetricsApiIntegrationTests` / `ResourceRateLimitTests` for the pattern.)
 - Keep the API `GET`-only and read-only — never add write operations.
 
@@ -45,7 +45,7 @@ Edit `api/Const/Version.cs` (`VersionInfo.CurrentVersion`), which is shown in Sw
 
 Internal-only refactors with no behavior change usually don't need a bump — if unsure, ask the user.
 
-**The version is enforced in three places.** `VersionConsistencyTests` fails unless `Version.cs` matches the newest CHANGELOG heading (step 4), and `OpenApiDocumentTests` fails unless `docs/public/openapi.json` matches both the version and the document the app produces. So after bumping, do step 4 and then regenerate the OpenAPI document (step 5).
+**The version is enforced in three places.** `VersionConsistencyTests` fails unless `Version.cs` matches the newest CHANGELOG heading (step 4), and `OpenApiDocumentTests` fails unless `docs/public/openapi.json` matches both the version and the document the app produces. `HttpFileTests` likewise fails unless `api/api.http` matches what the OpenAPI document generates. So after bumping, do step 4 and then regenerate the OpenAPI document and the `.http` file (step 5).
 
 ## 4. Update the CHANGELOG
 
@@ -67,6 +67,20 @@ If the change affects public behavior, update the relevant docs. Skip for intern
   # from api.Tests/
   UPDATE_OPENAPI=1 dotnet test --filter OpenApiDocumentTests
   ```
+
+- **`.http` request file** (`api/api.http`): the file Visual Studio runs to try every endpoint. It is **generated** from the same OpenAPI document — never edit it by hand. Regenerate it whenever an endpoint was added/changed or the version moved (the header carries it), and commit it with the change. `HttpFileTests` fails until you do:
+
+  ```bash
+  # from api.Tests/
+  UPDATE_HTTP_FILE=1 dotnet test --filter HttpFileTests
+  ```
+
+  For a **new model/resource**, first add its example values to `TagValues` in `api.Tests/Infrastructure/HttpFileGenerator.cs`, keyed by the Swagger tag: a real `name` and `keyword` (and `code`/`cityId` etc. for any new path parameter) taken from the live data, so the requests return results against production. The generator throws on a path parameter with no example. Watch for:
+  - `/name/{name}` endpoints that match the **whole name exactly** — use a full name, not a fragment.
+  - Sub-resource routes whose `{id}` means another entity (e.g. `IntangibleHeritage/{id}/department` takes a department id) or that return nothing for id 1 — add an override in `PathValues`.
+  - Hosts belong in `api/http-client.env.json`, never as an `@host` in the `.http` file (a file variable overrides the environment file).
+
+  Optionally sanity-check the new requests against https://api-colombia.com once the feature is deployed.
 
 - **VitePress docs** (`docs/`): most endpoint reference comes from that OpenAPI document, but conceptual topics get their own page (e.g. `docs/mcp.md`, `docs/rate-limiting.md`) wired into `docs/.vitepress/config.ts` (nav + sidebar). Add or update a page when the concept isn't covered by the generated reference.
 - **Swagger metadata**: endpoint summaries/descriptions live in `api/Utils/Messages.cs` under `EndpointMetadata` — update there, not inline.

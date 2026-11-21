@@ -91,6 +91,17 @@ UPDATE_OPENAPI=1 dotnet test --filter OpenApiDocumentTests
 
 Then commit the regenerated `docs/public/openapi.json` alongside the change. Without this the public reference drifts — it had been stuck at 1.0.5 while the API was at 1.7.x, missing 44 endpoints across seven resources.
 
+## The `.http` request file
+
+`api/api.http` lists every public endpoint with working example values, runnable from Visual Studio (also VS Code REST Client / JetBrains HTTP Client). It is **generated** from the OpenAPI document by `api.Tests/Infrastructure/HttpFileGenerator.cs` — don't edit it by hand. Hosts live in `api/http-client.env.json` (`local`, `local-http`, `production`), not in the `.http` file, because a variable declared in the `.http` file overrides the environment file. `HttpFileTests` fails when the file drifts; regenerate it alongside the OpenAPI document:
+
+```bash
+# from api.Tests/
+UPDATE_HTTP_FILE=1 dotnet test --filter HttpFileTests
+```
+
+A new path parameter needs an example value in `HttpFileGenerator` (the generator throws until it has one). Several `/name/{name}` endpoints match the whole name exactly, so use full names taken from the live data.
+
 ## Front-end (`wwwroot/`)
 
 Plain static HTML/CSS/JS (no build step) served by ASP.NET Core static files. Key pages:
@@ -163,6 +174,7 @@ dotnet test --settings ./coverlet.runsettings --collect:"XPlat Code Coverage"
 3. Put summary/description text in `Utils/Messages.cs` under `EndpointMetadata`.
 4. Keep it `GET`-only and read-only.
 5. Add integration tests in `api.Tests/Integration/Resources/`, and a `TestData/<Resource>Seed.cs` with a `TotalRows` constant (`SeedIntegrityTests` asserts the database matches it). If the resource has the usual list/by-id/search/pagedList shape, add a row to `ResourceContractTests.Contracts` — that covers the whole scenario matrix — and keep the resource's own file for behaviour specific to it.
+6. Regenerate `docs/public/openapi.json` and `api/api.http` (see above). For a new resource, first add its example values (a real full `name`, a `keyword`, any new path parameter) to `HttpFileGenerator`.
 
 ## Resources exposed (tags)
 

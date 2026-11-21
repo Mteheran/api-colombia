@@ -25,4 +25,9 @@
   <ItemGroup>
     <Compile Remove="Migrations\20230217165940_RegionTable.Designer.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <!-- Request-file environments for api.http: a dev tool, not app configuration. -->
+    <Content Update="http-client.env.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+  </ItemGroup>
 </Project>

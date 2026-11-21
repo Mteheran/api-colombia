@@ -14,6 +14,10 @@ public static class RepositoryPaths
 
     public static string OpenApiDocument => Path.Combine(Root, "docs", "public", "openapi.json");
 
+    public static string HttpFile => Path.Combine(Root, "api", "api.http");
+
+    public static string HttpEnvironmentFile => Path.Combine(Root, "api", "http-client.env.json");
+
     private static string FindRoot()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);

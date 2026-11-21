@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
-- /
+### Added
+
+- `api/api.http` with every public endpoint and working example values, plus `http-client.env.json` environments (local, local-http, production) for running it from Visual Studio. The file is generated from the OpenAPI document and `HttpFileTests` keeps it in sync.
 
 ## [1.7.2] - 2026-09-09
 
